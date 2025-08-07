@@ -1,0 +1,165 @@
+{
+    "NAV": {
+        "HOME": "Főoldal",
+        "ROOMS": "Termek",
+        "BOOKING": "Foglalás",
+        "PRICES": "Árak",
+        "CONTACT": "Kapcsolat"
+    },
+    "FOOTER": {
+        "PARTNERS": "Partnerek",
+        "EQUIPMENTS": "Felszerelések",
+        "ARTISTS": "Nálunk próbálnak",
+        "RIGHTS": "Minden jog fenntartva",
+        "CONTACT": "Elérhetőségeink",
+        "DEVELOPMENT": "Webfejlesztés"
+    },
+    "USER": {
+        "PROFILE": "Profilod",
+        "SETTINGS": "Beállítások",
+        "LOGOUT": "Kijelentkezés"
+    },
+    "GENERAL": {
+        "CLOSE": "Bezárás"
+    },
+
+    "HOME": {
+        "HERO": {
+            "TITLE": "PróbaPont",
+            "DESCRIPTION": "Hat hangszigetelt, modern próbaterem a Belvárosban.",
+            "CTA": "Foglalj most!",
+            "CTA_BOOK": "Online foglalás",
+            "CTA_PHONE": "9-22 óráig hívható"
+        },
+        "FEATURES": {
+            "TITLE": "Amit kínálunk",
+            "ROOMS_SPACIOUS": "Tágas termek",
+            "ROOMS_SPACIOUS_DESC": "A termek mérete 20m²-től 40m²-ig terjed, így bőven lesz helyed.",
+            "AFFORDABLE": "Megfizethető árak",
+            "AFFORDABLE_DESC": "A termek ára már 4000 Ft/óra-tól elérhetők.",
+            "PREMIUM_EQUIPMENT": "Prémium felszerelés",
+            "PREMIUM_EQUIPMENT_DESC": "Kiváló minőségű eszközök, plusz extra bérlési lehetőséggel.",
+            "AIR_CONDITIONED": "Légkondicionált",
+            "AIR_CONDITIONED_DESC": "Minden terem klimatizált a kellemes hőmérsékletért.",
+            "PRICE_UNIT": "FT/óra",
+            "CTA": "Ide Foglalok",
+            "ROOM_FEATURES": {
+                "ROOM_1": "Kiváló akusztika",
+                "ROOM_2": "Természetes hangulat",
+                "ROOM_3": "Lángoló világítás",
+                "ROOM_4": "Neon galaxis világítás",
+                "ROOM_5": "Kényelmes ülőhelyek",
+                "ROOM_6": "Minimalista dizájn"
+            }
+        }
+    },
+
+    "ROOMS": {
+        "PRE_TITLE": "Belvárosi És Modern",
+        "TITLE": "Próbatermeink",
+        "DESCRIPTION": "Próbahelyünkön 6 hangszigetelt, modern próbaterem várja a zenészeket, 22 m²-től 40 m²-ig. Minden terem jól felszerelt, kiváló akusztikával, légcserélő rendszerrel, és a két legnagyobb próbateremben légkondicionálás is biztosított a maximális kényelem érdekében.",
+        "EQUIPMENT": "Felszereltség",
+        "SIZE": "Méret",
+        "BASE_PRICE": "Alapár",
+        "BASE": "Alap felszerelés",
+        "BASE_DESC": "AMI BENNE VAN AZ ÁRBAN",
+        "RENT": "Bérelhető felszerelés",
+        "RENT_DESC": "NINCS BENNE AZ ÁRBAN",
+        "HOURLY_RATES": "Óradíjak",
+        "CATEGORY": "Kategória",
+        "NORMAL": "Normál",
+        "LAST_MINUTE": "Last Minute",
+        "BAND": "Zenekari Próba",
+        "INDIVIDUAL": "Egyéni Próba",
+        "LAST_MINUTE_DEAL": "Last Minute Akció",
+        "LAST_MINUTE_DESC": "Rugalmas vagy? Foglalj próbatermet legfeljebb 3 órával előre, és élvezd a kedvezményes óradíjat! Töltsd meg a naptárunk üres helyeit, és próbálj olcsóbban!",
+        "INDIVIDUAL_PRACTICE": "Egyéni Próba",
+        "INDIVIDUAL_DESC": "Egyedül gyakorolnál? Nálunk kedvezményes áron bérelhetsz próbatermet, hogy zavartalanul fejleszthesd a tudásod!",
+        "CTA": "Most hogy megjött a kedved"
+    },
+
+    "PRICES": {
+        "PRE_TITLE": "Hogyan számolhattok",
+        "TITLE": "Áraink",
+        "HOUR_PRICE": "Óradíjaink",
+        "PRICE_UNIT": "FT",
+        "AC": "Légkondis"
+    },
+
+    "CONTACT": {
+        "PRE_TITLE": "Hogyan Találsz Meg Minket?",
+        "TITLE": "Látogass el a próbaterműnkbe",
+        "DESC": "A bejáratunk a Pepco melletti kapu a Nagymező utcában. Nyomd meg a 'PróbaPont' feliratú gombot a csengetéshez.",
+        "PUBLIC_TRANSPORT": "Könnyedén megközelíthetsz bennünket tömegközlekedési eszközökkel: 2-es és 2A villamos, 70-es és 78-as trolibusz, 15-ös és 115-ös busz, M3 metró… mind csupán 5 percre a próbahelyünktől.",
+        "GOOGLE_MAPS": "Megnyitás Google Térképen",
+        "BKK_FUTAR": "Útvonaltervezés BKK Futárral"
+    },
+
+    "BOOKING": {
+        "TITLE": "Foglalás",
+        "SUCCESS_CONTENT": "Várunk szeretettel",
+        "FINALIZE_ORDER": "Foglalás véglegesítése",
+        "ORDER_DISCLAIM": "Helyfoglalásod legkésőbb a lefoglalt időpontot megelőző 72. óráig bármikor lemondhatod. 72 órán belüli lemondás esetén a teljes bérleti díjat ki kell fizetned!",
+        "CHOOSE_DATE": "Válassz dátumot",
+        "SUBMIT": "Foglalás",
+        "ALERT": {
+            "SUCCESS": "Sikeres foglalás!",
+            "FAIL": "Sikertelen foglalás :( Kérjük próbálja meg később",
+            "LOGIN": "Kérjük jelentkezzen be a foglaláshoz!"
+        },
+        "CONFIRM_MODAL": {
+            "TITLE": "Foglalás megerősítése",
+            "CONTENT": "Biztosan véglegesíteni szeretnéd a foglalásaidat? A megerősítés után a foglalást csak az időpont előtt legfeljebb 72 órával lehet lemondani."
+        }
+    },
+
+    "AUTH": {
+        "LOGIN": "Bejelentkezés",
+        "REGISTER": "Regisztráció",
+        "EMAIL": "Email cím",
+        "PASSWORD": "Jelszó",
+        "PHONE": "Telefonszám",
+        "FULL_NAME": "Teljes név",
+        "BAND_NAME": "Zenekar neve",
+        "OPTIONAL": "nem kötelező",
+        "NEED_ACCOUNT": "Nincs még fiókod?",
+        "HAVE_ACCOUNT": "Már van fiókod?",
+        "CLOSE": "Bezárás",
+        "WELCOME_BACK": "Üdv újra, ",
+        "ERROR_MESSAGE": "Hiba történt, próbáld újra!",
+        "EMAIL_REQUIRED": "Érvényes email cím szükséges",
+        "PASSWORD_REQUIRED": "A jelszónak legalább 6 karakterből kell állnia",
+        "FULL_NAME_REQUIRED": "A teljes név megadása kötelező.",
+        "PHONE_INVALID": "Kérjük, adjon meg egy érvényes telefonszámot.",
+        "ALERT": {
+            "REGISTRATION_SUCCESS": "Sikeres regisztráció! Kérjük jelentkezz be!",
+            "LOGIN_SUCCESS": "Sikeres bejelentkezzés! Szia ",
+            "FAIL": "Hiba történt :( Kérjük próbálja újra később"
+        },
+        "ERRORS": {
+            "EMAIL_IN_USE": "Ez az e-mail cím már foglalt.",
+            "INVALID_EMAIL": "Érvénytelen e-mail formátum.",
+            "WEAK_PASSWORD": "A jelszónak legalább 6 karakter hosszúnak kell lennie.",
+            "USER_NOT_FOUND": "Felhasználó nem található. Ellenőrizze az e-mail címét.",
+            "INVALID_CREDENTIAL": "Hibás jelszó, vagy email cím.",
+            "DEFAULT": "Valami hiba történt. Kérjük, próbálja újra."
+        },
+        "PASSWORD_RESET": {
+            "TITLE": "Elfelejtett jelszó",
+            "DESC": "Kérjük adja meg az e-mail címét, és küldünk egy linket a jelszó visszaállításához.",
+            "CALL": "Elfelejtette a jelszavát?",
+            "SUBMIT": "Jelszó visszaállítása",
+            "SUCCESS": "A jelszó-visszaállító e-mail elküldve! Kérjük, ellenőrizze az e-mailjeit."
+        }
+    },
+
+    "PROFILE": {
+        "PRE_TITLE": "Felhasználói beállítások",
+        "TITLE": "Profilod kezelése",
+        "SAVE_CHANGES": "Változtatások mentése",
+        "ALERT": {
+            "UPDATE_SUCCESS": "Profilod sikeresen frissítve.",
+            "UPDATE_FAIL": "Nem sikerült frissíteni a profilt."
+        }
+    }
+}
