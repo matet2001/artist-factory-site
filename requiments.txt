@@ -1,0 +1,76 @@
+📌 UI / Design
+A weboldal jelenlegi arculatát, színvilágát és tipográfiáját meg kell tartani.
+
+A felület legyen letisztult, minimál, és átlátható szerkezetű.
+
+Tilos a kép használata háttérként.
+
+A foglalási oldal és naptár UI ne jelenítse meg lejárt időpontok foglalásait (csak világos jelzés maradjon utána).
+
+Naptárban szereplő időintervallum: 09:00 – 22:00 között.
+
+📅 Booking rendszer
+Ne lehessen foglalni 24 órán belül.
+
+Foglalás csak regisztrált felhasználónak elérhető.
+
+Felhasználók tudják törölni foglalásaikat, de csak akkor, ha több mint 48 óra van hátra az időpontig.
+
+A 48 órás lemondási szabályról legyen feltűnő figyelmeztetés a naptár fölött.
+
+A foglalásokat valós időben frissítse az oldal 5 percenként (automatikus polling vagy WS).
+
+Éjfélkor (00:00) a naptár automatikusan váltson a következő napra.
+
+Amennyiben a foglalás valamiért nem működik, a felület írja ki:
+
+css
+Copy
+Edit
+A foglalás jelenleg nem elérhető. Kérlek foglalj telefonon!
+🧑‍💻 Admin funkciók
+Admin felületen:
+
+Lehetővé kell tenni foglalás rögzítését és törlését.
+
+Látható legyen a foglalás részlete: név, telefonszám, email cím, időpont, ár.
+
+Lehessen bármely időpontra foglalni, nem vonatkozik rá a 24h korlátozás.
+
+🧾 Regisztráció / Auth
+Regisztráció során:
+
+Kötelező legyen adatkezelési tájékoztató elfogadása (checkbox + link).
+
+Küldjön a rendszer visszaigazoló emailt (email verification flow).
+
+Integrálva legyen Google reCAPTCHA v2 vagy v3.
+
+Regisztráció után a felhasználó:
+
+Be tud lépni és foglalni.
+
+Opcionálisan beállíthat zenekar nevet, ami megjelenik a foglalásban.
+
+✉️ Email / Notification
+Regisztrációkor és foglalás létrehozásakor küldjön visszaigazoló emailt.
+
+Email tartalmazza: időpont, stúdió neve, időtartam, ár.
+
+(Változás): NEM szükséges foglalás visszaigazoló újraértesítés.
+
+🛡️ Biztonság / Stabilitás
+reCAPTCHA legyen beépítve a regisztrációs folyamatba.
+
+A foglalási rendszer hibáit gracefully kezelje (pl. net hiba, backend error).
+
+A rendszer legyen mobilbarát és ne okozzon vízszintes görgetést egyik felületen sem.
+
+Oldal ne törjön meg kis kijelzőkön (overflow-x, vw figyelés stb.).
+
+Minden API válasz legyen kezelve és validálva (pl. foglalás sikertelenség, user feedback).
+
+🌍 Egyéb megjegyzések
+A naptárban a már elmúlt foglalások neve tűnjön el, csak egy halvány téglalap maradjon emlékül.
+
+A rendszer készen kell álljon 100+ felhasználóra havonta, stabil működéssel.

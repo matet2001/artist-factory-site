@@ -1,0 +1,161 @@
+{
+    "NAV": {
+        "HOME": "Home",
+        "ROOMS": "Rooms",
+        "BOOKING": "Booking",
+        "PRICES": "Prices",
+        "CONTACT": "Contact"
+    },
+    "FOOTER": {
+        "PARTNERS": "Partners",
+        "EQUIPMENTS": "Equipments",
+        "ARTISTS": "Famous customers",
+        "RIGHTS": "All Rights Reserved",
+        "DEVELOPMENT": "Development",
+        "CONTACT": "Contact"
+    },
+    "USER": {
+        "PROFILE": "Your Profile",
+        "SETTINGS": "Settings",
+        "LOGOUT": "Logout"
+    },
+    "GENERAL": {
+        "CLOSE": "Close"
+    },
+    "HOME": {
+        "HERO": {
+            "TITLE": "PróbaPont",
+            "DESCRIPTION": "Six soundproof, modern rehearsal rooms in downtown Budapest",
+            "CTA": "Book now!",
+            "CTA_BOOK": "Online booking",
+            "CTA_PHONE": "Call 9AM to 22PM"
+        },
+        "FEATURES": {
+            "TITLE": "What We Offer",
+            "ROOMS_SPACIOUS": "Spacious Rooms",
+            "ROOMS_SPACIOUS_DESC": "Rooms range from 20m² to 40m², giving you plenty of space.",
+            "AFFORDABLE": "Affordable Prices",
+            "AFFORDABLE_DESC": "Rooms start from just 4000 HUF/hour.",
+            "PREMIUM_EQUIPMENT": "Premium Equipment",
+            "PREMIUM_EQUIPMENT_DESC": "High-quality gear available, plus extra rentals.",
+            "AIR_CONDITIONED": "Air Conditioned",
+            "AIR_CONDITIONED_DESC": "Stay cool with fully air-conditioned rooms.",
+            "PRICE_UNIT": "HUF/hour",
+            "CTA": "Book Here",
+            "ROOM_FEATURES": {
+                "ROOM_1": "Great acoustics",
+                "ROOM_2": "Natural ambiance",
+                "ROOM_3": "Fiery lighting",
+                "ROOM_4": "Neon galaxy lighting",
+                "ROOM_5": "Cozy seating",
+                "ROOM_6": "Minimalist design"
+            }
+        }
+    },
+    "ROOMS": {
+        "PRE_TITLE": "Downtown and Modern",
+        "TITLE": "Our Rehearsal Rooms",
+        "DESCRIPTION": "In our rehearsal space, musicians can enjoy 6 soundproof, modern rehearsal rooms ranging from 22 m² to 40 m². Each room is well-equipped with excellent acoustics, an air exchange system, and air conditioning in the two largest rooms to ensure maximum comfort.",
+        "EQUIPMENT": "Equipment",
+        "SIZE": "Size",
+        "BASE_PRICE": "Base Price",
+        "BASE": "Base Equipment",
+        "BASE_DESC": "INCLUDED IN THE PRICE",
+        "RENT": "Rentable Equipment",
+        "RENT_DESC": "NOT INCLUDED IN THE PRICE",
+        "HOURLY_RATES": "Hourly Rates",
+        "CATEGORY": "Category",
+        "NORMAL": "Normal",
+        "LAST_MINUTE": "Last Minute",
+        "BAND": "Band Rehearsal",
+        "INDIVIDUAL": "Individual Practice",
+        "LAST_MINUTE_DEAL": "Last Minute Deal",
+        "LAST_MINUTE_DESC": "Flexible with your schedule? Book a rehearsal room up to 3 hours in advance and enjoy a discounted hourly rate! Fill the gaps in our calendar and save on your practice time!",
+        "INDIVIDUAL_PRACTICE": "Individual Practice",
+        "INDIVIDUAL_DESC": "Practicing solo? Rent a rehearsal room at a discounted rate and enjoy a distraction-free environment to perfect your skills!",
+        "CTA": "Now that you're in the mood"
+    },
+    "PRICES": {
+        "PRE_TITLE": "What you can expect",
+        "TITLE": "Our Prices",
+        "HOUR_PRICE": "Hourly Rate",
+        "PRICE_UNIT": "HUF",
+        "AC": "AC Included"
+    },
+    "CONTACT": {
+        "PRE_TITLE": "How to Find Us",
+        "TITLE": "Visit Our Rehearsal Space",
+        "DESC": "Our entrance is through the gate next to Pepco on Nagymező street. Press the button labeled 'PróbaPont' to ring the bell.",
+        "PUBLIC_TRANSPORT": "You can easily reach us by public transport: trams 2 and 2A, trolleybuses 70 and 78, buses 15 and 115, and the M3 metro are all just 5 minutes away from our rehearsal space.",
+        "GOOGLE_MAPS": "Open in Google Maps",
+        "BKK_FUTAR": "Plan Route with BKK Futár"
+    },
+    "BOOKING": {
+        "TITLE": "Booking",
+        "SUCCESS_TITLE": "Reservation was successful!",
+        "SUCCESS_CONTENT": "See you soon :)",
+        "FINALIZE_ORDER": "Finalize Reservation",
+        "ORDER_DISCLAIM": "You can cancel your reservation at any time up to 72 hours before the booked time. If you cancel within 72 hours, you must pay the full rental fee!",
+        "CHOOSE_DATE": "Choose date",
+        "ALERT": {
+            "SUCCESS": "Successful booking!",
+            "FAIL": "Booking failed :( Please try again later.",
+            "LOGIN": "Please log in to make a booking!"
+        },
+        "SUBMIT": "Booking",
+        "CONFIRM_MODAL": {
+            "TITLE": "Confirm Your Reservation",
+            "CONTENT": "Are you sure you want to confirm your bookings? Once confirmed, you can only cancel up to 72 hours before the reserved time."
+        },
+        "ASD": "asd"
+    },
+    "AUTH": {
+        "LOGIN": "Login",
+        "REGISTER": "Register",
+        "EMAIL": "Email address",
+        "PASSWORD": "Password",
+        "PHONE": "Phone Number",
+        "PHONE_INVALID": "Please enter a valid phone number.",
+        "USERNAME_REQUIRED": "Username is required (min. 3 characters)",
+        "EMAIL_REQUIRED": "Valid email is required",
+        "PASSWORD_REQUIRED": "Password must be at least 6 characters",
+        "NEED_ACCOUNT": "Need an account?",
+        "HAVE_ACCOUNT": "Already have an account?",
+        "ERROR_MESSAGE": "An error occurred, please try again!",
+        "CLOSE": "Close",
+        "WELCOME_BACK": "Welcome back ",
+        "FULL_NAME": "Full Name",
+        "FULL_NAME_REQUIRED": "Full name is required.",
+        "BAND_NAME": "Band Name",
+        "OPTIONAL": "optional",
+        "ALERT": {
+            "REGISTRATION_SUCCESS": "Successfull registration! Please login!",
+            "LOGIN_SUCCESS": "Succesfull login! Hi, ",
+            "FAIL": "An error occured :( Please try again later"
+        },
+        "ERRORS": {
+            "EMAIL_IN_USE": "This email is already in use.",
+            "INVALID_EMAIL": "Invalid email format.",
+            "WEAK_PASSWORD": "Password should be at least 6 characters.",
+            "USER_NOT_FOUND": "User not found. Please check your email.",
+            "INVALID_CREDENTIAL": "Wrong email, or password.",
+            "DEFAULT": "Something went wrong. Please try again."
+        },
+        "PASSWORD_RESET": {
+            "TITLE": "Forgot Password",
+            "DESC": "Please enter your email and we'll send you a link to reset your password.",
+            "CALL": "Forgot password?",
+            "SUBMIT": "Reset your password",
+            "SUCCESS": "Password reset email sent! Please check your emails"
+        }
+    },
+    "PROFILE": {
+        "PRE_TITLE": "User Settings",
+        "TITLE": "Manage Your Profile",
+        "SAVE_CHANGES": "Save Changes",
+        "ALERT": {
+            "UPDATE_SUCCESS": "Your profile has been updated successfully.",
+            "UPDATE_FAIL": "Failed to update your profile."
+        }
+    }
+}
