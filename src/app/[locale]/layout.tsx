@@ -7,6 +7,8 @@ import { routing } from '@/i18n/routing'
 import { Sora, Space_Mono } from 'next/font/google'
 import Header from '@/components/common/header'
 import { Toaster } from 'sonner'
+import { Analytics } from '@vercel/analytics/next'
+import Footer from '@/components/common/footer'
 
 const sora = Sora({
     variable: '--font-sora',
@@ -51,8 +53,8 @@ export default async function LocaleLayout({
                         </main>
 
                         <Toaster position="top-center" richColors closeButton />
-                        {/* <Footer /> */}
-                        {/* <Analytics /> */}
+                        <Footer />
+                        <Analytics />
                     </div>
                 </NextIntlClientProvider>
             </body>
