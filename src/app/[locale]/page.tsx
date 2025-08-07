@@ -8,8 +8,8 @@ export default function HomePage() {
     return (
         <div>
             {/* <LanguageSwitcher /> */}
-            <h1>Hello h1</h1>
-            <p>Hello p</p>
+            {/* <h1>Hello h1</h1>
+            <p>Hello p</p> */}
         </div>
     )
 }

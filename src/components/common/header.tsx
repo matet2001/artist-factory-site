@@ -26,7 +26,7 @@ export default function Header() {
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="sticky top-0 z-50 w-full backdrop-blur-md rounded-b-3xl h-[var(--header-height)]"
+            className="sticky top-0 z-50 w-full backdrop-blur-md rounded-b-3xl h-[var(--header-height)] bg-header-background/30 text-header-foreground"
         >
             <div className="container mx-auto flex h-full items-center justify-between px-4 max-w-7xl w-full">
                 <Logo />
