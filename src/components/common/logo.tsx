@@ -7,7 +7,6 @@ export default function Logo({ size = 170 }) {
     return (
         <Link href="/">
             <Image
-                className={`mx-auto`}
                 src={logo}
                 alt="Artist Factory Logo"
                 width={size}
