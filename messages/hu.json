@@ -87,12 +87,19 @@
     },
 
     "CONTACT": {
-        "PRE_TITLE": "Hogyan Találsz Meg Minket?",
-        "TITLE": "Látogass el a próbaterműnkbe",
-        "DESC": "A bejáratunk a Pepco melletti kapu a Nagymező utcában. Nyomd meg a 'PróbaPont' feliratú gombot a csengetéshez.",
-        "PUBLIC_TRANSPORT": "Könnyedén megközelíthetsz bennünket tömegközlekedési eszközökkel: 2-es és 2A villamos, 70-es és 78-as trolibusz, 15-ös és 115-ös busz, M3 metró… mind csupán 5 percre a próbahelyünktől.",
+        "PRE_TITLE": "Hogyan találsz meg minket",
+        "TITLE": "Látogasd meg próbatermünket",
+        "DESC": "Bejáratunk a Nagymező utcai Pepco melletti kapualjban található. A 'PróbaPont' feliratú gombbal tudsz csöngetni.",
+        "PUBLIC_TRANSPORT": "Tömegközlekedéssel egyszerűen megközelíthető: a 2-es és 2A villamos, a 70-es és 78-as trolibusz, a 15-ös és 115-ös busz, valamint az M3 metró mind 5 percre vannak a próbatermünktől.",
         "GOOGLE_MAPS": "Megnyitás Google Térképen",
-        "BKK_FUTAR": "Útvonaltervezés BKK Futárral"
+        "BKK_FUTAR": "Útvonaltervezés BKK Futárral",
+        "ACCESS": {
+            "TITLE": "Megközelíthetőség",
+            "TRAM": "Villamossal:A 4-es 6-ossal vagy a 2-es villamossal gyertek a Jászai Mari térig /Margit híd pesti hídfő/, onnan gyalog a Pozsonyi úton /Mc Donald's utcája/ 2 perc alatt nálunk lehettek.",
+            "TROLLEY": "Trolival: Ha Keletitől induló 76-ossal jöttök, szálljatok le a Radnóti Miklós utcai megállónál /utolsó előtti/, onnan már csak pár lépés.",
+            "CAR": "Ha autóval jöttök mindig találtok parkolóhelyet a háztömb körül. Ha sok cuccotok van, a pakolás erejéig beállhattok a bejáratunk előtti udvari parkolóba.",
+            "ENTRANCE": "A bejáratot a háztömb mögötti parkoló-udvar felől találjátok. A tömb körbejárható, szóval bármerről jöhettek."
+        }
     },
 
     "BOOKING": {
