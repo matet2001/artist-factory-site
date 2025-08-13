@@ -4,7 +4,8 @@
         "ROOMS": "Rooms",
         "BOOKING": "Booking",
         "PRICES": "Prices",
-        "CONTACT": "Contact"
+        "CONTACT": "Contact",
+        "SHEET_TITLE": "Navigation"
     },
     "FOOTER": {
         "PARTNERS": "Partners",

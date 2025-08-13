@@ -42,7 +42,7 @@ export default async function LocaleLayout({
     return (
         <html className="overflow-x-hidden scroll-smooth" lang={locale}>
             <body
-                className={`${sora.variable} font-main antialiased text-foreground bg-background overflow-x-hidden`}
+                className={`${sora.variable} font-main antialiased text-foreground bg-background`}
             >
                 <NextIntlClientProvider>
                     <div className="min-h-dvh flex flex-col isolate">

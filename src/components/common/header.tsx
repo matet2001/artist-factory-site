@@ -9,6 +9,8 @@ import { motion } from 'framer-motion'
 import Logo from './logo'
 import { useTranslations } from 'next-intl'
 import LanguageToggle from './language-toggle'
+import { usePathname } from 'next/navigation'
+import { cn } from '@/lib/utils'
 
 const routes = [
     { cta: false, name: 'HOME', href: '/', isCta: false },
@@ -20,60 +22,76 @@ const routes = [
 export default function Header() {
     const [isSheetOpen, setIsSheetOpen] = useState(false)
     const translate = useTranslations('NAV')
+    const pathname = usePathname()
+
+    function isCurrentRoute(href: string): boolean {
+        if (href === '/') {
+            return pathname === `/${pathname.split('/')[1]}`
+        }
+
+        return pathname.endsWith(href)
+    }
+
+    const renderNavLinks = (mobile = false) =>
+        routes.map((item) => (
+            <Link key={item.href} href={item.href} className="group">
+                <Button
+                    variant={item.isCta ? 'default' : 'ghost'}
+                    className={cn(
+                        'text-md transition-colors',
+                        mobile && 'w-full justify-center',
+                        item.isCta
+                            ? 'bg-primary text-primary-foreground shadow-xs hover:bg-primary/60'
+                            : cn(
+                                  isCurrentRoute(item.href)
+                                      ? 'text-primary font-semibold cursor-default hover:bg-transparent hover:text-primary'
+                                      : 'hover:bg-foreground/10'
+                              )
+                    )}
+                >
+                    {translate(item.name)}
+                </Button>
+            </Link>
+        ))
 
     return (
         <motion.header
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="sticky top-0 z-50 w-full backdrop-blur-md rounded-b-3xl h-[var(--header-height)] bg-transparent"
+            className="sticky top-0 z-50 w-full backdrop-blur-md rounded-b-3xl h-[var(--header-height)] bg-background/70 supports-[backdrop-filter]:bg-background/30"
         >
             <div className="container mx-auto flex h-full items-center justify-between px-4 max-w-7xl w-full">
                 <Logo />
 
                 {/* Desktop Nav */}
-                <nav className="hidden md:flex gap-4 justify-center  ">
-                    {routes.map((item) => (
-                        <Button
-                            key={item.href}
-                            variant={item.isCta ? 'default' : 'ghost'}
-                            className="text-md"
-                        >
-                            <Link href={item.href}>{translate(item.name)}</Link>
-                        </Button>
-                    ))}
-                </nav>
+                <nav className="hidden md:flex gap-4 justify-center">{renderNavLinks()}</nav>
 
-                <LanguageToggle />
+                <div className="hidden md:block">
+                    <LanguageToggle />
+                </div>
 
                 {/* Mobile Menu */}
                 <div className="md:hidden">
                     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-                        <SheetTrigger asChild>
-                            <Button variant="ghost" size="icon" className="cursor-pointer">
-                                <Menu className="h-6 w-6" />
-                            </Button>
-                        </SheetTrigger>
+                        <div className="flex gap-3 items-center justify-center">
+                            <LanguageToggle />
+                            <SheetTrigger asChild>
+                                <Button variant="ghost" size="icon" className="cursor-pointer">
+                                    <Menu className="h-6 w-6" />
+                                </Button>
+                            </SheetTrigger>
+                        </div>
                         <SheetContent side="left" aria-describedby={undefined}>
                             <p id="mobile-menu-description" className="sr-only">
                                 Mobile navigation menu
                             </p>
 
                             <SheetHeader className="text-left text-lg font-semibold">
-                                Navigáció
+                                {translate('SHEET_TITLE')}
                             </SheetHeader>
                             <SheetTitle />
-                            <nav className="flex flex-col space-y-2">
-                                {routes.map((item) => (
-                                    <Button
-                                        key={item.href}
-                                        variant={item.isCta ? 'default' : 'ghost'}
-                                        className="text-md"
-                                    >
-                                        <Link href={item.href}>{translate(item.name)}</Link>
-                                    </Button>
-                                ))}
-                            </nav>
+                            <nav className="flex flex-col space-y-2">{renderNavLinks(true)}</nav>
                         </SheetContent>
                     </Sheet>
                 </div>
