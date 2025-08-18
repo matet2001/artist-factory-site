@@ -40,7 +40,7 @@ export default async function LocaleLayout({
     }
 
     return (
-        <html className="overflow-x-hidden scroll-smooth" lang={locale}>
+        <html className="overflow-x-hidden scroll-smooth" lang={'hu'}>
             <body
                 className={`${sora.variable} font-main antialiased text-foreground bg-background`}
             >
