@@ -20,15 +20,15 @@ export default function LanguageToggle() {
     const [isPending, startTransition] = useTransition()
 
     const currentLocale = params?.locale as Locale
-    const nextLocale: Locale = currentLocale === 'en' ? 'hu' : 'en'
+    const nextLocale: Locale = 'hu' //currentLocale === 'en' ? 'hu' : 'en'
 
     const handleToggle = () => {
         startTransition(() => {
-            router.replace(
-                // @ts-expect-error safe param assumption
-                { pathname, params },
-                { locale: nextLocale }
-            )
+            // router.replace(
+            //     // @ts-expect-error safe param assumption
+            //     { pathname, params },
+            //     { locale: nextLocale }
+            // )
         })
     }
 
