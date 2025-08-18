@@ -25,32 +25,23 @@
     },
     "HOME": {
         "HERO": {
-            "TITLE": "PróbaPont",
-            "DESCRIPTION": "Six soundproof, modern rehearsal rooms in downtown Budapest",
+            "TITLE": "ArtistFactory",
+            "DESCRIPTION_INTRO": "ArtistFactory Rehearsal Rooms and Recording Studio opened its doors in 2007! Want to practice in cozy, stylish, and clean rehearsal rooms right in the city center?",
+            "DESCRIPTION_DETAILS": "We welcome everyone with regularly maintained top-tier DW, Natal, Gretsch, Yamaha drum kits and Zildjian, Istanbul, Meinl, Paiste cymbals. We replace drumheads frequently, so you don’t have to spend an hour setting up your kit.",
             "CTA": "Book now!",
             "CTA_BOOK": "Online booking",
-            "CTA_PHONE": "Call 9AM to 22PM"
+            "CTA_PHONE": "Reachable 9 AM – 10 PM"
         },
         "FEATURES": {
-            "TITLE": "What We Offer",
-            "ROOMS_SPACIOUS": "Spacious Rooms",
-            "ROOMS_SPACIOUS_DESC": "Rooms range from 20m² to 40m², giving you plenty of space.",
-            "AFFORDABLE": "Affordable Prices",
-            "AFFORDABLE_DESC": "Rooms start from just 4000 HUF/hour.",
-            "PREMIUM_EQUIPMENT": "Premium Equipment",
-            "PREMIUM_EQUIPMENT_DESC": "High-quality gear available, plus extra rentals.",
-            "AIR_CONDITIONED": "Air Conditioned",
-            "AIR_CONDITIONED_DESC": "Stay cool with fully air-conditioned rooms.",
-            "PRICE_UNIT": "HUF/hour",
-            "CTA": "Book Here",
-            "ROOM_FEATURES": {
-                "ROOM_1": "Great acoustics",
-                "ROOM_2": "Natural ambiance",
-                "ROOM_3": "Fiery lighting",
-                "ROOM_4": "Neon galaxy lighting",
-                "ROOM_5": "Cozy seating",
-                "ROOM_6": "Minimalist design"
-            }
+            "TITLE": "What we offer",
+            "ROOMS_SPACIOUS": "Spacious rooms",
+            "ROOMS_SPACIOUS_DESC": "5 rooms between 20–40 m² — plenty of space to play.",
+            "AFFORDABLE": "Affordable prices",
+            "AFFORDABLE_DESC": "Rates start from 5500 HUF/hour.",
+            "PREMIUM_EQUIPMENT": "Premium equipment",
+            "PREMIUM_EQUIPMENT_DESC": "High‑end instruments and amps (Orange, ENGL, Fender, Warwick, Ashdown, Line6, Yamaha) plus microphones (Shure Beta 57, Audio Technica) at no extra cost.",
+            "AIR_CONDITIONED": "Air conditioned",
+            "AIR_CONDITIONED_DESC": "Stay cool with fully air-conditioned rooms."
         }
     },
     "ROOMS": {

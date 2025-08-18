@@ -26,32 +26,23 @@
 
     "HOME": {
         "HERO": {
-            "TITLE": "PróbaPont",
-            "DESCRIPTION": "Hat hangszigetelt, modern próbaterem a Belvárosban.",
+            "TITLE": "ArtistFactory",
+            "DESCRIPTION_INTRO": "Hangulatos, igényesen kialakított és mindig tiszta próbatermek a belváros szívében – hogy minden próba inspiráló élmény legyen.",
+            "DESCRIPTION_DETAILS": "Az ArtistFactory 2007 óta várja a zenészeket és zenekarokat barátságos, professzionális környezetben, ahol minden adott a zavartalan gyakorláshoz.",
             "CTA": "Foglalj most!",
             "CTA_BOOK": "Online foglalás",
-            "CTA_PHONE": "9-22 óráig hívható"
+            "CTA_PHONE": "9–22 óráig hívható"
         },
         "FEATURES": {
             "TITLE": "Amit kínálunk",
             "ROOMS_SPACIOUS": "Tágas termek",
-            "ROOMS_SPACIOUS_DESC": "A termek mérete 20m²-től 40m²-ig terjed, így bőven lesz helyed.",
+            "ROOMS_SPACIOUS_DESC": "Termeink kényelmesen befogadnak 4–5 fős zenekarokat, de rendelkezünk egy nagyobb teremmel is, ahol akár 8–10 fő is együtt próbálhat.",
             "AFFORDABLE": "Megfizethető árak",
-            "AFFORDABLE_DESC": "A termek ára már 4000 Ft/óra-tól elérhetők.",
+            "AFFORDABLE_DESC": "Áraink 5500 Ft/óra-tól indulnak.",
             "PREMIUM_EQUIPMENT": "Prémium felszerelés",
-            "PREMIUM_EQUIPMENT_DESC": "Kiváló minőségű eszközök, plusz extra bérlési lehetőséggel.",
+            "PREMIUM_EQUIPMENT_DESC": "Felső kategóriás hangszerek és erősítők (Orange, ENGL, Fender, Warwick, Ashdown, Line6, Yamaha) plusz mikrofonok (Shure Beta 57, Audio Technica) felár nélkül.",
             "AIR_CONDITIONED": "Légkondicionált",
-            "AIR_CONDITIONED_DESC": "Minden terem klimatizált a kellemes hőmérsékletért.",
-            "PRICE_UNIT": "FT/óra",
-            "CTA": "Ide Foglalok",
-            "ROOM_FEATURES": {
-                "ROOM_1": "Kiváló akusztika",
-                "ROOM_2": "Természetes hangulat",
-                "ROOM_3": "Lángoló világítás",
-                "ROOM_4": "Neon galaxis világítás",
-                "ROOM_5": "Kényelmes ülőhelyek",
-                "ROOM_6": "Minimalista dizájn"
-            }
+            "AIR_CONDITIONED_DESC": "Maradj hűvös a teljesen klimatizált termeinkben."
         }
     },
 
