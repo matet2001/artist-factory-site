@@ -49,7 +49,7 @@
     "ROOMS": {
         "PRE_TITLE": "Belvárosi És Modern",
         "TITLE": "Próbatermeink",
-        "DESCRIPTION": "Próbahelyünkön 6 hangszigetelt, modern próbaterem várja a zenészeket, 22 m²-től 40 m²-ig. Minden terem jól felszerelt, kiváló akusztikával, légcserélő rendszerrel, és a két legnagyobb próbateremben légkondicionálás is biztosított a maximális kényelem érdekében.",
+        "DESCRIPTION": "Öt stílusos próbaterem, profi környezet — csak hozd a hangszered, a hangulat adott.",
         "EQUIPMENT": "Felszereltség",
         "SIZE": "Méret",
         "BASE_PRICE": "Alapár",
@@ -67,7 +67,14 @@
         "LAST_MINUTE_DESC": "Rugalmas vagy? Foglalj próbatermet legfeljebb 3 órával előre, és élvezd a kedvezményes óradíjat! Töltsd meg a naptárunk üres helyeit, és próbálj olcsóbban!",
         "INDIVIDUAL_PRACTICE": "Egyéni Próba",
         "INDIVIDUAL_DESC": "Egyedül gyakorolnál? Nálunk kedvezményes áron bérelhetsz próbatermet, hogy zavartalanul fejleszthesd a tudásod!",
-        "CTA": "Most hogy megjött a kedved"
+        "CTA": "Ide foglalok!",
+        "ROOM1_NAME": "1. Terem",
+        "ROOM2_NAME": "2. Terem",
+        "ROOM3_NAME": "3. Terem",
+        "ROOM4_NAME": "4. Terem",
+        "ROOM5_NAME": "5. Terem",
+        "MORE_INFO_PROMPT": "További részletekért látogasd meg a termek oldalát!",
+        "SEE_ALL_ROOMS": "Összes terem megtekintése"
     },
 
     "PRICES": {
