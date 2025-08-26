@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils'
 
 const routes = [
     { cta: false, name: 'HOME', href: '/', isCta: false },
-    { cta: false, name: 'ROOMS', href: '/room', isCta: false },
+    { cta: false, name: 'ROOMS', href: '/rooms', isCta: false },
     { cta: true, name: 'BOOKING', href: '/booking', isCta: true },
     { cta: false, name: 'PRICES', href: '/prices', isCta: false },
     { cta: false, name: 'CONTACT', href: '/contact', isCta: false },
@@ -26,7 +26,7 @@ export default function Header() {
 
     function isCurrentRoute(href: string): boolean {
         if (href === '/') {
-            return pathname === `/${pathname.split('/')[1]}`
+            return pathname === `/` || pathname === `/en`
         }
 
         return pathname.endsWith(href)

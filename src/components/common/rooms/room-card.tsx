@@ -1,67 +1,84 @@
 'use client'
-
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Room } from '@/lib/rooms'
 import { DollarSign, Users } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import Link from 'next/link'
-import router from 'next/router'
+import { useRouter } from 'next/navigation'
 
 type Props = {
     room: Room
 }
 
 export default function RoomCard({ room }: Props) {
+    const router = useRouter()
+
     const t = useTranslations('ROOMS')
-    const imagePath = room.image ? `/rooms/${room.image}` : '/rooms/Room1.jpg'
-    const goToRoom = () => router.push(`/room/${room.id}`)
+    const imagePath = room.heroImage ? `/rooms/${room.heroImage}` : '/rooms/Room1.jpg'
+
+    const goToRoom = () => router.push(`/rooms/#room-${room.id}`)
 
     return (
-        <Card
+        <div
             onClick={goToRoom}
-            className="flex flex-col w-full overflow-hidden cursor-pointer"
+            className="group relative w-full h-80 sm:h-96 overflow-hidden rounded-2xl cursor-pointer shadow-lg hover:shadow-2xl bg-background"
         >
-            <div className="relative w-full h-64">
+            {/* Background Image */}
+            <div className="absolute inset-x-0 top-0 h-2/3 z-0">
                 <Image
                     src={imagePath}
                     alt={`${room.name} image`}
                     fill
-                    className="object-cover object-center"
+                    className="object-cover object-center "
                     priority
                 />
             </div>
 
-            <CardHeader>
-                <CardTitle className="text-lg sm:text-2xl font-semibold capitalize">
+            {/* Dark Gradient Overlay */}
+            <div className="absolute rounded-t-3xl inset-x-0 bottom-0 h-1/2 z-10 bg-gradient-to-t from-card to-card/10 backdrop-blur-md " />
+
+            {/* Content Container */}
+            <div className="absolute inset-0 z-20 flex flex-col justify-end p-6">
+                {/* Title */}
+                <h3 className="text-white text-xl sm:text-2xl font-bold capitalize mb-3 drop-shadow-lg">
                     {t(room.name)}
-                </CardTitle>
-            </CardHeader>
+                </h3>
 
-            <CardContent>
-                <ul className="space-y-4">
-                    <li className="flex items-center gap-x-3">
-                        <DollarSign className="text-primary w-5 h-5" />
-                        {t('BASE_PRICE')}: {room.price} Ft / óra
-                    </li>
-                    <li className="flex items-center gap-x-3">
-                        <Users className="text-primary w-5 h-5" />
-                        {t('SIZE')}: {room.size} fő
-                    </li>
-                </ul>
-            </CardContent>
+                {/* Features */}
+                <div className="flex flex-col sm:flex-row gap-3 mb-4">
+                    <div className="flex items-center gap-2 text-white/90">
+                        <div className="bg-white/20 backdrop-blur-sm rounded-full p-1.5">
+                            <DollarSign className="w-4 h-4" />
+                        </div>
+                        <span className="text-sm font-medium drop-shadow-md">
+                            {room.price} {t('HOUR')}
+                        </span>
+                    </div>
 
-            <CardFooter>
-                <Link href={`/room/${room.id}`} className="w-full px-4">
+                    <div className="flex items-center gap-2 text-white/90">
+                        <div className="bg-white/20 backdrop-blur-sm rounded-full p-1.5">
+                            <Users className="w-4 h-4" />
+                        </div>
+                        <span className="text-sm font-medium drop-shadow-md">
+                            {room.size} {t('PEOPLE')}
+                        </span>
+                    </div>
+                </div>
+
+                {/* CTA Button */}
+                <Link href={`/booking`} className="w-full">
                     <Button
                         variant="default"
-                        className="w-full uppercase font-semibold shadow-lg transition-transform hover:scale-105"
+                        className="w-full rounded-lg shadow-xl transition-all duration-200 hover:shadow-2xl hover:-translate-y-0.5 hover:scale-105 backdrop-blur-sm"
                     >
                         {t('CTA')}
                     </Button>
                 </Link>
-            </CardFooter>
-        </Card>
+            </div>
+
+            {/* Optional: Hover effect overlay */}
+            <div className="absolute inset-0 z-5 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+        </div>
     )
 }

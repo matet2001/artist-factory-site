@@ -74,7 +74,9 @@
         "ROOM4_NAME": "4. Terem",
         "ROOM5_NAME": "5. Terem",
         "MORE_INFO_PROMPT": "További részletekért látogasd meg a termek oldalát!",
-        "SEE_ALL_ROOMS": "Összes terem megtekintése"
+        "SEE_ALL_ROOMS": "Összes terem megtekintése",
+        "PEOPLE": "fő",
+        "HOUR": "óra"
     },
 
     "PRICES": {
@@ -82,9 +84,25 @@
         "TITLE": "Áraink",
         "HOUR_PRICE": "Óradíjaink",
         "PRICE_UNIT": "FT",
-        "AC": "Légkondis"
+        "AC": "Légkondis",
+        "EFFECTIVE_FROM": "Érvényes: 2024. szeptember 1-től",
+        "SIZE_LABEL": "Férőhely",
+        "PEOPLE": "fő",
+        "HOUR": "óra",
+        "INDIVIDUAL_TITLE": "Egyéni gyakorlás / 1-1 oktatás",
+        "INDIVIDUAL_LABEL": "Óradíj",
+        "INDIVIDUAL_PRICE": 3000,
+        "STUDIO_TITLE": "Stúdió",
+        "STUDIO_RECORDING": "Felvétel, utómunka és keverés",
+        "STUDIO_LIVE": "Egybe feljátszott számok",
+        "STUDIO_VAT_NOTE": "A szolgáltatás 0% ÁFA-s.",
+        "RENTABLE_TITLE": "Bérelhető cuccok",
+        "DRINKS_TITLE": "Hűtött italok",
+        "DRINK_BEER": "Sör 0,5 l",
+        "DRINK_WATER": "Ásványvíz 0,5 l",
+        "DRINK_SODA": "Cola – Fanta – Traubi 0,5 l",
+        "DRINK_COFFEE": "Kávéautomata"
     },
-
     "CONTACT": {
         "PRE_TITLE": "Hogyan találsz meg minket",
         "TITLE": "Látogasd meg próbatermünket",
