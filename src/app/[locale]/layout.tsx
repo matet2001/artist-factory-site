@@ -1,24 +1,18 @@
+import { routing } from '@/i18n/routing'
 import type { Metadata } from 'next'
-import './globals.css'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { notFound } from 'next/navigation'
-import { routing } from '@/i18n/routing'
+import './globals.css'
 
-import { Sora, Space_Mono } from 'next/font/google'
-import Header from '@/components/common/header'
-import { Toaster } from 'sonner'
-import { Analytics } from '@vercel/analytics/next'
 import Footer from '@/components/common/footer'
+import Header from '@/components/common/header'
+import { Analytics } from '@vercel/analytics/next'
+import { Sora } from 'next/font/google'
+import { Toaster } from 'sonner'
 
 const sora = Sora({
     variable: '--font-sora',
     subsets: ['latin'],
-})
-
-const spaceMono = Space_Mono({
-    variable: '--font-space-mono',
-    subsets: ['latin'],
-    weight: '400',
 })
 
 export const metadata: Metadata = {
@@ -48,8 +42,10 @@ export default async function LocaleLayout({
                     <div className="min-h-dvh flex flex-col isolate">
                         <Header />
 
-                        <main className="flex-1 w-full max-w-screen overflow-x-hidden">
-                            {children}
+                        <main className="flex-1">
+                            <div className="container mx-auto max-w-6xl px-6 lg:px-8 py-10">
+                                {children}
+                            </div>
                         </main>
 
                         <Toaster position="top-center" richColors closeButton />

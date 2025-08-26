@@ -1,51 +1,97 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { Room } from '@/lib/rooms'
+import { DollarSign, Users } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 import Link from 'next/link'
-import RoomList from './room-list'
-import { ArrowRight } from 'lucide-react'
+import { EquipmentIcon } from './equipment-icon'
 
-export default function RoomsSection() {
+type RoomSectionProps = {
+    room: Room
+}
+
+export default function RoomSection({ room }: RoomSectionProps) {
     const t = useTranslations('ROOMS')
+    const imagePath = room.heroImage ? `/rooms/${room.heroImage}` : '/rooms/Room1.jpg'
 
     return (
-        <section className="mt-20 mb-5">
-            <div className="w-full h-full mx-auto max-w-2xl px-2 sm:px-6 lg:max-w-7xl lg:px-4 text-center">
-                <div className="mx-auto max-w-4xl lg:text-center mb-5">
-                    <h2 className="text-sm uppercase text-muted-foreground tracking-[0.25em]">
-                        {t('PRE_TITLE')}
-                    </h2>
+        <section id={`room-${room.id}`} className="w-full py-10 scroll-mt-[var(--header-height)]">
+            <div className="mx-auto w-full max-w-6xl px-4">
+                <div className="relative w-full overflow-hidden rounded-2xl shadow-xl bg-card">
+                    {/* === IMAGE SECTION === */}
+                    <div className="relative h-[500px] sm:h-[550px]">
+                        <Image
+                            src={imagePath}
+                            alt={t(room.name)}
+                            fill
+                            className="object-cover object-center"
+                            priority
+                        />
+                    </div>
 
-                    <h1 className="mt-2 text-4xl font-semibold tracking-tight text-pretty sm:text-5xl lg:text-balance">
-                        {t('TITLE')}
-                    </h1>
+                    {/* === OVERLAY CONTENT AREA === */}
+                    <div className="relative z-10 -mt-56 sm:-mt-40 px-6 sm:px-10">
+                        {/* Gradient behind content – only lower portion of image */}
+                        <div className="absolute inset-x-0 top-0 h-[60%] bg-gradient-to-t from-card/90 to-card/10 backdrop-blur-md rounded-b-2xl z-[-1]" />
 
-                    <p className="mt-6 text-lg text-muted-foreground">{t('DESCRIPTION')}</p>
-                </div>
-                <div className="flex justify-center items-center">
-                    <RoomList />
-                </div>
+                        <div className="w-full text-center p-5 space-y-5">
+                            {/* --- Title --- */}
+                            <h2 className="text-white text-2xl sm:text-4xl font-bold capitalize drop-shadow-lg">
+                                {t(room.name)}
+                            </h2>
 
-                {/* ➕ Additional info + button */}
-                <div className="mt-16 flex flex-col items-center gap-6 text-muted-foreground">
-                    <h2 className="text-2xl sm:text-xl text-center font-medium">
-                        {t('MORE_INFO_PROMPT', {
-                            defaultValue: 'További részletekért látogasd meg a termek oldalát!',
-                        })}
-                    </h2>
+                            {/* === Wider container just for equipments and CTA === */}
+                            <div className="mx-auto w-full space-y-5">
+                                {/* --- Equipments --- */}
+                                <ul className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-3 text-sm w-full">
+                                    {room.equipments.map((eq, i) => (
+                                        <li key={i} className="flex items-center gap-3">
+                                            <EquipmentIcon
+                                                type={eq.icon}
+                                                size={20}
+                                                alt={eq.label}
+                                            />
+                                            <span className="drop-shadow-sm">{eq.label}</span>
+                                        </li>
+                                    ))}
+                                </ul>
 
-                    <Link href="/rooms">
-                        <Button
-                            variant="secondary"
-                            className="text-base h-20 px-10 sm:text-lg gap-2 transition-transform hover:scale-105 rounded-md"
-                        >
-                            {t('SEE_ALL_ROOMS', {
-                                defaultValue: 'Összes terem megtekintése',
-                            })}
-                            <ArrowRight className="w-5 h-5" />
-                        </Button>
-                    </Link>
+                                {/* --- Features (Price / Size) --- */}
+                                <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-white/90 text-sm">
+                                    <div className="flex items-center gap-2">
+                                        <div className="bg-white/20 backdrop-blur-sm rounded-full p-1.5">
+                                            <DollarSign className="w-4 h-4" />
+                                        </div>
+                                        <span className="font-medium drop-shadow-md">
+                                            {t('BASE_PRICE')}: {room.price.toLocaleString('hu-HU')}{' '}
+                                            Ft / {t('HOUR')}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex items-center gap-2">
+                                        <div className="bg-white/20 backdrop-blur-sm rounded-full p-1.5">
+                                            <Users className="w-4 h-4" />
+                                        </div>
+                                        <span className="font-medium drop-shadow-md">
+                                            {t('SIZE')}: {room.size} {t('PEOPLE')}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {/* --- CTA Button --- */}
+                                <Link href="/booking">
+                                    <Button
+                                        size="lg"
+                                        className="w-full sm:w-auto px-12 py-6 text-lg uppercase font-bold shadow-xl transition-transform hover:scale-105 hover:-translate-y-0.5"
+                                    >
+                                        {t('CTA')}
+                                    </Button>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
