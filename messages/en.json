@@ -39,7 +39,7 @@
             "AFFORDABLE": "Affordable prices",
             "AFFORDABLE_DESC": "Rates start from 5500 HUF/hour.",
             "PREMIUM_EQUIPMENT": "Premium equipment",
-            "PREMIUM_EQUIPMENT_DESC": "High‑end instruments and amps (Orange, ENGL, Fender, Warwick, Ashdown, Line6, Yamaha) plus microphones (Shure Beta 57, Audio Technica) at no extra cost.",
+            "PREMIUM_EQUIPMENT_DESC": "High-end instruments and amps (Orange, ENGL, Fender, Warwick, Ashdown, Line6, Yamaha) plus microphones (Shure Beta 57, Audio Technica) at no extra cost.",
             "AIR_CONDITIONED": "Air conditioned",
             "AIR_CONDITIONED_DESC": "Stay cool with fully air-conditioned rooms."
         }
@@ -65,14 +65,67 @@
         "LAST_MINUTE_DESC": "Flexible with your schedule? Book a rehearsal room up to 3 hours in advance and enjoy a discounted hourly rate! Fill the gaps in our calendar and save on your practice time!",
         "INDIVIDUAL_PRACTICE": "Individual Practice",
         "INDIVIDUAL_DESC": "Practicing solo? Rent a rehearsal room at a discounted rate and enjoy a distraction-free environment to perfect your skills!",
-        "CTA": "Now that you're in the mood"
+        "CTA": "Book here!",
+        "ROOM1_NAME": "Room 1",
+        "ROOM2_NAME": "Room 2",
+        "ROOM3_NAME": "Room 3",
+        "ROOM4_NAME": "Room 4",
+        "ROOM5_NAME": "Room 5",
+        "MORE_INFO_PROMPT": "For more details, visit the rooms page!",
+        "SEE_ALL_ROOMS": "See all rooms",
+        "PEOPLE": "people",
+        "HOUR": "hour",
+        "EQUIPMENT_TYPES": {
+            "DRUM": "Drums",
+            "CYMBAL": "Cymbals",
+            "AMP": "Amplifier",
+            "GUITAR": "Guitar",
+            "BASS": "Bass Guitar",
+            "PEDAL": "Guitar Pedal",
+            "MIXER": "Mixer",
+            "SPEAKER": "Speaker",
+            "MIC": "Microphone",
+            "PIANO": "Piano"
+        },
+        "EQUIPMENT_PARTS": {
+            "HEAD": "head",
+            "CABINET": "cabinet",
+            "HIHAT": "hi-hat",
+            "RIDE": "ride",
+            "SNARE": "snare",
+            "UPRIGHT_PIANO": "Upright Piano",
+            "TUNED": "tuned",
+            "MICROPHONES": "Microphones"
+        }
     },
     "PRICES": {
         "PRE_TITLE": "What you can expect",
         "TITLE": "Our Prices",
         "HOUR_PRICE": "Hourly Rate",
         "PRICE_UNIT": "HUF",
-        "AC": "AC Included"
+        "AC": "Air conditioned",
+        "EFFECTIVE_FROM": "Effective from: September 1, 2024",
+        "SIZE_LABEL": "Capacity",
+        "PEOPLE": "people",
+        "HOUR": "hour",
+        "INDIVIDUAL_TITLE": "Individual Practice / 1-on-1 Lessons",
+        "INDIVIDUAL_LABEL": "Hourly Rate",
+        "INDIVIDUAL_PRICE": "3000",
+        "STUDIO_TITLE": "Studio",
+        "STUDIO_RECORDING": "Recording, editing and mixing",
+        "STUDIO_LIVE": "Live recorded songs",
+        "STUDIO_VAT_NOTE": "The service is VAT exempt.",
+        "RENTABLE_TITLE": "Rentable Equipment",
+        "DRINKS_TITLE": "Cold Drinks",
+        "DRINK_BEER": "Beer 0.5 l",
+        "DRINK_WATER": "Mineral water 0.5 l",
+        "DRINK_SODA": "Cola – Fanta – Traubi 0.5 l",
+        "DRINK_COFFEE": "Coffee machine",
+        "RENTABLE_DESC": "Additional equipment, charged hourly",
+        "DRINKS_DESC": "Refreshing drinks and snacks",
+        "CTA_TITLE": "Ready to practice?",
+        "CTA_DESC": "Book your slot now and start playing!",
+        "CTA_BUTTON": "Book now"
     },
     "CONTACT": {
         "PRE_TITLE": "How to Find Us",
@@ -91,22 +144,20 @@
     },
     "BOOKING": {
         "TITLE": "Booking",
-        "SUCCESS_TITLE": "Reservation was successful!",
-        "SUCCESS_CONTENT": "See you soon :)",
-        "FINALIZE_ORDER": "Finalize Reservation",
-        "ORDER_DISCLAIM": "You can cancel your reservation at any time up to 72 hours before the booked time. If you cancel within 72 hours, you must pay the full rental fee!",
+        "SUCCESS_CONTENT": "We look forward to seeing you",
+        "FINALIZE_ORDER": "Finalize Booking",
+        "ORDER_DISCLAIM": "You can cancel your reservation any time up to 72 hours before the booked slot. Within 72 hours the full rental fee must be paid!",
         "CHOOSE_DATE": "Choose date",
+        "SUBMIT": "Book now",
         "ALERT": {
-            "SUCCESS": "Successful booking!",
-            "FAIL": "Booking failed :( Please try again later.",
-            "LOGIN": "Please log in to make a booking!"
+            "SUCCESS": "Booking successful!",
+            "FAIL": "Booking failed :( Please try again later",
+            "LOGIN": "Please log in to book!"
         },
-        "SUBMIT": "Booking",
         "CONFIRM_MODAL": {
-            "TITLE": "Confirm Your Reservation",
-            "CONTENT": "Are you sure you want to confirm your bookings? Once confirmed, you can only cancel up to 72 hours before the reserved time."
-        },
-        "ASD": "asd"
+            "TITLE": "Confirm Booking",
+            "CONTENT": "Are you sure you want to finalize your booking? Once confirmed, you can only cancel up to 72 hours before the reserved slot."
+        }
     },
     "AUTH": {
         "LOGIN": "Login",
@@ -114,38 +165,37 @@
         "EMAIL": "Email address",
         "PASSWORD": "Password",
         "PHONE": "Phone Number",
-        "PHONE_INVALID": "Please enter a valid phone number.",
-        "USERNAME_REQUIRED": "Username is required (min. 3 characters)",
-        "EMAIL_REQUIRED": "Valid email is required",
-        "PASSWORD_REQUIRED": "Password must be at least 6 characters",
-        "NEED_ACCOUNT": "Need an account?",
-        "HAVE_ACCOUNT": "Already have an account?",
-        "ERROR_MESSAGE": "An error occurred, please try again!",
-        "CLOSE": "Close",
-        "WELCOME_BACK": "Welcome back ",
         "FULL_NAME": "Full Name",
-        "FULL_NAME_REQUIRED": "Full name is required.",
         "BAND_NAME": "Band Name",
         "OPTIONAL": "optional",
+        "NEED_ACCOUNT": "Need an account?",
+        "HAVE_ACCOUNT": "Already have an account?",
+        "CLOSE": "Close",
+        "WELCOME_BACK": "Welcome back ",
+        "ERROR_MESSAGE": "An error occurred, please try again!",
+        "EMAIL_REQUIRED": "Valid email address is required",
+        "PASSWORD_REQUIRED": "Password must be at least 6 characters",
+        "FULL_NAME_REQUIRED": "Full name is required.",
+        "PHONE_INVALID": "Please enter a valid phone number.",
         "ALERT": {
-            "REGISTRATION_SUCCESS": "Successfull registration! Please login!",
-            "LOGIN_SUCCESS": "Succesfull login! Hi, ",
-            "FAIL": "An error occured :( Please try again later"
+            "REGISTRATION_SUCCESS": "Registration successful! Please log in!",
+            "LOGIN_SUCCESS": "Login successful! Hi ",
+            "FAIL": "An error occurred :( Please try again later"
         },
         "ERRORS": {
             "EMAIL_IN_USE": "This email is already in use.",
             "INVALID_EMAIL": "Invalid email format.",
             "WEAK_PASSWORD": "Password should be at least 6 characters.",
             "USER_NOT_FOUND": "User not found. Please check your email.",
-            "INVALID_CREDENTIAL": "Wrong email, or password.",
+            "INVALID_CREDENTIAL": "Wrong email or password.",
             "DEFAULT": "Something went wrong. Please try again."
         },
         "PASSWORD_RESET": {
             "TITLE": "Forgot Password",
             "DESC": "Please enter your email and we'll send you a link to reset your password.",
             "CALL": "Forgot password?",
-            "SUBMIT": "Reset your password",
-            "SUCCESS": "Password reset email sent! Please check your emails"
+            "SUBMIT": "Reset Password",
+            "SUCCESS": "Password reset email sent! Please check your inbox."
         }
     },
     "PROFILE": {
