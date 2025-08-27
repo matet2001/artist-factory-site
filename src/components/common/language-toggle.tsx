@@ -2,10 +2,10 @@
 
 import { Button } from '@/components/ui/button'
 import { usePathname, useRouter } from '@/i18n/navigation'
-import { useParams } from 'next/navigation'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Locale } from 'next-intl'
-import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+import { useParams } from 'next/navigation'
 import { useTransition } from 'react'
 
 const flagMap: Record<Locale, string> = {
@@ -20,15 +20,15 @@ export default function LanguageToggle() {
     const [isPending, startTransition] = useTransition()
 
     const currentLocale = params?.locale as Locale
-    const nextLocale: Locale = 'hu' //currentLocale === 'en' ? 'hu' : 'en'
+    const nextLocale: Locale = currentLocale === 'en' ? 'hu' : 'en'
 
     const handleToggle = () => {
         startTransition(() => {
-            // router.replace(
-            //     // @ts-expect-error safe param assumption
-            //     { pathname, params },
-            //     { locale: nextLocale }
-            // )
+            router.replace(
+                // @ts-expect-error safe param assumption
+                { pathname, params },
+                { locale: nextLocale }
+            )
         })
     }
 
