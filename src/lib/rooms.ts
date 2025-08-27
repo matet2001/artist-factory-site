@@ -11,7 +11,7 @@ export type EquipmentType =
     | 'piano'
 
 export type EquipmentItem = {
-    type: string
+    type: EquipmentType
     label: string
 }
 

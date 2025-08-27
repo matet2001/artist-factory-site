@@ -1,5 +1,7 @@
-export const routing = {
-    locales: ['hu', 'en'], // order doesn’t matter, but include both
+import { defineRouting } from 'next-intl/routing'
+
+export const routing = defineRouting({
+    locales: ['hu', 'en'],
     defaultLocale: 'hu',
     localePrefix: 'as-needed',
-}
+})
