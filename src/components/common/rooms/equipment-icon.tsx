@@ -10,9 +10,9 @@ import mixerIcon from '@/assets/icons/mixer.png'
 import pedalIcon from '@/assets/icons/pedal.png'
 import pianoIcon from '@/assets/icons/piano.png'
 import speakerIcon from '@/assets/icons/speaker.png'
-import { EquipmentIconKind } from '@/lib/rooms'
+import { EquipmentType } from '@/lib/rooms'
 
-const ICONS: Record<EquipmentIconKind, StaticImageData> = {
+const ICONS: Record<EquipmentType, StaticImageData> = {
     drum: drumIcon,
     cymbal: cymbalIcon,
     amp: ampIcon,
@@ -26,7 +26,7 @@ const ICONS: Record<EquipmentIconKind, StaticImageData> = {
 }
 
 type Props = {
-    type: EquipmentIconKind
+    type: EquipmentType
     size?: number // default 24
     alt?: string // fallback to type
 }
