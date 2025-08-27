@@ -76,7 +76,29 @@
         "MORE_INFO_PROMPT": "További részletekért látogasd meg a termek oldalát!",
         "SEE_ALL_ROOMS": "Összes terem megtekintése",
         "PEOPLE": "fő",
-        "HOUR": "óra"
+        "HOUR": "óra",
+        "EQUIPMENT_TYPES": {
+            "DRUM": "Dob",
+            "CYMBAL": "Cinek",
+            "AMP": "Erősítő",
+            "GUITAR": "Gitár",
+            "BASS": "Basszusgitár",
+            "PEDAL": "Gitár pedál",
+            "MIXER": "Keverő",
+            "SPEAKER": "Hangfal",
+            "MIC": "Mikrofon",
+            "PIANO": "Zongora"
+        },
+        "EQUIPMENT_PARTS": {
+            "HEAD": "fej",
+            "CABINET": "láda",
+            "HIHAT": "lábcin",
+            "RIDE": "ride",
+            "SNARE": "pergő",
+            "UPRIGHT_PIANO": "Pianínó",
+            "TUNED": "hangolva",
+            "MICROPHONES": "Mikrofonok"
+        }
     },
 
     "PRICES": {

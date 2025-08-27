@@ -1,11 +1,20 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from '@/components/ui/carousel'
 import { Room } from '@/lib/rooms'
+import Autoplay from 'embla-carousel-autoplay'
 import { DollarSign, Users } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import Link from 'next/link'
+import React from 'react'
 import { EquipmentIcon } from './equipment-icon'
 
 type RoomSectionProps = {
@@ -14,7 +23,17 @@ type RoomSectionProps = {
 
 export default function RoomSection({ room }: RoomSectionProps) {
     const t = useTranslations('ROOMS')
-    const imagePath = room.heroImage ? `/rooms/${room.heroImage}` : '/rooms/Room1.jpg'
+
+    function tFormatted(label: string) {
+        return label.replace(/\{\{(\w+)\}\}/g, (_, key) => t(`EQUIPMENT_PARTS.${key}`))
+    }
+
+    const plugin = React.useRef(
+        Autoplay({
+            delay: 3000,
+            stopOnInteraction: true,
+        })
+    )
 
     return (
         <section id={`room-${room.id}`} className="w-full py-10 scroll-mt-[var(--header-height)]">
@@ -22,17 +41,40 @@ export default function RoomSection({ room }: RoomSectionProps) {
                 <div className="relative w-full overflow-hidden rounded-2xl shadow-xl bg-card">
                     {/* === IMAGE SECTION === */}
                     <div className="relative h-[500px] sm:h-[550px]">
-                        <Image
-                            src={imagePath}
-                            alt={t(room.name)}
-                            fill
-                            className="object-cover object-center"
-                            priority
-                        />
+                        <Carousel
+                            plugins={[plugin.current]}
+                            className="w-full h-full"
+                            onMouseEnter={plugin.current.stop}
+                            onMouseLeave={plugin.current.reset}
+                            opts={{
+                                align: 'start',
+                                loop: true,
+                            }}
+                        >
+                            <CarouselContent>
+                                {room.images.map((img, index) => (
+                                    <CarouselItem key={index}>
+                                        <div className="relative h-[500px] sm:h-[550px] w-full overflow-hidden rounded-t-2xl">
+                                            <Image
+                                                src={`/rooms/${img}`}
+                                                alt={`${t(room.name)} – ${index + 1}`}
+                                                fill
+                                                className="object-cover object-center"
+                                                priority={index === 0}
+                                            />
+                                        </div>
+                                    </CarouselItem>
+                                ))}
+                            </CarouselContent>
+
+                            {/* Position arrows outside the image carousel */}
+                            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 shadow-md" />
+                            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 shadow-md" />
+                        </Carousel>
                     </div>
 
                     {/* === OVERLAY CONTENT AREA === */}
-                    <div className="relative z-10 -mt-56 sm:-mt-40 px-6 sm:px-10">
+                    <div className="relative z-10 -mt-10  px-6 sm:px-10">
                         {/* Gradient behind content – only lower portion of image */}
                         <div className="absolute inset-x-0 top-0 h-[60%] bg-gradient-to-t from-card/90 to-card/10 backdrop-blur-md rounded-b-2xl z-[-1]" />
 
@@ -49,11 +91,15 @@ export default function RoomSection({ room }: RoomSectionProps) {
                                     {room.equipments.map((eq, i) => (
                                         <li key={i} className="flex items-center gap-3">
                                             <EquipmentIcon
-                                                type={eq.icon}
+                                                type={eq.type}
                                                 size={20}
                                                 alt={eq.label}
                                             />
-                                            <span className="drop-shadow-sm">{eq.label}</span>
+                                            <span className="drop-shadow-sm">
+                                                {t(`EQUIPMENT_TYPES.${eq.type.toUpperCase()}`)}
+                                                {' – '}
+                                                {tFormatted(eq.label)}
+                                            </span>
                                         </li>
                                     ))}
                                 </ul>
