@@ -74,7 +74,7 @@ export default function ContactSection() {
     }
 
     return (
-        <section className="w-full py-10 sm:py-12">
+        <section className="w-full">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

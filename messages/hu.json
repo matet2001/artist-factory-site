@@ -113,7 +113,7 @@
         "HOUR": "óra",
         "INDIVIDUAL_TITLE": "Egyéni gyakorlás / 1-1 oktatás",
         "INDIVIDUAL_LABEL": "Óradíj",
-        "INDIVIDUAL_PRICE": 3000,
+        "INDIVIDUAL_PRICE": "3000",
         "STUDIO_TITLE": "Stúdió",
         "STUDIO_RECORDING": "Felvétel, utómunka és keverés",
         "STUDIO_LIVE": "Egybe feljátszott számok",
@@ -123,7 +123,12 @@
         "DRINK_BEER": "Sör 0,5 l",
         "DRINK_WATER": "Ásványvíz 0,5 l",
         "DRINK_SODA": "Cola – Fanta – Traubi 0,5 l",
-        "DRINK_COFFEE": "Kávéautomata"
+        "DRINK_COFFEE": "Kávéautomata",
+        "RENTABLE_DESC": "Kiegészítő eszközök óradíjas alapon",
+        "DRINKS_DESC": "Friss italok és harapnivalók",
+        "CTA_TITLE": "Készen állsz a próbára?",
+        "CTA_DESC": "Foglalj időpontot most és kezdd el a zenélést!",
+        "CTA_BUTTON": "Foglalás most"
     },
     "CONTACT": {
         "PRE_TITLE": "Hogyan találsz meg minket",
