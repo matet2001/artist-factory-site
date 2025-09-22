@@ -1,11 +1,30 @@
-import createMiddleware from 'next-intl/middleware'
-import { routing } from './i18n/routing'
+import { routing } from '@/i18n/routing'
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import createIntlMiddleware from 'next-intl/middleware'
 
-export default createMiddleware(routing)
+const intlMiddleware = createIntlMiddleware(routing)
+
+const isProtectedRoute = createRouteMatcher([
+    '/dashboard(.*)',
+    '/admin(.*)',
+    // Add other protected routes here
+])
+
+export default clerkMiddleware(async (auth, req) => {
+    // For protected routes, ensure the user is authenticated
+    if (isProtectedRoute(req)) {
+        await auth.protect()
+    }
+
+    // Run the internationalization middleware
+    return intlMiddleware(req)
+})
 
 export const config = {
-    // Match all pathnames except for
-    // - … if they start with `/api`, `/trpc`, `/_next` or `/_vercel`
-    // - … the ones containing a dot (e.g. `favicon.ico`)
-    matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)',
+    matcher: [
+        // Skip Next.js internals and all static files, unless found in search params
+        '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+        // Always run for API routes
+        '/(api|trpc)(.*)',
+    ],
 }

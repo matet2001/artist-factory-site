@@ -9,11 +9,11 @@
     },
     "FOOTER": {
         "PARTNERS": "Partners",
-        "EQUIPMENTS": "Equipments",
-        "ARTISTS": "Famous customers",
-        "RIGHTS": "All Rights Reserved",
-        "DEVELOPMENT": "Development",
-        "CONTACT": "Contact"
+        "EQUIPMENTS": "Equipment",
+        "ARTISTS": "Artists Who Practice Here",
+        "RIGHTS": "All rights reserved",
+        "CONTACT": "Contact Information",
+        "DEVELOPMENT": "Web Development"
     },
     "USER": {
         "PROFILE": "Your Profile",
@@ -23,56 +23,58 @@
     "GENERAL": {
         "CLOSE": "Close"
     },
+
     "HOME": {
         "HERO": {
             "TITLE": "ArtistFactory",
-            "DESCRIPTION_INTRO": "ArtistFactory Rehearsal Rooms and Recording Studio opened its doors in 2007! Want to practice in cozy, stylish, and clean rehearsal rooms right in the city center?",
-            "DESCRIPTION_DETAILS": "We welcome everyone with regularly maintained top-tier DW, Natal, Gretsch, Yamaha drum kits and Zildjian, Istanbul, Meinl, Paiste cymbals. We replace drumheads frequently, so you don’t have to spend an hour setting up your kit.",
+            "DESCRIPTION_INTRO": "Cozy, stylishly designed and always clean rehearsal rooms in the heart of the city center – so every practice session becomes an inspiring experience.",
+            "DESCRIPTION_DETAILS": "ArtistFactory has been welcoming musicians and bands since 2007 in a friendly, professional environment where everything is available for undisturbed practice.",
             "CTA": "Book now!",
             "CTA_BOOK": "Online booking",
-            "CTA_PHONE": "Reachable 9 AM – 10 PM"
+            "CTA_PHONE": "Available 9 AM – 10 PM"
         },
         "FEATURES": {
             "TITLE": "What we offer",
             "ROOMS_SPACIOUS": "Spacious rooms",
-            "ROOMS_SPACIOUS_DESC": "5 rooms between 20–40 m² — plenty of space to play.",
+            "ROOMS_SPACIOUS_DESC": "Our rooms comfortably accommodate 4–5 person bands, but we also have a larger room where up to 8–10 people can practice together.",
             "AFFORDABLE": "Affordable prices",
-            "AFFORDABLE_DESC": "Rates start from 5500 HUF/hour.",
+            "AFFORDABLE_DESC": "Our prices start from 5500 HUF/hour.",
             "PREMIUM_EQUIPMENT": "Premium equipment",
-            "PREMIUM_EQUIPMENT_DESC": "High-end instruments and amps (Orange, ENGL, Fender, Warwick, Ashdown, Line6, Yamaha) plus microphones (Shure Beta 57, Audio Technica) at no extra cost.",
+            "PREMIUM_EQUIPMENT_DESC": "Top-tier instruments and amplifiers (Orange, ENGL, Fender, Warwick, Ashdown, Line6, Yamaha) plus microphones (Shure Beta 57, Audio Technica) at no extra cost.",
             "AIR_CONDITIONED": "Air conditioned",
-            "AIR_CONDITIONED_DESC": "Stay cool with fully air-conditioned rooms."
+            "AIR_CONDITIONED_DESC": "Stay cool in our fully air-conditioned rooms."
         }
     },
+
     "ROOMS": {
         "PRE_TITLE": "Downtown and Modern",
         "TITLE": "Our Rehearsal Rooms",
-        "DESCRIPTION": "In our rehearsal space, musicians can enjoy 6 soundproof, modern rehearsal rooms ranging from 22 m² to 40 m². Each room is well-equipped with excellent acoustics, an air exchange system, and air conditioning in the two largest rooms to ensure maximum comfort.",
+        "DESCRIPTION": "Five stylish rehearsal rooms, professional environment — just bring your instrument, the atmosphere is provided.",
         "EQUIPMENT": "Equipment",
         "SIZE": "Size",
         "BASE_PRICE": "Base Price",
-        "BASE": "Base Equipment",
+        "BASE": "Base equipment",
         "BASE_DESC": "INCLUDED IN THE PRICE",
-        "RENT": "Rentable Equipment",
+        "RENT": "Rentable equipment",
         "RENT_DESC": "NOT INCLUDED IN THE PRICE",
-        "HOURLY_RATES": "Hourly Rates",
+        "HOURLY_RATES": "Hourly rates",
         "CATEGORY": "Category",
         "NORMAL": "Normal",
         "LAST_MINUTE": "Last Minute",
         "BAND": "Band Rehearsal",
         "INDIVIDUAL": "Individual Practice",
         "LAST_MINUTE_DEAL": "Last Minute Deal",
-        "LAST_MINUTE_DESC": "Flexible with your schedule? Book a rehearsal room up to 3 hours in advance and enjoy a discounted hourly rate! Fill the gaps in our calendar and save on your practice time!",
+        "LAST_MINUTE_DESC": "Flexible? Book a rehearsal room up to 3 hours in advance and enjoy the discounted hourly rate! Fill our calendar gaps and practice for less!",
         "INDIVIDUAL_PRACTICE": "Individual Practice",
-        "INDIVIDUAL_DESC": "Practicing solo? Rent a rehearsal room at a discounted rate and enjoy a distraction-free environment to perfect your skills!",
-        "CTA": "Book here!",
+        "INDIVIDUAL_DESC": "Want to practice alone? You can rent a rehearsal room at a discounted rate to develop your skills undisturbed!",
+        "CTA": "Book this one!",
         "ROOM1_NAME": "Room 1",
         "ROOM2_NAME": "Room 2",
         "ROOM3_NAME": "Room 3",
         "ROOM4_NAME": "Room 4",
         "ROOM5_NAME": "Room 5",
         "MORE_INFO_PROMPT": "For more details, visit the rooms page!",
-        "SEE_ALL_ROOMS": "See all rooms",
+        "SEE_ALL_ROOMS": "View all rooms",
         "PEOPLE": "people",
         "HOUR": "hour",
         "EQUIPMENT_TYPES": {
@@ -98,113 +100,155 @@
             "MICROPHONES": "Microphones"
         }
     },
+
     "PRICES": {
-        "PRE_TITLE": "What you can expect",
+        "PRE_TITLE": "How you can calculate",
         "TITLE": "Our Prices",
-        "HOUR_PRICE": "Hourly Rate",
+        "HOUR_PRICE": "Our hourly rates",
         "PRICE_UNIT": "HUF",
         "AC": "Air conditioned",
         "EFFECTIVE_FROM": "Effective from: September 1, 2024",
         "SIZE_LABEL": "Capacity",
         "PEOPLE": "people",
         "HOUR": "hour",
-        "INDIVIDUAL_TITLE": "Individual Practice / 1-on-1 Lessons",
-        "INDIVIDUAL_LABEL": "Hourly Rate",
+        "INDIVIDUAL_TITLE": "Individual practice / 1-on-1 lessons",
+        "INDIVIDUAL_LABEL": "Hourly rate",
         "INDIVIDUAL_PRICE": "3000",
         "STUDIO_TITLE": "Studio",
-        "STUDIO_RECORDING": "Recording, editing and mixing",
+        "STUDIO_RECORDING": "Recording, post-production and mixing",
         "STUDIO_LIVE": "Live recorded songs",
-        "STUDIO_VAT_NOTE": "The service is VAT exempt.",
-        "RENTABLE_TITLE": "Rentable Equipment",
-        "DRINKS_TITLE": "Cold Drinks",
+        "STUDIO_VAT_NOTE": "The service is 0% VAT.",
+        "RENTABLE_TITLE": "Rentable gear",
+        "DRINKS_TITLE": "Cold drinks",
         "DRINK_BEER": "Beer 0.5 l",
         "DRINK_WATER": "Mineral water 0.5 l",
         "DRINK_SODA": "Cola – Fanta – Traubi 0.5 l",
         "DRINK_COFFEE": "Coffee machine",
-        "RENTABLE_DESC": "Additional equipment, charged hourly",
-        "DRINKS_DESC": "Refreshing drinks and snacks",
-        "CTA_TITLE": "Ready to practice?",
-        "CTA_DESC": "Book your slot now and start playing!",
+        "RENTABLE_DESC": "Additional equipment on hourly basis",
+        "DRINKS_DESC": "Fresh drinks and snacks",
+        "CTA_TITLE": "Ready to rehearse?",
+        "CTA_DESC": "Book a time slot now and start making music!",
         "CTA_BUTTON": "Book now"
     },
     "CONTACT": {
-        "PRE_TITLE": "How to Find Us",
-        "TITLE": "Visit Our Rehearsal Space",
-        "DESC": "Our entrance is through the gate next to Pepco on Nagymező Street. Press the button labeled 'PróbaPont' to ring the bell.",
-        "PUBLIC_TRANSPORT": "You can easily reach us by public transport: trams 2 and 2A, trolleybuses 70 and 78, buses 15 and 115, and the M3 metro are all just 5 minutes away from our rehearsal space.",
+        "PRE_TITLE": "How to find us",
+        "TITLE": "Visit our rehearsal space",
+        "DESC": "Our entrance is in the gateway next to Pepco on Nagymező Street. You can ring the bell with the 'PróbaPont' button.",
+        "PUBLIC_TRANSPORT": "Easily accessible by public transport: trams 2 and 2A, trolleybuses 70 and 78, buses 15 and 115, and the M3 metro are all 5 minutes away from our rehearsal space.",
         "GOOGLE_MAPS": "Open in Google Maps",
-        "BKK_FUTAR": "Plan Route with BKK Futár",
+        "BKK_FUTAR": "Route planning with BKK Futár",
         "ACCESS": {
-            "TITLE": "Getting Here",
-            "TRAM": "By tram: Take tram 4/6 or tram 2 to Jászai Mari tér (Margit Bridge, Pest side), then walk along Pozsonyi Street (the “McDonald’s street”) — you’ll reach us in about 2 minutes.",
-            "TROLLEY": "By trolleybus: If you come on the 76 from Keleti, get off at Radnóti Miklós utca (the second-to-last stop) — it’s just a short walk from there.",
-            "CAR": "By car you’ll usually find street parking around the block. If you have a lot of gear, you can pull into the courtyard parking at our entrance for loading.",
-            "ENTRANCE": "Our entrance is from the courtyard/parking area behind the block. The block is walk-through, so you can approach from any direction."
+            "TITLE": "Accessibility",
+            "TRAM": "By tram: Come with tram 4-6 or tram 2 to Jászai Mari square /Margit bridge Pest side/, then walk on Pozsonyi street /McDonald's street/ and you can be with us in 2 minutes.",
+            "TROLLEY": "By trolleybus: If you come with the 76 starting from Keleti, get off at Radnóti Miklós street stop /second to last/, from there it's just a few steps.",
+            "CAR": "If you come by car, you can always find parking around the block. If you have a lot of gear, you can park in the courtyard parking in front of our entrance for loading.",
+            "ENTRANCE": "You'll find the entrance from the parking courtyard behind the block. The block can be walked around, so you can come from anywhere."
         }
     },
+
     "BOOKING": {
         "TITLE": "Booking",
-        "SUCCESS_CONTENT": "We look forward to seeing you",
-        "FINALIZE_ORDER": "Finalize Booking",
-        "ORDER_DISCLAIM": "You can cancel your reservation any time up to 72 hours before the booked slot. Within 72 hours the full rental fee must be paid!",
+        "SUCCESS_CONTENT": "We welcome you with love",
+        "FINALIZE_ORDER": "Finalize booking",
+        "ORDER_DISCLAIM": "You can cancel your reservation at any time up to 72 hours before the booked time slot. In case of cancellation within 72 hours, you must pay the full rental fee!",
         "CHOOSE_DATE": "Choose date",
-        "SUBMIT": "Book now",
+        "SUBMIT": "Book",
         "ALERT": {
-            "SUCCESS": "Booking successful!",
-            "FAIL": "Booking failed :( Please try again later",
+            "SUCCESS": "Successful booking!",
+            "FAIL": "Failed booking :( Please try again later",
             "LOGIN": "Please log in to book!"
         },
         "CONFIRM_MODAL": {
-            "TITLE": "Confirm Booking",
-            "CONTENT": "Are you sure you want to finalize your booking? Once confirmed, you can only cancel up to 72 hours before the reserved slot."
+            "TITLE": "Confirm booking",
+            "CONTENT": "Are you sure you want to finalize your bookings? After confirmation, the booking can only be cancelled up to 72 hours before the appointment."
         }
     },
+
     "AUTH": {
         "LOGIN": "Login",
-        "REGISTER": "Register",
+        "REGISTER": "Registration",
+        "SIGN_UP": "Sign Up",
+        "SIGN_UP_CALL": "Sign Up",
+        "SIGN_IN": "Sign In",
+        "SIGN_IN_CALL": "Sign In",
+        "SIGNING_IN": "Signing in...",
+        "SIGNING_UP": "Signing up...",
         "EMAIL": "Email address",
         "PASSWORD": "Password",
-        "PHONE": "Phone Number",
-        "FULL_NAME": "Full Name",
-        "BAND_NAME": "Band Name",
-        "OPTIONAL": "optional",
-        "NEED_ACCOUNT": "Need an account?",
+        "PHONE": "Phone number",
+        "FULL_NAME": "Full name",
+        "BAND_NAME": "Band name",
+        "OPTIONAL": "not required",
+        "NEED_ACCOUNT": "Don't have an account yet?",
         "HAVE_ACCOUNT": "Already have an account?",
+        "REMEMBER_PASSWORD": "Remember your password?",
         "CLOSE": "Close",
-        "WELCOME_BACK": "Welcome back ",
+        "WELCOME_BACK": "Welcome back, ",
         "ERROR_MESSAGE": "An error occurred, please try again!",
-        "EMAIL_REQUIRED": "Valid email address is required",
+        "EMAIL_REQUIRED": "Valid email address required",
         "PASSWORD_REQUIRED": "Password must be at least 6 characters",
         "FULL_NAME_REQUIRED": "Full name is required.",
         "PHONE_INVALID": "Please enter a valid phone number.",
+        "HEADERS": {
+            "LOGIN_TITLE": "Welcome back",
+            "LOGIN_DESCRIPTION": "Sign in to your account to continue",
+            "REGISTER_TITLE": "Create your account",
+            "REGISTER_DESCRIPTION": "Sign up to get started with ArtistFactory"
+        },
         "ALERT": {
-            "REGISTRATION_SUCCESS": "Registration successful! Please log in!",
-            "LOGIN_SUCCESS": "Login successful! Hi ",
+            "REGISTRATION_SUCCESS": "Successful registration! Please log in!",
+            "LOGIN_SUCCESS": "Successful login! Hi ",
             "FAIL": "An error occurred :( Please try again later"
         },
         "ERRORS": {
-            "EMAIL_IN_USE": "This email is already in use.",
+            "EMAIL_IN_USE": "This email address is already taken.",
             "INVALID_EMAIL": "Invalid email format.",
-            "WEAK_PASSWORD": "Password should be at least 6 characters.",
-            "USER_NOT_FOUND": "User not found. Please check your email.",
-            "INVALID_CREDENTIAL": "Wrong email or password.",
+            "WEAK_PASSWORD": "Password must be at least 6 characters long.",
+            "USER_NOT_FOUND": "User not found. Please check your email address.",
+            "INVALID_CREDENTIAL": "Wrong password or email address.",
             "DEFAULT": "Something went wrong. Please try again."
         },
         "PASSWORD_RESET": {
-            "TITLE": "Forgot Password",
-            "DESC": "Please enter your email and we'll send you a link to reset your password.",
-            "CALL": "Forgot password?",
-            "SUBMIT": "Reset Password",
-            "SUCCESS": "Password reset email sent! Please check your inbox."
-        }
+            "TITLE": "Forgot password",
+            "DESC": "Please enter your email address and we'll send you a link to reset your password.",
+            "CALL": "Forgot your password?",
+            "SUBMIT": "Reset password",
+            "SUCCESS": "Password reset email sent! Please check your emails."
+        },
+        "EMAIL_LABEL": "Email address",
+        "PASSWORD_LABEL": "Password",
+        "FIRST_NAME": "Last name",
+        "LAST_NAME": "First name",
+        "REGISTERING": "Registering...",
+        "EMAIL_CONFIRM": "Please confirm your email to continue!",
+        "PLACEHOLDER": {
+            "FIRST_NAME": "Enter your last name",
+            "LAST_NAME": "Enter your first name",
+            "FULL_NAME": "Enter your full name",
+            "PHONE": "Enter your phone number",
+            "BAND_NAME": "Enter your band name",
+            "EMAIL": "Enter your email address",
+            "PASSWORD": "Enter your password"
+        },
+        "LOGGING_IN": "Logging in...",
+        "FIRST_NAME_REQUIRED": "Last name is required.",
+        "LAST_NAME_REQUIRED": "First name is required.",
+        "VERIFY_EMAIL": "Verify your email",
+        "VERIFICATION_SENT": "We sent a verification code to your email address.",
+        "VERIFICATION_CODE": "Verification Code",
+        "VERIFYING": "Verifying...",
+        "VERIFY": "Verify",
+        "BACK_TO_REGISTRATION": "Back to registration",
+        "EMAIL_SENT": "Verification email sent!"
     },
+
     "PROFILE": {
-        "PRE_TITLE": "User Settings",
-        "TITLE": "Manage Your Profile",
-        "SAVE_CHANGES": "Save Changes",
+        "PRE_TITLE": "User settings",
+        "TITLE": "Manage your profile",
+        "SAVE_CHANGES": "Save changes",
         "ALERT": {
-            "UPDATE_SUCCESS": "Your profile has been updated successfully.",
-            "UPDATE_FAIL": "Failed to update your profile."
+            "UPDATE_SUCCESS": "Your profile has been successfully updated.",
+            "UPDATE_FAIL": "Failed to update profile."
         }
     }
 }
