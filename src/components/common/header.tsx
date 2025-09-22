@@ -11,6 +11,9 @@ import { useTranslations } from 'next-intl'
 import LanguageToggle from './language-toggle'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { useUser } from '@clerk/nextjs'
+import { AuthOptions } from './auth/navbar/AuthOptions'
+import { ProfileMenu } from './auth/navbar/ProfileMenu'
 
 const routes = [
     { cta: false, name: 'HOME', href: '/', isCta: false },
@@ -23,6 +26,7 @@ export default function Header() {
     const [isSheetOpen, setIsSheetOpen] = useState(false)
     const translate = useTranslations('NAV')
     const pathname = usePathname()
+    const { user, isLoaded } = useUser()
 
     function isCurrentRoute(href: string): boolean {
         if (href === '/') {
@@ -67,7 +71,12 @@ export default function Header() {
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex gap-4 justify-center">{renderNavLinks()}</nav>
 
-                <div className="hidden md:block">
+                <div className="hidden md:flex items-center gap-3">
+                    {isLoaded && (
+                        <>
+                            {user ? <ProfileMenu /> : <AuthOptions />}
+                        </>
+                    )}
                     <LanguageToggle />
                 </div>
 
@@ -75,6 +84,11 @@ export default function Header() {
                 <div className="md:hidden">
                     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
                         <div className="flex gap-3 items-center justify-center">
+                            {isLoaded && (
+                                <>
+                                    {user ? <ProfileMenu /> : <AuthOptions />}
+                                </>
+                            )}
                             <LanguageToggle />
                             <SheetTrigger asChild>
                                 <Button variant="ghost" size="icon" className="cursor-pointer">

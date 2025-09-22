@@ -41,6 +41,8 @@
     --color-popover: var(--popover);
     --color-card-foreground: var(--card-foreground);
     --color-card: var(--card);
+    --color-dialog-foreground: var(--dialog-foreground);
+    --color-dialog: var(--dialog);
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
@@ -52,7 +54,7 @@
 :root {
     --radius: 0.625rem;
     /* Base colors */
-    --background: oklch(20% 0.01 280); /* Near black with slight tint */
+    --background: #0d121e; /* Near black with slight tint */
     --foreground: oklch(95% 0.005 280); /* Light but not pure white */
 
     /* Header */
@@ -67,12 +69,15 @@
     --card-foreground: oklch(92% 0.01 330); /* Off-white with a subtle pink-lavender tone */
     --border: oklch(40% 0.03 320); /* Muted mauve border — visible, but still soft and elegant */
 
+    --dialog: #182238; /* Slightly brighter than background with subtle warmth */
+    --dialog-foreground: oklch(95% 0.005 280); /* Same as foreground for consistency */
+
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
     --secondary: oklch(0.97 0 0);
     --secondary-foreground: oklch(0.205 0 0);
     --muted: oklch(0.97 0 0);
-    --muted-foreground: o klch(0.556 0 0);
+    --muted-foreground: oklch(65.004% 0.00007 271.152);
     --destructive: oklch(0.577 0.245 27.325);
     --input: oklch(0.922 0 0);
     --ring: oklch(0.708 0 0);
@@ -97,6 +102,11 @@
     }
     body {
         @apply bg-background text-foreground;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        @apply text-muted-foreground/60;
     }
 }
 
