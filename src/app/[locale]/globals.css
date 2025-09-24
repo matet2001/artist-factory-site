@@ -54,7 +54,7 @@
 :root {
     --radius: 0.625rem;
     /* Base colors */
-    --background: #0d121e; /* Near black with slight tint */
+    --background: #2a4b49; /* Near black with slight tint */
     --foreground: oklch(95% 0.005 280); /* Light but not pure white */
 
     /* Header */
@@ -112,4 +112,17 @@
 
 html {
     scroll-behavior: smooth;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url('/noise_texture.jpg');
+    background-repeat: repeat;
+    background-size: 300px; /* tweak as needed */
+    opacity: 0.04; /* adjust from 0.02 to 0.08 */
+    pointer-events: none;
+    z-index: 50;
+    mix-blend-mode: overlay;
 }
