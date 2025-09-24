@@ -88,7 +88,7 @@ export default function Footer() {
                 {/* Footer bottom */}
                 <div className="sm:flex sm:items-center sm:justify-between text-sm">
                     <div className="flex flex-wrap items-center gap-2">
-                        <span>© 2025 Artist Factory</span>
+                        <span>© 2025 PróbaPont</span>
                         <span>|</span>
                         <span>{t('RIGHTS')}</span>
                         <span>|</span>

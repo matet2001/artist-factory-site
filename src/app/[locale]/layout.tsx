@@ -1,14 +1,14 @@
-import { AuthDialogProvider } from '@/context/AuthDialogProvider'
 import { routing } from '@/i18n/routing'
-import { ClerkProvider } from '@clerk/nextjs'
-import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
-import { Sora } from 'next/font/google'
 import { notFound } from 'next/navigation'
-import { Toaster } from 'sonner'
 import './globals.css'
-import React from 'react'
+
+import Footer from '@/components/common/footer'
+import Header from '@/components/common/header'
+import { Analytics } from '@vercel/analytics/next'
+import { Sora } from 'next/font/google'
+import { Toaster } from 'sonner'
 
 const sora = Sora({
     variable: '--font-sora',
@@ -22,34 +22,38 @@ export const metadata: Metadata = {
 
 export default async function LocaleLayout({
     children,
-    modal,
     params,
 }: {
     children: React.ReactNode
-    modal: React.ReactNode
     params: Promise<{ locale: string }>
 }) {
+    // Ensure that the incoming `locale` is valid
     const { locale } = await params
     if (!hasLocale(routing.locales, locale)) {
         notFound()
     }
 
     return (
-        <ClerkProvider>
-            <AuthDialogProvider>
+        <html className="overflow-x-hidden scroll-smooth" lang={locale}>
+            <body
+                className={`${sora.variable} font-main antialiased text-foreground bg-background`}
+            >
                 <NextIntlClientProvider>
-                    <html lang={locale} className="overflow-x-hidden scroll-smooth">
-                        <body
-                            className={`${sora.variable} font-main antialiased text-foreground bg-background`}
-                        >
-                            <Toaster position="top-center" richColors closeButton />
-                            <Analytics />
-                            {children}
-                            {modal}
-                        </body>
-                    </html>
+                    <div className="min-h-dvh flex flex-col isolate">
+                        <Header />
+
+                        <main className="flex-1">
+                            <div className="container mx-auto max-w-6xl px-6 lg:px-8 py-10">
+                                {children}
+                            </div>
+                        </main>
+
+                        <Toaster position="top-center" richColors closeButton />
+                        <Footer />
+                        <Analytics />
+                    </div>
                 </NextIntlClientProvider>
-            </AuthDialogProvider>
-        </ClerkProvider>
+            </body>
+        </html>
     )
 }
