@@ -167,12 +167,6 @@
     "AUTH": {
         "LOGIN": "Bejelentkezés",
         "REGISTER": "Regisztráció",
-        "SIGN_UP": "Regisztráció",
-        "SIGN_UP_CALL": "Regisztálj",
-        "SIGN_IN": "Bejelentkezés",
-        "SIGN_IN_CALL": "Jelentkezz be",
-        "SIGNING_IN": "Bejelentkezés...",
-        "SIGNING_UP": "Regisztráció...",
         "EMAIL": "Email cím",
         "PASSWORD": "Jelszó",
         "PHONE": "Telefonszám",
@@ -181,7 +175,6 @@
         "OPTIONAL": "nem kötelező",
         "NEED_ACCOUNT": "Nincs még fiókod?",
         "HAVE_ACCOUNT": "Már van fiókod?",
-        "REMEMBER_PASSWORD": "Emlékszel a jelszavadra?",
         "CLOSE": "Bezárás",
         "WELCOME_BACK": "Üdv újra, ",
         "ERROR_MESSAGE": "Hiba történt, próbáld újra!",
@@ -189,12 +182,6 @@
         "PASSWORD_REQUIRED": "A jelszónak legalább 6 karakterből kell állnia",
         "FULL_NAME_REQUIRED": "A teljes név megadása kötelező.",
         "PHONE_INVALID": "Kérjük, adjon meg egy érvényes telefonszámot.",
-        "HEADERS": {
-            "LOGIN_TITLE": "Üdv újra",
-            "LOGIN_DESCRIPTION": "Jelentkezz be a fiókodba a folytatáshoz",
-            "REGISTER_TITLE": "Hozd létre a fiókodat",
-            "REGISTER_DESCRIPTION": "Regisztrálj az ArtistFactory használatának megkezdéséhez"
-        },
         "ALERT": {
             "REGISTRATION_SUCCESS": "Sikeres regisztráció! Kérjük jelentkezz be!",
             "LOGIN_SUCCESS": "Sikeres bejelentkezzés! Szia ",
@@ -206,7 +193,7 @@
             "WEAK_PASSWORD": "A jelszónak legalább 6 karakter hosszúnak kell lennie.",
             "USER_NOT_FOUND": "Felhasználó nem található. Ellenőrizze az e-mail címét.",
             "INVALID_CREDENTIAL": "Hibás jelszó, vagy email cím.",
-            "DEFAULT": "Valami hiba történt. Kérjük, próbáld újra."
+            "DEFAULT": "Valami hiba történt. Kérjük, próbálja újra."
         },
         "PASSWORD_RESET": {
             "TITLE": "Elfelejtett jelszó",
@@ -214,32 +201,7 @@
             "CALL": "Elfelejtette a jelszavát?",
             "SUBMIT": "Jelszó visszaállítása",
             "SUCCESS": "A jelszó-visszaállító e-mail elküldve! Kérjük, ellenőrizze az e-mailjeit."
-        },
-        "EMAIL_LABEL": "Email cím",
-        "PASSWORD_LABEL": "Jelszó",
-        "FIRST_NAME": "Vezetéknév",
-        "LAST_NAME": "Keresztnév",
-        "REGISTERING": "Regisztráció...",
-        "EMAIL_CONFIRM": "Kérlek erősítsd meg az emailed, hogy folytathasd!",
-        "PLACEHOLDER": {
-            "FIRST_NAME": "Add meg a vezetékneved",
-            "LAST_NAME": "Add meg a keresztneved",
-            "FULL_NAME": "Add meg a teljes neved",
-            "PHONE": "Add meg a telefonszámod",
-            "BAND_NAME": "Add meg a zenekarod nevét",
-            "EMAIL": "Add meg az email címed",
-            "PASSWORD": "Add meg a jelszavad"
-        },
-        "LOGGING_IN": "Bejelentkezés...",
-        "FIRST_NAME_REQUIRED": "A vezetéknév megadása kötelező.",
-        "LAST_NAME_REQUIRED": "A keresztnév megadása kötelező.",
-        "VERIFY_EMAIL": "Verify your email",
-        "VERIFICATION_SENT": "We sent a verification code to your email address.",
-        "VERIFICATION_CODE": "Verification Code",
-        "VERIFYING": "Verifying...",
-        "VERIFY": "Verify",
-        "BACK_TO_REGISTRATION": "Back to registration",
-        "EMAIL_SENT": "Verification email sent!"
+        }
     },
 
     "PROFILE": {
