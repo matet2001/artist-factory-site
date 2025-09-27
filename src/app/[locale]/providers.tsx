@@ -1,20 +1,11 @@
 'use client'
 
-import { NextIntlClientProvider } from 'next-intl'
-import { ReactNode } from 'react'
-import { Toaster } from '@/components/ui/sonner' // or wherever your toast is
+import { SessionProvider } from 'next-auth/react'
 
-type ProvidersProps = {
-    children: ReactNode
-    locale: string
-    messages: Record<string, unknown>
+interface ProvidersProps {
+    children: React.ReactNode
 }
 
-export default function Providers({ children, locale, messages }: ProvidersProps) {
-    return (
-        <NextIntlClientProvider locale={locale} messages={messages}>
-            {children}
-            <Toaster richColors position="top-center" />
-        </NextIntlClientProvider>
-    )
+export default function Providers({ children }: ProvidersProps) {
+    return <SessionProvider>{children}</SessionProvider>
 }

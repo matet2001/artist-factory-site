@@ -1,0 +1,86 @@
+'use client'
+
+import { Button } from '@/components/ui/button'
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Skeleton } from '@/components/ui/skeleton'
+import { signOut, useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { CgProfile } from 'react-icons/cg'
+
+export function AuthOptions() {
+    const router = useRouter()
+    const t = useTranslations('AUTH')
+    const tUser = useTranslations('USER')
+    const { data: session, status } = useSession()
+
+    // Loading skeleton
+    if (status === 'loading') {
+        return (
+            <div className="flex items-center space-x-2">
+                <Skeleton className="h-9 w-20" />
+                <Skeleton className="h-6 w-6 rounded-full" />
+            </div>
+        )
+    }
+
+    // User is authenticated - show profile menu
+    if (session?.user) {
+        return (
+            <div className="flex items-center space-x-3">
+                {/* Optional: Show user name */}
+                <span className="text-sm text-muted-foreground hidden sm:block">
+                    {session.user.name || session.user.email}
+                </span>
+
+                <DropdownMenu>
+                    <DropdownMenuTrigger className="relative flex rounded-full text-sm cursor-pointer outline-none hover:opacity-80 transition-opacity">
+                        <span className="sr-only">Open user menu</span>
+                        <CgProfile size={25} className="text-foreground" />
+                    </DropdownMenuTrigger>
+
+                    <DropdownMenuContent className="w-48" align="end">
+                        <div className="px-2 py-1.5 text-sm border-b">
+                            <p className="font-medium">{session.user.name}</p>
+                            <p className="text-muted-foreground truncate">{session.user.email}</p>
+                        </div>
+
+                        <DropdownMenuItem asChild>
+                            <Link href="/profile" className="cursor-pointer">
+                                {tUser('PROFILE')}
+                            </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem asChild>
+                            <Link href="/settings" className="cursor-pointer">
+                                {tUser('SETTINGS')}
+                            </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem
+                            onClick={() => signOut({ callbackUrl: '/' })}
+                            className="text-destructive focus:text-destructive cursor-pointer"
+                        >
+                            {tUser('LOGOUT')}
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </div>
+        )
+    }
+
+    // User is not authenticated - show auth buttons
+    return (
+        <div className="flex items-center space-x-2">
+            <Button onClick={() => router.push('/register')} variant="default" >
+                {t('SIGN_UP')}
+            </Button>
+        </div>
+    )
+}

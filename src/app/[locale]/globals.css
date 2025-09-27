@@ -37,6 +37,9 @@
     --color-secondary: var(--secondary);
     --color-primary-foreground: var(--primary-foreground);
     --color-primary: var(--primary);
+
+    --color-hover: var(--hover);
+
     --color-popover-foreground: var(--popover-foreground);
     --color-popover: var(--popover);
     --color-card-foreground: var(--card-foreground);
@@ -52,18 +55,23 @@
 :root {
     --radius: 0.625rem;
     /* Base colors */
-    --background: #2a4b49; /* Near black with slight tint */
+    --background: #007275; /* Near black with slight tint */
     --foreground: oklch(95% 0.005 280); /* Light but not pure white */
+
+    --gradient-main: linear-gradient(to bottom, #006b69, #1f7e7c, #34928f, #47a6a3, #59bab7);
+    --header-height: 72px;
 
     /* Header */
     --header-background: oklch(95% 0.005 280); /* Soft off-white */
     --header-foreground: oklch(20% 0.01 280); /* Match page bg for reverse contrast */
     --primary: #fb4190;
     --primary-foreground: oklch(0.985 0 0);
-    --accent: #fbc6fe;
+    --accent: #60b2ae;
     --accent-foreground: (0.205 0 0);
 
-    --card: oklch(28% 0.05 320); /* Deep desaturated plum — warmer, more character than flat gray */
+    --hover: #b92d68;
+
+    --card: #bb8092; /* Deep desaturated plum — warmer, more character than flat gray */
     --card-foreground: oklch(92% 0.01 330); /* Off-white with a subtle pink-lavender tone */
     --border: oklch(40% 0.03 320); /* Muted mauve border — visible, but still soft and elegant */
 
@@ -91,6 +99,12 @@
     --sidebar-ring: oklch(0.708 0 0);
 }
 
+.bg-gradient-main {
+    background-image: var(--gradient-main);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
 @layer base {
     * {
         @apply border-border outline-ring/50;
@@ -108,11 +122,38 @@ body::before {
     content: '';
     position: fixed;
     inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    mix-blend-mode: overlay;
     background-image: url('/noise_texture.jpg');
     background-repeat: repeat;
-    background-size: 300px; /* tweak as needed */
+    background-size: 100%; /* tweak as needed */
     opacity: 0.04; /* adjust from 0.02 to 0.08 */
     pointer-events: none;
-    z-index: 50;
-    mix-blend-mode: overlay;
+}
+
+.neon-glow {
+    position: relative;
+    z-index: 1; /* above the glow */
+}
+
+.neon-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: radial-gradient(circle at center, #fb4190 0%, transparent 70%);
+    opacity: 0.35;
+    filter: blur(24px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.group:hover .neon-glow::before {
+    opacity: 0.55;
+    transform: scale(1.05);
+}
+
+.section-height {
+    min-height: calc(100vh - var(--header-height))
 }

@@ -1,14 +1,13 @@
 import { routing } from '@/i18n/routing'
 import type { Metadata } from 'next'
-import { NextIntlClientProvider, hasLocale } from 'next-intl'
+import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { notFound } from 'next/navigation'
 import './globals.css'
 
-import Footer from '@/components/common/footer'
-import Header from '@/components/common/header'
 import { Analytics } from '@vercel/analytics/next'
 import { Sora } from 'next/font/google'
 import { Toaster } from 'sonner'
+import Providers from './providers'
 
 const sora = Sora({
     variable: '--font-sora',
@@ -36,22 +35,12 @@ export default async function LocaleLayout({
     return (
         <html className="overflow-x-hidden scroll-smooth" lang={locale}>
             <body
-                className={`${sora.variable} font-main antialiased text-foreground bg-background`}
+                className={`${sora.variable} font-main antialiased text-foreground bg-gradient-main`}
             >
-                <NextIntlClientProvider>
-                    <div className="min-h-dvh flex flex-col isolate">
-                        <Header />
-
-                        <main className="flex-1">
-                            <div className="container mx-auto max-w-6xl px-6 lg:px-8 py-10">
-                                {children}
-                            </div>
-                        </main>
-
-                        <Toaster position="top-center" richColors closeButton />
-                        <Footer />
-                        <Analytics />
-                    </div>
+                <NextIntlClientProvider locale={locale}>
+                    <Providers>{children}</Providers>
+                    <Toaster position="top-center" richColors closeButton />
+                    <Analytics />
                 </NextIntlClientProvider>
             </body>
         </html>
