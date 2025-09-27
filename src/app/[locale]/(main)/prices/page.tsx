@@ -54,7 +54,7 @@ export default function PricesPage() {
             {/* Main Pricing Section */}
             <section className="w-full pb-10">
                 <div className="mx-auto w-full max-w-6xl px-4">
-                    <div className="relative w-full overflow-hidden rounded-2xl shadow-xl bg-card border border-border">
+                    <div className="relative w-full overflow-hidden rounded-2xl shadow-xl bg-card">
                         {/* Room Pricing Table */}
                         <div className="p-6 sm:p-8">
                             <div className="text-center mb-8">
@@ -71,7 +71,7 @@ export default function PricesPage() {
                                 {rooms.map((room) => (
                                     <div
                                         key={room.id}
-                                        className="relative overflow-hidden rounded-lg bg-muted/20 border border-border/30 p-3 transition-all hover:shadow-lg hover:scale-[1.02]"
+                                        className="relative overflow-hidden rounded-lg bg-muted/20 p-3 transition-all hover:shadow-lg hover:scale-[1.02]"
                                     >
                                         <div className="text-center space-y-2">
                                             <h3 className="text-sm font-bold text-foreground">
@@ -102,7 +102,7 @@ export default function PricesPage() {
                             {/* Additional Services */}
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                                 {/* Individual Practice */}
-                                <div className="text-center p-6 rounded-lg bg-muted/20 border border-border/30">
+                                <div className="text-center p-6 rounded-lg bg-muted/20">
                                     <div className="flex items-center justify-center gap-2 mb-3">
                                         <Drum className="h-5 w-5 text-foreground" />
                                         <h3 className="text-lg font-bold">
@@ -117,7 +117,7 @@ export default function PricesPage() {
                                 </div>
 
                                 {/* Studio Services */}
-                                <div className="text-center p-6 rounded-lg bg-muted/20 border border-border/30">
+                                <div className="text-center p-6 rounded-lg bg-muted/20">
                                     <div className="flex items-center justify-center gap-2 mb-3">
                                         <CalendarClock className="h-5 w-5 text-foreground" />
                                         <h3 className="text-lg font-bold">
@@ -148,7 +148,7 @@ export default function PricesPage() {
                 <div className="mx-auto w-full max-w-6xl px-4">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         {/* Rentable Equipment */}
-                        <div className="relative overflow-hidden rounded-2xl shadow-xl bg-card border border-border/50">
+                        <div className="relative overflow-hidden rounded-2xl shadow-xl bg-card">
                             <div className="p-8">
                                 <div className="text-center mb-8">
                                     <h3 className="text-2xl font-bold text-foreground mb-2">
@@ -167,7 +167,7 @@ export default function PricesPage() {
                                     {rentable.map((item, idx) => (
                                         <div
                                             key={idx}
-                                            className="flex items-center justify-between p-4 rounded-lg bg-muted/20 border border-border/30"
+                                            className="flex items-center justify-between p-4 rounded-lg bg-muted/20"
                                         >
                                             <div className="flex items-center gap-4">
                                                 {item.icon === 'cymbal' && (
@@ -208,7 +208,7 @@ export default function PricesPage() {
                         </div>
 
                         {/* Food and Drinks */}
-                        <div className="relative overflow-hidden rounded-2xl shadow-xl bg-card border border-border/50">
+                        <div className="relative overflow-hidden rounded-2xl shadow-xl bg-card">
                             <div className="p-8">
                                 <div className="text-center mb-8">
                                     <div className="flex items-center justify-center gap-2 mb-2">
@@ -229,7 +229,7 @@ export default function PricesPage() {
                                     {drinks.map((item, idx) => (
                                         <div
                                             key={idx}
-                                            className="flex items-center justify-between p-4 rounded-lg bg-muted/20 border border-border/30"
+                                            className="flex items-center justify-between p-4 rounded-lg bg-muted/20"
                                         >
                                             <span className="font-medium">{item.name}</span>
                                             {item.price && (
@@ -249,7 +249,7 @@ export default function PricesPage() {
             {/* Call to Action */}
             <section className="w-full pb-16">
                 <div className="mx-auto w-full max-w-4xl px-4 text-center">
-                    <div className="relative overflow-hidden rounded-2xl shadow-xl bg-card border border-border p-8">
+                    <div className="relative overflow-hidden rounded-2xl shadow-xl bg-card p-8">
                         <div className="relative z-10">
                             <h2 className="text-2xl font-bold text-foreground mb-3">
                                 {t('CTA_TITLE', { default: 'Készen állsz a próbára?' })}

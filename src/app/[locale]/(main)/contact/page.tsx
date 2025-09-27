@@ -1,9 +1,12 @@
 'use client'
 
+import PalmLeafDivider from '@/components/common/palm-leaft-divider'
+import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
+import TikiTorch from '@/components/common/TikiTorch'
 import { Button } from '@/components/ui/button'
+import { useAnimations } from '@/hooks/use-animation'
 import { CONTACT } from '@/lib/constants'
-import type { Variants } from 'framer-motion'
-import { easeOut, motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { ExternalLink, Mail, MapPin, Phone } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -12,10 +15,9 @@ import { useMemo } from 'react'
 
 function useMapsUrls(address: string) {
     return useMemo(() => {
-        const q = encodeURIComponent(address)
         return {
-            mapsEmbed: `https://www.google.com/maps?hl=hu&q=${q}&z=16&output=embed`,
-            mapsPlaceLink: `https://www.google.hu/maps/place/Artist+Factory+Rehearsal+Hall+And+Studio/@47.5158608,19.0469161,17z/data=!3m1!4b1!4m6!3m5!1s0x4741dc08be36a3cd:0xb3c92d9ab52716ac!8m2!3d47.5158572!4d19.049491!16s%2Fg%2F1thw5hrh?entry=ttu&g_ep=EgoyMDI1MDgxMy4wIKXMDSoASAFQAw%3D%3D`,
+            mapsEmbed: `https://www.google.com/maps?hl=hu&q=47.5158572,19.049491&z=19&output=embed`,
+            mapsPlaceLink: `https://www.google.hu/maps/place/Pr%C3%B3baterem+Budapest+-+Artist+Factory+Pr%C3%B3batermek+%C3%A9s+St%C3%BAdi%C3%B3/@47.5157889,19.0497344,19z/data=!4m16!1m9!3m8!1s0x4741dc08be36a3cd:0xb3c92d9ab52716ac!2sPr%C3%B3baterem+Budapest+-+Artist+Factory+Pr%C3%B3batermek+%C3%A9s+St%C3%BAdi%C3%B3!8m2!3d47.5158572!4d19.049491!9m1!1b1!16s%2Fg%2F1thw5hrh!3m5!1s0x4741dc08be36a3cd:0xb3c92d9ab52716ac!8m2!3d47.5158572!4d19.049491!16s%2Fg%2F1thw5hrh?entry=ttu&g_ep=EgoyMDI1MDkyNC4wIKXMDSoASAFQAw%3D%3D`,
         }
     }, [address])
 }
@@ -23,32 +25,10 @@ function useMapsUrls(address: string) {
 export default function ContactSection() {
     const t = useTranslations('CONTACT')
     const { mapsEmbed, mapsPlaceLink } = useMapsUrls(CONTACT.address)
+    const animations = useAnimations()
 
     const visualHeight = 'h-[16rem] sm:h-[22rem] md:h-[28rem] lg:h-[30rem]'
-    const prefersReduced = useReducedMotion()
-
-    const stagger: Variants = {
-        initial: {},
-        whileInView: { transition: { staggerChildren: prefersReduced ? 0 : 0.08 } },
-    }
-
-    const card: Variants = {
-        initial: { opacity: 0, y: prefersReduced ? 0 : 12 },
-        whileInView: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.35, ease: easeOut },
-        },
-    }
-
-    const fadeUp: Variants = {
-        initial: { opacity: 0, y: prefersReduced ? 0 : 14 },
-        whileInView: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.45, ease: easeOut },
-        },
-    }
+    const viewportConfig = { once: true, amount: 0.3 } as const
 
     // ✅ no window — use env var or hardcode for consistent SSR/CSR
     const jsonLd = {
@@ -68,153 +48,270 @@ export default function ContactSection() {
         image: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://artistfactory.hu'}/terkepzoom.jpg`,
         geo: {
             '@type': 'GeoCoordinates',
-            latitude: 47.515181710128985,
-            longitude: 19.049547169919382,
+            latitude: 47.5158572,
+            longitude: 19.049491,
         },
     }
 
     return (
-        <section className="w-full">
+        <div className="mb-20">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
 
-            <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-12">
-                {/* Header */}
-                <motion.div
-                    variants={fadeUp}
-                    initial="initial"
-                    whileInView="whileInView"
-                    viewport={{ once: true, amount: 0.2 }}
-                    className="flex flex-col items-center text-center"
-                >
-                    <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground">
-                        {t('PRE_TITLE')}
-                    </p>
-                    <h1 className="mt-2 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight">
-                        {t('TITLE')}
-                    </h1>
-                </motion.div>
-
-                {/* Grid: Map + Image */}
-                <motion.div
-                    variants={stagger}
-                    initial="initial"
-                    whileInView="whileInView"
-                    viewport={{ once: true, amount: 0.2 }}
-                    className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6"
-                >
+            {/* Title and Maps Section */}
+            <section className="relative">
+                <div className="w-full h-full mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                     <motion.div
-                        variants={card}
-                        className="w-full overflow-hidden rounded-2xl border bg-card shadow-sm"
-                    >
-                        <div className={visualHeight}>
-                            <iframe
-                                title="Google Map — ArtistFactory"
-                                src={mapsEmbed}
-                                loading="lazy"
-                                referrerPolicy="no-referrer-when-downgrade"
-                                className="h-full w-full border-0"
-                                allowFullScreen
-                            />
-                        </div>
-                    </motion.div>
-
-                    <motion.div
-                        variants={card}
-                        className="w-full overflow-hidden rounded-2xl border bg-card shadow-sm"
-                    >
-                        <div className={`relative ${visualHeight}`}>
-                            <Image
-                                src="/terkepzoom.jpg"
-                                alt="ArtistFactory megközelítési térkép és környék"
-                                fill
-                                className="object-cover"
-                                sizes="(min-width: 1024px) 50vw, 100vw"
-                            />
-                        </div>
-                    </motion.div>
-                </motion.div>
-
-                {/* Full-width description */}
-                <motion.div
-                    variants={fadeUp}
-                    initial="initial"
-                    whileInView="whileInView"
-                    viewport={{ once: true, amount: 0.2 }}
-                    className="text-base sm:text-lg leading-relaxed text-foreground/90"
-                >
-                    <h2 className="text-xl sm:text-2xl font-semibold mb-3">{t('ACCESS.TITLE')}</h2>
-                    <div className="space-y-4">
-                        <p>{t('ACCESS.TRAM')}</p>
-                        <p>{t('ACCESS.TROLLEY')}</p>
-                        <p>{t('ACCESS.CAR')}</p>
-                        <p>{t('ACCESS.ENTRANCE')}</p>
-                    </div>
-
-                    {/* CTA buttons */}
-                    <motion.div
-                        variants={stagger}
+                        variants={animations.fadeUp}
                         initial="initial"
                         whileInView="whileInView"
-                        viewport={{ once: true, amount: 0.2 }}
-                        className="flex flex-col gap-x-20 gap-y-5 sm:flex-row sm:items-center sm:justify-between mt-8"
+                        viewport={viewportConfig}
+                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full max-w-7xl mx-auto"
                     >
-                        <motion.div variants={card} className="w-full gap-x-5">
-                            <Button asChild size="xl" variant="secondary" className="w-full">
-                                <a href={mapsPlaceLink} target="_blank" rel="noopener noreferrer">
-                                    {t('GOOGLE_MAPS')}
-                                    <ExternalLink className="ml-2 h-5 w-5" aria-hidden />
-                                </a>
-                            </Button>
-                        </motion.div>
+                        {/* Palm Trees in corners */}
+                        <div className="absolute inset-0 pointer-events-none z-0">
+                            <PalmTreeSilhouette position="top-left" flipped size="md" />
+                            <PalmTreeSilhouette position="top-right" flipped mirrored size="md" />
+                            <PalmTreeSilhouette position="bottom-left" size="md" />
+                            <PalmTreeSilhouette position="bottom-right" mirrored size="md" />
+                        </div>
 
-                        <motion.div variants={card} className="w-full ">
-                            <Button asChild variant="secondary" size="xl" className="w-full">
-                                <a
-                                    href="https://futar.bkk.hu/?toCoord=47.5160181%2C19.0493435&toName=Artist%20Factory&toSubName=Studio%2C%20Pozsonyi%20%C3%BAt%2016%20Budapest%201137&toDisplayName=Artist%20Factory%2C%20Budapest%201137&map=18/47.51602/19.04934"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    {t('BKK_FUTAR')}
-                                    <ExternalLink className="ml-2 h-5 w-5" aria-hidden />
-                                </a>
-                            </Button>
-                        </motion.div>
+                        <div className="relative z-10 py-16 sm:py-20 lg:py-24">
+                            {/* Title */}
+                            <div className="space-y-4 sm:space-y-6">
+                                <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-muted-foreground">
+                                    {t('PRE_TITLE')}
+                                </p>
+                                <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-semibold tracking-tight text-pretty">
+                                    {t('TITLE')}
+                                </h1>
+                            </div>
+                        </div>
                     </motion.div>
-                </motion.div>
+                </div>
+            </section>
 
-                {/* Contact info */}
-                <motion.div
-                    variants={stagger}
-                    initial="initial"
-                    whileInView="whileInView"
-                    viewport={{ once: true, amount: 0.2 }}
-                    className="space-y-3 text-base sm:text-lg flex flex-col justify-center items-center"
-                >
-                    <div className='w-full flex flex-col justify-start gap-3'>
-                        <motion.p variants={card} className="flex items-center gap-3">
-                            <MapPin className="h-5 w-5 shrink-0" />
-                            <span>{CONTACT.address}</span>
-                        </motion.p>
-                        <motion.p variants={card} className="flex items-center gap-3">
-                            <Phone className="h-5 w-5 shrink-0" />
-                            <Link href={`tel:${CONTACT.phoneRaw}`} className="hover:underline">
-                                {CONTACT.phoneDisplay}
-                            </Link>
-                        </motion.p>
-                        {CONTACT.email && (
-                            <motion.p variants={card} className="flex items-center gap-3">
-                                <Mail className="h-5 w-5 shrink-0" />
-                                <Link href={`mailto:${CONTACT.email}`} className="hover:underline">
-                                    {CONTACT.email}
-                                </Link>
-                            </motion.p>
-                        )}
-                    </div>
-                </motion.div>
-            </div>
-        </section>
+            {/* Palm Leaf Divider */}
+            <PalmLeafDivider count={7} mobileCount={5} spacing="normal" />
+
+            {/* Maps Section */}
+            <section className="relative">
+                <div className="w-full h-full mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                    <motion.div
+                        variants={animations.fadeUp}
+                        initial="initial"
+                        whileInView="whileInView"
+                        viewport={viewportConfig}
+                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full max-w-7xl mx-auto"
+                    >
+                        <div className="relative z-10">
+                            {/* Grid: Map + Image */}
+                            <motion.div
+                                variants={animations.stagger}
+                                initial="initial"
+                                whileInView="whileInView"
+                                viewport={viewportConfig}
+                                className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6"
+                            >
+                                <motion.div
+                                    variants={animations.scaleIn}
+                                    className="w-full overflow-hidden rounded-2xl border bg-card shadow-sm"
+                                >
+                                    <div className={visualHeight}>
+                                        <iframe
+                                            title="Google Map — ArtistFactory"
+                                            src={mapsEmbed}
+                                            loading="lazy"
+                                            referrerPolicy="no-referrer-when-downgrade"
+                                            className="h-full w-full border-0"
+                                            allowFullScreen
+                                        />
+                                    </div>
+                                </motion.div>
+
+                                <motion.div
+                                    variants={animations.scaleIn}
+                                    className="w-full overflow-hidden rounded-2xl border bg-card shadow-sm"
+                                >
+                                    <div className={`relative ${visualHeight}`}>
+                                        <Image
+                                            src="/terkepzoom.jpg"
+                                            alt="ArtistFactory megközelítési térkép és környék"
+                                            fill
+                                            className="object-cover"
+                                            sizes="(min-width: 1024px) 50vw, 100vw"
+                                        />
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Palm Leaf Divider */}
+            <PalmLeafDivider count={7} mobileCount={5} spacing="normal" />
+
+            {/* Accessibility, Buttons and Contact Info Section */}
+            <section className="relative">
+                <div className="w-full h-full mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                    <motion.div
+                        variants={animations.fadeUp}
+                        initial="initial"
+                        whileInView="whileInView"
+                        viewport={viewportConfig}
+                        className="bg-muted/30 rounded-3xl p-8 sm:p-10 lg:p-12 relative overflow-hidden w-full max-w-6xl mx-auto"
+                    >
+                        {/* Tiki Torches in corners with extra padding for visibility */}
+                        <div className="hidden sm:block">
+                            <TikiTorch position="top-left" />
+                            <TikiTorch position="top-right" />
+                            <TikiTorch position="bottom-left" />
+                            <TikiTorch position="bottom-right" />
+                        </div>
+
+                        <div className="relative z-10 space-y-12 sm:space-y-16 lg:space-y-20">
+                            {/* Access Information */}
+                            <motion.div
+                                variants={animations.fadeUp}
+                                initial="initial"
+                                whileInView="whileInView"
+                                viewport={viewportConfig}
+                                className="max-w-5xl mx-auto"
+                            >
+                                <div className="space-y-6 sm:space-y-8">
+                                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold">
+                                        {t('ACCESS.TITLE')}
+                                    </h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 text-left text-sm sm:text-base lg:text-lg leading-relaxed text-foreground/90">
+                                        <div className="space-y-4">
+                                            <p>{t('ACCESS.TRAM')}</p>
+                                            <p>{t('ACCESS.TROLLEY')}</p>
+                                        </div>
+                                        <div className="space-y-4">
+                                            <p>{t('ACCESS.CAR')}</p>
+                                            <p>{t('ACCESS.ENTRANCE')}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* CTA buttons */}
+                            <motion.div
+                                variants={animations.stagger}
+                                initial="initial"
+                                whileInView="whileInView"
+                                viewport={viewportConfig}
+                                className="flex flex-col gap-4 sm:flex-row sm:gap-6 lg:gap-8 max-w-4xl mx-auto"
+                            >
+                                <motion.div variants={animations.scaleIn} className="w-full">
+                                    <Button asChild size="xl" variant="default" className="w-full">
+                                        <a
+                                            href={mapsPlaceLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <span className="sm:hidden">Google Maps</span>
+                                            <span className="hidden sm:inline">{t('GOOGLE_MAPS')}</span>
+                                            <ExternalLink className="ml-2 h-5 w-5" aria-hidden />
+                                        </a>
+                                    </Button>
+                                </motion.div>
+
+                                <motion.div variants={animations.scaleIn} className="w-full">
+                                    <Button
+                                        asChild
+                                        variant="secondary"
+                                        size="xl"
+                                        className="w-full"
+                                    >
+                                        <a
+                                            href="https://futar.bkk.hu/?toCoord=47.5160181%2C19.0493435&toName=Artist%20Factory&toSubName=Studio%2C%20Pozsonyi%20%C3%BAt%2016%20Budapest%201137&toDisplayName=Artist%20Factory%2C%20Budapest%201137&map=18/47.51602/19.04934"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <span className="sm:hidden">BKK Futár</span>
+                                            <span className="hidden sm:inline">{t('BKK_FUTAR')}</span>
+                                            <ExternalLink className="ml-2 h-5 w-5" aria-hidden />
+                                        </a>
+                                    </Button>
+                                </motion.div>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Palm Leaf Divider */}
+            <PalmLeafDivider count={7} mobileCount={5} spacing="normal" />
+
+            {/* Contact Information Section */}
+            <section className="relative">
+                <div className="w-full h-full mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                    <motion.div
+                        variants={animations.fadeUp}
+                        initial="initial"
+                        whileInView="whileInView"
+                        viewport={viewportConfig}
+                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full max-w-5xl mx-auto"
+                    >
+                        {/* Palm Trees in corners */}
+                        <div className="absolute inset-0 pointer-events-none z-0">
+                            <PalmTreeSilhouette position="top-left" flipped size="md" />
+                            <PalmTreeSilhouette position="top-right" flipped mirrored size="md" />
+                            <PalmTreeSilhouette position="bottom-left" size="md" />
+                            <PalmTreeSilhouette position="bottom-right" mirrored size="md" />
+                        </div>
+
+                        <div className="relative z-10 py-8 sm:py-10 lg:py-12">
+                            {/* Contact info */}
+                            <motion.div
+                                variants={animations.stagger}
+                                initial="initial"
+                                whileInView="whileInView"
+                                viewport={viewportConfig}
+                                className="space-y-6 sm:space-y-8 text-base sm:text-lg lg:text-xl"
+                            >
+                                <motion.div
+                                    variants={animations.fadeUp}
+                                    className="flex items-center justify-center gap-3"
+                                >
+                                    <MapPin className="h-5 w-5 sm:h-6 sm:w-6 shrink-0" />
+                                    <span>{CONTACT.address}</span>
+                                </motion.div>
+                                <motion.div
+                                    variants={animations.fadeUp}
+                                    className="flex items-center justify-center gap-3"
+                                >
+                                    <Phone className="h-5 w-5 sm:h-6 sm:w-6 shrink-0" />
+                                    <Link
+                                        href={`tel:${CONTACT.phoneRaw}`}
+                                        className="hover:underline"
+                                    >
+                                        {CONTACT.phoneDisplay}
+                                    </Link>
+                                </motion.div>
+                                {CONTACT.email && (
+                                    <motion.div
+                                        variants={animations.fadeUp}
+                                        className="flex items-center justify-center gap-3"
+                                    >
+                                        <Mail className="h-5 w-5 sm:h-6 sm:w-6 shrink-0" />
+                                        <Link
+                                            href={`mailto:${CONTACT.email}`}
+                                            className="hover:underline"
+                                        >
+                                            {CONTACT.email}
+                                        </Link>
+                                    </motion.div>
+                                )}
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
+        </div>
     )
 }
