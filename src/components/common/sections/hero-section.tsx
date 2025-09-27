@@ -14,11 +14,21 @@ export default function HeroSection() {
     return (
         <>
             <section className="absolute left-0 right-0 min-h-screen flex items-center justify-center -mt-[var(--header-height)] overflow-hidden z-10">
-                {/* Full-screen fixed background image */}
+                {/* Full-screen fixed background image - Desktop */}
                 <div
-                    className="absolute inset-0 w-full h-full bg-no-repeat bg-center bg-fixed"
+                    className="absolute inset-0 w-full h-full bg-no-repeat bg-center bg-fixed hidden sm:block"
                     style={{
                         backgroundImage: "url('/decorations/AF01.png')",
+                        backgroundSize: 'contain',
+                    }}
+                    aria-hidden="true"
+                />
+
+                {/* Full-screen fixed background image - Mobile (rotated version) */}
+                <div
+                    className="absolute inset-0 w-full h-full bg-no-repeat bg-center bg-fixed block sm:hidden"
+                    style={{
+                        backgroundImage: "url('/decorations/AF01-mobile.png')",
                         backgroundSize: 'contain',
                     }}
                     aria-hidden="true"
