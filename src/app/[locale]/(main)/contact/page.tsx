@@ -19,7 +19,7 @@ function useMapsUrls(address: string) {
             mapsEmbed: `https://www.google.com/maps?hl=hu&q=47.5158572,19.049491&z=19&output=embed`,
             mapsPlaceLink: `https://www.google.hu/maps/place/Pr%C3%B3baterem+Budapest+-+Artist+Factory+Pr%C3%B3batermek+%C3%A9s+St%C3%BAdi%C3%B3/@47.5157889,19.0497344,19z/data=!4m16!1m9!3m8!1s0x4741dc08be36a3cd:0xb3c92d9ab52716ac!2sPr%C3%B3baterem+Budapest+-+Artist+Factory+Pr%C3%B3batermek+%C3%A9s+St%C3%BAdi%C3%B3!8m2!3d47.5158572!4d19.049491!9m1!1b1!16s%2Fg%2F1thw5hrh!3m5!1s0x4741dc08be36a3cd:0xb3c92d9ab52716ac!8m2!3d47.5158572!4d19.049491!16s%2Fg%2F1thw5hrh?entry=ttu&g_ep=EgoyMDI1MDkyNC4wIKXMDSoASAFQAw%3D%3D`,
         }
-    }, [address])
+    }, [])
 }
 
 export default function ContactSection() {
@@ -94,7 +94,7 @@ export default function ContactSection() {
             </section>
 
             {/* Palm Leaf Divider */}
-            <PalmLeafDivider count={7} mobileCount={5} spacing="normal" />
+            <PalmLeafDivider spacing="normal" />
 
             {/* Maps Section */}
             <section className="relative">
@@ -152,7 +152,7 @@ export default function ContactSection() {
             </section>
 
             {/* Palm Leaf Divider */}
-            <PalmLeafDivider count={7} mobileCount={5} spacing="normal" />
+            <PalmLeafDivider spacing="normal" />
 
             {/* Accessibility, Buttons and Contact Info Section */}
             <section className="relative">
@@ -245,7 +245,7 @@ export default function ContactSection() {
             </section>
 
             {/* Palm Leaf Divider */}
-            <PalmLeafDivider count={7} mobileCount={5} spacing="normal" />
+            <PalmLeafDivider spacing="normal" />
 
             {/* Contact Information Section */}
             <section className="relative">

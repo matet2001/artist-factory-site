@@ -90,7 +90,7 @@ export default function HeroSection() {
                         >
                             <motion.div variants={animations.scaleIn}>
                                 <Link href="/booking" className="group h-full block">
-                                    <div className="h-full min-h-[100px] sm:min-h-[120px] w-full flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl bg-card transition-all duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary">
+                                    <div className="h-full min-h-[100px] sm:min-h-[120px] w-full flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl bg-accent transition-all duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary">
                                         <CalendarDays
                                             className="w-5 h-5 sm:w-6 sm:h-6 mb-2"
                                             aria-hidden="true"
@@ -104,7 +104,7 @@ export default function HeroSection() {
 
                             <motion.div variants={animations.scaleIn}>
                                 <Link href="/contact" className="group h-full block">
-                                    <div className="h-full min-h-[100px] sm:min-h-[120px] flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl bg-card transition-all duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary">
+                                    <div className="h-full min-h-[100px] sm:min-h-[120px] flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl bg-accent transition-all duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary">
                                         <Phone
                                             className="w-5 h-5 sm:w-6 sm:h-6 mb-2"
                                             aria-hidden="true"

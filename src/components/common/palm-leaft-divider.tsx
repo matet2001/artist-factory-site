@@ -24,13 +24,13 @@ const sizeClasses = {
 
 export default function PalmLeafDivider({
     count = 7,
-    mobileCount,
+    mobileCount = 5,
     spacing = 'normal',
     size = 'md',
     opacity = 0.4,
     className = '',
 }: PalmLeafDividerProps) {
-    const actualMobileCount = mobileCount || count
+    const actualMobileCount = mobileCount
 
     return (
         <div
