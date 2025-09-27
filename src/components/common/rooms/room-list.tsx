@@ -31,14 +31,14 @@ export default function RoomList() {
                 {rooms.map((room) => (
                     <CarouselItem
                         key={room.id}
-                        className="basis-full sm:basis-1/2 lg:basis-1/3"
+                        className="basis-full sm:basis-1/2 lg:basis-1/3 py-4"
                     >
                         <RoomCard room={room} />
                     </CarouselItem>
                 ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="border-0" />
+            <CarouselNext className="border-0" />
         </Carousel>
     )
 }

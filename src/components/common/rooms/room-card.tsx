@@ -22,7 +22,7 @@ export default function RoomCard({ room }: Props) {
     return (
         <div
             onClick={goToRoom}
-            className="group relative w-full h-80 sm:h-96 overflow-hidden rounded-2xl cursor-pointer shadow-lg hover:shadow-2xl bg-background"
+            className="group relative w-full h-80 sm:h-96 overflow-hidden rounded-2xl cursor-pointer hover:outline hover:outline-muted/50 transition-colors duration-200"
         >
             {/* Background Image */}
             <div className="absolute inset-x-0 top-0 h-2/3 z-0">
@@ -36,12 +36,12 @@ export default function RoomCard({ room }: Props) {
             </div>
 
             {/* Dark Gradient Overlay */}
-            <div className="absolute rounded-t-3xl inset-x-0 bottom-0 h-1/2 z-10 bg-gradient-to-t from-card to-card/10 backdrop-blur-md " />
+            <div className="absolute rounded-t-3xl inset-x-0 bottom-0 h-1/2 z-10 bg-gradient-to-t from-background to-background/10 backdrop-blur-md " />
 
             {/* Content Container */}
             <div className="absolute inset-0 z-20 flex flex-col justify-end p-6">
                 {/* Title */}
-                <h3 className="text-white text-xl sm:text-2xl font-bold capitalize mb-3 drop-shadow-lg">
+                <h3 className="text-white text-xl sm:text-2xl font-bold capitalize mb-3 ">
                     {t(room.name)}
                 </h3>
 
@@ -52,7 +52,7 @@ export default function RoomCard({ room }: Props) {
                             <DollarSign className="w-4 h-4" />
                         </div>
                         <span className="text-sm font-medium drop-shadow-md">
-                            {room.price} {t('HOUR')}
+                            {room.price} / {t('HOUR')}
                         </span>
                     </div>
 
@@ -78,7 +78,7 @@ export default function RoomCard({ room }: Props) {
             </div>
 
             {/* Optional: Hover effect overlay */}
-            <div className="absolute inset-0 z-5 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+            {/* <div className="absolute inset-0 z-5 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" /> */}
         </div>
     )
 }

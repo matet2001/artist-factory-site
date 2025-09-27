@@ -11,6 +11,7 @@ import { useTranslations } from 'next-intl'
 import LanguageToggle from './language-toggle'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { AuthOptions } from './auth/navbar/AuthOptions'
 
 const routes = [
     { cta: false, name: 'HOME', href: '/', isCta: false },
@@ -19,6 +20,7 @@ const routes = [
     { cta: false, name: 'PRICES', href: '/prices', isCta: false },
     { cta: false, name: 'CONTACT', href: '/contact', isCta: false },
 ]
+
 export default function Header() {
     const [isSheetOpen, setIsSheetOpen] = useState(false)
     const translate = useTranslations('NAV')
@@ -41,7 +43,7 @@ export default function Header() {
                         'text-md transition-colors',
                         mobile && 'w-full justify-center',
                         item.isCta
-                            ? 'bg-primary text-primary-foreground shadow-xs hover:bg-primary/60'
+                            ? 'bg-primary text-primary-foreground shadow-xs hover:bg-hover'
                             : cn(
                                   isCurrentRoute(item.href)
                                       ? 'text-primary font-semibold cursor-default hover:bg-transparent hover:text-primary'
@@ -59,15 +61,16 @@ export default function Header() {
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="sticky top-0 z-50 w-full backdrop-blur-md rounded-b-3xl h-[var(--header-height)] bg-background/70 supports-[backdrop-filter]:bg-background/30"
+            className="sticky top-0 z-50 mx-auto max-w-6xl w-full backdrop-blur-md rounded-b-3xl h-[var(--header-height)] bg-background/70 supports-[backdrop-filter]:bg-background/30"
         >
-            <div className="container mx-auto flex h-full items-center justify-between px-4 max-w-7xl w-full">
+            <div className="container mx-auto flex h-full items-center justify-between px-10 w-full">
                 <Logo />
 
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex gap-4 justify-center">{renderNavLinks()}</nav>
 
-                <div className="hidden md:block">
+                <div className="hidden md:flex justify-center items-center space-x-5">
+                    <AuthOptions />
                     <LanguageToggle />
                 </div>
 
