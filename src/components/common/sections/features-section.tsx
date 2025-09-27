@@ -57,7 +57,7 @@ export default function FeaturesSection() {
                         variants={animations.stagger}
                         className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8  xl:gap-16  mx-auto"
                     >
-                        {features.map((feature, index) => {
+                        {features.map((feature) => {
                             const IconComponent = feature.icon
                             return (
                                 <motion.div

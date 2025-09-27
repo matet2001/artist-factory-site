@@ -9,7 +9,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                     <div className="flex justify-center">
                         <Logo size={300}/>
                     </div>
-                    <div className="bg-dialog text-dialog-foreground p-6 rounded-lg shadow-lg">
+                    <div className="bg-background/70 text-dialog-foreground p-6 rounded-lg shadow-lg">
                         {children}
                     </div>
                 </div>

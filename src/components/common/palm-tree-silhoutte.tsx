@@ -1,5 +1,8 @@
+'use client'
+
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 interface PalmTreeSilhouetteProps {
     mirrored?: boolean
@@ -39,7 +42,7 @@ export default function PalmTreeSilhouette({
     position,
 }: PalmTreeSilhouetteProps) {
     return (
-        <div
+        <motion.div
             className={cn(
                 'pointer-events-none absolute z-[-1]',
                 sizeClasses[size],
@@ -48,6 +51,16 @@ export default function PalmTreeSilhouette({
             )}
             style={{
                 aspectRatio: `${583 / 600}`, // Maintain original aspect ratio
+                transformOrigin: 'center bottom', // Makes it sway from the base
+            }}
+            animate={{
+                rotate: [-2, 1, -2,], // Gentle left-right sway
+            }}
+            transition={{
+                duration: 4 + Math.random() * 2, // Random duration between 4-6 seconds
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: Math.random() * 2, // Random delay to stagger animations
             }}
         >
             <Image
@@ -62,6 +75,6 @@ export default function PalmTreeSilhouette({
                 )}
                 priority={false}
             />
-        </div>
+        </motion.div>
     )
 }
