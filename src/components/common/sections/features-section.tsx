@@ -5,7 +5,6 @@ import { motion } from 'framer-motion'
 import { BadgeDollarSign, Headphones, LayoutDashboard, Snowflake } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import PalmLeafDivider from '../PalmLeaftDivider'
 
 export default function FeaturesSection() {
     const t = useTranslations('HOME')
@@ -40,7 +39,7 @@ export default function FeaturesSection() {
             {/* Palm Leaf Divider */}
             {/* <PalmLeafDivider count={7} spacing="normal" /> */}
 
-            <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="w-full  px-4 sm:px-6 lg:px-8">
                 {/* Features Header */}
                 <motion.div
                     variants={animations.fadeUp}

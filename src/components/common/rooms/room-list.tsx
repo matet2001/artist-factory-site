@@ -19,7 +19,7 @@ export default function RoomList() {
     return (
         <Carousel
             plugins={[plugin.current]}
-            className="w-full max-w-5xl"
+            className="w-full max-w-5xl px-8 sm:px-0"
             onMouseEnter={plugin.current.stop}
             onMouseLeave={plugin.current.reset}
             opts={{
@@ -37,8 +37,8 @@ export default function RoomList() {
                     </CarouselItem>
                 ))}
             </CarouselContent>
-            <CarouselPrevious className="border-0" />
-            <CarouselNext className="border-0" />
+            <CarouselPrevious className="border-0 left-0 sm:-left-12" />
+            <CarouselNext className="border-0 right-0 sm:-right-12" />
         </Carousel>
     )
 }

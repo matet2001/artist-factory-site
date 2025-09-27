@@ -1,6 +1,6 @@
 'use client'
 
-import PalmLeafDivider from '@/components/common/PalmLeaftDivider'
+import PalmLeafDivider from '@/components/common/palm-leaft-divider'
 import DescriptionSection from '@/components/common/sections/description-section'
 import FeaturesSection from '@/components/common/sections/features-section'
 import HeroSection from '@/components/common/sections/hero-section'
@@ -14,28 +14,28 @@ export default function HomeHeroSection() {
             <HeroSection />
 
             {/* Palm Leaf Divider */}
-            <PalmLeafDivider count={7} spacing="normal" />
+            <PalmLeafDivider count={7} mobileCount={5} spacing="normal" />
+
+            {/* Studio Showcase Section */}
+            <StudioShowcase />
+
+            {/* Palm Leaf Divider */}
+            <PalmLeafDivider count={7} mobileCount={5} spacing="normal" />
 
             {/* Description Section */}
             <DescriptionSection />
 
             {/* Palm Leaf Divider */}
-            <PalmLeafDivider count={7} spacing="normal" />
+            <PalmLeafDivider count={7} mobileCount={5} spacing="normal" />
 
             {/* Features Section - breaks out of container with absolute positioning */}
             <FeaturesSection />
 
             {/* Palm Leaf Divider */}
-            <PalmLeafDivider count={7} spacing="normal" />
+            <PalmLeafDivider count={7} mobileCount={5} spacing="normal" />
 
             {/* Rooms Section */}
             <RoomsSection />
-
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider count={7} spacing="normal" />
-
-            {/* Studio Showcase Section */}
-            <StudioShowcase />
         </div>
     )
 }

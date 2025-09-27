@@ -23,13 +23,15 @@ export default function RoomsSection() {
                     initial="initial"
                     whileInView="whileInView"
                     viewport={viewportConfig}
-                    className="bg-muted/30 rounded-3xl p-6 sm:p-8 relative overflow-hidden w-full max-w-7xl mx-auto"
+                    className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative w-full"
                 >
-                    {/* Tiki Torches in all corners - angled towards center */}
-                    <TikiTorch position="top-left" />
-                    <TikiTorch position="top-right" />
-                    <TikiTorch position="bottom-left" />
-                    <TikiTorch position="bottom-right" />
+                    {/* Tiki Torches in all corners - angled towards center - hidden on mobile */}
+                    <div className="hidden sm:block">
+                        <TikiTorch position="top-left" />
+                        <TikiTorch position="top-right" />
+                        <TikiTorch position="bottom-left" />
+                        <TikiTorch position="bottom-right" />
+                    </div>
 
                     <div className="relative z-10 space-y-8 sm:space-y-10 lg:space-y-12">
                         {/* Section Header */}
@@ -56,7 +58,7 @@ export default function RoomsSection() {
                             initial="initial"
                             whileInView="whileInView"
                             viewport={{ once: true, amount: 0.2 }}
-                            className="flex justify-center items-center px-2 sm:px-4 lg:px-8 xl:px-12"
+                            className="flex justify-center items-center px-0 sm:px-2 lg:px-4 xl:px-8"
                         >
                             <RoomList />
                         </motion.div>

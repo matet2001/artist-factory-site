@@ -3,6 +3,7 @@ import Image from 'next/image'
 
 interface PalmLeafDividerProps {
     count?: number
+    mobileCount?: number
     spacing?: 'tight' | 'normal' | 'wide'
     size?: 'sm' | 'md' | 'lg'
     opacity?: number
@@ -23,16 +24,41 @@ const sizeClasses = {
 
 export default function PalmLeafDivider({
     count = 7,
+    mobileCount,
     spacing = 'normal',
     size = 'md',
     opacity = 0.4,
     className = '',
 }: PalmLeafDividerProps) {
+    const actualMobileCount = mobileCount || count
+
     return (
         <div
             className={`relative flex items-center justify-center my-8 overflow-hidden ${className}`}
         >
-            <div className={`flex items-center justify-center ${spacingClasses[spacing]}`}>
+            {/* Mobile version with fewer leaves */}
+            <div className={`sm:hidden flex items-center justify-center ${spacingClasses[spacing]}`}>
+                {[...Array(actualMobileCount)].map((_, i) => (
+                    <motion.div
+                        key={i}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: opacity, scale: 1 }}
+                        transition={{ delay: i * 0.1, duration: 0.5 }}
+                        className={`relative ${sizeClasses[size]}`}
+                        style={{ opacity }}
+                    >
+                        <Image
+                            src="/decorations/palm-leaf.png"
+                            alt=""
+                            fill
+                            className="object-contain"
+                        />
+                    </motion.div>
+                ))}
+            </div>
+
+            {/* Desktop version with full count */}
+            <div className={`hidden sm:flex items-center justify-center ${spacingClasses[spacing]}`}>
                 {[...Array(count)].map((_, i) => (
                     <motion.div
                         key={i}

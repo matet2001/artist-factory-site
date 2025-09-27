@@ -1,6 +1,6 @@
 'use client'
 
-import PalmTreeSilhouette from '@/components/common/PalmTreeSilhoutte'
+import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
 import { useAnimations } from '@/hooks/use-animation'
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
@@ -13,17 +13,11 @@ export default function DescriptionSection() {
     return (
         <section className="section-height flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-muted/30 rounded-xl relative overflow-hidden">
             {/* Palm Trees in all corners */}
-            <div className="absolute left-0 top-0 z-0">
-                <PalmTreeSilhouette flipped />
-            </div>
-            <div className="absolute right-0 top-0 z-0">
-                <PalmTreeSilhouette flipped mirrored />
-            </div>
-            <div className="absolute left-0 bottom-0 z-0">
-                <PalmTreeSilhouette />
-            </div>
-            <div className="absolute right-0 bottom-0 z-0">
-                <PalmTreeSilhouette mirrored />
+            <div className="absolute inset-0 pointer-events-none z-0">
+                <PalmTreeSilhouette position="top-left" flipped size="lg" />
+                <PalmTreeSilhouette position="top-right" flipped mirrored size="lg" />
+                <PalmTreeSilhouette position="bottom-left" size="lg" />
+                <PalmTreeSilhouette position="bottom-right" mirrored size="lg" />
             </div>
 
             <motion.div
