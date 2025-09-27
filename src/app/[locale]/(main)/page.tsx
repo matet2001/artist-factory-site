@@ -14,25 +14,25 @@ export default function HomeHeroSection() {
             <HeroSection />
 
             {/* Palm Leaf Divider */}
-            <PalmLeafDivider count={7} mobileCount={5} spacing="normal" />
+            <PalmLeafDivider spacing="normal" />
 
             {/* Studio Showcase Section */}
             <StudioShowcase />
 
             {/* Palm Leaf Divider */}
-            <PalmLeafDivider count={7} mobileCount={5} spacing="normal" />
+            <PalmLeafDivider spacing="normal" />
 
             {/* Description Section */}
             <DescriptionSection />
 
             {/* Palm Leaf Divider */}
-            <PalmLeafDivider count={7} mobileCount={5} spacing="normal" />
+            <PalmLeafDivider spacing="normal" />
 
             {/* Features Section - breaks out of container with absolute positioning */}
             <FeaturesSection />
 
             {/* Palm Leaf Divider */}
-            <PalmLeafDivider count={7} mobileCount={5} spacing="normal" />
+            <PalmLeafDivider spacing="normal" />
 
             {/* Rooms Section */}
             <RoomsSection />
