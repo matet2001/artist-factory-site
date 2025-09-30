@@ -36,7 +36,12 @@ export default function Header() {
 
     const renderNavLinks = (mobile = false) =>
         routes.map((item) => (
-            <Link key={item.href} href={item.href} className="group">
+            <Link
+                key={item.href}
+                href={item.href}
+                className="group"
+                onClick={() => mobile && setIsSheetOpen(false)}
+            >
                 <Button
                     variant={item.isCta ? 'default' : 'ghost'}
                     className={cn(

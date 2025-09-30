@@ -37,12 +37,16 @@ export default function PalmLeafDivider({
             className={`relative flex items-center justify-center my-8 overflow-hidden ${className}`}
         >
             {/* Mobile version with fewer leaves */}
-            <div className={`sm:hidden flex items-center justify-center ${spacingClasses[spacing]}`}>
+            <div
+                className={`sm:hidden flex items-center justify-center ${spacingClasses[spacing]}`}
+            >
                 {[...Array(actualMobileCount)].map((_, i) => (
                     <motion.div
                         key={i}
                         initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: opacity, scale: 1 }}
                         whileInView={{ opacity: opacity, scale: 1 }}
+                        viewport={{ once: true, amount: 0.3 }}
                         transition={{ delay: i * 0.1, duration: 0.5 }}
                         className={`relative ${sizeClasses[size]}`}
                         style={{ opacity }}
@@ -58,12 +62,16 @@ export default function PalmLeafDivider({
             </div>
 
             {/* Desktop version with full count */}
-            <div className={`hidden sm:flex items-center justify-center ${spacingClasses[spacing]}`}>
+            <div
+                className={`hidden sm:flex items-center justify-center ${spacingClasses[spacing]}`}
+            >
                 {[...Array(count)].map((_, i) => (
                     <motion.div
                         key={i}
                         initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: opacity, scale: 1 }}
                         whileInView={{ opacity: opacity, scale: 1 }}
+                        viewport={{ once: true, amount: 0.3 }}
                         transition={{ delay: i * 0.1, duration: 0.5 }}
                         className={`relative ${sizeClasses[size]}`}
                         style={{ opacity }}
