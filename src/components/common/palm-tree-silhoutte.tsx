@@ -14,7 +14,7 @@ interface PalmTreeSilhouetteProps {
 }
 
 const sizeClasses = {
-    sm: 'w-12 sm:w-16 md:w-20 lg:w-24 h-12',
+    sm: 'w-14 sm:w-18 md:w-24 lg:w-28 h-auto',
     md: 'w-16 sm:w-20 md:w-28 lg:w-32 h-auto',
     lg: 'w-20 sm:w-28 md:w-36 lg:w-44 h-auto',
     xl: 'w-24 sm:w-32 md:w-44 lg:w-56 h-12',

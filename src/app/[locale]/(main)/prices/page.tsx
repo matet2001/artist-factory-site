@@ -4,40 +4,37 @@
 import PalmLeafDivider from '@/components/common/palm-leaft-divider'
 import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
 import TikiTorch from '@/components/common/TikiTorch'
-import { EquipmentIcon } from '@/components/common/rooms/equipment-icon'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import { useAnimations } from '@/hooks/use-animation'
 import { rooms } from '@/lib/rooms'
 import { motion } from 'framer-motion'
-import { CalendarClock, CalendarDays, Coffee, DollarSign, Drum, Users, Utensils } from 'lucide-react'
+import { CalendarClock, CalendarDays, Coffee, DollarSign, Drum, Snowflake, Users } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 type RentableItem = {
-    icon: 'cymbal' | 'pedal' | 'drum'
-    name: string
+    translationKey: string
     price: number // Ft / hour
 }
 
 const rentable: RentableItem[] = [
-    { icon: 'cymbal', name: 'Gémes cintányér állvány', price: 300 },
-    { icon: 'cymbal', name: 'Egyenes cintányér állvány', price: 300 },
-    { icon: 'cymbal', name: 'Cintányér (Paiste PST7/PST8, 16"-17"-18" Crash)', price: 300 },
-    { icon: 'pedal', name: 'Duplázó', price: 300 },
+    { translationKey: 'RENTABLE_BOOM_STAND', price: 300 },
+    { translationKey: 'RENTABLE_STRAIGHT_STAND', price: 300 },
+    { translationKey: 'RENTABLE_CYMBAL', price: 300 },
+    { translationKey: 'RENTABLE_DOUBLE_PEDAL', price: 300 },
 ]
 
 type DrinkItem = {
-    name: string
+    translationKey: string
     price?: number
 }
 
 const drinks: DrinkItem[] = [
-    { name: 'Sör 0,5 l', price: 800 },
-    { name: 'Ásványvíz 0,5 l', price: 400 },
-    { name: 'Cola – Fanta – Traubi 0,5 l', price: 500 },
-    { name: 'Kávéautomata', price: 300 },
+    { translationKey: 'DRINK_BEER', price: 800 },
+    { translationKey: 'DRINK_WATER', price: 400 },
+    { translationKey: 'DRINK_SODA', price: 500 },
+    { translationKey: 'DRINK_COFFEE', price: 300 },
 ]
 
 export default function PricesPage() {
@@ -45,7 +42,7 @@ export default function PricesPage() {
     const tRooms = useTranslations('ROOMS')
     const animations = useAnimations()
     const router = useRouter()
-    const viewportConfig = { once: true, amount: 0.3 } as const
+    const viewportConfig = { once: true, amount: 0.1 } as const
 
     const goToRoom = (roomId: string) => router.push(`/rooms/#room-${roomId}`)
 
@@ -53,23 +50,25 @@ export default function PricesPage() {
         <div className="mb-20">
             {/* Title Section */}
             <section className="relative">
-                <div className="w-full h-full mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <div className="w-full mx-auto text-center relative z-10">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
+                        animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden w-full max-w-5xl mx-auto"
+                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
                     >
                         {/* Palm Trees in corners */}
                         <div className="absolute inset-0 pointer-events-none z-0">
-                            <PalmTreeSilhouette position="top-left" flipped size="md" />
-                            <PalmTreeSilhouette position="top-right" flipped mirrored size="md" />
-                            <PalmTreeSilhouette position="bottom-left" size="md" />
-                            <PalmTreeSilhouette position="bottom-right" mirrored size="md" />
+                            <PalmTreeSilhouette position="top-left" flipped size="sm" />
+                            <PalmTreeSilhouette position="top-right" flipped mirrored size="sm" />
+                            <PalmTreeSilhouette position="bottom-left" size="sm" />
+                            <PalmTreeSilhouette position="bottom-right" mirrored size="sm" />
                         </div>
 
-                        <div className="mx-auto w-full max-w-4xl text-center relative z-10">
+                        <div className="relative z-10 py-8 sm:py-10 lg:py-12">
+                            {/* Title */}
                             <div className="space-y-4 sm:space-y-6">
                                 <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-muted-foreground">
                                     {t('PRE_TITLE')}
@@ -88,13 +87,14 @@ export default function PricesPage() {
 
             {/* Room Pricing Section */}
             <section className="relative">
-                <div className="w-full h-full mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <div className="w-full mx-auto text-center relative z-10">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
+                        animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full max-w-7xl mx-auto"
+                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
                     >
                         {/* Tiki Torches in corners - hidden on mobile */}
                         <div className="hidden sm:block">
@@ -106,10 +106,7 @@ export default function PricesPage() {
 
                         <div className="relative z-10 space-y-8 sm:space-y-10 lg:space-y-12">
                             {/* Section Header */}
-                            <motion.div
-                                variants={animations.fadeUp}
-                                className="text-center"
-                            >
+                            <motion.div variants={animations.fadeUp} className="text-center">
                                 <div className="flex items-center justify-center gap-2 mb-2">
                                     <DollarSign className="h-5 w-5 sm:h-6 sm:w-6 text-foreground" />
                                     <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">
@@ -122,6 +119,7 @@ export default function PricesPage() {
                             <motion.div
                                 variants={animations.stagger}
                                 initial="initial"
+                                animate="whileInView"
                                 whileInView="whileInView"
                                 viewport={viewportConfig}
                                 className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4"
@@ -137,8 +135,8 @@ export default function PricesPage() {
                                             <h3 className="text-sm sm:text-base font-bold text-foreground">
                                                 {tRooms(room.name)}
                                             </h3>
-                                            <div className="flex items-center justify-center gap-1 text-muted-foreground text-xs">
-                                                <Users className="h-3 w-3" />
+                                            <div className="flex items-center justify-center gap-1 text-foreground text-sm sm:text-base font-semibold">
+                                                <Users className="h-4 w-4" />
                                                 <span>
                                                     {room.size} {t('PEOPLE', { default: 'fő' })}
                                                 </span>
@@ -151,7 +149,11 @@ export default function PricesPage() {
                                                     / {t('HOUR', { default: 'óra' })}
                                                 </div>
                                             </div>
-                                            <Badge variant="secondary" className="mt-1 text-xs">
+                                            <Badge
+                                                variant="secondary"
+                                                className="mt-2 text-xs gap-1 text-foreground"
+                                            >
+                                                <Snowflake className="h-3 w-3" />
                                                 {t('AC', { default: 'Légkondis' })}
                                             </Badge>
                                         </div>
@@ -163,6 +165,7 @@ export default function PricesPage() {
                             <motion.div
                                 variants={animations.stagger}
                                 initial="initial"
+                                animate="whileInView"
                                 whileInView="whileInView"
                                 viewport={viewportConfig}
                                 className="grid grid-cols-1 lg:grid-cols-2 gap-6 pb-8 sm:pb-12 lg:pb-16"
@@ -176,12 +179,19 @@ export default function PricesPage() {
                                         <Drum className="h-5 w-5 text-foreground" />
                                         <h3 className="text-lg font-bold text-foreground">
                                             {t('INDIVIDUAL_TITLE', {
-                                                default: 'Egyéni gyakorlás / 1-1 oktatás',
+                                                default: 'Egyéni gyakorlás',
                                             })}
                                         </h3>
                                     </div>
-                                    <div className="text-xl font-bold text-foreground">
-                                        3,000 Ft / {t('HOUR', { default: 'óra' })}
+                                    <div className="space-y-1">
+                                        <div className="text-xl font-bold text-foreground">
+                                            3,000 Ft / {t('HOUR', { default: 'óra' })}
+                                        </div>
+                                        <p className="text-xs text-muted-foreground">
+                                            {t('INDIVIDUAL_DESC', {
+                                                default: '1-1 oktatásra is alkalmas',
+                                            })}
+                                        </p>
                                     </div>
                                 </motion.div>
 
@@ -220,13 +230,14 @@ export default function PricesPage() {
 
             {/* Equipment and Services Section */}
             <section className="relative">
-                <div className="w-full h-full mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <div className="w-full mx-auto text-center relative z-10">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
+                        animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full max-w-7xl mx-auto"
+                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
                     >
                         {/* Tiki Torches in corners - hidden on mobile */}
                         <div className="hidden sm:block">
@@ -240,16 +251,20 @@ export default function PricesPage() {
                             <motion.div
                                 variants={animations.stagger}
                                 initial="initial"
+                                animate="whileInView"
                                 whileInView="whileInView"
                                 viewport={viewportConfig}
-                                className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+                                className="grid grid-cols-1 lg:grid-cols-2 gap-6 "
                             >
                                 {/* Rentable Equipment */}
                                 <motion.div
                                     variants={animations.scaleIn}
-                                    className="rounded-2xl p-6 sm:p-8"
+                                    className="rounded-2xl px-4"
                                 >
                                     <div className="text-center mb-8">
+                                        <div className="flex items-center justify-center gap-2 mb-2">
+                                            <Drum className="h-5 w-5 text-foreground" />
+                                        </div>
                                         <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
                                             {t('RENTABLE_TITLE', {
                                                 default: 'Bérelhető felszerelések',
@@ -262,80 +277,77 @@ export default function PricesPage() {
                                         </p>
                                     </div>
 
-                                    <div className="space-y-4">
-                                        {rentable.map((item, idx) => (
-                                            <motion.div
-                                                key={idx}
-                                                variants={animations.fadeUp}
-                                                className="flex items-center justify-between p-4 rounded-lg bg-background/70"
-                                            >
-                                                <div className="flex items-center gap-4">
-                                                    {item.icon === 'cymbal' && (
-                                                        <EquipmentIcon
-                                                            type="cymbal"
-                                                            size={24}
-                                                            alt={item.name}
-                                                        />
-                                                    )}
-                                                    {item.icon === 'pedal' && (
-                                                        <EquipmentIcon
-                                                            type="pedal"
-                                                            size={24}
-                                                            alt={item.name}
-                                                        />
-                                                    )}
-                                                    {item.icon === 'drum' && (
-                                                        <EquipmentIcon
-                                                            type="drum"
-                                                            size={24}
-                                                            alt={item.name}
-                                                        />
-                                                    )}
-                                                    <span className="font-medium text-foreground">{item.name}</span>
-                                                </div>
-                                                <div className="text-right">
-                                                    <div className="font-bold text-foreground">
-                                                        {item.price.toLocaleString('hu-HU')} Ft
+                                    <div className="space-y-3">
+                                        {rentable.map((item, idx) => {
+                                            const isCymbal =
+                                                item.translationKey === 'RENTABLE_CYMBAL'
+                                            return (
+                                                <motion.div
+                                                    key={idx}
+                                                    variants={animations.fadeUp}
+                                                    className="flex items-center justify-between p-4 rounded-lg bg-background/70 min-h-[60px]"
+                                                >
+                                                    <span className="font-medium text-foreground text-left flex-1 pr-4">
+                                                        {t(item.translationKey)}
+                                                    </span>
+                                                    <div className="text-right flex-shrink-0">
+                                                        {isCymbal ? (
+                                                            <>
+                                                                <div className="font-bold text-foreground whitespace-nowrap">
+                                                                    {item.price.toLocaleString(
+                                                                        'hu-HU'
+                                                                    )}{' '}
+                                                                    Ft
+                                                                </div>
+                                                                <div className="text-xs text-muted-foreground whitespace-nowrap">
+                                                                    /{' '}
+                                                                    {t('HOUR', { default: 'óra' })}
+                                                                </div>
+                                                            </>
+                                                        ) : (
+                                                            <div className="font-bold text-foreground whitespace-nowrap">
+                                                                {item.price.toLocaleString('hu-HU')}{' '}
+                                                                Ft / {t('HOUR', { default: 'óra' })}
+                                                            </div>
+                                                        )}
                                                     </div>
-                                                    <div className="text-xs text-muted-foreground">
-                                                        / {t('HOUR', { default: 'óra' })}
-                                                    </div>
-                                                </div>
-                                            </motion.div>
-                                        ))}
+                                                </motion.div>
+                                            )
+                                        })}
                                     </div>
                                 </motion.div>
 
-                                {/* Food and Drinks */}
+                                {/* Drinks */}
                                 <motion.div
                                     variants={animations.scaleIn}
-                                    className="rounded-2xl p-6 sm:p-8"
+                                    className="rounded-2xl px-4"
                                 >
                                     <div className="text-center mb-8">
                                         <div className="flex items-center justify-center gap-2 mb-2">
                                             <Coffee className="h-5 w-5 text-foreground" />
-                                            <Utensils className="h-5 w-5 text-foreground" />
                                         </div>
                                         <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
-                                            {t('DRINKS_TITLE', { default: 'Italok és snackek' })}
+                                            {t('DRINKS_TITLE', { default: 'Italok' })}
                                         </h3>
                                         <p className="text-muted-foreground text-sm">
                                             {t('DRINKS_DESC', {
-                                                default: 'Friss italok és harapnivalók',
+                                                default: 'Frissítők mindig kéznél',
                                             })}
                                         </p>
                                     </div>
 
-                                    <div className="space-y-4">
+                                    <div className="space-y-3">
                                         {drinks.map((item, idx) => (
                                             <motion.div
                                                 key={idx}
                                                 variants={animations.fadeUp}
-                                                className="flex items-center justify-between p-4 rounded-lg bg-background/70"
+                                                className="flex items-center justify-between p-4 rounded-lg bg-background/70 min-h-[60px]"
                                             >
-                                                <span className="font-medium text-foreground">{item.name}</span>
+                                                <span className="font-medium text-foreground text-left flex-1 pr-4">
+                                                    {t(item.translationKey)}
+                                                </span>
                                                 {item.price && (
-                                                    <span className="font-bold text-foreground">
+                                                    <span className="font-bold text-foreground whitespace-nowrap flex-shrink-0">
                                                         {item.price.toLocaleString('hu-HU')} Ft
                                                     </span>
                                                 )}
@@ -354,26 +366,28 @@ export default function PricesPage() {
 
             {/* Call to Action Section */}
             <section className="relative">
-                <div className="w-full h-full mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <div className="w-full mx-auto text-center relative z-10">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
+                        animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full max-w-5xl mx-auto"
+                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
                     >
                         {/* Palm Trees in corners */}
                         <div className="absolute inset-0 pointer-events-none z-0">
-                            <PalmTreeSilhouette position="top-left" flipped size="md" />
-                            <PalmTreeSilhouette position="top-right" flipped mirrored size="md" />
-                            <PalmTreeSilhouette position="bottom-left" size="md" />
-                            <PalmTreeSilhouette position="bottom-right" mirrored size="md" />
+                            <PalmTreeSilhouette position="top-left" flipped size="sm" />
+                            <PalmTreeSilhouette position="top-right" flipped mirrored size="sm" />
+                            <PalmTreeSilhouette position="bottom-left" size="sm" />
+                            <PalmTreeSilhouette position="bottom-right" mirrored size="sm" />
                         </div>
 
-                        <div className="relative z-10 py-8 sm:py-10 lg:py-12">
+                        <div className="relative z-10">
                             <motion.div
                                 variants={animations.stagger}
                                 initial="initial"
+                                animate="whileInView"
                                 whileInView="whileInView"
                                 viewport={viewportConfig}
                                 className="space-y-6"

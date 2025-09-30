@@ -13,7 +13,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo } from 'react'
 
-function useMapsUrls(address: string) {
+function useMapsUrls() {
     return useMemo(() => {
         return {
             mapsEmbed: `https://www.google.com/maps?hl=hu&q=47.5158572,19.049491&z=19&output=embed`,
@@ -24,11 +24,11 @@ function useMapsUrls(address: string) {
 
 export default function ContactSection() {
     const t = useTranslations('CONTACT')
-    const { mapsEmbed, mapsPlaceLink } = useMapsUrls(CONTACT.address)
+    const { mapsEmbed, mapsPlaceLink } = useMapsUrls()
     const animations = useAnimations()
 
     const visualHeight = 'h-[16rem] sm:h-[22rem] md:h-[28rem] lg:h-[30rem]'
-    const viewportConfig = { once: true, amount: 0.3 } as const
+    const viewportConfig = { once: true, amount: 0.1 } as const
 
     // ✅ no window — use env var or hardcode for consistent SSR/CSR
     const jsonLd = {
@@ -60,25 +60,26 @@ export default function ContactSection() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
 
-            {/* Title and Maps Section */}
+            {/* Title Section */}
             <section className="relative">
-                <div className="w-full h-full mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <div className="w-full mx-auto text-center relative z-10">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
+                        animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full max-w-7xl mx-auto"
+                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
                     >
                         {/* Palm Trees in corners */}
                         <div className="absolute inset-0 pointer-events-none z-0">
-                            <PalmTreeSilhouette position="top-left" flipped size="md" />
-                            <PalmTreeSilhouette position="top-right" flipped mirrored size="md" />
-                            <PalmTreeSilhouette position="bottom-left" size="md" />
-                            <PalmTreeSilhouette position="bottom-right" mirrored size="md" />
+                            <PalmTreeSilhouette position="top-left" flipped size="sm" />
+                            <PalmTreeSilhouette position="top-right" flipped mirrored size="sm" />
+                            <PalmTreeSilhouette position="bottom-left" size="sm" />
+                            <PalmTreeSilhouette position="bottom-right" mirrored size="sm" />
                         </div>
 
-                        <div className="relative z-10 py-16 sm:py-20 lg:py-24">
+                        <div className="relative z-10 py-8 sm:py-10 lg:py-12">
                             {/* Title */}
                             <div className="space-y-4 sm:space-y-6">
                                 <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-muted-foreground">
@@ -98,19 +99,21 @@ export default function ContactSection() {
 
             {/* Maps Section */}
             <section className="relative">
-                <div className="w-full h-full mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <div className="w-full mx-auto text-center relative z-10">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
+                        animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full max-w-7xl mx-auto"
+                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full"
                     >
                         <div className="relative z-10">
                             {/* Grid: Map + Image */}
                             <motion.div
                                 variants={animations.stagger}
                                 initial="initial"
+                                animate="whileInView"
                                 whileInView="whileInView"
                                 viewport={viewportConfig}
                                 className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6"
@@ -156,13 +159,14 @@ export default function ContactSection() {
 
             {/* Accessibility, Buttons and Contact Info Section */}
             <section className="relative">
-                <div className="w-full h-full mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <div className="w-full mx-auto text-center relative z-10">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
+                        animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-8 sm:p-10 lg:p-12 relative overflow-hidden w-full max-w-6xl mx-auto"
+                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
                     >
                         {/* Tiki Torches in corners with extra padding for visibility */}
                         <div className="hidden sm:block">
@@ -177,6 +181,7 @@ export default function ContactSection() {
                             <motion.div
                                 variants={animations.fadeUp}
                                 initial="initial"
+                                animate="whileInView"
                                 whileInView="whileInView"
                                 viewport={viewportConfig}
                                 className="max-w-5xl mx-auto"
@@ -187,11 +192,26 @@ export default function ContactSection() {
                                     </h2>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 text-left text-sm sm:text-base lg:text-lg leading-relaxed text-foreground/90">
                                         <div className="space-y-4">
-                                            <p>{t('ACCESS.TRAM')}</p>
-                                            <p>{t('ACCESS.TROLLEY')}</p>
+                                            <p>
+                                                <span className="font-bold">
+                                                    {t('ACCESS.TRAM').split(':')[0]}:
+                                                </span>
+                                                {t('ACCESS.TRAM').split(':').slice(1).join(':')}
+                                            </p>
+                                            <p>
+                                                <span className="font-bold">
+                                                    {t('ACCESS.TROLLEY').split(':')[0]}:
+                                                </span>
+                                                {t('ACCESS.TROLLEY').split(':').slice(1).join(':')}
+                                            </p>
                                         </div>
                                         <div className="space-y-4">
-                                            <p>{t('ACCESS.CAR')}</p>
+                                            <p>
+                                                <span className="font-bold">
+                                                    {t('ACCESS.CAR').split(':')[0]}:
+                                                </span>
+                                                {t('ACCESS.CAR').split(':').slice(1).join(':')}
+                                            </p>
                                             <p>{t('ACCESS.ENTRANCE')}</p>
                                         </div>
                                     </div>
@@ -202,6 +222,7 @@ export default function ContactSection() {
                             <motion.div
                                 variants={animations.stagger}
                                 initial="initial"
+                                animate="whileInView"
                                 whileInView="whileInView"
                                 viewport={viewportConfig}
                                 className="flex flex-col gap-4 sm:flex-row sm:gap-6 lg:gap-8 max-w-4xl mx-auto"
@@ -214,7 +235,9 @@ export default function ContactSection() {
                                             rel="noopener noreferrer"
                                         >
                                             <span className="sm:hidden">Google Maps</span>
-                                            <span className="hidden sm:inline">{t('GOOGLE_MAPS')}</span>
+                                            <span className="hidden sm:inline">
+                                                {t('GOOGLE_MAPS')}
+                                            </span>
                                             <ExternalLink className="ml-2 h-5 w-5" aria-hidden />
                                         </a>
                                     </Button>
@@ -233,7 +256,9 @@ export default function ContactSection() {
                                             rel="noopener noreferrer"
                                         >
                                             <span className="sm:hidden">BKK Futár</span>
-                                            <span className="hidden sm:inline">{t('BKK_FUTAR')}</span>
+                                            <span className="hidden sm:inline">
+                                                {t('BKK_FUTAR')}
+                                            </span>
                                             <ExternalLink className="ml-2 h-5 w-5" aria-hidden />
                                         </a>
                                     </Button>
@@ -249,20 +274,21 @@ export default function ContactSection() {
 
             {/* Contact Information Section */}
             <section className="relative">
-                <div className="w-full h-full mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <div className="w-full mx-auto text-center relative z-10">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
+                        animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full max-w-5xl mx-auto"
+                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
                     >
                         {/* Palm Trees in corners */}
                         <div className="absolute inset-0 pointer-events-none z-0">
-                            <PalmTreeSilhouette position="top-left" flipped size="md" />
-                            <PalmTreeSilhouette position="top-right" flipped mirrored size="md" />
-                            <PalmTreeSilhouette position="bottom-left" size="md" />
-                            <PalmTreeSilhouette position="bottom-right" mirrored size="md" />
+                            <PalmTreeSilhouette position="top-left" flipped size="sm" />
+                            <PalmTreeSilhouette position="top-right" flipped mirrored size="sm" />
+                            <PalmTreeSilhouette position="bottom-left" size="sm" />
+                            <PalmTreeSilhouette position="bottom-right" mirrored size="sm" />
                         </div>
 
                         <div className="relative z-10 py-8 sm:py-10 lg:py-12">
@@ -270,17 +296,11 @@ export default function ContactSection() {
                             <motion.div
                                 variants={animations.stagger}
                                 initial="initial"
+                                animate="whileInView"
                                 whileInView="whileInView"
                                 viewport={viewportConfig}
-                                className="space-y-6 sm:space-y-8 text-base sm:text-lg lg:text-xl"
+                                className="space-y-3 sm:space-y-6 text-base sm:text-lg lg:text-xl"
                             >
-                                <motion.div
-                                    variants={animations.fadeUp}
-                                    className="flex items-center justify-center gap-3"
-                                >
-                                    <MapPin className="h-5 w-5 sm:h-6 sm:w-6 shrink-0" />
-                                    <span>{CONTACT.address}</span>
-                                </motion.div>
                                 <motion.div
                                     variants={animations.fadeUp}
                                     className="flex items-center justify-center gap-3"
@@ -307,6 +327,14 @@ export default function ContactSection() {
                                         </Link>
                                     </motion.div>
                                 )}
+
+                                <motion.div
+                                    variants={animations.fadeUp}
+                                    className="flex items-center justify-center gap-3"
+                                >
+                                    <MapPin className="h-5 w-5 sm:h-6 sm:w-6 shrink-0" />
+                                    <span>{CONTACT.address}</span>
+                                </motion.div>
                             </motion.div>
                         </div>
                     </motion.div>
