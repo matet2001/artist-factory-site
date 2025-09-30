@@ -56,7 +56,7 @@
     --radius: 0.625rem;
     /* Base colors */
     --background: #007275; /* Near black with slight tint */
-    --foreground: oklch(95% 0.005 280); /* Light but not pure white */
+    --foreground: #f5f5f5; /* Light but not pure white */
 
     --gradient-main: linear-gradient(to bottom, #006b69, #1f7e7c, #34928f, #47a6a3, #59bab7);
     --header-height: 72px;
@@ -66,10 +66,14 @@
     --header-foreground: oklch(20% 0.01 280); /* Match page bg for reverse contrast */
     --primary: #fb4190;
     --primary-foreground: oklch(0.985 0 0);
+
+    --hover: #b92d68;
+
+    --secondary: #268789;
+
     --accent: #bb8092;
     --accent-foreground: (0.205 0 0);
 
-    --hover: #b92d68;
 
     --card: #60b2ae; /* Deep desaturated plum — warmer, more character than flat gray */
     --card-foreground: oklch(92% 0.01 330); /* Off-white with a subtle pink-lavender tone */
@@ -77,7 +81,6 @@
 
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --secondary: oklch(0.97 0 0);
     --secondary-foreground: oklch(0.205 0 0);
     --muted: oklch(0.97 0 0);
     --muted-foreground: o klch(0.556 0 0);

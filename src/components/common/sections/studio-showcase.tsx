@@ -11,8 +11,8 @@ export default function StudioShowcase() {
     const viewportConfig = { once: true, amount: 0.3 } as const
 
     return (
-        <section className="flex items-center justify-center px-4 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-7xl w-full">
+        <section className="flex items-center justify-center">
+            <div className="w-full">
                 <motion.div
                     variants={animations.scaleIn}
                     initial="initial"

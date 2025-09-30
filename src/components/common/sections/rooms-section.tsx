@@ -1,7 +1,7 @@
 'use client'
 
 import RoomList from '@/components/common/rooms/room-list'
-import TikiTorch from '@/components/common/TikiTorch'
+import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
@@ -16,21 +16,21 @@ export default function RoomsSection() {
 
     return (
         <section className="relative">
-            <div className="w-full h-full mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div className="w-full h-full text-center relative z-10">
                 {/* Enhanced CTA Section with Room List */}
                 <motion.div
                     variants={animations.fadeUp}
                     initial="initial"
                     whileInView="whileInView"
                     viewport={viewportConfig}
-                    className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative w-full"
+                    className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative w-full"
                 >
-                    {/* Tiki Torches in all corners - angled towards center - hidden on mobile */}
-                    <div className="hidden sm:block">
-                        <TikiTorch position="top-left" />
-                        <TikiTorch position="top-right" />
-                        <TikiTorch position="bottom-left" />
-                        <TikiTorch position="bottom-right" />
+                    {/* Palm Trees in all corners */}
+                    <div className="absolute inset-0 pointer-events-none z-0">
+                        <PalmTreeSilhouette position="top-left" flipped size="lg" />
+                        <PalmTreeSilhouette position="top-right" flipped mirrored size="lg" />
+                        <PalmTreeSilhouette position="bottom-left" size="lg" />
+                        <PalmTreeSilhouette position="bottom-right" mirrored size="lg" />
                     </div>
 
                     <div className="relative z-10 space-y-8 sm:space-y-10 lg:space-y-12">
@@ -75,13 +75,12 @@ export default function RoomsSection() {
                             <Link href="/rooms">
                                 <Button
                                     variant="default"
-                                    size="xl"
-                                    className="bg-background/70 hover:bg-background/40 text-primary-foreground font-semibold px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base lg:text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                                    className="bg-secondary hover:bg-secondary/70 text-primary-foreground font-semibold p-7 sm:p-10 text-base lg:text-lg rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                                 >
                                     {roomsT('SEE_ALL_ROOMS', {
                                         defaultValue: 'Összes terem megtekintése',
                                     })}
-                                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 ml-2" />
+                                    <ArrowRight className="w-3 h-3 sm:w-5 sm:h-5 lg:w-6 lg:h-6 ml-1 sm:ml-2" />
                                 </Button>
                             </Link>
                         </motion.div>
