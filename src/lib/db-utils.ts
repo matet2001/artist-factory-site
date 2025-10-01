@@ -9,7 +9,7 @@ import prisma from "@/lib/prisma";
 export async function checkPostTableExists(): Promise<boolean> {
   try {
     // Try to query the post table
-    await prisma.post.findFirst();
+    await prisma.user.findFirst();
     return true;
   } catch {
     // If there's an error, the table likely doesn't exist
