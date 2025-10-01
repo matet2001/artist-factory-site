@@ -8,7 +8,15 @@ import { Badge } from '@/components/ui/badge'
 import { useAnimations } from '@/hooks/use-animation'
 import { rooms } from '@/lib/rooms'
 import { motion } from 'framer-motion'
-import { CalendarClock, CalendarDays, Coffee, DollarSign, Drum, Snowflake, Users } from 'lucide-react'
+import {
+    CalendarClock,
+    CalendarDays,
+    Coffee,
+    DollarSign,
+    Drum,
+    Snowflake,
+    Users,
+} from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -373,7 +381,7 @@ export default function PricesPage() {
                         animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-10 sm:py-12 lg:py-15 relative overflow-hidden w-full"
                     >
                         {/* Palm Trees in corners */}
                         <div className="absolute inset-0 pointer-events-none z-0">
