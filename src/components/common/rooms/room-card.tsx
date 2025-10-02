@@ -17,7 +17,7 @@ export default function RoomCard({ room }: Props) {
     const t = useTranslations('ROOMS')
     const imagePath = room.heroImage ? `/rooms/${room.heroImage}` : '/rooms/Room1.jpg'
 
-    const goToRoom = () => router.push(`/rooms/#room-${room.id}`)
+    const goToRoom = () => router.push(`/rooms/${room.id}`)
 
     return (
         <div

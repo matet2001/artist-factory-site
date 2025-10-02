@@ -1,5 +1,6 @@
 'use client'
 
+import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
 import { Button } from '@/components/ui/button'
 import {
     Carousel,
@@ -8,14 +9,15 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from '@/components/ui/carousel'
+import { useAnimations } from '@/hooks/use-animation'
 import { Room } from '@/lib/rooms'
 import Autoplay from 'embla-carousel-autoplay'
+import { motion } from 'framer-motion'
 import { DollarSign, Users } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { EquipmentIcon } from './equipment-icon'
 
 type RoomSectionProps = {
     room: Room
@@ -23,10 +25,8 @@ type RoomSectionProps = {
 
 export default function RoomSection({ room }: RoomSectionProps) {
     const t = useTranslations('ROOMS')
-
-    function tFormatted(label: string) {
-        return label.replace(/\{\{(\w+)\}\}/g, (_, key) => t(`EQUIPMENT_PARTS.${key}`))
-    }
+    const animations = useAnimations()
+    const viewportConfig = { once: true, amount: 0.2 } as const
 
     const plugin = React.useRef(
         Autoplay({
@@ -37,7 +37,13 @@ export default function RoomSection({ room }: RoomSectionProps) {
 
     return (
         <section id={`room-${room.id}`} className="w-full py-10 scroll-mt-[var(--header-height)]">
-            <div className="mx-auto w-full max-w-6xl px-4">
+            <motion.div
+                variants={animations.fadeUp}
+                initial="initial"
+                whileInView="whileInView"
+                viewport={viewportConfig}
+                className="mx-auto w-full px-4 relative overflow-hidden z-10"
+            >
                 <div className="relative w-full overflow-hidden rounded-2xl shadow-xl bg-card">
                     {/* === IMAGE SECTION === */}
                     <div className="relative h-[500px] sm:h-[550px]">
@@ -74,72 +80,98 @@ export default function RoomSection({ room }: RoomSectionProps) {
                     </div>
 
                     {/* === OVERLAY CONTENT AREA === */}
-                    <div className="relative z-10 -mt-10  px-6 sm:px-10">
+                    <div className="relative z-10 -mt-10 px-6 sm:px-10 pb-5">
                         {/* Gradient behind content – only lower portion of image */}
                         <div className="absolute inset-x-0 top-0 h-[60%] bg-gradient-to-t from-card/90 to-card/10 backdrop-blur-md rounded-b-2xl z-[-1]" />
 
-                        <div className="w-full text-center p-5 space-y-5">
+                        <div className="w-full text-center p-5 space-y-6">
                             {/* --- Title --- */}
-                            <h2 className="text-white text-2xl sm:text-4xl font-bold capitalize drop-shadow-lg">
+                            <motion.h2
+                                variants={animations.fadeUp}
+                                className="text-white text-3xl sm:text-5xl font-bold capitalize drop-shadow-lg"
+                            >
                                 {t(room.name)}
-                            </h2>
+                            </motion.h2>
 
-                            {/* === Wider container just for equipments and CTA === */}
-                            <div className="mx-auto w-full space-y-5">
-                                {/* --- Equipments --- */}
-                                <ul className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-3 text-sm w-full">
-                                    {room.equipments.map((eq, i) => (
-                                        <li key={i} className="flex items-center gap-3">
-                                            <EquipmentIcon
-                                                type={eq.type}
-                                                size={20}
-                                                alt={eq.label}
-                                            />
-                                            <span className="drop-shadow-sm">
-                                                {t(`EQUIPMENT_TYPES.${eq.type.toUpperCase()}`)}
-                                                {' – '}
-                                                {tFormatted(eq.label)}
-                                            </span>
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                {/* --- Features (Price / Size) --- */}
-                                <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 text-white/90 text-sm">
-                                    <div className="flex items-center gap-2">
-                                        <div className="bg-white/20 backdrop-blur-sm rounded-full p-1.5">
-                                            <DollarSign className="w-4 h-4" />
-                                        </div>
-                                        <span className="font-medium drop-shadow-md">
-                                            {t('BASE_PRICE')}: {room.price.toLocaleString('hu-HU')}{' '}
-                                            Ft / {t('HOUR')}
-                                        </span>
+                            {/* --- Features (Price / Size) --- */}
+                            <motion.div
+                                variants={animations.stagger}
+                                initial="initial"
+                                whileInView="whileInView"
+                                viewport={viewportConfig}
+                                className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-12"
+                            >
+                                <motion.div
+                                    variants={animations.fadeUp}
+                                    className="flex items-center gap-3"
+                                >
+                                    <div className="bg-white/20 backdrop-blur-sm rounded-full p-2.5">
+                                        <DollarSign className="w-6 h-6 text-white" />
                                     </div>
-
-                                    <div className="flex items-center gap-2">
-                                        <div className="bg-white/20 backdrop-blur-sm rounded-full p-1.5">
-                                            <Users className="w-4 h-4" />
-                                        </div>
-                                        <span className="font-medium drop-shadow-md">
-                                            {t('SIZE')}: {room.size} {t('PEOPLE')}
-                                        </span>
+                                    <div className="text-left">
+                                        <p className="text-white/70 text-xs font-medium uppercase tracking-wide drop-shadow-md">
+                                            {t('BASE_PRICE')}
+                                        </p>
+                                        <p className="text-white text-xl sm:text-2xl font-bold drop-shadow-lg">
+                                            {room.price.toLocaleString('hu-HU')} Ft / {t('HOUR')}
+                                        </p>
                                     </div>
-                                </div>
+                                </motion.div>
 
-                                {/* --- CTA Button --- */}
-                                <Link href="/booking">
+                                <motion.div
+                                    variants={animations.fadeUp}
+                                    className="flex items-center gap-3"
+                                >
+                                    <div className="bg-white/20 backdrop-blur-sm rounded-full p-2.5">
+                                        <Users className="w-6 h-6 text-white" />
+                                    </div>
+                                    <div className="text-left">
+                                        <p className="text-white/70 text-xs font-medium uppercase tracking-wide drop-shadow-md">
+                                            {t('SIZE')}
+                                        </p>
+                                        <p className="text-white text-xl sm:text-2xl font-bold drop-shadow-lg">
+                                            {room.size} {t('PEOPLE')}
+                                        </p>
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+
+                            {/* --- CTA Buttons --- */}
+                            <motion.div
+                                variants={animations.fadeUpDelay}
+                                initial="initial"
+                                whileInView="whileInView"
+                                viewport={viewportConfig}
+                                className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-4 pt-4"
+                            >
+                                <Link href={`/rooms/${room.id}`} className="w-full sm:w-auto">
+                                    <Button
+                                        variant="secondary"
+                                        size="lg"
+                                        className="w-full sm:w-auto px-10 py-7 text-lg font-bold shadow-2xl transition-all hover:scale-105 hover:-translate-y-0.5"
+                                    >
+                                        {t('SEE_DETAILS')}
+                                    </Button>
+                                </Link>
+
+                                <Link href="/booking" className="w-full sm:w-auto">
                                     <Button
                                         size="lg"
-                                        className="w-full sm:w-auto px-12 py-6 text-lg uppercase font-bold shadow-xl transition-transform hover:scale-105 hover:-translate-y-0.5"
+                                        className="w-full sm:w-auto px-14 py-7 text-lg uppercase font-bold shadow-2xl transition-all hover:scale-105 hover:-translate-y-0.5"
                                     >
                                         {t('CTA')}
                                     </Button>
                                 </Link>
-                            </div>
+                            </motion.div>
+                        </div>
+                        {/* Palm Trees in bottom corners */}
+                        <div className="absolute inset-0 pointer-events-none z-0">
+                            <PalmTreeSilhouette position="bottom-left" size="sm" />
+                            <PalmTreeSilhouette position="bottom-right" mirrored size="sm" />
                         </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </section>
     )
 }

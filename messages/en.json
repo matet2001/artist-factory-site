@@ -107,7 +107,8 @@
             "UPRIGHT_PIANO": "Upright Piano",
             "TUNED": "tuned",
             "MICROPHONES": "Microphones"
-        }
+        },
+        "EQUIPMENT_TITLE": "Equipment"
     },
 
     "PRICES": {
