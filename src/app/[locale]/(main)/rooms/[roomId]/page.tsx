@@ -90,10 +90,10 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                         viewport={viewportConfig}
                         className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full"
                     >
-                        <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden">
+                        <div className="relative w-full rounded-2xl overflow-hidden">
                             <Carousel
                                 plugins={[plugin.current]}
-                                className="w-full h-full"
+                                className="w-full"
                                 onMouseEnter={plugin.current.stop}
                                 onMouseLeave={plugin.current.reset}
                                 opts={{
@@ -104,12 +104,12 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                                 <CarouselContent>
                                     {room.images.map((img, index) => (
                                         <CarouselItem key={index}>
-                                            <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] w-full">
+                                            <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] rounded-2xl overflow-hidden">
                                                 <Image
                                                     src={`/rooms/${img}`}
                                                     alt={`${t(room.name)} – ${index + 1}`}
                                                     fill
-                                                    className="object-cover rounded-2xl"
+                                                    className="object-contain sm:object-cover"
                                                     priority={index === 0}
                                                 />
                                             </div>
