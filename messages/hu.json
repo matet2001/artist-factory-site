@@ -107,7 +107,9 @@
             "UPRIGHT_PIANO": "Pianínó",
             "TUNED": "hangolva",
             "MICROPHONES": "Mikrofonok"
-        }
+        },
+        "SEE_DETAILS": "Részletek",
+        "EQUIPMENT_TITLE": "Felszereltség"
     },
 
     "PRICES": {
