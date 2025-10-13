@@ -1,17 +1,17 @@
 'use client'
 
-import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import { Menu } from 'lucide-react'
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import Logo from './logo'
-import { useTranslations } from 'next-intl'
-import LanguageToggle from './language-toggle'
-import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { motion } from 'framer-motion'
+import { Menu } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 import { AuthOptions } from './auth/navbar/AuthOptions'
+import LanguageToggle from './language-toggle'
+import Logo from './logo'
 
 const routes = [
     { cta: false, name: 'HOME', href: '/', isCta: false },
@@ -35,31 +35,32 @@ export default function Header() {
     }
 
     const renderNavLinks = (mobile = false) =>
-        routes.map((item) => (
-            <Link
-                key={item.href}
-                href={item.href}
-                className="group"
-                onClick={() => mobile && setIsSheetOpen(false)}
-            >
-                <Button
-                    variant={item.isCta ? 'default' : 'ghost'}
-                    className={cn(
-                        'text-md transition-colors',
-                        mobile && 'w-full justify-center',
-                        item.isCta
-                            ? 'bg-primary text-primary-foreground shadow-xs hover:bg-hover'
-                            : cn(
-                                  isCurrentRoute(item.href)
-                                      ? 'text-primary font-semibold cursor-default hover:bg-transparent hover:text-primary'
-                                      : 'hover:bg-foreground/10'
-                              )
-                    )}
+        routes.map((item) => {
+            const isActive = isCurrentRoute(item.href)
+
+            return (
+                <Link
+                    key={item.href}
+                    href={item.href}
+                    className="group"
+                    onClick={() => mobile && setIsSheetOpen(false)}
                 >
-                    {translate(item.name)}
-                </Button>
-            </Link>
-        ))
+                    <Button
+                        variant={item.isCta ? 'default' : 'ghost'}
+                        className={cn(
+                            'text-md transition-colors',
+                            mobile && 'w-full justify-center',
+                            // Active state styling for non-CTA buttons
+                            !item.isCta &&
+                                isActive &&
+                                'text-primary font-semibold cursor-default hover:bg-transparent hover:text-primary'
+                        )}
+                    >
+                        {translate(item.name)}
+                    </Button>
+                </Link>
+            )
+        })
 
     return (
         <motion.header

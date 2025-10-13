@@ -35,7 +35,7 @@ export default async function LocaleLayout({
     return (
         <html className="overflow-x-hidden scroll-smooth" lang={locale}>
             <body
-                className={`${sora.variable} font-main antialiased text-foreground bg-gradient-main`}
+                className={`${sora.variable} font-main antialiased text-foreground`}
             >
                 <NextIntlClientProvider locale={locale}>
                     <Providers>{children}</Providers>

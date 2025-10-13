@@ -69,7 +69,7 @@ export default function ContactSection() {
                         animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
                     >
                         {/* Palm Trees in corners */}
                         <div className="absolute inset-0 pointer-events-none z-0">
@@ -82,7 +82,7 @@ export default function ContactSection() {
                         <div className="relative z-10 py-8 sm:py-10 lg:py-12">
                             {/* Title */}
                             <div className="space-y-4 sm:space-y-6">
-                                <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-muted-foreground">
+                                <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-card-muted-foreground">
                                     {t('PRE_TITLE')}
                                 </p>
                                 <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-semibold tracking-tight text-pretty">
@@ -106,7 +106,7 @@ export default function ContactSection() {
                         animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full"
+                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full"
                     >
                         <div className="relative z-10">
                             {/* Grid: Map + Image */}
@@ -166,7 +166,7 @@ export default function ContactSection() {
                         animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
                     >
                         {/* Tiki Torches in corners with extra padding for visibility */}
                         <div className="hidden sm:block">
@@ -190,7 +190,7 @@ export default function ContactSection() {
                                     <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold">
                                         {t('ACCESS.TITLE')}
                                     </h2>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 text-left text-sm sm:text-base lg:text-lg leading-relaxed text-foreground/90">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 text-left text-sm sm:text-base lg:text-lg leading-relaxed text-card-muted-foreground">
                                         <div className="space-y-4">
                                             <p>
                                                 <span className="font-bold">
@@ -281,7 +281,7 @@ export default function ContactSection() {
                         animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
                     >
                         {/* Palm Trees in corners */}
                         <div className="absolute inset-0 pointer-events-none z-0">
