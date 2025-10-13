@@ -26,7 +26,7 @@
 
     "HOME": {
         "HERO": {
-            "TITLE": "ArtistFactory",
+            "TITLE": "Artist Factory",
             "DESCRIPTION_INTRO": "Cozy, stylishly designed and always clean rehearsal rooms in the heart of the city center – so every practice session becomes an inspiring experience.",
             "DESCRIPTION_DETAILS": "ArtistFactory has been welcoming musicians and bands since 2007 in a friendly, professional environment where everything is available for undisturbed practice.",
             "CTA": "Book now!",
@@ -225,10 +225,14 @@
         },
         "PASSWORD_RESET": {
             "TITLE": "Forgot password",
+            "DESCRIPTION": "Enter your email and we'll send you a reset link",
             "DESC": "Please enter your email address and we'll send you a link to reset your password.",
             "CALL": "Forgot your password?",
-            "SUBMIT": "Reset password",
-            "SUCCESS": "Password reset email sent! Please check your emails."
+            "SUBMIT": "Send Reset Link",
+            "SUCCESS": "Password reset email sent! Please check your emails.",
+            "NEW_PASSWORD": "Set New Password",
+            "NEW_PASSWORD_DESC": "Enter your new password below",
+            "RESET_BUTTON": "Reset Password"
         },
         "EMAIL_LABEL": "Email address",
         "PASSWORD_LABEL": "Password",
@@ -243,7 +247,8 @@
             "PHONE": "Enter your phone number",
             "BAND_NAME": "Enter your band name",
             "EMAIL": "Enter your email address",
-            "PASSWORD": "Enter your password"
+            "PASSWORD": "Enter your password",
+            "CONFIRM_PASSWORD": "Confirm password"
         },
         "LOGGING_IN": "Logging in...",
         "FIRST_NAME_REQUIRED": "Last name is required.",
@@ -254,8 +259,44 @@
         "VERIFYING": "Verifying...",
         "VERIFY": "Verify",
         "BACK_TO_REGISTRATION": "Back to registration",
-        "EMAIL_SENT": "Verification email sent!"
+        "EMAIL_SENT": "Verification email sent!",
+        "NEW_PASSWORD": "New Password",
+        "CONFIRM_PASSWORD": "Confirm Password",
+        "SENDING": "Sending...",
+        "RESETTING": "Resetting...",
+        "REGISTRATION_SUCCESS_TITLE": "Check your email!",
+        "REGISTRATION_SUCCESS_DESC": "We've sent a verification link to your email address.",
+        "CHECK_SPAM": "Don't see it? Check your spam folder or wait a few minutes.",
+        "BACK_TO_HOME": "Back to Home",
+        "GO_TO_LOGIN": "Go to Login",
+        "RESEND_EMAIL": "Didn't receive the email? Click to resend",
+        "EMAIL_VERIFIED_TITLE": "Email Verified!",
+        "EMAIL_VERIFIED_DESC": "Your email has been successfully verified. You can now log in to your account.",
+        "EMAIL_VERIFY_FAILED": "Verification Failed",
+        "EMAIL_VERIFY_FAILED_DESC": "The verification link is invalid or has expired. Please try registering again.",
+        "TRY_AGAIN": "Try Again",
+        "LOGIN_ERROR": "Login failed. Please try again.",
+        "INVALID_CREDENTIALS": "Invalid email or password",
+        "MIGRATION": {
+            "WELCOME_TITLE": "Welcome to the New ArtistFactory!",
+            "WELCOME_SUBTITLE": "We've rebuilt our platform from the ground up",
+            "WHATS_NEW": "What's New?",
+            "FEATURE_1": "Modern, faster interface for better performance",
+            "FEATURE_2": "Enhanced security to protect your data",
+            "FEATURE_3": "New features and improvements based on your feedback",
+            "SET_PASSWORD": "Set Up Your Password",
+            "SET_PASSWORD_DESC": "For security reasons, you'll need to create a new password for the new platform.",
+            "SETTING_UP": "Setting up...",
+            "CONTINUE": "Continue to ArtistFactory",
+            "SUCCESS": "Password set successfully!",
+            "REDIRECTING": "Redirecting to login...",
+            "INVALID_LINK": "Invalid or expired link",
+            "SETUP_FAILED": "Failed to set up password",
+            "ERROR": "An error occurred. Please try again."
+        },
+        "PASSWORDS_NOT_MATCH": "Passwords do not match"
     },
+
 
     "PROFILE": {
         "PRE_TITLE": "User settings",

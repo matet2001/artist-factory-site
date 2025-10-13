@@ -26,14 +26,14 @@
 
     "HOME": {
         "HERO": {
-            "TITLE": "ArtistFactory",
-            "DESCRIPTION_INTRO": "Hangulatos, igényesen kialakított és mindig tiszta próbatermek a belváros szívében – hogy minden próba inspiráló élmény legyen.",
+            "TITLE": "Artist Factory",
+            "DESCRIPTION_INTRO": "Próbtermek és stúdió",
             "DESCRIPTION_DETAILS": "Az ArtistFactory 2007 óta várja a zenészeket és zenekarokat barátságos, professzionális környezetben, ahol minden adott a zavartalan gyakorláshoz.",
             "CTA": "Foglalj most!",
             "CTA_BOOK": "Online foglalás",
             "CTA_PHONE": "9–22 óráig hívható",
             "PROFESSIONAL_ENV_TITLE": "Professzionális környezet",
-            "PROFESSIONAL_ENV_DESC": "Korszerű próbatermi felszereltség",
+            "PROFESSIONAL_ENV_DESC": "Hangulatos, igényesen kialakított és mindig tiszta próbatermek a belváros szívében – hogy minden próba inspiráló élmény legyen.",
             "PROFESSIONAL_ENV_ALT": "Stúdió környezet"
         },
         "FEATURES": {
@@ -226,10 +226,14 @@
         },
         "PASSWORD_RESET": {
             "TITLE": "Elfelejtett jelszó",
+            "DESCRIPTION": "Add meg az email címed és küldünk egy visszaállító linket",
             "DESC": "Kérjük adja meg az e-mail címét, és küldünk egy linket a jelszó visszaállításához.",
             "CALL": "Elfelejtette a jelszavát?",
-            "SUBMIT": "Jelszó visszaállítása",
-            "SUCCESS": "A jelszó-visszaállító e-mail elküldve! Kérjük, ellenőrizze az e-mailjeit."
+            "SUBMIT": "Visszaállító link küldése",
+            "SUCCESS": "A jelszó-visszaállító e-mail elküldve! Kérjük, ellenőrizze az e-mailjeit.",
+            "NEW_PASSWORD": "Új jelszó beállítása",
+            "NEW_PASSWORD_DESC": "Add meg az új jelszavad alább",
+            "RESET_BUTTON": "Jelszó visszaállítása"
         },
         "EMAIL_LABEL": "Email cím",
         "PASSWORD_LABEL": "Jelszó",
@@ -244,7 +248,8 @@
             "PHONE": "Add meg a telefonszámod",
             "BAND_NAME": "Add meg a zenekarod nevét",
             "EMAIL": "Add meg az email címed",
-            "PASSWORD": "Add meg a jelszavad"
+            "PASSWORD": "Add meg a jelszavad",
+            "CONFIRM_PASSWORD": "Erősítsd meg a jelszavad"
         },
         "LOGGING_IN": "Bejelentkezés...",
         "FIRST_NAME_REQUIRED": "A vezetéknév megadása kötelező.",
@@ -255,8 +260,44 @@
         "VERIFYING": "Verifying...",
         "VERIFY": "Verify",
         "BACK_TO_REGISTRATION": "Back to registration",
-        "EMAIL_SENT": "Verification email sent!"
+        "EMAIL_SENT": "Verification email sent!",
+        "NEW_PASSWORD": "Új jelszó",
+        "CONFIRM_PASSWORD": "Jelszó megerősítése",
+        "SENDING": "Küldés...",
+        "RESETTING": "Visszaállítás...",
+        "REGISTRATION_SUCCESS_TITLE": "Ellenőrizd az emailed!",
+        "REGISTRATION_SUCCESS_DESC": "Elküldtünk egy megerősítő linket az email címedre.",
+        "CHECK_SPAM": "Nem látod? Nézd meg a spam mappádat vagy várj néhány percet.",
+        "BACK_TO_HOME": "Vissza a főoldalra",
+        "GO_TO_LOGIN": "Bejelentkezés",
+        "RESEND_EMAIL": "Nem kaptad meg az emailt? Kattints az újraküldéshez",
+        "EMAIL_VERIFIED_TITLE": "Email megerősítve!",
+        "EMAIL_VERIFIED_DESC": "Az email címed sikeresen megerősítésre került. Most már bejelentkezhetsz a fiókodba.",
+        "EMAIL_VERIFY_FAILED": "Megerősítés sikertelen",
+        "EMAIL_VERIFY_FAILED_DESC": "A megerősítő link érvénytelen vagy lejárt. Kérjük, próbálj meg újra regisztrálni.",
+        "TRY_AGAIN": "Próbáld újra",
+        "LOGIN_ERROR": "Bejelentkezés sikertelen. Kérjük, próbáld újra.",
+        "INVALID_CREDENTIALS": "Hibás email cím vagy jelszó",
+        "MIGRATION": {
+            "WELCOME_TITLE": "Üdv az új ArtistFactory-ban!",
+            "WELCOME_SUBTITLE": "Teljesen újraépítettük a platformunkat",
+            "WHATS_NEW": "Mi az újdonság?",
+            "FEATURE_1": "Modern, gyorsabb felület a jobb teljesítményért",
+            "FEATURE_2": "Fokozott biztonság az adataid védelméért",
+            "FEATURE_3": "Új funkciók és fejlesztések a visszajelzéseid alapján",
+            "SET_PASSWORD": "Állítsd be a jelszavad",
+            "SET_PASSWORD_DESC": "Biztonsági okokból új jelszót kell létrehoznod az új platformhoz.",
+            "SETTING_UP": "Beállítás...",
+            "CONTINUE": "Tovább az ArtistFactory-hoz",
+            "SUCCESS": "Jelszó sikeresen beállítva!",
+            "REDIRECTING": "Átirányítás a bejelentkezéshez...",
+            "INVALID_LINK": "Érvénytelen vagy lejárt link",
+            "SETUP_FAILED": "Nem sikerült beállítani a jelszót",
+            "ERROR": "Hiba történt. Kérjük, próbáld újra."
+        },
+        "PASSWORDS_NOT_MATCH": "A jelszavak nem egyeznek"
     },
+
 
     "PROFILE": {
         "PRE_TITLE": "Felhasználói beállítások",
