@@ -30,7 +30,7 @@ export const authOptions = {
                             name: credentials.name ?? credentials.email,
                             email: credentials.email,
                             password: await bcrypt.hash(credentials.password, 10),
-                            emailVerified: null, // Not verified yet
+                            // emailVerified is optional, omitting it defaults to null
                         },
                     })
 
