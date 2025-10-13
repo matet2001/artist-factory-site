@@ -1,13 +1,13 @@
 'use client'
 
-import RoomList from '@/components/common/rooms/room-list'
 import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
+import RoomList from '@/components/common/rooms/room-list'
 import { Button } from '@/components/ui/button'
+import { useAnimations } from '@/hooks/use-animation'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
-import { useAnimations } from '@/hooks/use-animation'
 
 export default function RoomsSection() {
     const roomsT = useTranslations('ROOMS')
@@ -23,7 +23,7 @@ export default function RoomsSection() {
                     initial="initial"
                     whileInView="whileInView"
                     viewport={viewportConfig}
-                    className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative w-full"
+                    className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative w-full"
                 >
                     {/* Palm Trees in all corners */}
                     <div className="absolute inset-0 pointer-events-none z-0">
@@ -39,7 +39,7 @@ export default function RoomsSection() {
                             variants={animations.fadeUp}
                             className="mx-auto max-w-4xl text-center"
                         >
-                            <h2 className="text-xs sm:text-sm uppercase text-muted-foreground tracking-[0.25em]">
+                            <h2 className="text-xs sm:text-sm uppercase text-card-muted-foreground tracking-[0.25em]">
                                 {roomsT('PRE_TITLE')}
                             </h2>
 
@@ -47,7 +47,7 @@ export default function RoomsSection() {
                                 {roomsT('TITLE')}
                             </h1>
 
-                            <p className="mt-4 sm:mt-6 text-sm sm:text-base lg:text-lg text-muted-foreground px-4">
+                            <p className="mt-4 sm:mt-6 text-sm sm:text-base lg:text-lg text-card-muted-foreground px-4">
                                 {roomsT('DESCRIPTION')}
                             </p>
                         </motion.div>
@@ -74,8 +74,8 @@ export default function RoomsSection() {
 
                             <Link href="/rooms">
                                 <Button
-                                    variant="default"
-                                    className="bg-secondary hover:bg-secondary/70 text-primary-foreground font-semibold p-7 sm:p-10 text-base lg:text-lg rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                                    variant="secondary"
+                                    className=" font-semibold p-7 sm:p-10 text-base lg:text-lg rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
                                 >
                                     {roomsT('SEE_ALL_ROOMS', {
                                         defaultValue: 'Összes terem megtekintése',

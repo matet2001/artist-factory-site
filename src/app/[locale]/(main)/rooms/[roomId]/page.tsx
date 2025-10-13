@@ -58,7 +58,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                         animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
                     >
                         {/* Palm Trees in corners */}
                         <div className="absolute inset-0 pointer-events-none z-0">
@@ -88,7 +88,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                         initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full"
+                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full"
                     >
                         <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden">
                             <Carousel
@@ -136,7 +136,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                         initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
                     >
                         {/* Tiki Torches in corners */}
                         <div className="hidden sm:block">
@@ -158,7 +158,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                                 {/* Price */}
                                 <motion.div
                                     variants={animations.scaleIn}
-                                    className="text-center p-6 rounded-xl bg-background/70 min-w-[240px]"
+                                    className="text-center p-6 rounded-xl bg-card min-w-[240px]"
                                 >
                                     <div className="flex items-center justify-center gap-2 mb-3">
                                         <DollarSign className="h-6 w-6 text-foreground" />
@@ -169,7 +169,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                                     <div className="text-3xl font-bold text-foreground">
                                         {room.price.toLocaleString('hu-HU')} Ft
                                     </div>
-                                    <div className="text-sm text-muted-foreground mt-1">
+                                    <div className="text-sm text-card-muted-foreground mt-1">
                                         / {t('HOUR')}
                                     </div>
                                 </motion.div>
@@ -177,7 +177,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                                 {/* Capacity */}
                                 <motion.div
                                     variants={animations.scaleIn}
-                                    className="text-center p-6 rounded-xl bg-background/70 min-w-[240px]"
+                                    className="text-center p-6 rounded-xl bg-card min-w-[240px]"
                                 >
                                     <div className="flex items-center justify-center gap-2 mb-3">
                                         <Users className="h-6 w-6 text-foreground" />
@@ -188,7 +188,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                                     <div className="text-3xl font-bold text-foreground">
                                         {room.size}
                                     </div>
-                                    <div className="text-sm text-muted-foreground mt-1">
+                                    <div className="text-sm text-card-muted-foreground mt-1">
                                         {t('PEOPLE')}
                                     </div>
                                 </motion.div>
@@ -216,7 +216,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                                         <motion.div
                                             key={i}
                                             variants={animations.fadeUp}
-                                            className="flex items-start gap-3 sm:gap-4 p-4 rounded-lg bg-background/70 text-left"
+                                            className="flex items-start gap-3 sm:gap-4 p-4 rounded-lg bg-card text-left"
                                         >
                                             <div className="flex-shrink-0 mt-1">
                                                 <EquipmentIcon
@@ -229,7 +229,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                                                 <div className="font-semibold text-foreground text-sm sm:text-base mb-1">
                                                     {t(`EQUIPMENT_TYPES.${eq.type.toUpperCase()}`)}
                                                 </div>
-                                                <div className="text-sm text-muted-foreground break-words">
+                                                <div className="text-sm text-card-muted-foreground break-words">
                                                     {tFormatted(eq.label)}
                                                 </div>
                                             </div>

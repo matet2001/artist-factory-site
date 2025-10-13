@@ -1,112 +1,80 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
+    --color-background: #003D49; /* Very dark with teal undertone */
+    --color-foreground: #f5f5f5;
 
-    --color-header-background: var(--header-background);
-    --color-header-foreground: var(--header-foreground);
+    --color-primary: #fb4190;
+    --color-primary-foreground: #ffffff;
 
+    --color-hover: #F464A7; /* Lighter for dark bg */
+
+    --color-secondary: #962759; /* Brighter teal for dark bg */
+    --color-secondary-foreground: #0a1514;
+
+    --color-secondary-hover: #af2f6b;
+
+    --color-accent: #701d42; /* Bright teal accent */
+    --color-accent-foreground: #0a1514;
+
+    --color-muted: #B70300; /* Subtle teal-gray for elevation */
+    --color-muted-foreground: #7EB5BC;
+
+    --color-card: #005263;                 /* Deep teal for cards - creates beautiful depth */
+    --color-card-foreground: #f5f5f5;
+    --color-card-muted-foreground: #95B8BC;
+
+
+    --color-border: #1e3332;
+
+    --color-popover: oklch(1 0 0);
+    --color-popover-foreground: oklch(0.145 0 0);
+
+    --color-input: oklch(0.922 0 0);
+    --color-ring: oklch(0.708 0 0);
+
+    --color-destructive: oklch(0.577 0.245 27.325);
+
+    --color-chart-1: oklch(0.646 0.222 41.116);
+    --color-chart-2: oklch(0.6 0.118 184.704);
+    --color-chart-3: oklch(0.398 0.07 227.392);
+    --color-chart-4: oklch(0.828 0.189 84.429);
+    --color-chart-5: oklch(0.769 0.188 70.08);
+
+    --color-sidebar: oklch(0.985 0 0);
+    --color-sidebar-foreground: oklch(0.145 0 0);
+    --color-sidebar-primary: oklch(0.205 0 0);
+    --color-sidebar-primary-foreground: oklch(0.985 0 0);
+    --color-sidebar-accent: oklch(0.97 0 0);
+    --color-sidebar-accent-foreground: oklch(0.205 0 0);
+    --color-sidebar-border: oklch(0.922 0 0);
+    --color-sidebar-ring: oklch(0.708 0 0);
+
+    /* Fonts */
     --font-sans: var(--font-geist-sans);
     --font-mono: var(--font-geist-mono);
-    --color-sidebar-ring: var(--sidebar-ring);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar: var(--sidebar);
-    --color-chart-5: var(--chart-5);
-    --color-chart-4: var(--chart-4);
-    --color-chart-3: var(--chart-3);
-    --color-chart-2: var(--chart-2);
-    --color-chart-1: var(--chart-1);
-    --color-ring: var(--ring);
-    --color-input: var(--input);
-    --color-border: var(--border);
-    --color-destructive: var(--destructive);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-accent: var(--accent);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-muted: var(--muted);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-secondary: var(--secondary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-primary: var(--primary);
-
-    --color-hover: var(--hover);
-
-    --color-popover-foreground: var(--popover-foreground);
-    --color-popover: var(--popover);
-    --color-card-foreground: var(--card-foreground);
-    --color-card: var(--card);
-    --radius-sm: calc(var(--radius) - 4px);
-    --radius-md: calc(var(--radius) - 2px);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) + 4px);
-
     --font-main: var(--font-sora);
+
+    /* Radius */
+    --radius-sm: 0.525rem;
+    --radius-md: 0.425rem;
+    --radius-lg: 0.625rem;
+    --radius-xl: 1.025rem;
 }
 
+/* Custom CSS variables for non-Tailwind use */
 :root {
     --radius: 0.625rem;
-    /* Base colors */
-    --background: #007275; /* Near black with slight tint */
-    --foreground: #f5f5f5; /* Light but not pure white */
-
-    --gradient-main: linear-gradient(to bottom, #006b69, #1f7e7c, #34928f, #47a6a3, #59bab7);
     --header-height: 72px;
-
-    /* Header */
-    --header-background: oklch(95% 0.005 280); /* Soft off-white */
-    --header-foreground: oklch(20% 0.01 280); /* Match page bg for reverse contrast */
-    --primary: #fb4190;
-    --primary-foreground: oklch(0.985 0 0);
-
-    --hover: #b92d68;
-
-    --secondary: #268789;
-
-    --accent: #bb8092;
-    --accent-foreground: (0.205 0 0);
-
-
-    --card: #60b2ae; /* Deep desaturated plum — warmer, more character than flat gray */
-    --card-foreground: oklch(92% 0.01 330); /* Off-white with a subtle pink-lavender tone */
-    --border: oklch(40% 0.03 320); /* Muted mauve border — visible, but still soft and elegant */
-
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: o klch(0.556 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.646 0.222 41.116);
-    --chart-2: oklch(0.6 0.118 184.704);
-    --chart-3: oklch(0.398 0.07 227.392);
-    --chart-4: oklch(0.828 0.189 84.429);
-    --chart-5: oklch(0.769 0.188 70.08);
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+    /* --gradient-main: linear-gradient(to bottom, #009691, #00a39d); */
 }
 
-.bg-gradient-main {
+/* .bg-gradient-main {
     background-image: var(--gradient-main);
     background-size: 100%;
     background-repeat: no-repeat;
-}
+} */
 
 @layer base {
     * {
@@ -121,42 +89,69 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Artist Factory background - Desktop */
 body::before {
     content: '';
     position: fixed;
     inset: 0;
-    z-index: 50;
+    z-index: 0;
+    background-image: url('/decorations/AF01.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-attachment: fixed;
     pointer-events: none;
+}
+
+/* Artist Factory background - Mobile (rotated version) */
+@media (max-width: 639px) {
+    body::before {
+        background-image: url('/decorations/AF01-mobile.png');
+        background-size: 65% auto;
+        background-position: center calc(var(--header-height));
+    }
+}
+
+/* Overlay for readability */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    background-color: rgb(10 21 20 / 0.7);
+    backdrop-filter: blur(2px);
+    pointer-events: none;
+}
+
+@media (min-width: 640px) {
+    body::after {
+        background-color: rgb(10 21 20 / 0.8);
+    }
+}
+
+/* Noise texture overlay */
+body {
+    position: relative;
+}
+
+body > * {
+    position: relative;
+    z-index: 2;
+}
+
+body > div::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 50;
     mix-blend-mode: overlay;
     background-image: url('/noise_texture.jpg');
     background-repeat: repeat;
-    background-size: 100%; /* tweak as needed */
-    opacity: 0.04; /* adjust from 0.02 to 0.08 */
+    background-size: 100%;
+    opacity: 0.04;
     pointer-events: none;
 }
 
-.neon-glow {
-    position: relative;
-    z-index: 1; /* above the glow */
-}
-
-.neon-glow::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    background: radial-gradient(circle at center, #fb4190 0%, transparent 70%);
-    opacity: 0.35;
-    filter: blur(24px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.group:hover .neon-glow::before {
-    opacity: 0.55;
-    transform: scale(1.05);
-}
-
 .section-height {
-    min-height: calc(100vh - var(--header-height))
+    min-height: calc(100vh - var(--header-height));
 }

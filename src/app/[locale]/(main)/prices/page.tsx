@@ -65,7 +65,7 @@ export default function PricesPage() {
                         animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
                     >
                         {/* Palm Trees in corners */}
                         <div className="absolute inset-0 pointer-events-none z-0">
@@ -78,7 +78,7 @@ export default function PricesPage() {
                         <div className="relative z-10 py-8 sm:py-10 lg:py-12">
                             {/* Title */}
                             <div className="space-y-4 sm:space-y-6">
-                                <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-muted-foreground">
+                                <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-card-muted-foreground">
                                     {t('PRE_TITLE')}
                                 </p>
                                 <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-semibold tracking-tight text-pretty">
@@ -102,7 +102,7 @@ export default function PricesPage() {
                         animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
                     >
                         {/* Tiki Torches in corners - hidden on mobile */}
                         <div className="hidden sm:block">
@@ -137,7 +137,7 @@ export default function PricesPage() {
                                         key={room.id}
                                         variants={animations.scaleIn}
                                         onClick={() => goToRoom(room.id)}
-                                        className="relative overflow-hidden rounded-xl bg-background/70 p-3 sm:p-4 transition-all hover:shadow-lg hover:scale-[1.02] hover:bg-background/90 cursor-pointer"
+                                        className="relative overflow-hidden rounded-xl bg-card p-3 sm:p-4 transition-all hover:shadow-lg hover:scale-[1.02] hover:bg-background/90 cursor-pointer"
                                     >
                                         <div className="text-center space-y-2">
                                             <h3 className="text-sm sm:text-base font-bold text-foreground">
@@ -153,7 +153,7 @@ export default function PricesPage() {
                                                 <div className="text-lg sm:text-xl font-bold text-foreground">
                                                     {room.price.toLocaleString('hu-HU')} Ft
                                                 </div>
-                                                <div className="text-xs text-muted-foreground">
+                                                <div className="text-xs text-card-muted-foreground">
                                                     / {t('HOUR', { default: 'óra' })}
                                                 </div>
                                             </div>
@@ -181,7 +181,7 @@ export default function PricesPage() {
                                 {/* Individual Practice */}
                                 <motion.div
                                     variants={animations.scaleIn}
-                                    className="text-center p-6 rounded-xl bg-background/70"
+                                    className="text-center p-6 rounded-xl bg-card"
                                 >
                                     <div className="flex items-center justify-center gap-2 mb-3">
                                         <Drum className="h-5 w-5 text-foreground" />
@@ -195,7 +195,7 @@ export default function PricesPage() {
                                         <div className="text-xl font-bold text-foreground">
                                             3,000 Ft / {t('HOUR', { default: 'óra' })}
                                         </div>
-                                        <p className="text-xs text-muted-foreground">
+                                        <p className="text-xs text-card-muted-foreground">
                                             {t('INDIVIDUAL_DESC', {
                                                 default: '1-1 oktatásra is alkalmas',
                                             })}
@@ -206,7 +206,7 @@ export default function PricesPage() {
                                 {/* Studio Services */}
                                 <motion.div
                                     variants={animations.scaleIn}
-                                    className="text-center p-6 rounded-xl bg-background/70"
+                                    className="text-center p-6 rounded-xl bg-card"
                                 >
                                     <div className="flex items-center justify-center gap-2 mb-3">
                                         <CalendarClock className="h-5 w-5 text-foreground" />
@@ -220,7 +220,7 @@ export default function PricesPage() {
                                         <div className="text-xl font-bold text-foreground">
                                             10,000 Ft / {t('HOUR', { default: 'óra' })}
                                         </div>
-                                        <p className="text-xs text-muted-foreground">
+                                        <p className="text-xs text-card-muted-foreground">
                                             {t('STUDIO_VAT_NOTE', {
                                                 default: 'A szolgáltatás 0% ÁFA-s.',
                                             })}
@@ -245,7 +245,7 @@ export default function PricesPage() {
                         animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
                     >
                         {/* Tiki Torches in corners - hidden on mobile */}
                         <div className="hidden sm:block">
@@ -278,7 +278,7 @@ export default function PricesPage() {
                                                 default: 'Bérelhető felszerelések',
                                             })}
                                         </h3>
-                                        <p className="text-muted-foreground text-sm">
+                                        <p className="text-card-muted-foreground text-sm">
                                             {t('RENTABLE_DESC', {
                                                 default: 'Kiegészítő eszközök óradíjas alapon',
                                             })}
@@ -293,7 +293,7 @@ export default function PricesPage() {
                                                 <motion.div
                                                     key={idx}
                                                     variants={animations.fadeUp}
-                                                    className="flex items-center justify-between p-4 rounded-lg bg-background/70 min-h-[60px]"
+                                                    className="flex items-center justify-between p-4 rounded-lg bg-card min-h-[60px]"
                                                 >
                                                     <span className="font-medium text-foreground text-left flex-1 pr-4">
                                                         {t(item.translationKey)}
@@ -307,7 +307,7 @@ export default function PricesPage() {
                                                                     )}{' '}
                                                                     Ft
                                                                 </div>
-                                                                <div className="text-xs text-muted-foreground whitespace-nowrap">
+                                                                <div className="text-xs text-card-muted-foreground whitespace-nowrap">
                                                                     /{' '}
                                                                     {t('HOUR', { default: 'óra' })}
                                                                 </div>
@@ -337,7 +337,7 @@ export default function PricesPage() {
                                         <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
                                             {t('DRINKS_TITLE', { default: 'Italok' })}
                                         </h3>
-                                        <p className="text-muted-foreground text-sm">
+                                        <p className="text-card-muted-foreground text-sm">
                                             {t('DRINKS_DESC', {
                                                 default: 'Frissítők mindig kéznél',
                                             })}
@@ -349,7 +349,7 @@ export default function PricesPage() {
                                             <motion.div
                                                 key={idx}
                                                 variants={animations.fadeUp}
-                                                className="flex items-center justify-between p-4 rounded-lg bg-background/70 min-h-[60px]"
+                                                className="flex items-center justify-between p-4 rounded-lg bg-card min-h-[60px]"
                                             >
                                                 <span className="font-medium text-foreground text-left flex-1 pr-4">
                                                     {t(item.translationKey)}
@@ -381,7 +381,7 @@ export default function PricesPage() {
                         animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-10 sm:py-12 lg:py-15 relative overflow-hidden w-full"
+                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-10 sm:py-12 lg:py-15 relative overflow-hidden w-full"
                     >
                         {/* Palm Trees in corners */}
                         <div className="absolute inset-0 pointer-events-none z-0">
@@ -408,7 +408,7 @@ export default function PricesPage() {
                                 </motion.h2>
                                 <motion.p
                                     variants={animations.fadeUp}
-                                    className="text-muted-foreground text-sm sm:text-base lg:text-lg"
+                                    className="text-card-muted-foreground text-sm sm:text-base lg:text-lg"
                                 >
                                     {t('CTA_DESC', {
                                         default: 'Foglalj időpontot most és kezdd el a zenélést!',
