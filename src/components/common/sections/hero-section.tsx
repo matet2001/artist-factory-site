@@ -39,7 +39,7 @@ export default function HeroSection() {
 
                     {/* Optional overlay for readability */}
                     <div
-                        className="absolute inset-0 bg-background/70 sm:bg-background/80 backdrop-blur-[4px] sm:backdrop-blur-sm"
+                        className="absolute inset-0 bg-background/70 sm:bg-background/80 backdrop-blur-xs"
                         aria-hidden="true"
                     />
 
@@ -58,15 +58,10 @@ export default function HeroSection() {
                                 className="text-3xl font-bold sm:text-5xl lg:text-6xl xl:text-7xl"
                             >
                                 {t('HERO.TITLE')}
+                                <p className="text-base sm:text-lg lg:text-xl xl:text-2xl text-foreground/80 px-4 mt-3">{t('HERO.DESCRIPTION_INTRO')}</p>
                             </motion.h1>
 
-                            {/* First paragraph */}
-                            <motion.p
-                                variants={animations.fadeUpDelay}
-                                className="text-base sm:text-lg lg:text-xl xl:text-2xl text-foreground/80 px-4"
-                            >
-                                {t('HERO.DESCRIPTION_INTRO')}
-                            </motion.p>
+                           
 
                             {/* Main CTA */}
                             <motion.div variants={animations.scaleIn} className="px-4">

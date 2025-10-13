@@ -1,5 +1,6 @@
 "use client";
 
+import ForgotPasswordForm from "@/components/common/auth/form/ForgotPasswordForm";
 import AuthHeader from "../AuthHeader";
 import { useTranslations } from "next-intl";
 
@@ -13,7 +14,7 @@ export default function ForgotPasswordPage() {
         description={t("DESC")}
       />
       <div className="my-2" />
-      {/* <ForgotPasswordForm /> */}
+      <ForgotPasswordForm />
     </div>
   );
 }

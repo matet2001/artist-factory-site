@@ -1,6 +1,8 @@
 'use client'
 
+import { CheckCircle2, Mail } from 'lucide-react'
 import { signIn } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -25,6 +27,9 @@ export default function RegisterForm() {
     const router = useRouter()
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const [registrationSuccess, setRegistrationSuccess] = useState(false)
+    const [userEmail, setUserEmail] = useState('')
+    const t = useTranslations('AUTH')
 
     const form = useForm<RegisterFormData>({
         defaultValues: {
@@ -41,9 +46,8 @@ export default function RegisterForm() {
             setIsSubmitting(true)
             setError(null)
 
-            // Create FormData object like in your implementation
             const formData = new FormData()
-            formData.append('name', values.fullName) // Map fullName to name
+            formData.append('name', values.fullName)
             formData.append('email', values.email)
             formData.append('password', values.password)
             formData.append('phone', values.phone)
@@ -55,7 +59,13 @@ export default function RegisterForm() {
             })
 
             if (signInResult?.error) {
-                setError('Failed to sign in after registration')
+                // Check if it's the success message from registration
+                if (signInResult.error.includes('Account created')) {
+                    setUserEmail(values.email)
+                    setRegistrationSuccess(true)
+                } else {
+                    setError(signInResult.error)
+                }
                 return
             }
 
@@ -68,6 +78,46 @@ export default function RegisterForm() {
         }
     }
 
+    // Success state UI
+    if (registrationSuccess) {
+        return (
+            <div className="flex flex-col items-center justify-center space-y-6 text-center py-8">
+                <div className="rounded-full bg-green-100 p-4">
+                    <CheckCircle2 className="h-16 w-16 text-green-600" />
+                </div>
+
+                <div className="space-y-2">
+                    <h3 className="text-2xl font-semibold">{t('REGISTRATION_SUCCESS_TITLE')}</h3>
+                    <p className="text-muted-foreground">{t('REGISTRATION_SUCCESS_DESC')}</p>
+                </div>
+
+                <div className="flex items-center gap-2 bg-blue-50 px-4 py-3 rounded-lg border border-blue-200">
+                    <Mail className="h-5 w-5 text-blue-600" />
+                    <span className="text-sm font-medium text-blue-900">{userEmail}</span>
+                </div>
+
+                <p className="text-sm text-muted-foreground max-w-md">{t('CHECK_SPAM')}</p>
+
+                <div className="flex flex-col sm:flex-row gap-3 w-full pt-4">
+                    <Button variant="outline" className="flex-1" onClick={() => router.push('/')}>
+                        {t('BACK_TO_HOME')}
+                    </Button>
+                    <Button className="flex-1" onClick={() => router.push('/login')}>
+                        {t('GO_TO_LOGIN')}
+                    </Button>
+                </div>
+
+                <button
+                    onClick={() => setRegistrationSuccess(false)}
+                    className="text-sm text-muted-foreground hover:text-foreground underline"
+                >
+                    {t('RESEND_EMAIL')}
+                </button>
+            </div>
+        )
+    }
+
+    // Regular form UI
     return (
         <div className="space-y-8">
             <Form {...form}>
@@ -80,9 +130,12 @@ export default function RegisterForm() {
                             name="fullName"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Full Name</FormLabel>
+                                    <FormLabel>{t('FULL_NAME')}</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="John Doe" {...field} />
+                                        <Input
+                                            placeholder={t('PLACEHOLDER.FULL_NAME')}
+                                            {...field}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -94,9 +147,13 @@ export default function RegisterForm() {
                             name="phone"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Phone</FormLabel>
+                                    <FormLabel>{t('PHONE')}</FormLabel>
                                     <FormControl>
-                                        <Input type="tel" placeholder="+36201234567" {...field} />
+                                        <Input
+                                            type="tel"
+                                            placeholder={t('PLACEHOLDER.PHONE')}
+                                            {...field}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -111,13 +168,16 @@ export default function RegisterForm() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>
-                                        Band Name{' '}
+                                        {t('BAND_NAME')}{' '}
                                         <span className="text-muted-foreground text-sm">
-                                            (optional)
+                                            ({t('OPTIONAL')})
                                         </span>
                                     </FormLabel>
                                     <FormControl>
-                                        <Input placeholder="The Rockers" {...field} />
+                                        <Input
+                                            placeholder={t('PLACEHOLDER.BAND_NAME')}
+                                            {...field}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -130,10 +190,14 @@ export default function RegisterForm() {
                     {error && <div className="text-red-500 text-sm text-center">{error}</div>}
 
                     <Button type="submit" className="w-full mt-5" disabled={isSubmitting}>
-                        {isSubmitting ? 'Signing up...' : 'Sign up'}
+                        {isSubmitting ? t('SIGNING_UP') : t('SIGN_UP')}
                     </Button>
 
-                    <AuthSwitch label="Already have an account?" action="Log in" href="/login" />
+                    <AuthSwitch
+                        label={t('HAVE_ACCOUNT')}
+                        action={t('SIGN_IN_CALL')}
+                        href="/login"
+                    />
                 </form>
             </Form>
         </div>
