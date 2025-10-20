@@ -10,10 +10,10 @@ import {
     FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Sparkles, Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, Sparkles } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState, Suspense } from 'react'
+import { Suspense, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
@@ -83,6 +83,7 @@ function MigrationWelcomeContent() {
                 router.push('/login')
             }, 2000)
         } catch (error) {
+            console.error(error)
             setError(t('MIGRATION.ERROR'))
         } finally {
             setIsSubmitting(false)

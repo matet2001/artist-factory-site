@@ -47,6 +47,7 @@ export const authOptions = {
 
                     // Send verification email
                     try {
+                        console.log("Try to send vertificaiton email")
                         await sendVerificationEmail(newUser.email, token)
                     } catch (error) {
                         console.error('Failed to send verification email:', error)
