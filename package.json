@@ -8,7 +8,8 @@
         "start": "next start",
         "lint": "next lint",
         "import-users": "tsx scripts/import-users.ts",
-        "send-migration-emails": "tsx scripts/send-migration-emails.ts"
+        "send-migration-emails": "tsx scripts/send-migration-emails.ts",
+        "type-check": "tsc --noEmit"
     },
     "dependencies": {
         "@auth/prisma-adapter": "^2.10.0",
