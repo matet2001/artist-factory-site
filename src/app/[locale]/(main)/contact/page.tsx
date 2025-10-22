@@ -1,6 +1,5 @@
 'use client'
 
-import PalmLeafDivider from '@/components/common/palm-leaft-divider'
 import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
 import TikiTorch from '@/components/common/TikiTorch'
 import { Button } from '@/components/ui/button'
@@ -54,7 +53,7 @@ export default function ContactSection() {
     }
 
     return (
-        <div className="mb-20">
+        <div className="mb-20 flex flex-col gap-y-40">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -93,9 +92,6 @@ export default function ContactSection() {
                     </motion.div>
                 </div>
             </section>
-
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
 
             {/* Maps Section */}
             <section className="relative">
@@ -153,9 +149,6 @@ export default function ContactSection() {
                     </motion.div>
                 </div>
             </section>
-
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
 
             {/* Accessibility, Buttons and Contact Info Section */}
             <section className="relative">
@@ -268,9 +261,6 @@ export default function ContactSection() {
                     </motion.div>
                 </div>
             </section>
-
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
 
             {/* Contact Information Section */}
             <section className="relative">

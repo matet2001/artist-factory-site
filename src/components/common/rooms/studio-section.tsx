@@ -10,21 +10,17 @@ import {
     CarouselPrevious,
 } from '@/components/ui/carousel'
 import { useAnimations } from '@/hooks/use-animation'
-import { Room } from '@/lib/rooms'
 import Autoplay from 'embla-carousel-autoplay'
 import { motion } from 'framer-motion'
-import { DollarSign, Users } from 'lucide-react'
+import { DollarSign, Mic2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-type RoomSectionProps = {
-    room: Room
-}
-
-export default function RoomSection({ room }: RoomSectionProps) {
-    const t = useTranslations('ROOMS')
+export default function StudioSection() {
+    const t = useTranslations('STUDIO')
+    const tRooms = useTranslations('ROOMS')
     const animations = useAnimations()
     const viewportConfig = { once: true, amount: 0.2 } as const
 
@@ -35,8 +31,11 @@ export default function RoomSection({ room }: RoomSectionProps) {
         })
     )
 
+    // Add your studio images here
+    const studioImages = ['hero.jpg']
+
     return (
-        <section id={`room-${room.id}`} className="w-full py-10 scroll-mt-[var(--header-height)]">
+        <section id="studio" className="w-full py-10 scroll-mt-[var(--header-height)]">
             <motion.div
                 variants={animations.fadeUp}
                 initial="initial"
@@ -58,12 +57,12 @@ export default function RoomSection({ room }: RoomSectionProps) {
                             }}
                         >
                             <CarouselContent>
-                                {room.images.map((img, index) => (
+                                {studioImages.map((img, index) => (
                                     <CarouselItem key={index}>
                                         <div className="relative h-[500px] sm:h-[550px] w-full overflow-hidden rounded-t-2xl">
                                             <Image
-                                                src={`/rooms/${img}`}
-                                                alt={`${t(room.name)} – ${index + 1}`}
+                                                src={`/studio/${img}`}
+                                                alt={`${t('TITLE')} – ${index + 1}`}
                                                 fill
                                                 className="object-cover object-center"
                                                 priority={index === 0}
@@ -90,10 +89,18 @@ export default function RoomSection({ room }: RoomSectionProps) {
                                 variants={animations.fadeUp}
                                 className="text-white text-3xl sm:text-5xl font-bold capitalize drop-shadow-lg"
                             >
-                                {t(room.name)}
+                                {t('TITLE')}
                             </motion.h2>
 
-                            {/* --- Features (Price / Size) --- */}
+                            {/* --- Description --- */}
+                            {/* <motion.p
+                                variants={animations.fadeUp}
+                                className="text-white/90 text-base sm:text-lg max-w-2xl mx-auto drop-shadow-md"
+                            >
+                                {t('SUBTITLE')}
+                            </motion.p> */}
+
+                            {/* --- Features (Price / Service Type) --- */}
                             <motion.div
                                 variants={animations.stagger}
                                 initial="initial"
@@ -110,10 +117,13 @@ export default function RoomSection({ room }: RoomSectionProps) {
                                     </div>
                                     <div className="text-left">
                                         <p className="text-white/70 text-xs font-medium uppercase tracking-wide drop-shadow-md">
-                                            {t('BASE_PRICE')}
+                                            {t('STUDIO_RATE')}
                                         </p>
                                         <p className="text-white text-xl sm:text-2xl font-bold drop-shadow-lg">
-                                            {room.price.toLocaleString('hu-HU')} Ft / {t('HOUR')}
+                                            10,000 Ft / {t('HOUR')}
+                                        </p>
+                                        <p className="text-white/60 text-xs drop-shadow-md">
+                                            {t('VAT_FREE')}
                                         </p>
                                     </div>
                                 </motion.div>
@@ -123,14 +133,14 @@ export default function RoomSection({ room }: RoomSectionProps) {
                                     className="flex items-center gap-3"
                                 >
                                     <div className="bg-white/20 backdrop-blur-sm rounded-full p-2.5">
-                                        <Users className="w-6 h-6 text-white" />
+                                        <Mic2 className="w-6 h-6 text-white" />
                                     </div>
                                     <div className="text-left">
                                         <p className="text-white/70 text-xs font-medium uppercase tracking-wide drop-shadow-md">
-                                            {t('SIZE')}
+                                            {t('SERVICES_TITLE')}
                                         </p>
-                                        <p className="text-white text-xl sm:text-2xl font-bold drop-shadow-lg">
-                                            {room.size} {t('PEOPLE')}
+                                        <p className="text-white text-lg sm:text-xl lg:text-2xl font-bold drop-shadow-lg break-words">
+                                            {t('FULL_ALBUM')}
                                         </p>
                                     </div>
                                 </motion.div>
@@ -144,13 +154,13 @@ export default function RoomSection({ room }: RoomSectionProps) {
                                 viewport={viewportConfig}
                                 className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-4 pt-4"
                             >
-                                <Link href={`/rooms/${room.id}`} className="w-full sm:w-auto">
+                                <Link href="/studio" className="w-full sm:w-auto">
                                     <Button
                                         variant="secondary"
                                         size="lg"
                                         className="w-full sm:w-auto px-10 py-7 text-lg font-bold shadow-2xl transition-all hover:scale-105 hover:-translate-y-0.5"
                                     >
-                                        {t('SEE_DETAILS')}
+                                        {tRooms('SEE_DETAILS')}
                                     </Button>
                                 </Link>
 
@@ -159,7 +169,7 @@ export default function RoomSection({ room }: RoomSectionProps) {
                                         size="lg"
                                         className="w-full sm:w-auto px-14 py-7 text-lg uppercase font-bold transition-all hover:scale-105 hover:-translate-y-0.5"
                                     >
-                                        {t('CTA')}
+                                        {t('CTA_BUTTON')}
                                     </Button>
                                 </Link>
                             </motion.div>

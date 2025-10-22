@@ -1,12 +1,12 @@
 'use client'
 
-import RoomSection from '@/components/common/rooms/room-section'
-import { rooms } from '@/lib/rooms'
-import { useTranslations } from 'next-intl'
-import { motion } from 'framer-motion'
-import { useAnimations } from '@/hooks/use-animation'
 import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
-import PalmLeafDivider from '@/components/common/palm-leaft-divider'
+import RoomSection from '@/components/common/rooms/room-section'
+import StudioSection from '@/components/common/rooms/studio-section'
+import { useAnimations } from '@/hooks/use-animation'
+import { rooms } from '@/lib/rooms'
+import { motion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 
 export default function RoomsPage() {
     const t = useTranslations('ROOMS')
@@ -14,7 +14,7 @@ export default function RoomsPage() {
     const viewportConfig = { once: true, amount: 0.1 } as const
 
     return (
-        <div className="mb-20">
+        <div className="mb-20 flex flex-col gap-y-40">
             {/* Title Section */}
             <section className="relative">
                 <div className="w-full mx-auto text-center relative z-10">
@@ -52,16 +52,13 @@ export default function RoomsPage() {
                 </div>
             </section>
 
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
-
             {/* Room Sections */}
-            {rooms.map((room, index) => (
-                <div key={room.id}>
-                    <RoomSection room={room} />
-                    {index < rooms.length - 1 && <PalmLeafDivider spacing="normal" />}
-                </div>
+            {rooms.map((room) => (
+                <RoomSection key={room.id} room={room} />
             ))}
+
+            {/* Studio Section */}
+            <StudioSection />
         </div>
     )
 }
