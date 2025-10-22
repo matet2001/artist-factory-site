@@ -108,6 +108,8 @@
             "TUNED": "tuned",
             "MICROPHONES": "Microphones"
         },
+        "SEE_DETAILS": "See Details",
+
         "VIEW_DETAILS": "View Details",
         "EQUIPMENT_TITLE": "Equipment"
     },
@@ -298,7 +300,6 @@
         "PASSWORDS_NOT_MATCH": "Passwords do not match"
     },
 
-
     "PROFILE": {
         "PRE_TITLE": "User settings",
         "TITLE": "Manage your profile",
@@ -307,5 +308,42 @@
             "UPDATE_SUCCESS": "Your profile has been successfully updated.",
             "UPDATE_FAIL": "Failed to update profile."
         }
+    },
+    "STUDIO": {
+        "PRE_TITLE": "Professional Recording",
+        "TITLE": "Recording Studio",
+        "SUBTITLE": "Professional Recording & Production Services",
+
+        "SERVICES_TITLE": "Our Professional Services",
+        "FULL_ALBUM": "Recording & Production",
+        "EDITING": "Editing, mixing and mastering",
+        "AUDIOBOOKS": "Audiobooks and voice recordings",
+        "COMMERCIAL": "Commercial music production",
+        "REHEARSAL_RECORDING": "Rehearsal recordings",
+
+        "EQUIPMENT_TITLE": "Studio Equipment",
+        "EQUIPMENT": {
+            "COMPUTER": "Power Mac G4 dual - Pro Tools Mix TDM",
+            "CONVERTERS": "Digidesign 888 A/D converters",
+            "PREAMPS": "Focusrite ISA 828, ISA 428 mic preamps",
+            "MICROPHONES": "TELEFUNKEN (tube), Shure Beta 57A, Beta 52, AKG C 4000 B, C 451 B"
+        },
+
+        "REFERENCES_TITLE": "References",
+        "REFERENCES_TEXT": "Popper Péter Részemről mondjunk mancsot és Jóga c. (Let's Shake Paws from My Side, Yoga) audiobooks, Ranschburg Jenő audiobook, MÁV recordings (Pál Szalóczy), Customer service phone recordings, Advil Ultra Forte 24 commercial",
+
+        "PRICING_TITLE": "Studio Pricing",
+        "STUDIO_RATE": "Studio Rate",
+        "REHEARSAL_RATE": "Rehearsal Recording",
+        "HOUR": "hour",
+        "VAT_FREE": "VAT exempt service",
+        "REHEARSAL_DESC": "Record 2-3 songs in 2-3 hours. Receive your recordings on CD or USB drive (blank CD not included in price).",
+        "NOTE": "Please indicate studio recording needs when booking your rehearsal room!",
+
+        "INSTRUMENTS_NOTE": "All instruments from our rehearsal rooms are available for studio sessions (see Equipment page). Prior arrangement required!",
+
+        "CTA_TITLE": "Ready to Record?",
+        "CTA_DESC": "Book your studio session and bring your music to life!",
+        "CTA_BUTTON": "Book Studio Session"
     }
 }

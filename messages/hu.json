@@ -299,7 +299,6 @@
         "PASSWORDS_NOT_MATCH": "A jelszavak nem egyeznek"
     },
 
-
     "PROFILE": {
         "PRE_TITLE": "Felhasználói beállítások",
         "TITLE": "Profilod kezelése",
@@ -308,5 +307,42 @@
             "UPDATE_SUCCESS": "Profilod sikeresen frissítve.",
             "UPDATE_FAIL": "Nem sikerült frissíteni a profilt."
         }
+    },
+    "STUDIO": {
+        "PRE_TITLE": "Professzionális Felvétel",
+        "TITLE": "Stúdió",
+        "SUBTITLE": "Professzionális Felvétel és Produkciós Szolgáltatások",
+
+        "SERVICES_TITLE": "Professzionális Szolgáltatásaink",
+        "FULL_ALBUM": "Felvétel és Produkciós",
+        "EDITING": "Editálás, keverés és maszterelés",
+        "AUDIOBOOKS": "Hangoskönyvek és szöveges felvételek készítése",
+        "COMMERCIAL": "Reklámzene készítés",
+        "REHEARSAL_RECORDING": "Zenekari próbák rögzítése",
+
+        "EQUIPMENT_TITLE": "Stúdió Felszerelés",
+        "EQUIPMENT": {
+            "COMPUTER": "Power Mac G4 dual - Pro Tools Mix TDM",
+            "CONVERTERS": "Digidesign 888 A/D konverterek",
+            "PREAMPS": "Focusrite ISA 828, ISA 428 mikrofon előfokok",
+            "MICROPHONES": "TELEFUNKEN (csöves), Shure Beta 57A, Beta 52, AKG C 4000 B, C 451 B"
+        },
+
+        "REFERENCES_TITLE": "Referenciák",
+        "REFERENCES_TEXT": "Popper Péter hangoskönyvek (Részemről mondjunk mancsot, Jóga), Ranschburg Jenő hangoskönyv, MÁV hangok felvétele (Szalóczy Pál), Telefonos ügyfélszolgálati hangok, Advil Ultra forte 24 reklámszöveg",
+
+        "PRICING_TITLE": "Stúdió Árak",
+        "STUDIO_RATE": "Stúdió Óradíj",
+        "REHEARSAL_RATE": "Próba Felvétel",
+        "HOUR": "óra",
+        "VAT_FREE": "A szolgáltatás ÁFA mentes",
+        "REHEARSAL_DESC": "2-3 óra alatt 2-3 dal rögzítése. Az anyagot CD-n vagy pendrive-on viheted haza (az írható CD ára nem tartalmazza).",
+        "NOTE": "Kérjük jelezd előre, ha próbaterem foglaláskor stúdió felvételt is szeretnél!",
+
+        "INSTRUMENTS_NOTE": "A próbatermekben megtalálható hangszerek bármelyike felhasználható a stúdiómunkák során (lásd Hangszerpark menüpont). Ehhez előzetes egyeztetés szükséges!",
+
+        "CTA_TITLE": "Készen állsz a felvételre?",
+        "CTA_DESC": "Foglalj stúdió időpontot és vidd sikerre a zenédet!",
+        "CTA_BUTTON": "Stúdió Foglalás"
     }
 }

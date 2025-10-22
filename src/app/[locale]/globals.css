@@ -21,7 +21,8 @@
     --color-muted: #B70300; /* Subtle teal-gray for elevation */
     --color-muted-foreground: #7EB5BC;
 
-    --color-card: #005263;                 /* Deep teal for cards - creates beautiful depth */
+    --color-card: #005263;
+    --color-card-elevated: #006B7D;
     --color-card-foreground: #f5f5f5;
     --color-card-muted-foreground: #95B8BC;
 
@@ -67,6 +68,7 @@
 :root {
     --radius: 0.625rem;
     --header-height: 72px;
+    --section-gap: 10rem; /* 160px = gap-y-40 in Tailwind (40 * 0.25rem = 10rem) */
     /* --gradient-main: linear-gradient(to bottom, #009691, #00a39d); */
 }
 

@@ -1,7 +1,6 @@
 // app/[locale]/rooms/[roomId]/page.tsx
 'use client'
 
-import PalmLeafDivider from '@/components/common/palm-leaft-divider'
 import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
 import { EquipmentIcon } from '@/components/common/rooms/equipment-icon'
 import TikiTorch from '@/components/common/TikiTorch'
@@ -48,7 +47,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
     )
 
     return (
-        <div className="mb-20">
+        <div className="mb-20 flex flex-col gap-y-40">
             {/* Title Section */}
             <section className="relative">
                 <div className="w-full mx-auto text-center relative z-10">
@@ -76,9 +75,6 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                     </motion.div>
                 </div>
             </section>
-
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
 
             {/* Image Carousel Section */}
             <section className="relative">
@@ -124,9 +120,6 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                     </motion.div>
                 </div>
             </section>
-
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
 
             {/* Pricing & Details Section */}
             <section className="relative">

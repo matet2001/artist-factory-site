@@ -1,7 +1,6 @@
 // app/[locale]/prices/page.tsx
 'use client'
 
-import PalmLeafDivider from '@/components/common/palm-leaft-divider'
 import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
 import TikiTorch from '@/components/common/TikiTorch'
 import { Badge } from '@/components/ui/badge'
@@ -52,10 +51,10 @@ export default function PricesPage() {
     const router = useRouter()
     const viewportConfig = { once: true, amount: 0.1 } as const
 
-    const goToRoom = (roomId: string) => router.push(`/rooms/#room-${roomId}`)
+    const goToRoom = (roomId: string) => router.push(`/rooms/${roomId}`)
 
     return (
-        <div className="mb-20">
+        <div className="mb-20 flex flex-col gap-y-40">
             {/* Title Section */}
             <section className="relative">
                 <div className="w-full mx-auto text-center relative z-10">
@@ -89,9 +88,6 @@ export default function PricesPage() {
                     </motion.div>
                 </div>
             </section>
-
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
 
             {/* Room Pricing Section */}
             <section className="relative">
@@ -137,7 +133,7 @@ export default function PricesPage() {
                                         key={room.id}
                                         variants={animations.scaleIn}
                                         onClick={() => goToRoom(room.id)}
-                                        className="relative overflow-hidden rounded-xl bg-card p-3 sm:p-4 transition-all hover:shadow-lg hover:scale-[1.02] hover:bg-background/90 cursor-pointer"
+                                        className="relative overflow-hidden rounded-xl bg-card-elevated p-3 sm:p-4 transition-all hover:shadow-lg hover:scale-[1.02] hover:bg-card-elevated/90 cursor-pointer"
                                     >
                                         <div className="text-center space-y-2">
                                             <h3 className="text-sm sm:text-base font-bold text-foreground">
@@ -181,7 +177,7 @@ export default function PricesPage() {
                                 {/* Individual Practice */}
                                 <motion.div
                                     variants={animations.scaleIn}
-                                    className="text-center p-6 rounded-xl bg-card"
+                                    className="text-center p-6 rounded-xl bg-card-elevated"
                                 >
                                     <div className="flex items-center justify-center gap-2 mb-3">
                                         <Drum className="h-5 w-5 text-foreground" />
@@ -206,35 +202,34 @@ export default function PricesPage() {
                                 {/* Studio Services */}
                                 <motion.div
                                     variants={animations.scaleIn}
-                                    className="text-center p-6 rounded-xl bg-card"
+                                    className="text-center p-6 rounded-xl bg-card-elevated transition-all hover:shadow-lg hover:scale-[1.02] hover:bg-card-elevated/90 cursor-pointer"
                                 >
-                                    <div className="flex items-center justify-center gap-2 mb-3">
-                                        <CalendarClock className="h-5 w-5 text-foreground" />
-                                        <h3 className="text-lg font-bold text-foreground">
-                                            {t('STUDIO_TITLE', {
-                                                default: 'Stúdió szolgáltatások',
-                                            })}
-                                        </h3>
-                                    </div>
-                                    <div className="space-y-1">
-                                        <div className="text-xl font-bold text-foreground">
-                                            10,000 Ft / {t('HOUR', { default: 'óra' })}
+                                    <Link href={'/studio'}>
+                                        <div className="flex items-center justify-center gap-2 mb-3">
+                                            <CalendarClock className="h-5 w-5 text-foreground" />
+                                            <h3 className="text-lg font-bold text-foreground">
+                                                {t('STUDIO_TITLE', {
+                                                    default: 'Stúdió szolgáltatások',
+                                                })}
+                                            </h3>
                                         </div>
-                                        <p className="text-xs text-card-muted-foreground">
-                                            {t('STUDIO_VAT_NOTE', {
-                                                default: 'A szolgáltatás 0% ÁFA-s.',
-                                            })}
-                                        </p>
-                                    </div>
+                                        <div className="space-y-1">
+                                            <div className="text-xl font-bold text-foreground">
+                                                10,000 Ft / {t('HOUR', { default: 'óra' })}
+                                            </div>
+                                            <p className="text-xs text-card-muted-foreground">
+                                                {t('STUDIO_VAT_NOTE', {
+                                                    default: 'A szolgáltatás 0% ÁFA-s.',
+                                                })}
+                                            </p>
+                                        </div>
+                                    </Link>
                                 </motion.div>
                             </motion.div>
                         </div>
                     </motion.div>
                 </div>
             </section>
-
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
 
             {/* Equipment and Services Section */}
             <section className="relative">
@@ -368,9 +363,6 @@ export default function PricesPage() {
                     </motion.div>
                 </div>
             </section>
-
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
 
             {/* Call to Action Section */}
             <section className="relative">
