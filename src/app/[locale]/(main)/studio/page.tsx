@@ -3,7 +3,6 @@
 
 import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
 import { EquipmentIcon } from '@/components/common/rooms/equipment-icon'
-import TikiTorch from '@/components/common/TikiTorch'
 import { Button } from '@/components/ui/button'
 import { useAnimations } from '@/hooks/use-animation'
 import { EquipmentItem } from '@/lib/rooms'
@@ -37,13 +36,7 @@ const equipment: EquipmentItem[] = [
     { label: 'MICROPHONES', type: 'mic' },
 ]
 
-const references = [
-    'Popper Péter - Részemről mondjunk mancsot és Jóga c. hangoskönyvek',
-    'Ranschburg Jenő - hangoskönyv',
-    'MÁV - hangok felvétele (Szalóczy Pál)',
-    'Telefonos ügyfélszolgálati hangok',
-    'Reklámszöveg: Advil Ultra forte 24',
-]
+// References moved to translation file for i18n support
 
 export default function StudioPage() {
     const t = useTranslations('STUDIO')
@@ -51,213 +44,169 @@ export default function StudioPage() {
     const viewportConfig = { once: true, amount: 0.1 } as const
 
     return (
-        <div className="mb-20 flex flex-col gap-y-40">
-            {/* Title Section */}
-            <section className="relative">
-                <div className="w-full mx-auto text-center relative z-10">
+        <div className="mb-20">
+            {/* Title Section - Clean, no card */}
+            <section className="relative py-16 md:py-20">
+                <div className="max-w-7xl mx-auto px-4">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
                         animate="whileInView"
+                        viewport={viewportConfig}
+                        className="text-center space-y-4"
+                    >
+                        <p className="text-xs sm:text-sm tracking-[0.3em] uppercase text-primary font-medium">
+                            {t('PRE_TITLE')}
+                        </p>
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight">
+                            {t('TITLE')}
+                        </h1>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Hero Image Section - Full bleed with subtle border */}
+            <section className="relative py-8 md:py-12">
+                <div className="max-w-7xl mx-auto px-4">
+                    <motion.div
+                        variants={animations.fadeUp}
+                        initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="relative h-[400px] sm:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden border border-primary/20 shadow-2xl"
                     >
-                        {/* Palm Trees in corners */}
-                        <div className="absolute inset-0 pointer-events-none z-0">
-                            <PalmTreeSilhouette position="top-left" flipped size="sm" />
-                            <PalmTreeSilhouette position="top-right" flipped mirrored size="sm" />
-                            <PalmTreeSilhouette position="bottom-left" size="sm" />
-                            <PalmTreeSilhouette position="bottom-right" mirrored size="sm" />
-                        </div>
+                        <Image
+                            src="/studio/hero.jpg"
+                            alt={t('TITLE')}
+                            fill
+                            className="object-cover"
+                            priority
+                        />
+                        {/* Subtle gradient overlay for depth */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
+                    </motion.div>
+                </div>
+            </section>
 
-                        <div className="relative z-10 py-8 sm:py-10 lg:py-12">
-                            <div className="space-y-4 sm:space-y-6">
-                                <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-card-muted-foreground">
-                                    {t('PRE_TITLE')}
-                                </p>
-                                <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold tracking-tight">
-                                    {t('TITLE')}
-                                </h1>
+            {/* Services Section - More visible card */}
+            <section className="relative py-16 md:py-24">
+                <div className="max-w-7xl mx-auto px-4">
+                    <motion.div
+                        variants={animations.fadeUp}
+                        initial="initial"
+                        whileInView="whileInView"
+                        viewport={viewportConfig}
+                        className="relative"
+                    >
+                        {/* Background card - more visible */}
+                        <div className="absolute inset-0 bg-card/80 backdrop-blur-xl rounded-3xl border border-primary/20 shadow-xl" />
+
+                        <div className="relative z-10 p-8 sm:p-12 lg:p-16">
+                            <div className="space-y-12">
+                                <motion.h2
+                                    variants={animations.fadeUp}
+                                    className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center"
+                                >
+                                    {t('SERVICES_TITLE')}
+                                </motion.h2>
+
+                                <motion.div
+                                    variants={animations.stagger}
+                                    initial="initial"
+                                    whileInView="whileInView"
+                                    viewport={viewportConfig}
+                                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                                >
+                                    {services.map((service, idx) => {
+                                        const Icon = service.icon
+                                        return (
+                                            <motion.div
+                                                key={idx}
+                                                variants={animations.scaleIn}
+                                                className="group flex items-center gap-4 p-6 rounded-xl bg-card-elevated/60 border border-primary/20 hover:border-primary/50 transition-all hover:bg-card-elevated hover:shadow-lg"
+                                            >
+                                                <div className="flex-shrink-0">
+                                                    <Icon className="h-6 w-6 text-primary transition-transform group-hover:scale-110" />
+                                                </div>
+                                                <p className="text-base font-medium text-foreground">
+                                                    {t(service.key)}
+                                                </p>
+                                            </motion.div>
+                                        )
+                                    })}
+                                </motion.div>
                             </div>
                         </div>
                     </motion.div>
                 </div>
             </section>
 
-            {/* Hero Image Section */}
-            <section className="relative">
-                <div className="w-full mx-auto relative z-10">
+            {/* Equipment Section - Clean with visible borders */}
+            <section className="relative py-16 md:py-24">
+                <div className="max-w-7xl mx-auto px-4">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full"
+                        className="space-y-12"
                     >
-                        <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden">
-                            <Image
-                                src="/studio/hero.jpg"
-                                alt={t('TITLE')}
-                                fill
-                                className="object-cover rounded-2xl"
-                                priority
-                            />
-                        </div>
+                        <h2 className="text-3xl sm:text-4xl font-bold text-center">
+                            {t('EQUIPMENT_TITLE')}
+                        </h2>
+
+                        <motion.div
+                            variants={animations.stagger}
+                            initial="initial"
+                            whileInView="whileInView"
+                            viewport={viewportConfig}
+                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+                        >
+                            {equipment.map((item, idx) => (
+                                <motion.div
+                                    key={idx}
+                                    variants={animations.fadeUp}
+                                    className="group flex flex-col items-center gap-4 p-6 rounded-xl border border-primary/20 hover:border-primary/50 transition-all hover:bg-card/30"
+                                >
+                                    <div className="flex-shrink-0 transition-transform group-hover:scale-110">
+                                        <EquipmentIcon type={item.type} size="lg" />
+                                    </div>
+                                    <p className="text-sm text-center text-foreground/90">
+                                        {t(`EQUIPMENT.${item.label}`)}
+                                    </p>
+                                </motion.div>
+                            ))}
+                        </motion.div>
                     </motion.div>
                 </div>
             </section>
 
-            {/* Services Section */}
-            <section className="relative">
-                <div className="w-full mx-auto text-center relative z-10">
+            {/* Pricing Section - Solid card (important info) */}
+            <section className="relative py-16 md:py-24">
+                <div className="max-w-7xl mx-auto px-4">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="bg-card rounded-3xl p-8 sm:p-12 lg:p-16 border border-primary/20 shadow-2xl"
                     >
-                        {/* Tiki Torches in corners */}
-                        <div className="hidden sm:block">
-                            <TikiTorch position="top-left" />
-                            <TikiTorch position="top-right" />
-                            <TikiTorch position="bottom-left" />
-                            <TikiTorch position="bottom-right" />
-                        </div>
-
-                        <div className="relative z-10 space-y-8 sm:space-y-10 lg:space-y-12">
-                            <motion.h2
-                                variants={animations.fadeUp}
-                                className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground"
-                            >
-                                {t('SERVICES_TITLE')}
-                            </motion.h2>
-
-                            <motion.div
-                                variants={animations.stagger}
-                                initial="initial"
-                                whileInView="whileInView"
-                                viewport={viewportConfig}
-                                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
-                            >
-                                {services.map((service, idx) => {
-                                    const Icon = service.icon
-                                    return (
-                                        <motion.div
-                                            key={idx}
-                                            variants={animations.scaleIn}
-                                            className="flex items-center gap-3 sm:gap-4 p-6 rounded-xl bg-card-elevated text-left"
-                                        >
-                                            <div className="flex-shrink-0">
-                                                <Icon className="h-6 w-6 text-primary" />
-                                            </div>
-                                            <div className="flex-1">
-                                                <div className="font-semibold text-foreground text-sm sm:text-base">
-                                                    {t(service.key)}
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    )
-                                })}
-                            </motion.div>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* Equipment Section */}
-            <section className="relative">
-                <div className="w-full mx-auto text-center relative z-10">
-                    <motion.div
-                        variants={animations.fadeUp}
-                        initial="initial"
-                        whileInView="whileInView"
-                        viewport={viewportConfig}
-                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
-                    >
-                        <div className="relative z-10 space-y-8">
-                            <motion.h2
-                                variants={animations.fadeUp}
-                                className="text-2xl sm:text-3xl font-bold text-foreground"
-                            >
-                                {t('EQUIPMENT_TITLE')}
-                            </motion.h2>
-
-                            <motion.div
-                                variants={animations.stagger}
-                                initial="initial"
-                                whileInView="whileInView"
-                                viewport={viewportConfig}
-                                className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6"
-                            >
-                                {equipment.map((item, idx) => (
-                                    <motion.div
-                                        key={idx}
-                                        variants={animations.fadeUp}
-                                        className="flex items-center gap-3 sm:gap-4 p-4 rounded-lg bg-card-elevated text-left"
-                                    >
-                                        <div className="flex-shrink-0">
-                                            <EquipmentIcon type={item.type} size={24} />
-                                        </div>
-                                        <div className="flex-1 min-w-0">
-                                            <div className="text-sm text-foreground break-words">
-                                                {t(`EQUIPMENT.${item.label}`)}
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                ))}
-                            </motion.div>
-
-                            {/* Instruments Note */}
-                            <motion.div
-                                variants={animations.fadeUp}
-                                className="text-sm  italic w-full bg-card-elevated p-4 rounded-lg"
-                            >
-                                {t('INSTRUMENTS_NOTE')}
-                            </motion.div>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* Pricing Section */}
-            <section className="relative">
-                <div className="w-full mx-auto text-center relative z-10">
-                    <motion.div
-                        variants={animations.fadeUp}
-                        initial="initial"
-                        whileInView="whileInView"
-                        viewport={viewportConfig}
-                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
-                    >
-                        {/* Tiki Torches in corners */}
-                        <div className="hidden sm:block">
-                            <TikiTorch position="top-left" />
-                            <TikiTorch position="top-right" />
-                            <TikiTorch position="bottom-left" />
-                            <TikiTorch position="bottom-right" />
-                        </div>
-
-                        <div className="relative z-10 space-y-8 sm:space-y-10">
-                            <motion.h2
-                                variants={animations.fadeUp}
-                                className="text-2xl sm:text-3xl font-bold text-foreground mb-6"
-                            >
+                        <div className="space-y-12">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-center">
                                 {t('PRICING_TITLE')}
-                            </motion.h2>
+                            </h2>
 
                             <motion.div
                                 variants={animations.stagger}
                                 initial="initial"
                                 whileInView="whileInView"
                                 viewport={viewportConfig}
-                                className="flex flex-col sm:flex-row justify-center items-stretch gap-6 max-w-4xl mx-auto"
+                                className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto"
                             >
                                 {/* Studio Rate */}
                                 <motion.div
                                     variants={animations.scaleIn}
-                                    className="flex-1 text-center p-8 rounded-xl bg-card-elevated"
+                                    className="flex-1 text-center p-8 rounded-xl bg-card-elevated border border-primary/20"
                                 >
                                     <div className="flex items-center justify-center gap-2 mb-4">
                                         <DollarSign className="h-6 w-6 text-primary" />
@@ -279,7 +228,7 @@ export default function StudioPage() {
                                 {/* Rehearsal Recording Rate */}
                                 <motion.div
                                     variants={animations.scaleIn}
-                                    className="flex-1 text-center p-8 rounded-xl bg-card-elevated"
+                                    className="flex-1 text-center p-8 rounded-xl bg-card-elevated border border-primary/20"
                                 >
                                     <div className="flex items-center justify-center gap-2 mb-4">
                                         <Clock className="h-6 w-6 text-primary" />
@@ -301,7 +250,7 @@ export default function StudioPage() {
 
                             <motion.div
                                 variants={animations.fadeUp}
-                                className="text-sm italic max-w-2xl mx-auto bg-card-elevated p-4 rounded-lg"
+                                className="text-sm italic max-w-2xl mx-auto bg-card-elevated/50 p-4 rounded-lg border border-primary/10 text-center"
                             >
                                 {t('NOTE')}
                             </motion.div>
@@ -310,61 +259,57 @@ export default function StudioPage() {
                 </div>
             </section>
 
-            {/* References Section */}
-            <section className="relative">
-                <div className="w-full mx-auto text-center relative z-10">
+            {/* References Section - More visible card */}
+            <section className="relative py-16 md:py-24">
+                <div className="max-w-7xl mx-auto px-4">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="space-y-12"
                     >
-                        <div className="relative z-10 space-y-8">
-                            <motion.h2
-                                variants={animations.fadeUp}
-                                className="text-2xl sm:text-3xl font-bold text-foreground"
-                            >
-                                {t('REFERENCES_TITLE')}
-                            </motion.h2>
+                        <h2 className="text-3xl sm:text-4xl font-bold text-center">
+                            {t('REFERENCES_TITLE')}
+                        </h2>
 
-                            <motion.div
-                                variants={animations.stagger}
-                                initial="initial"
-                                whileInView="whileInView"
-                                viewport={viewportConfig}
-                                className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-4xl mx-auto"
-                            >
-                                {references.map((reference, idx) => (
-                                    <motion.div
-                                        key={idx}
-                                        variants={animations.fadeUp}
-                                        className={`p-4 rounded-lg bg-card-elevated text-left ${
-                                            idx === references.length - 1 ? 'md:col-span-2' : ''
-                                        }`}
-                                    >
-                                        <div className="text-foreground text-sm sm:text-base">
-                                            {reference}
-                                        </div>
-                                    </motion.div>
-                                ))}
-                            </motion.div>
-                        </div>
+                        <motion.div variants={animations.fadeUp} className="max-w-4xl mx-auto">
+                            <div className="p-8 rounded-xl border border-primary/20 hover:border-primary/40 transition-all bg-card/40 hover:bg-card/50">
+                                <p className="text-foreground/90 text-base sm:text-lg leading-relaxed text-center whitespace-pre-line">
+                                    {t('REFERENCES_TEXT')}
+                                </p>
+                            </div>
+                        </motion.div>
                     </motion.div>
                 </div>
             </section>
 
-            {/* CTA Section */}
-            <section className="relative">
-                <div className="w-full mx-auto text-center relative z-10">
+            {/* Instruments Note - More visible */}
+            <section className="relative py-8">
+                <div className="max-w-4xl mx-auto px-4">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-10 sm:py-12 lg:py-15 relative overflow-hidden w-full"
+                        className="text-center p-6 rounded-xl bg-card/40 border border-primary/20"
                     >
-                        {/* Palm Trees in corners */}
+                        <p className="text-sm text-foreground/80 italic">{t('INSTRUMENTS_NOTE')}</p>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* CTA Section - Palm trees only, no tiki torches */}
+            <section className="relative py-16 md:py-24">
+                <div className="max-w-7xl mx-auto px-4">
+                    <motion.div
+                        variants={animations.fadeUp}
+                        initial="initial"
+                        whileInView="whileInView"
+                        viewport={viewportConfig}
+                        className="relative bg-gradient-to-br from-card to-card-elevated rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden border border-primary/20 shadow-2xl"
+                    >
+                        {/* Palm Trees in corners - ONLY decoration */}
                         <div className="absolute inset-0 pointer-events-none z-0">
                             <PalmTreeSilhouette position="top-left" flipped size="sm" />
                             <PalmTreeSilhouette position="top-right" flipped mirrored size="sm" />
@@ -378,30 +323,30 @@ export default function StudioPage() {
                                 initial="initial"
                                 whileInView="whileInView"
                                 viewport={viewportConfig}
-                                className="space-y-6"
+                                className="space-y-8 text-center"
                             >
                                 <motion.h2
                                     variants={animations.fadeUp}
-                                    className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground"
+                                    className="text-3xl sm:text-4xl lg:text-5xl font-bold"
                                 >
                                     {t('CTA_TITLE')}
                                 </motion.h2>
                                 <motion.p
                                     variants={animations.fadeUp}
-                                    className="text-card-muted-foreground text-sm sm:text-base lg:text-lg"
+                                    className="text-card-muted-foreground text-base sm:text-lg lg:text-xl max-w-2xl mx-auto"
                                 >
                                     {t('CTA_DESC')}
                                 </motion.p>
-                                <motion.div variants={animations.scaleIn} className="px-4">
+                                <motion.div variants={animations.scaleIn}>
                                     <Link
                                         href="/booking"
-                                        className="group inline-block w-full max-w-xl mx-auto"
+                                        className="group inline-block w-full max-w-md mx-auto"
                                     >
                                         <Button
                                             size="lg"
-                                            className="w-full inline-flex items-center justify-center gap-3 text-base sm:text-lg lg:text-xl px-8 sm:px-12 py-7 sm:py-8 rounded-2xl font-bold shadow-2xl transition-all hover:scale-105 hover:-translate-y-0.5"
+                                            className="w-full inline-flex items-center justify-center gap-3 text-lg lg:text-xl px-12 py-8 rounded-2xl font-bold shadow-2xl transition-all hover:scale-105 hover:-translate-y-1"
                                         >
-                                            <CalendarDays className="w-5 h-5 sm:w-6 sm:h-6" />
+                                            <CalendarDays className="w-6 h-6" />
                                             {t('CTA_BUTTON')}
                                         </Button>
                                     </Link>
