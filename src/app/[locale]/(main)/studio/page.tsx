@@ -169,7 +169,7 @@ export default function StudioPage() {
                                     className="group flex flex-col items-center gap-4 p-6 rounded-xl border border-primary/20 hover:border-primary/50 transition-all hover:bg-card/30"
                                 >
                                     <div className="flex-shrink-0 transition-transform group-hover:scale-110">
-                                        <EquipmentIcon type={item.type} size="lg" />
+                                        <EquipmentIcon type={item.type} size={100}/>
                                     </div>
                                     <p className="text-sm text-center text-foreground/90">
                                         {t(`EQUIPMENT.${item.label}`)}
