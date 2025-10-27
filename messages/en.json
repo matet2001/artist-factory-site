@@ -322,15 +322,38 @@
         "REHEARSAL_RECORDING": "Rehearsal recordings",
 
         "EQUIPMENT_TITLE": "Studio Equipment",
-        "EQUIPMENT": {
-            "COMPUTER": "Power Mac G4 dual - Pro Tools Mix TDM",
-            "CONVERTERS": "Digidesign 888 A/D converters",
-            "PREAMPS": "Focusrite ISA 828, ISA 428 mic preamps",
-            "MICROPHONES": "TELEFUNKEN (tube), Shure Beta 57A, Beta 52, AKG C 4000 B, C 451 B"
-        },
-
         "REFERENCES_TITLE": "References",
-        "REFERENCES_TEXT": "Popper Péter audiobooks (Let's Shake Paws from My Side, Yoga) • Ranschburg Jenő audiobook • MÁV recordings (Szalóczy Pál) • Customer service phone recordings • Advil Ultra forte 24 commercial",
+        "EQUIPMENT": {
+            "COMPUTER": {
+                "TITLE": "Computer",
+                "ITEM_1": "Power Mac G4 dual",
+                "ITEM_2": "Pro Tools Mix TDM"
+            },
+            "CONVERTERS": {
+                "TITLE": "Converters",
+                "ITEM_1": "Digidesign 888 A/D"
+            },
+            "PREAMPS": {
+                "TITLE": "Preamps",
+                "ITEM_1": "Focusrite ISA 828",
+                "ITEM_2": "Focusrite ISA 428"
+            },
+            "MICROPHONES": {
+                "TITLE": "Microphones",
+                "ITEM_1": "TELEFUNKEN (tube)",
+                "ITEM_2": "Shure Beta 57 A",
+                "ITEM_3": "Shure Beta 52",
+                "ITEM_4": "AKG C 4000 B",
+                "ITEM_5": "AKG C 451 B"
+            }
+        },
+        "REFERENCES": {
+            "ITEM_1": "Popper Péter audiobooks (Let's Shake Paws from My Side, Yoga)",
+            "ITEM_2": "Ranschburg Jenő audiobook",
+            "ITEM_3": "MÁV recordings (Szalóczy Pál)",
+            "ITEM_4": "Customer service phone recordings",
+            "ITEM_5": "Advil Ultra forte 24 commercial"
+        },
 
         "PRICING_TITLE": "Studio Pricing",
         "STUDIO_RATE": "Studio Rate",
