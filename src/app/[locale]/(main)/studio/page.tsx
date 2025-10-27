@@ -5,18 +5,8 @@ import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
 import { EquipmentIcon } from '@/components/common/rooms/equipment-icon'
 import { Button } from '@/components/ui/button'
 import { useAnimations } from '@/hooks/use-animation'
-import { EquipmentItem } from '@/lib/rooms'
 import { motion } from 'framer-motion'
-import {
-    CalendarDays,
-    Clock,
-    Disc3,
-    DollarSign,
-    Headphones,
-    Mic2,
-    Music,
-    Radio,
-} from 'lucide-react'
+import { CalendarDays, Disc3, DollarSign, Headphones, Mic2, Music, Radio } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -29,19 +19,66 @@ const services = [
     { key: 'REHEARSAL_RECORDING', icon: Music },
 ]
 
-const equipment: EquipmentItem[] = [
-    { label: 'COMPUTER', type: 'mixer' },
-    { label: 'CONVERTERS', type: 'mixer' },
-    { label: 'PREAMPS', type: 'amp' },
-    { label: 'MICROPHONES', type: 'mic' },
+// Detailed equipment with translation keys
+const equipmentDetails = [
+    {
+        titleKey: 'EQUIPMENT.COMPUTER.TITLE',
+        type: 'mixer' as const,
+        itemKeys: ['EQUIPMENT.COMPUTER.ITEM_1', 'EQUIPMENT.COMPUTER.ITEM_2'],
+    },
+    {
+        titleKey: 'EQUIPMENT.CONVERTERS.TITLE',
+        type: 'mixer' as const,
+        itemKeys: ['EQUIPMENT.CONVERTERS.ITEM_1'],
+    },
+    {
+        titleKey: 'EQUIPMENT.PREAMPS.TITLE',
+        type: 'amp' as const,
+        itemKeys: ['EQUIPMENT.PREAMPS.ITEM_1', 'EQUIPMENT.PREAMPS.ITEM_2'],
+    },
+    {
+        titleKey: 'EQUIPMENT.MICROPHONES.TITLE',
+        type: 'mic' as const,
+        itemKeys: [
+            'EQUIPMENT.MICROPHONES.ITEM_1',
+            'EQUIPMENT.MICROPHONES.ITEM_2',
+            'EQUIPMENT.MICROPHONES.ITEM_3',
+            'EQUIPMENT.MICROPHONES.ITEM_4',
+            'EQUIPMENT.MICROPHONES.ITEM_5',
+        ],
+    },
 ]
-
-// References moved to translation file for i18n support
 
 export default function StudioPage() {
     const t = useTranslations('STUDIO')
     const animations = useAnimations()
     const viewportConfig = { once: true, amount: 0.1 } as const
+
+    // Organic shapes for equipment cards
+    const equipmentShapes = [
+        '45% 55% 60% 40% / 55% 50% 50% 45%', // Computer
+        '55% 45% 50% 50% / 45% 60% 100% 55%', // Converters
+        '50% 50% 55% 45% / 60% 45% 55% 40%', // Preamps
+        '48% 52% 45% 55% / 52% 55% 100% 48%', // Microphones
+    ]
+
+    // Organic shapes for reference cards
+    const referenceShapes = [
+        '50% 50% 45% 55% / 55% 50% 50% 45%',
+        '55% 45% 52% 48% / 48% 55% 45% 52%',
+        '48% 52% 50% 50% / 52% 48% 52% 48%',
+        '52% 48% 55% 45% / 50% 52% 48% 52%',
+        '45% 55% 48% 52% / 55% 45% 55% 45%',
+    ]
+
+    // Reference keys
+    const referenceKeys = [
+        'REFERENCES.ITEM_1',
+        'REFERENCES.ITEM_2',
+        'REFERENCES.ITEM_3',
+        'REFERENCES.ITEM_4',
+        'REFERENCES.ITEM_5',
+    ]
 
     return (
         <div className="mb-20">
@@ -65,7 +102,7 @@ export default function StudioPage() {
                 </div>
             </section>
 
-            {/* Hero Image Section - Full bleed with subtle border */}
+            {/* Hero Image Section - Organic shape */}
             <section className="relative py-8 md:py-12">
                 <div className="max-w-7xl mx-auto px-4">
                     <motion.div
@@ -73,17 +110,27 @@ export default function StudioPage() {
                         initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="relative h-[400px] sm:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden border border-primary/20 shadow-2xl"
+                        className="relative h-[400px] sm:h-[500px] lg:h-[600px] overflow-hidden"
+                        style={{
+                            borderRadius: '65% 35% 70% 30% / 60% 40% 60% 40%',
+                        }}
                     >
-                        <Image
-                            src="/studio/hero.jpg"
-                            alt={t('TITLE')}
-                            fill
-                            className="object-cover"
-                            priority
-                        />
-                        {/* Subtle gradient overlay for depth */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
+                        <div
+                            className="relative h-full border border-primary/20 shadow-2xl overflow-hidden"
+                            style={{
+                                borderRadius: '65% 35% 70% 30% / 60% 40% 60% 40%',
+                            }}
+                        >
+                            <Image
+                                src="/studio/hero.jpg"
+                                alt={t('TITLE')}
+                                fill
+                                className="object-cover"
+                                priority
+                            />
+                            {/* Subtle gradient overlay for depth */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
+                        </div>
                     </motion.div>
                 </div>
             </section>
@@ -141,7 +188,7 @@ export default function StudioPage() {
                 </div>
             </section>
 
-            {/* Equipment Section - Clean with visible borders */}
+            {/* Equipment Section - More height for microphones card */}
             <section className="relative py-16 md:py-24">
                 <div className="max-w-7xl mx-auto px-4">
                     <motion.div
@@ -160,20 +207,39 @@ export default function StudioPage() {
                             initial="initial"
                             whileInView="whileInView"
                             viewport={viewportConfig}
-                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+                            className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto"
                         >
-                            {equipment.map((item, idx) => (
+                            {equipmentDetails.map((equipment, idx) => (
                                 <motion.div
                                     key={idx}
-                                    variants={animations.fadeUp}
-                                    className="group flex flex-col items-center gap-4 p-6 rounded-xl border border-primary/20 hover:border-primary/50 transition-all hover:bg-card/30"
+                                    variants={animations.scaleIn}
+                                    className="flex flex-col gap-4 p-6 bg-card/40 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg"
+                                    style={{
+                                        borderRadius: equipmentShapes[idx],
+                                        minHeight: '260px',
+                                    }}
                                 >
-                                    <div className="flex-shrink-0 transition-transform group-hover:scale-110">
-                                        <EquipmentIcon type={item.type} size={100}/>
+                                    {/* Icon and Title */}
+                                    <div className="flex flex-col items-center gap-2 pb-3 border-b border-primary/20">
+                                        <EquipmentIcon type={equipment.type} size={40} />
+                                        <h3 className="text-base font-bold text-center text-foreground">
+                                            {t(equipment.titleKey)}
+                                        </h3>
                                     </div>
-                                    <p className="text-sm text-center text-foreground/90">
-                                        {t(`EQUIPMENT.${item.label}`)}
-                                    </p>
+
+                                    {/* Equipment List */}
+                                    <ul className="space-y-2 text-sm text-foreground/80 flex-1">
+                                        {equipment.itemKeys.map((itemKey, itemIdx) => (
+                                            <li key={itemIdx} className="flex items-start gap-2">
+                                                <span className="text-primary mt-1 flex-shrink-0">
+                                                    •
+                                                </span>
+                                                <span className="leading-relaxed">
+                                                    {t(itemKey)}
+                                                </span>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </motion.div>
                             ))}
                         </motion.div>
@@ -201,7 +267,7 @@ export default function StudioPage() {
                                 initial="initial"
                                 whileInView="whileInView"
                                 viewport={viewportConfig}
-                                className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto"
+                                className="max-w-4xl mx-auto"
                             >
                                 {/* Studio Rate */}
                                 <motion.div
@@ -224,28 +290,6 @@ export default function StudioPage() {
                                         {t('VAT_FREE')}
                                     </div>
                                 </motion.div>
-
-                                {/* Rehearsal Recording Rate */}
-                                <motion.div
-                                    variants={animations.scaleIn}
-                                    className="flex-1 text-center p-8 rounded-xl bg-card-elevated border border-primary/20"
-                                >
-                                    <div className="flex items-center justify-center gap-2 mb-4">
-                                        <Clock className="h-6 w-6 text-primary" />
-                                        <h3 className="text-lg font-bold text-foreground">
-                                            {t('REHEARSAL_RATE')}
-                                        </h3>
-                                    </div>
-                                    <div className="text-4xl font-bold text-foreground mb-2">
-                                        8,000 Ft
-                                    </div>
-                                    <div className="text-sm text-card-muted-foreground mb-4">
-                                        / {t('HOUR')}
-                                    </div>
-                                    <div className="text-xs text-card-muted-foreground">
-                                        {t('REHEARSAL_DESC')}
-                                    </div>
-                                </motion.div>
                             </motion.div>
 
                             <motion.div
@@ -259,7 +303,7 @@ export default function StudioPage() {
                 </div>
             </section>
 
-            {/* References Section - More visible card */}
+            {/* References Section - Bigger cards with centered text */}
             <section className="relative py-16 md:py-24">
                 <div className="max-w-7xl mx-auto px-4">
                     <motion.div
@@ -273,20 +317,35 @@ export default function StudioPage() {
                             {t('REFERENCES_TITLE')}
                         </h2>
 
-                        <motion.div variants={animations.fadeUp} className="max-w-4xl mx-auto">
-                            <div className="p-8 rounded-xl border border-primary/20 hover:border-primary/40 transition-all bg-card/40 hover:bg-card/50">
-                                <p className="text-foreground/90 text-base sm:text-lg leading-relaxed text-center whitespace-pre-line">
-                                    {t('REFERENCES_TEXT')}
-                                </p>
-                            </div>
+                        <motion.div
+                            variants={animations.stagger}
+                            initial="initial"
+                            whileInView="whileInView"
+                            viewport={viewportConfig}
+                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
+                        >
+                            {referenceKeys.map((refKey, idx) => (
+                                <motion.div
+                                    key={idx}
+                                    variants={animations.scaleIn}
+                                    className="p-8 border border-primary/20 hover:border-primary/40 transition-all bg-card/40 hover:bg-card/50 hover:shadow-lg flex items-center justify-center min-h-[150px]"
+                                    style={{
+                                        borderRadius: referenceShapes[idx % referenceShapes.length],
+                                    }}
+                                >
+                                    <p className="text-foreground/90 text-base sm:text-lg leading-relaxed text-center">
+                                        {t(refKey)}
+                                    </p>
+                                </motion.div>
+                            ))}
                         </motion.div>
                     </motion.div>
                 </div>
             </section>
 
-            {/* Instruments Note - More visible */}
-            <section className="relative py-8">
-                <div className="max-w-4xl mx-auto px-4">
+            {/* Instruments Note - Reduced top padding to show they belong together */}
+            <section className="relative pt-4 pb-8">
+                <div className="max-w-5xl mx-auto px-4">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
