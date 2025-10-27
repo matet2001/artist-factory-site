@@ -322,14 +322,37 @@
 
         "EQUIPMENT_TITLE": "Stúdió Felszerelés",
         "EQUIPMENT": {
-            "COMPUTER": "Power Mac G4 dual - Pro Tools Mix TDM",
-            "CONVERTERS": "Digidesign 888 A/D konverterek",
-            "PREAMPS": "Focusrite ISA 828, ISA 428 mikrofon előfokok",
-            "MICROPHONES": "TELEFUNKEN (csöves), Shure Beta 57A, Beta 52, AKG C 4000 B, C 451 B"
+            "COMPUTER": {
+                "TITLE": "Számítógép",
+                "ITEM_1": "Power Mac G4 dual",
+                "ITEM_2": "Pro Tools Mix TDM"
+            },
+            "CONVERTERS": {
+                "TITLE": "Konverterek",
+                "ITEM_1": "Digidesign 888 A/D konverter"
+            },
+            "PREAMPS": {
+                "TITLE": "Mikrofon előfokok",
+                "ITEM_1": "Focusrite ISA 828",
+                "ITEM_2": "Focusrite ISA 428"
+            },
+            "MICROPHONES": {
+                "TITLE": "Mikrofonok",
+                "ITEM_1": "TELEFUNKEN (csöves)",
+                "ITEM_2": "Shure Beta 57 A",
+                "ITEM_3": "Shure Beta 52",
+                "ITEM_4": "AKG C 4000 B",
+                "ITEM_5": "AKG C 451 B"
+            }
         },
-
         "REFERENCES_TITLE": "Referenciák",
-        "REFERENCES_TEXT": "Popper Péter hangoskönyvek (Részemről mondjunk mancsot, Jóga) • Ranschburg Jenő hangoskönyv • MÁV hangok felvétele (Szalóczy Pál) • Telefonos ügyfélszolgálati hangok • Advil Ultra forte 24 reklámszöveg",
+        "REFERENCES": {
+            "ITEM_1": "Popper Péter hangoskönyvek (Részemről mondjunk mancsot, Jóga)",
+            "ITEM_2": "Ranschburg Jenő hangoskönyv",
+            "ITEM_3": "MÁV hangfelvételek (Szalóczy Pál)",
+            "ITEM_4": "Telefonos ügyfélszolgálati hangok",
+            "ITEM_5": "Advil Ultra forte 24 reklámszöveg"
+        },
 
         "PRICING_TITLE": "Stúdió Árak",
         "STUDIO_RATE": "Stúdió Óradíj",
