@@ -6,9 +6,5 @@ export default function AuthHeader({ title, description }: { title: string; desc
                 <p className="text-muted-foreground">{description}</p>
             </div>
         </div>
-        // <div className="space-y-2">
-        //     <h2 className="text-xl leading-none font-semibold tracking-tight"></h2>
-        //     <p className="font-semibold text-sm text-muted-foreground">{description}</p>
-        // </div>
     )
 }
