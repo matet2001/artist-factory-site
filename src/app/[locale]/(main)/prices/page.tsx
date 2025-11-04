@@ -1,21 +1,12 @@
 // app/[locale]/prices/page.tsx
 'use client'
 
-import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
-import TikiTorch from '@/components/common/TikiTorch'
+import CtaSection from '@/components/common/sections/cta-section'
 import { Badge } from '@/components/ui/badge'
 import { useAnimations } from '@/hooks/use-animation'
 import { rooms } from '@/lib/rooms'
 import { motion } from 'framer-motion'
-import {
-    CalendarClock,
-    CalendarDays,
-    Coffee,
-    DollarSign,
-    Drum,
-    Snowflake,
-    Users,
-} from 'lucide-react'
+import { CalendarClock, Coffee, Drum, Snowflake, Users } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -47,6 +38,7 @@ const drinks: DrinkItem[] = [
 export default function PricesPage() {
     const t = useTranslations('PRICES')
     const tRooms = useTranslations('ROOMS')
+    const tGeneral = useTranslations('GENERAL')
     const animations = useAnimations()
     const router = useRouter()
     const viewportConfig = { once: true, amount: 0.1 } as const
@@ -54,241 +46,221 @@ export default function PricesPage() {
     const goToRoom = (roomId: string) => router.push(`/rooms/${roomId}`)
 
     return (
-        <div className="mb-20 flex flex-col gap-y-40">
-            {/* Title Section */}
-            <section className="relative">
-                <div className="w-full mx-auto text-center relative z-10">
+        <>
+            {/* Title Section - Better hierarchy */}
+            <section className="relative ">
+                <div className="max-w-7xl mx-auto px-4">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
                         animate="whileInView"
+                        viewport={viewportConfig}
+                        className="text-center space-y-6"
+                    >
+                        <p className="text-xs sm:text-sm tracking-[0.3em] uppercase text-primary font-medium">
+                            {t('PRE_TITLE')}
+                        </p>
+                        <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight">
+                            {t('TITLE')}
+                        </h1>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Room Pricing Section - Oval shaped cards */}
+            <section className="relative py-16 md:py-24">
+                <div className="max-w-7xl mx-auto px-4">
+                    <motion.div
+                        variants={animations.fadeUp}
+                        initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="relative"
                     >
-                        {/* Palm Trees in corners */}
-                        <div className="absolute inset-0 pointer-events-none z-0">
-                            <PalmTreeSilhouette position="top-left" flipped size="sm" />
-                            <PalmTreeSilhouette position="top-right" flipped mirrored size="sm" />
-                            <PalmTreeSilhouette position="bottom-left" size="sm" />
-                            <PalmTreeSilhouette position="bottom-right" mirrored size="sm" />
-                        </div>
+                        {/* Background card - more visible */}
+                        <div className="absolute inset-0 bg-card/80 backdrop-blur-xl rounded-3xl border border-primary/20 shadow-xl" />
 
-                        <div className="relative z-10 py-8 sm:py-10 lg:py-12">
-                            {/* Title */}
-                            <div className="space-y-4 sm:space-y-6">
-                                <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-card-muted-foreground">
-                                    {t('PRE_TITLE')}
-                                </p>
-                                <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-semibold tracking-tight text-pretty">
-                                    {t('TITLE')}
-                                </h1>
+                        <div className="relative z-10 p-8 sm:p-12 lg:p-16">
+                            <div className="space-y-12">
+                                <motion.h2
+                                    variants={animations.fadeUp}
+                                    className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center"
+                                >
+                                    {t('HOUR_PRICE')}
+                                </motion.h2>
+
+                                {/* Room Cards Grid - Oval shapes */}
+                                <motion.div
+                                    variants={animations.stagger}
+                                    initial="initial"
+                                    whileInView="whileInView"
+                                    viewport={viewportConfig}
+                                    className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6"
+                                >
+                                    {rooms.map((room) => (
+                                        <motion.div
+                                            key={room.id}
+                                            variants={animations.scaleIn}
+                                            onClick={() => goToRoom(room.id)}
+                                            className="group flex flex-col items-center justify-center bg-card-elevated border border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-xl cursor-pointer p-6"
+                                            style={{
+                                                borderRadius: '48% 52% 46% 54% / 54% 48% 52% 46%',
+                                                minHeight: '240px',
+                                            }}
+                                        >
+                                            <div className="flex flex-col items-center text-center space-y-3">
+                                                <h3 className="font-bold text-base sm:text-lg text-foreground">
+                                                    {tRooms(room.name)}
+                                                </h3>
+                                                <div className="flex items-center gap-1 text-foreground/80 text-sm">
+                                                    <Users className="h-4 w-4" />
+                                                    <span>
+                                                        {room.size} {t('PEOPLE')}
+                                                    </span>
+                                                </div>
+                                                <div className="flex items-baseline gap-1 text-foreground">
+                                                    <span className="text-2xl sm:text-3xl font-bold">
+                                                        {room.price.toLocaleString('hu-HU')}
+                                                    </span>
+                                                    <span className="text-sm text-muted-foreground">
+                                                        Ft
+                                                    </span>
+                                                </div>
+                                                <p className="text-xs text-muted-foreground">
+                                                    / {t('HOUR')}
+                                                </p>
+                                                <Badge
+                                                    variant="secondary"
+                                                    className="text-xs gap-1 px-1.5"
+                                                >
+                                                    <Snowflake className="h-3 w-3" />
+                                                    {t('AC')}
+                                                </Badge>
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </motion.div>
+
+                                {/* Individual Practice & Studio Services - Oval shapes */}
+                                <motion.div
+                                    variants={animations.stagger}
+                                    initial="initial"
+                                    whileInView="whileInView"
+                                    viewport={viewportConfig}
+                                    className="grid grid-cols-1 lg:grid-cols-2 gap-6 "
+                                >
+                                    {/* Individual Practice */}
+                                    <motion.div
+                                        variants={animations.scaleIn}
+                                        className="group flex flex-col items-center justify-center bg-card-elevated border border-primary/20 hover:border-primary/30 hover:shadow-lg transition-all p-10"
+                                        style={{
+                                            borderRadius: '50% 50% 48% 52% / 52% 50% 50% 48%',
+                                            minHeight: '280px',
+                                        }}
+                                    >
+                                        <div className="flex flex-col items-center text-center space-y-4">
+                                            <div className="p-4 rounded-full bg-primary/10 transition-transform group-hover:scale-110">
+                                                <Drum className="h-8 w-8 text-primary" />
+                                            </div>
+                                            <h3 className="font-bold text-xl text-foreground">
+                                                {t('INDIVIDUAL_TITLE')}
+                                            </h3>
+                                            <div className="space-y-2">
+                                                <div className="text-3xl font-bold text-foreground">
+                                                    3,000 Ft
+                                                </div>
+                                                <p className="text-sm text-muted-foreground">
+                                                    / {t('HOUR')}
+                                                </p>
+                                            </div>
+                                            <p className="text-sm text-muted-foreground max-w-xs">
+                                                {t('INDIVIDUAL_DESC')}
+                                            </p>
+                                        </div>
+                                    </motion.div>
+
+                                    {/* Studio Services */}
+                                    <motion.div
+                                        variants={animations.scaleIn}
+                                        className="group flex flex-col items-center justify-center bg-card-elevated border border-primary/20 hover:border-primary/30 hover:shadow-lg transition-all cursor-pointer p-10"
+                                        style={{
+                                            borderRadius: '52% 48% 50% 50% / 48% 52% 48% 52%',
+                                            minHeight: '280px',
+                                        }}
+                                    >
+                                        <Link href="/studio" className="w-full">
+                                            <div className="flex flex-col items-center text-center space-y-4">
+                                                <div className="p-4 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-all group-hover:scale-110">
+                                                    <CalendarClock className="h-8 w-8 text-primary" />
+                                                </div>
+                                                <h3 className="font-bold text-xl text-foreground">
+                                                    {t('STUDIO_TITLE')}
+                                                </h3>
+                                                <div className="space-y-2">
+                                                    <div className="text-3xl font-bold text-foreground">
+                                                        10,000 Ft
+                                                    </div>
+                                                    <p className="text-sm text-muted-foreground">
+                                                        / {t('HOUR')}
+                                                    </p>
+                                                </div>
+                                                <p className="text-sm text-muted-foreground italic max-w-xs">
+                                                    {t('STUDIO_VAT_NOTE')}
+                                                </p>
+                                            </div>
+                                        </Link>
+                                    </motion.div>
+                                </motion.div>
                             </div>
                         </div>
                     </motion.div>
                 </div>
             </section>
 
-            {/* Room Pricing Section */}
-            <section className="relative">
-                <div className="w-full mx-auto text-center relative z-10">
+            {/* Rentable & Drinks Section - Matching studio pricing style */}
+            <section className="relative py-16 md:py-24">
+                <div className="max-w-7xl mx-auto px-4">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
-                        animate="whileInView"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="bg-card rounded-3xl p-8 sm:p-12 lg:p-16 border border-primary/20 shadow-2xl"
                     >
-                        {/* Tiki Torches in corners - hidden on mobile */}
-                        <div className="hidden sm:block">
-                            <TikiTorch position="top-left" />
-                            <TikiTorch position="top-right" />
-                            <TikiTorch position="bottom-left" />
-                            <TikiTorch position="bottom-right" />
-                        </div>
+                        <div className="space-y-12">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-center">
+                                {t('EXTRAS_TITLE')}
+                            </h2>
 
-                        <div className="relative z-10 space-y-8 sm:space-y-10 lg:space-y-12">
-                            {/* Section Header */}
-                            <motion.div variants={animations.fadeUp} className="text-center">
-                                <div className="flex items-center justify-center gap-2 mb-2">
-                                    <DollarSign className="h-5 w-5 sm:h-6 sm:w-6 text-foreground" />
-                                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground">
-                                        {t('HOUR_PRICE')}
-                                    </h2>
-                                </div>
-                            </motion.div>
-
-                            {/* Room Cards */}
                             <motion.div
                                 variants={animations.stagger}
                                 initial="initial"
-                                animate="whileInView"
                                 whileInView="whileInView"
                                 viewport={viewportConfig}
-                                className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4"
-                            >
-                                {rooms.map((room) => (
-                                    <motion.div
-                                        key={room.id}
-                                        variants={animations.scaleIn}
-                                        onClick={() => goToRoom(room.id)}
-                                        className="relative overflow-hidden rounded-xl bg-card-elevated p-3 sm:p-4 transition-all hover:shadow-lg hover:scale-[1.02] hover:bg-card-elevated/90 cursor-pointer"
-                                    >
-                                        <div className="text-center space-y-2">
-                                            <h3 className="text-sm sm:text-base font-bold text-foreground">
-                                                {tRooms(room.name)}
-                                            </h3>
-                                            <div className="flex items-center justify-center gap-1 text-foreground text-sm sm:text-base font-semibold">
-                                                <Users className="h-4 w-4" />
-                                                <span>
-                                                    {room.size} {t('PEOPLE', { default: 'fő' })}
-                                                </span>
-                                            </div>
-                                            <div className="text-center space-y-1">
-                                                <div className="text-lg sm:text-xl font-bold text-foreground">
-                                                    {room.price.toLocaleString('hu-HU')} Ft
-                                                </div>
-                                                <div className="text-xs text-card-muted-foreground">
-                                                    / {t('HOUR', { default: 'óra' })}
-                                                </div>
-                                            </div>
-                                            <Badge
-                                                variant="secondary"
-                                                className="mt-2 text-xs gap-1 text-foreground"
-                                            >
-                                                <Snowflake className="h-3 w-3" />
-                                                {t('AC', { default: 'Légkondis' })}
-                                            </Badge>
-                                        </div>
-                                    </motion.div>
-                                ))}
-                            </motion.div>
-
-                            {/* Additional Services */}
-                            <motion.div
-                                variants={animations.stagger}
-                                initial="initial"
-                                animate="whileInView"
-                                whileInView="whileInView"
-                                viewport={viewportConfig}
-                                className="grid grid-cols-1 lg:grid-cols-2 gap-6 pb-8 sm:pb-12 lg:pb-16"
-                            >
-                                {/* Individual Practice */}
-                                <motion.div
-                                    variants={animations.scaleIn}
-                                    className="text-center p-6 rounded-xl bg-card-elevated"
-                                >
-                                    <div className="flex items-center justify-center gap-2 mb-3">
-                                        <Drum className="h-5 w-5 text-foreground" />
-                                        <h3 className="text-lg font-bold text-foreground">
-                                            {t('INDIVIDUAL_TITLE', {
-                                                default: 'Egyéni gyakorlás',
-                                            })}
-                                        </h3>
-                                    </div>
-                                    <div className="space-y-1">
-                                        <div className="text-xl font-bold text-foreground">
-                                            3,000 Ft / {t('HOUR', { default: 'óra' })}
-                                        </div>
-                                        <p className="text-xs text-card-muted-foreground">
-                                            {t('INDIVIDUAL_DESC', {
-                                                default: '1-1 oktatásra is alkalmas',
-                                            })}
-                                        </p>
-                                    </div>
-                                </motion.div>
-
-                                {/* Studio Services */}
-                                <motion.div
-                                    variants={animations.scaleIn}
-                                    className="text-center p-6 rounded-xl bg-card-elevated transition-all hover:shadow-lg hover:scale-[1.02] hover:bg-card-elevated/90 cursor-pointer"
-                                >
-                                    <Link href={'/studio'}>
-                                        <div className="flex items-center justify-center gap-2 mb-3">
-                                            <CalendarClock className="h-5 w-5 text-foreground" />
-                                            <h3 className="text-lg font-bold text-foreground">
-                                                {t('STUDIO_TITLE', {
-                                                    default: 'Stúdió szolgáltatások',
-                                                })}
-                                            </h3>
-                                        </div>
-                                        <div className="space-y-1">
-                                            <div className="text-xl font-bold text-foreground">
-                                                10,000 Ft / {t('HOUR', { default: 'óra' })}
-                                            </div>
-                                            <p className="text-xs text-card-muted-foreground">
-                                                {t('STUDIO_VAT_NOTE', {
-                                                    default: 'A szolgáltatás 0% ÁFA-s.',
-                                                })}
-                                            </p>
-                                        </div>
-                                    </Link>
-                                </motion.div>
-                            </motion.div>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* Equipment and Services Section */}
-            <section className="relative">
-                <div className="w-full mx-auto text-center relative z-10">
-                    <motion.div
-                        variants={animations.fadeUp}
-                        initial="initial"
-                        animate="whileInView"
-                        whileInView="whileInView"
-                        viewport={viewportConfig}
-                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
-                    >
-                        {/* Tiki Torches in corners - hidden on mobile */}
-                        <div className="hidden sm:block">
-                            <TikiTorch position="top-left" />
-                            <TikiTorch position="top-right" />
-                            <TikiTorch position="bottom-left" />
-                            <TikiTorch position="bottom-right" />
-                        </div>
-
-                        <div className="relative z-10">
-                            <motion.div
-                                variants={animations.stagger}
-                                initial="initial"
-                                animate="whileInView"
-                                whileInView="whileInView"
-                                viewport={viewportConfig}
-                                className="grid grid-cols-1 lg:grid-cols-2 gap-6 "
+                                className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto"
                             >
                                 {/* Rentable Equipment */}
-                                <motion.div
-                                    variants={animations.scaleIn}
-                                    className="rounded-2xl px-4"
-                                >
-                                    <div className="text-center mb-8">
-                                        <div className="flex items-center justify-center gap-2 mb-2">
-                                            <Drum className="h-5 w-5 text-foreground" />
+                                <motion.div variants={animations.scaleIn} className="space-y-6">
+                                    <div className="text-center space-y-2">
+                                        <div className="flex items-center justify-center gap-2">
+                                            <Drum className="h-6 w-6 text-primary" />
                                         </div>
-                                        <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
-                                            {t('RENTABLE_TITLE', {
-                                                default: 'Bérelhető felszerelések',
-                                            })}
+                                        <h3 className="text-2xl font-bold text-foreground">
+                                            {t('RENTABLE_TITLE')}
                                         </h3>
-                                        <p className="text-card-muted-foreground text-sm">
-                                            {t('RENTABLE_DESC', {
-                                                default: 'Kiegészítő eszközök óradíjas alapon',
-                                            })}
+                                        <p className="text-muted-foreground text-sm">
+                                            {t('RENTABLE_DESC')}
                                         </p>
                                     </div>
 
                                     <div className="space-y-3">
                                         {rentable.map((item, idx) => {
-                                            const isCymbal =
-                                                item.translationKey === 'RENTABLE_CYMBAL'
+                                            const isCymbal = item.translationKey.includes('CYMBAL')
                                             return (
                                                 <motion.div
                                                     key={idx}
                                                     variants={animations.fadeUp}
-                                                    className="flex items-center justify-between p-4 rounded-lg bg-card min-h-[60px]"
+                                                    className="flex items-center justify-between p-4 rounded-xl bg-card-elevated border border-primary/10 hover:border-primary/20 transition-all"
                                                 >
                                                     <span className="font-medium text-foreground text-left flex-1 pr-4">
                                                         {t(item.translationKey)}
@@ -302,15 +274,14 @@ export default function PricesPage() {
                                                                     )}{' '}
                                                                     Ft
                                                                 </div>
-                                                                <div className="text-xs text-card-muted-foreground whitespace-nowrap">
-                                                                    /{' '}
-                                                                    {t('HOUR', { default: 'óra' })}
+                                                                <div className="text-xs text-muted-foreground whitespace-nowrap">
+                                                                    / {t('HOUR')}
                                                                 </div>
                                                             </>
                                                         ) : (
                                                             <div className="font-bold text-foreground whitespace-nowrap">
                                                                 {item.price.toLocaleString('hu-HU')}{' '}
-                                                                Ft / {t('HOUR', { default: 'óra' })}
+                                                                Ft / {t('HOUR')}
                                                             </div>
                                                         )}
                                                     </div>
@@ -321,21 +292,16 @@ export default function PricesPage() {
                                 </motion.div>
 
                                 {/* Drinks */}
-                                <motion.div
-                                    variants={animations.scaleIn}
-                                    className="rounded-2xl px-4"
-                                >
-                                    <div className="text-center mb-8">
-                                        <div className="flex items-center justify-center gap-2 mb-2">
-                                            <Coffee className="h-5 w-5 text-foreground" />
+                                <motion.div variants={animations.scaleIn} className="space-y-6">
+                                    <div className="text-center space-y-2">
+                                        <div className="flex items-center justify-center gap-2">
+                                            <Coffee className="h-6 w-6 text-primary" />
                                         </div>
-                                        <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
-                                            {t('DRINKS_TITLE', { default: 'Italok' })}
+                                        <h3 className="text-2xl font-bold text-foreground">
+                                            {t('DRINKS_TITLE')}
                                         </h3>
-                                        <p className="text-card-muted-foreground text-sm">
-                                            {t('DRINKS_DESC', {
-                                                default: 'Frissítők mindig kéznél',
-                                            })}
+                                        <p className="text-muted-foreground text-sm">
+                                            {t('DRINKS_DESC')}
                                         </p>
                                     </div>
 
@@ -344,7 +310,7 @@ export default function PricesPage() {
                                             <motion.div
                                                 key={idx}
                                                 variants={animations.fadeUp}
-                                                className="flex items-center justify-between p-4 rounded-lg bg-card min-h-[60px]"
+                                                className="flex items-center justify-between p-4 rounded-xl bg-card-elevated border border-primary/10 hover:border-primary/20 transition-all"
                                             >
                                                 <span className="font-medium text-foreground text-left flex-1 pr-4">
                                                     {t(item.translationKey)}
@@ -364,69 +330,8 @@ export default function PricesPage() {
                 </div>
             </section>
 
-            {/* Call to Action Section */}
-            <section className="relative">
-                <div className="w-full mx-auto text-center relative z-10">
-                    <motion.div
-                        variants={animations.fadeUp}
-                        initial="initial"
-                        animate="whileInView"
-                        whileInView="whileInView"
-                        viewport={viewportConfig}
-                        className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-10 sm:py-12 lg:py-15 relative overflow-hidden w-full"
-                    >
-                        {/* Palm Trees in corners */}
-                        <div className="absolute inset-0 pointer-events-none z-0">
-                            <PalmTreeSilhouette position="top-left" flipped size="sm" />
-                            <PalmTreeSilhouette position="top-right" flipped mirrored size="sm" />
-                            <PalmTreeSilhouette position="bottom-left" size="sm" />
-                            <PalmTreeSilhouette position="bottom-right" mirrored size="sm" />
-                        </div>
-
-                        <div className="relative z-10">
-                            <motion.div
-                                variants={animations.stagger}
-                                initial="initial"
-                                animate="whileInView"
-                                whileInView="whileInView"
-                                viewport={viewportConfig}
-                                className="space-y-6"
-                            >
-                                <motion.h2
-                                    variants={animations.fadeUp}
-                                    className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground"
-                                >
-                                    {t('CTA_TITLE', { default: 'Készen állsz a próbára?' })}
-                                </motion.h2>
-                                <motion.p
-                                    variants={animations.fadeUp}
-                                    className="text-card-muted-foreground text-sm sm:text-base lg:text-lg"
-                                >
-                                    {t('CTA_DESC', {
-                                        default: 'Foglalj időpontot most és kezdd el a zenélést!',
-                                    })}
-                                </motion.p>
-                                <motion.div variants={animations.scaleIn} className="px-4">
-                                    <Link
-                                        href="/booking"
-                                        className="group inline-block w-full max-w-xl mx-auto"
-                                    >
-                                        <div className="relative group w-full">
-                                            <div className="neon-glow inline-flex w-full items-center justify-center gap-3 text-base sm:text-lg lg:text-xl p-4 sm:p-5 rounded-2xl bg-primary font-semibold shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl">
-                                                <CalendarDays
-                                                    className="w-5 h-5 sm:w-6 sm:h-6"
-                                                    aria-hidden="true"
-                                                />
-                                                {t('CTA_BUTTON', { default: 'Foglalás most' })}
-                                            </div>
-                                        </div>
-                                    </Link>
-                                </motion.div>
-                            </motion.div>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
-        </div>
+            {/* CTA Section */}
+            <CtaSection title={tGeneral('CTA_TITLE')} description={tGeneral('CTA_DESC')} />
+        </>
     )
 }

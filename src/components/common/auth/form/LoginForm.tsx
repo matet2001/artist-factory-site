@@ -89,7 +89,7 @@ const LoginForm = () => {
                                     <div className="text-sm">
                                         <Link
                                             href="/forgot-password"
-                                            className="font-semibold text-indigo-400 hover:text-indigo-300"
+                                            className="font-semibold text-accent hover:accent-hover"
                                         >
                                             {t('PASSWORD_RESET.CALL')}
                                         </Link>
@@ -122,7 +122,12 @@ const LoginForm = () => {
 
                     {error && <div className="text-red-500 text-sm text-center">{error}</div>}
 
-                    <Button className="w-full mt-5" type="submit" disabled={isSubmitting}>
+                    <Button
+                        variant={'secondary'}
+                        className="w-full mt-5"
+                        type="submit"
+                        disabled={isSubmitting}
+                    >
                         {isSubmitting ? t('SIGNING_IN') : t('SIGN_IN')}
                     </Button>
 

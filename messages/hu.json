@@ -21,7 +21,11 @@
         "LOGOUT": "Kijelentkezés"
     },
     "GENERAL": {
-        "CLOSE": "Bezárás"
+        "CLOSE": "Bezárás",
+        "CTA_TITLE": "Készen állsz a próbára?",
+        "CTA_DESC": "Foglalj időpontot most és kezdd el a zenélést!",
+        "CTA_BUTTON": "Foglalás most",
+        "AIR_CONDITIONED": "Légkondicionált"
     },
 
     "HOME": {
@@ -110,7 +114,8 @@
         },
         "SEE_DETAILS": "Részletek",
         "VIEW_DETAILS": "Részletek megtekintése",
-        "EQUIPMENT_TITLE": "Felszereltség"
+        "EQUIPMENT_TITLE": "Felszereltség",
+        "DETAILS_TITLE": "Részletek"
     },
 
     "PRICES": {
@@ -123,29 +128,32 @@
         "SIZE_LABEL": "Férőhely",
         "PEOPLE": "fő",
         "HOUR": "óra",
+
         "INDIVIDUAL_TITLE": "Egyéni gyakorlás",
         "INDIVIDUAL_DESC": "1-1 oktatásra is alkalmas",
         "INDIVIDUAL_LABEL": "Óradíj",
         "INDIVIDUAL_PRICE": "3000",
+
         "STUDIO_TITLE": "Stúdió",
         "STUDIO_RECORDING": "Felvétel, utómunka és keverés",
         "STUDIO_LIVE": "Egybe feljátszott számok",
         "STUDIO_VAT_NOTE": "A szolgáltatás 0% ÁFA-s.",
+
         "RENTABLE_TITLE": "Bérelhető cuccok",
         "RENTABLE_BOOM_STAND": "Gémes cintányér állvány",
         "RENTABLE_STRAIGHT_STAND": "Egyenes cintányér állvány",
         "RENTABLE_CYMBAL": "Cintányér (Paiste PST7/PST8, 16\"-17\"-18\" Crash)",
         "RENTABLE_DOUBLE_PEDAL": "Duplázó",
         "RENTABLE_DESC": "Kiegészítő eszközök óradíjas alapon",
+
         "DRINKS_TITLE": "Italok",
         "DRINK_BEER": "Sör 0,5 l",
         "DRINK_WATER": "Ásványvíz 0,5 l",
         "DRINK_SODA": "Cola – Fanta – Traubi 0,5 l",
         "DRINK_COFFEE": "Kávéautomata",
         "DRINKS_DESC": "Frissítők mindig kéznél",
-        "CTA_TITLE": "Készen állsz a próbára?",
-        "CTA_DESC": "Foglalj időpontot most és kezdd el a zenélést!",
-        "CTA_BUTTON": "Foglalás most"
+
+        "EXTRAS_TITLE": "Extra szolgáltatások és frissítők"
     },
     "CONTACT": {
         "PRE_TITLE": "Hogyan találsz meg minket",

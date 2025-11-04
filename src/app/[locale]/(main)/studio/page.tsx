@@ -1,15 +1,13 @@
 // app/[locale]/studio/page.tsx
 'use client'
 
-import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
+import CtaSection from '@/components/common/sections/cta-section'
 import { EquipmentIcon } from '@/components/common/rooms/equipment-icon'
-import { Button } from '@/components/ui/button'
 import { useAnimations } from '@/hooks/use-animation'
 import { motion } from 'framer-motion'
-import { CalendarDays, Disc3, DollarSign, Headphones, Mic2, Music, Radio } from 'lucide-react'
+import { Disc3, DollarSign, Headphones, Mic2, Music, Radio } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import Link from 'next/link'
 
 const services = [
     { key: 'FULL_ALBUM', icon: Disc3 },
@@ -51,6 +49,7 @@ const equipmentDetails = [
 
 export default function StudioPage() {
     const t = useTranslations('STUDIO')
+    const tGeneral = useTranslations('GENERAL')
     const animations = useAnimations()
     const viewportConfig = { once: true, amount: 0.1 } as const
 
@@ -81,9 +80,9 @@ export default function StudioPage() {
     ]
 
     return (
-        <div className="mb-20">
+        <div>
             {/* Title Section - Clean, no card */}
-            <section className="relative py-16 md:py-20">
+            <section className="relative">
                 <div className="max-w-7xl mx-auto px-4">
                     <motion.div
                         variants={animations.fadeUp}
@@ -103,7 +102,7 @@ export default function StudioPage() {
             </section>
 
             {/* Hero Image Section - Organic shape */}
-            <section className="relative py-8 md:py-12">
+            <section className="relative">
                 <div className="max-w-7xl mx-auto px-4">
                     <motion.div
                         variants={animations.fadeUp}
@@ -213,7 +212,7 @@ export default function StudioPage() {
                                 <motion.div
                                     key={idx}
                                     variants={animations.scaleIn}
-                                    className="flex flex-col gap-4 p-6 bg-card/40 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg"
+                                    className="flex flex-col gap-4 p-6 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg"
                                     style={{
                                         borderRadius: equipmentShapes[idx],
                                         minHeight: '260px',
@@ -293,7 +292,7 @@ export default function StudioPage() {
                             </motion.div>
 
                             <motion.div
-                                variants={animations.fadeUp}
+                                variants={animations.scaleIn}
                                 className="text-sm italic max-w-2xl mx-auto bg-card-elevated/50 p-4 rounded-lg border border-primary/10 text-center"
                             >
                                 {t('NOTE')}
@@ -328,7 +327,7 @@ export default function StudioPage() {
                                 <motion.div
                                     key={idx}
                                     variants={animations.scaleIn}
-                                    className="p-8 border border-primary/20 hover:border-primary/40 transition-all bg-card/40 hover:bg-card/50 hover:shadow-lg flex items-center justify-center min-h-[150px]"
+                                    className="p-8 border border-primary/20 hover:border-primary/40 transition-all bg-card/80 hover:bg-card/50 hover:shadow-lg flex items-center justify-center min-h-[150px]"
                                     style={{
                                         borderRadius: referenceShapes[idx % referenceShapes.length],
                                     }}
@@ -351,70 +350,15 @@ export default function StudioPage() {
                         initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="text-center p-6 rounded-xl bg-card/40 border border-primary/20"
+                        className="text-center p-6 rounded-xl bg-card/80 border border-primary/20"
                     >
                         <p className="text-sm text-foreground/80 italic">{t('INSTRUMENTS_NOTE')}</p>
                     </motion.div>
                 </div>
             </section>
 
-            {/* CTA Section - Palm trees only, no tiki torches */}
-            <section className="relative py-16 md:py-24">
-                <div className="max-w-7xl mx-auto px-4">
-                    <motion.div
-                        variants={animations.fadeUp}
-                        initial="initial"
-                        whileInView="whileInView"
-                        viewport={viewportConfig}
-                        className="relative bg-gradient-to-br from-card to-card-elevated rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden border border-primary/20 shadow-2xl"
-                    >
-                        {/* Palm Trees in corners - ONLY decoration */}
-                        <div className="absolute inset-0 pointer-events-none z-0">
-                            <PalmTreeSilhouette position="top-left" flipped size="sm" />
-                            <PalmTreeSilhouette position="top-right" flipped mirrored size="sm" />
-                            <PalmTreeSilhouette position="bottom-left" size="sm" />
-                            <PalmTreeSilhouette position="bottom-right" mirrored size="sm" />
-                        </div>
-
-                        <div className="relative z-10">
-                            <motion.div
-                                variants={animations.stagger}
-                                initial="initial"
-                                whileInView="whileInView"
-                                viewport={viewportConfig}
-                                className="space-y-8 text-center"
-                            >
-                                <motion.h2
-                                    variants={animations.fadeUp}
-                                    className="text-3xl sm:text-4xl lg:text-5xl font-bold"
-                                >
-                                    {t('CTA_TITLE')}
-                                </motion.h2>
-                                <motion.p
-                                    variants={animations.fadeUp}
-                                    className="text-card-muted-foreground text-base sm:text-lg lg:text-xl max-w-2xl mx-auto"
-                                >
-                                    {t('CTA_DESC')}
-                                </motion.p>
-                                <motion.div variants={animations.scaleIn}>
-                                    <Link
-                                        href="/booking"
-                                        className="group inline-block w-full max-w-md mx-auto"
-                                    >
-                                        <Button
-                                            size="lg"
-                                            className="w-full inline-flex items-center justify-center gap-3 text-lg lg:text-xl px-12 py-8 rounded-2xl font-bold shadow-2xl transition-all hover:scale-105 hover:-translate-y-1"
-                                        >
-                                            <CalendarDays className="w-6 h-6" />
-                                            {t('CTA_BUTTON')}
-                                        </Button>
-                                    </Link>
-                                </motion.div>
-                            </motion.div>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
+            {/* CTA Section */}
+            <CtaSection title={tGeneral('CTA_TITLE')} description={tGeneral('CTA_DESC')} />
         </div>
     )
 }
