@@ -29,7 +29,7 @@ export default function DescriptionSection() {
                     initial="initial"
                     whileInView="whileInView"
                     viewport={viewportConfig}
-                    className="bg-card rounded-3xl px-4 sm:px-6 lg:px-8 pt-10 pb-15 relative w-full h-full section-height flex justify-center items-center overflow-hidden"
+                    className="bg-gradient-to-br from-card to-card-elevated rounded-3xl px-4 sm:px-6 lg:px-8 pt-10 pb-15 relative w-full h-full section-height flex justify-center items-center overflow-hidden border border-primary/20 shadow-2xl"
                 >
                     {/* Scattered Logos */}
                     <div className="absolute inset-0 pointer-events-none z-0">

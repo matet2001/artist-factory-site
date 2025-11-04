@@ -43,7 +43,7 @@ export default function FeaturesSection() {
                     initial="initial"
                     whileInView="whileInView"
                     viewport={viewportConfig}
-                    className="bg-card rounded-3xl px-4 sm:px-6 lg:px-8 pt-10 pb-15 relative w-full"
+                    className="bg-gradient-to-br from-card to-card-elevated rounded-3xl px-4 sm:px-6 lg:px-8 pt-10 pb-15 relative w-full border border-primary/20 shadow-2xl"
                 >
                     {/* Tiki Torches in all corners - hidden on mobile */}
                     <div>

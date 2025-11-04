@@ -89,7 +89,7 @@ const LoginForm = () => {
                                     <div className="text-sm">
                                         <Link
                                             href="/forgot-password"
-                                            className="font-semibold text-accent hover:accent-hover"
+                                            className="font-semibold text-accent hover:underline"
                                         >
                                             {t('PASSWORD_RESET.CALL')}
                                         </Link>
