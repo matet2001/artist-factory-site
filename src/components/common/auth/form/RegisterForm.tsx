@@ -189,7 +189,7 @@ export default function RegisterForm() {
 
                     {error && <div className="text-red-500 text-sm text-center">{error}</div>}
 
-                    <Button type="submit" className="w-full mt-5" disabled={isSubmitting}>
+                    <Button variant={'secondary'} type="submit" className="w-full mt-5" disabled={isSubmitting}>
                         {isSubmitting ? t('SIGNING_UP') : t('SIGN_UP')}
                     </Button>
 

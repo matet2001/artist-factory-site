@@ -21,7 +21,12 @@
         "LOGOUT": "Logout"
     },
     "GENERAL": {
-        "CLOSE": "Close"
+        "CLOSE": "Close",
+        "CTA_TITLE": "Ready to rehearse?",
+        "CTA_DESC": "Book a time slot now and start making music!",
+        "CTA_BUTTON": "Book now",
+        "AIR_CONDITIONED": "Air conditioned",
+        "AIR_CONDITIONED_DESC": "Stay cool in our fully air-conditioned rooms."
     },
 
     "HOME": {
@@ -90,8 +95,8 @@
             "DRUM": "Drums",
             "CYMBAL": "Cymbals",
             "AMP": "Amplifier",
-            "GUITAR": "Guitar",
-            "BASS": "Bass Guitar",
+            "GUITAR": "Guitar Amp",
+            "BASS": "Bass Amplifier",
             "PEDAL": "Guitar Pedal",
             "MIXER": "Mixer",
             "SPEAKER": "Speaker",
@@ -111,13 +116,13 @@
         "SEE_DETAILS": "See Details",
 
         "VIEW_DETAILS": "View Details",
-        "EQUIPMENT_TITLE": "Equipment"
+        "EQUIPMENT_TITLE": "Equipment",
+        "DETAILS_TITLE": "Details"
     },
-
     "PRICES": {
         "PRE_TITLE": "How you can calculate",
         "TITLE": "Our Prices",
-        "HOUR_PRICE": "Our hourly rates",
+        "HOUR_PRICE": "Hourly rates",
         "PRICE_UNIT": "HUF",
         "AC": "Air conditioned",
         "EFFECTIVE_FROM": "Effective from: September 1, 2024",
@@ -128,7 +133,7 @@
         "INDIVIDUAL_DESC": "Also suitable for 1-on-1 lessons",
         "INDIVIDUAL_LABEL": "Hourly rate",
         "INDIVIDUAL_PRICE": "3000",
-        "STUDIO_TITLE": "Studio",
+        "STUDIO_TITLE": "Studio Services",
         "STUDIO_RECORDING": "Recording, post-production and mixing",
         "STUDIO_LIVE": "Live recorded songs",
         "STUDIO_VAT_NOTE": "The service is 0% VAT.",
@@ -144,9 +149,7 @@
         "DRINK_SODA": "Cola – Fanta – Traubi 0.5 l",
         "DRINK_COFFEE": "Coffee machine",
         "DRINKS_DESC": "Refreshments always at hand",
-        "CTA_TITLE": "Ready to rehearse?",
-        "CTA_DESC": "Book a time slot now and start making music!",
-        "CTA_BUTTON": "Book now"
+        "EXTRAS_TITLE": "Additional services & refreshments"
     },
     "CONTACT": {
         "PRE_TITLE": "How to find us",

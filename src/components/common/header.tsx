@@ -80,27 +80,24 @@ export default function Header() {
                     <LanguageToggle />
                 </div>
 
-                {/* Mobile Menu */}
-                <div className="md:hidden">
+                {/* Mobile Menu - FIXED */}
+                <div className="md:hidden flex items-center gap-3">
+                    <LanguageToggle />
                     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-                        <div className="flex gap-3 items-center justify-center">
-                            <LanguageToggle />
-                            <SheetTrigger asChild>
-                                <Button variant="ghost" size="icon" className="cursor-pointer">
-                                    <Menu className="h-6 w-6" />
-                                </Button>
-                            </SheetTrigger>
-                        </div>
-                        <SheetContent side="left" aria-describedby={undefined}>
-                            <p id="mobile-menu-description" className="sr-only">
-                                Mobile navigation menu
-                            </p>
-
-                            <SheetHeader className="text-left text-lg font-semibold">
-                                {translate('SHEET_TITLE')}
+                        <SheetTrigger asChild>
+                            <Button variant="ghost" size="icon" className="cursor-pointer">
+                                <Menu className="h-6 w-6" />
+                            </Button>
+                        </SheetTrigger>
+                        <SheetContent side="left">
+                            <SheetHeader className="text-left">
+                                <SheetTitle className="text-lg font-semibold">
+                                    {translate('SHEET_TITLE')}
+                                </SheetTitle>
                             </SheetHeader>
-                            <SheetTitle />
-                            <nav className="flex flex-col space-y-2">{renderNavLinks(true)}</nav>
+                            <nav className="flex flex-col space-y-2 mt-6">
+                                {renderNavLinks(true)}
+                            </nav>
                         </SheetContent>
                     </Sheet>
                 </div>

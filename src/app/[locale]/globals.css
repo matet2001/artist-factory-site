@@ -2,36 +2,33 @@
 @import 'tw-animate-css';
 
 @theme inline {
-    /* Background - Deep neutral with slight warmth */
-    --color-background: #0a0a0a; /* Almost black, modern */
-    --color-foreground: #ededed; /* Soft white, easier on eyes */
+    --color-background: #0B0B0B;
+    --color-foreground: #f5f5f5;
 
-    /* Primary - Vibrant pink for music/creative energy */
-    --color-primary: #ff3b7f; /* Slightly more saturated, pops better */
+    --color-primary: #ff3b7f;
     --color-primary-foreground: #ffffff;
-    --color-hover: #ff5c96; /* Lighter, clear hover state */
+    --color-hover: #ff5c96;
 
-    /* Secondary - Deep purple for sophistication */
-    --color-secondary: #6366f1; /* Modern indigo, professional */
+    --color-secondary: #A80D43;
     --color-secondary-foreground: #ffffff;
-    --color-secondary-hover: #818cf8;
+    --color-secondary-hover: #A54869;
 
-    /* Accent - Complementary teal (subtle nod to original) */
-    --color-accent: #06b6d4; /* Cyan, tech feel */
-    --color-accent-foreground: #0a0a0a;
+    --color-tertiary: #A80D43;
+    --color-tertiary-foreground: #ffffff;
+    --color-tertiary-hover: #A54869;
 
-    /* Muted - Neutral grays for text/borders */
-    --color-muted: #27272a; /* Zinc-800, subtle elevation */
-    --color-muted-foreground: #a1a1aa; /* Zinc-400, readable */
+    --color-accent: #ff6b9d;
+    --color-accent-foreground: #1a1a1a;
 
-    /* Cards - Subtle elevation with slight transparency */
-    --color-card: #18181b; /* Zinc-900, barely lifted */
-    --color-card-elevated: #27272a; /* Zinc-800, clear elevation */
-    --color-card-foreground: #ededed;
-    --color-card-muted-foreground: #a1a1aa;
+    --color-muted: #2d2d2d;
+    --color-muted-foreground: #919191;
 
-    /* Borders - Very subtle */
-    --color-border: #27272a;
+    --color-card: #242424;
+    --color-card-elevated: #2d2d2d;
+    --color-card-foreground: #f5f5f5;
+    --color-card-muted-foreground: #a3a3a3;
+
+    --color-border: #333333;
 
     --color-popover: oklch(1 0 0);
     --color-popover-foreground: oklch(0.145 0 0);
@@ -73,14 +70,7 @@
     --radius: 0.625rem;
     --header-height: 72px;
     --section-gap: 10rem; /* 160px = gap-y-40 in Tailwind (40 * 0.25rem = 10rem) */
-    /* --gradient-main: linear-gradient(to bottom, #009691, #00a39d); */
 }
-
-/* .bg-gradient-main {
-    background-image: var(--gradient-main);
-    background-size: 100%;
-    background-repeat: no-repeat;
-} */
 
 @layer base {
     * {
@@ -100,7 +90,7 @@ body::before {
     content: '';
     position: fixed;
     inset: 0;
-    z-index: 0;
+    z-index: -3;
     background-image: url('/decorations/AF01.png');
     background-repeat: no-repeat;
     background-position: center;
@@ -118,20 +108,9 @@ body::before {
     }
 }
 
-/* Overlay for readability */
-body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 1;
-    background-color: rgb(10 21 20 / 0.7);
-    backdrop-filter: blur(2px);
-    pointer-events: none;
-}
-
 @media (min-width: 640px) {
     body::after {
-        background-color: rgb(10 21 20 / 0.8);
+        background-color: 444444;
     }
 }
 
@@ -140,21 +119,27 @@ body {
     position: relative;
 }
 
-body > * {
-    position: relative;
-    z-index: 2;
-}
-
-body > div::before {
+body > div:not([data-radix-portal])::before {
     content: '';
     position: fixed;
     inset: 0;
-    z-index: 50;
+    z-index: -2;
     mix-blend-mode: overlay;
     background-image: url('/noise_texture.jpg');
     background-repeat: repeat;
     background-size: 100%;
-    opacity: 0.04;
+    opacity: 0.03;
+    pointer-events: none;
+}
+
+/* Overlay for readability */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-color: #0b0b0b3f;
+    backdrop-filter: blur(5px);
     pointer-events: none;
 }
 
