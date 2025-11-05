@@ -30,11 +30,29 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Invalid token type' }, { status: 400 })
         }
 
-        // Update user's password
+        // Get the user to check if this is a migration
+        const user = await prisma.user.findUnique({
+            where: { email: resetToken.email },
+        })
+
+        if (!user) {
+            return NextResponse.json({ error: 'User not found' }, { status: 404 })
+        }
+
+        // Update user's password and verify email if it's a migration
         const hashedPassword = await bcrypt.hash(password, 10)
+        const updateData: { password: string; emailVerified?: Date } = {
+            password: hashedPassword,
+        }
+
+        // If user's email is not verified (migration), verify it now
+        if (!user.emailVerified) {
+            updateData.emailVerified = new Date()
+        }
+
         await prisma.user.update({
             where: { email: resetToken.email },
-            data: { password: hashedPassword },
+            data: updateData,
         })
 
         // Delete the token
@@ -42,6 +60,7 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json({
             message: 'Password reset successfully',
+            emailVerified: !!updateData.emailVerified,
         })
     } catch (error) {
         console.error('Password reset error:', error)

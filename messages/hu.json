@@ -25,7 +25,8 @@
         "CTA_TITLE": "Készen állsz a próbára?",
         "CTA_DESC": "Foglalj időpontot most és kezdd el a zenélést!",
         "CTA_BUTTON": "Foglalás most",
-        "AIR_CONDITIONED": "Légkondicionált"
+        "AIR_CONDITIONED": "Légkondicionált",
+        "AIR_CONDITIONED_DESC": "Maradj hűvös a teljesen klimatizált termeinkben."
     },
 
     "HOME": {
@@ -227,10 +228,17 @@
         },
         "ERRORS": {
             "EMAIL_IN_USE": "Ez az e-mail cím már foglalt.",
+            "EMAIL_ALREADY_EXISTS": "Ez az email cím már regisztrálva van. Kérjük, jelentkezz be helyette.",
             "INVALID_EMAIL": "Érvénytelen e-mail formátum.",
             "WEAK_PASSWORD": "A jelszónak legalább 6 karakter hosszúnak kell lennie.",
             "USER_NOT_FOUND": "Felhasználó nem található. Ellenőrizze az e-mail címét.",
             "INVALID_CREDENTIAL": "Hibás jelszó, vagy email cím.",
+            "INVALID_CREDENTIALS": "Hibás jelszó, vagy email cím.",
+            "EMAIL_NOT_VERIFIED": "Kérjük, erősítsd meg az email címed mielőtt bejelentkezel.",
+            "EMAIL_ALREADY_VERIFIED": "Az email címed már meg van erősítve. Most már bejelentkezhetsz.",
+            "EMAIL_SEND_FAILED": "Nem sikerült elküldeni a megerősítő emailt. Kérjük próbáld újra.",
+            "REGISTRATION_FAILED": "A regisztráció sikertelen. Kérjük próbáld újra.",
+            "LOGIN_FAILED": "A bejelentkezés sikertelen. Kérjük próbáld újra.",
             "DEFAULT": "Valami hiba történt. Kérjük, próbáld újra."
         },
         "PASSWORD_RESET": {
@@ -282,6 +290,7 @@
         "NEW_PASSWORD": "Új jelszó",
         "CONFIRM_PASSWORD": "Jelszó megerősítése",
         "SENDING": "Küldés...",
+        "RESENDING_EMAIL": "E-mail újraküldése...",
         "RESETTING": "Visszaállítás...",
         "REGISTRATION_SUCCESS_TITLE": "Ellenőrizd az emailed!",
         "REGISTRATION_SUCCESS_DESC": "Elküldtünk egy megerősítő linket az email címedre.",
@@ -289,6 +298,9 @@
         "BACK_TO_HOME": "Vissza a főoldalra",
         "GO_TO_LOGIN": "Bejelentkezés",
         "RESEND_EMAIL": "Nem kaptad meg az emailt? Kattints az újraküldéshez",
+        "RESEND_EMAIL_SUCCESS": "Megerősítő email sikeresen elküldve!",
+        "RESEND_EMAIL_ERROR": "Nem sikerült újraküldeni az emailt. Kérjük próbáld újra.",
+        "RESEND_EMAIL_RATE_LIMIT": "Kérjük várj mielőtt újabb emailt kérnél. Próbáld újra {seconds} másodperc múlva.",
         "EMAIL_VERIFIED_TITLE": "Email megerősítve!",
         "EMAIL_VERIFIED_DESC": "Az email címed sikeresen megerősítésre került. Most már bejelentkezhetsz a fiókodba.",
         "EMAIL_VERIFY_FAILED": "Megerősítés sikertelen",
@@ -300,16 +312,18 @@
             "WELCOME_TITLE": "Üdv az új ArtistFactory-ban!",
             "WELCOME_SUBTITLE": "Teljesen újraépítettük a platformunkat",
             "WHATS_NEW": "Mi az újdonság?",
-            "FEATURE_1": "Modern, gyorsabb felület a jobb teljesítményért",
+            "FEATURE_1": "Modern, intuitív felület a jobb felhasználói élményért",
             "FEATURE_2": "Fokozott biztonság az adataid védelméért",
-            "FEATURE_3": "Új funkciók és fejlesztések a visszajelzéseid alapján",
+            "FEATURE_3": "Mobilbarát design valós idejű foglalásokkal",
             "SET_PASSWORD": "Állítsd be a jelszavad",
             "SET_PASSWORD_DESC": "Biztonsági okokból új jelszót kell létrehoznod az új platformhoz.",
             "SETTING_UP": "Beállítás...",
             "CONTINUE": "Tovább az ArtistFactory-hoz",
-            "SUCCESS": "Jelszó sikeresen beállítva!",
+            "SUCCESS": "Fiók sikeresen aktiválva!",
+            "SUCCESS_DESC": "Az email címed megerősítésre került és a jelszavad be lett állítva. Most már bejelentkezhetsz.",
             "REDIRECTING": "Átirányítás a bejelentkezéshez...",
             "INVALID_LINK": "Érvénytelen vagy lejárt link",
+            "INVALID_LINK_DESC": "Ez az átállítási link már nem érvényes. Kérjük, vedd fel velünk a kapcsolatot, ha segítségre van szükséged.",
             "SETUP_FAILED": "Nem sikerült beállítani a jelszót",
             "ERROR": "Hiba történt. Kérjük, próbáld újra."
         },
@@ -384,5 +398,39 @@
         "CTA_TITLE": "Készen állsz a felvételre?",
         "CTA_DESC": "Foglalj stúdió időpontot és vidd sikerre a zenédet!",
         "CTA_BUTTON": "Stúdió Foglalás"
+    },
+    "EMAIL": {
+        "VERIFICATION": {
+            "SUBJECT": "Email cím megerősítése",
+            "TITLE": "Email Megerősítés",
+            "DESCRIPTION": "Kattints az alábbi gombra az email címed megerősítéséhez.",
+            "BUTTON": "Email Megerősítése",
+            "OR_COPY": "Vagy másold be ezt a linket:",
+            "EXPIRES": "Ez a link 24 órán belül lejár."
+        },
+        "PASSWORD_RESET": {
+            "SUBJECT": "Jelszó visszaállítása",
+            "TITLE": "Jelszó Visszaállítás",
+            "DESCRIPTION": "Kérést kaptunk a jelszavad visszaállítására. Kattints az alábbi gombra új jelszó létrehozásához.",
+            "BUTTON": "Jelszó Visszaállítása",
+            "OR_COPY": "Vagy másold be ezt a linket:",
+            "EXPIRES": "Ez a link 1 órán belül lejár.",
+            "NO_REQUEST": "Ha nem te kérted ezt, nyugodtan figyelmen kívül hagyhatod ezt az emailt."
+        },
+        "MIGRATION": {
+            "SUBJECT": "Üdvözlünk az új ArtistFactory platformon!",
+            "GREETING": "Üdv újra{name, select, other {, {name}} _placeholder {}}!",
+            "SUBTITLE": "Az ArtistFactory újjáépült",
+            "WHATS_NEW": "Mi az új?",
+            "FEATURE_1": "Modern, gyorsabb felület",
+            "FEATURE_2": "Fokozott biztonság",
+            "FEATURE_3": "Új funkciók és fejlesztések",
+            "ACTION_REQUIRED": "Cselekvés Szükséges",
+            "ACTION_DESCRIPTION": "A fiókod használatának folytatásához új jelszót kell beállítanod. A régi jelszavad biztonsági okokból nem fog működni az új platformon.",
+            "BUTTON": "Jelszó Beállítása",
+            "OR_COPY": "Vagy másold be ezt a linket:",
+            "EXPIRES": "Ez a link 30 napig érvényes marad.",
+            "SUPPORT": "Ha kérdésed van vagy segítségre van szükséged, kérjük, vedd fel a kapcsolatot támogatási csapatunkkal."
+        }
     }
 }

@@ -20,6 +20,8 @@ async function sendMigrationEmails() {
         from: process.env.EMAIL_FROM,
     })
 
+    // Get locale before sending any emails
+
     // Get all users without emailVerified (imported users)
     const users = await prisma.user.findMany({
         where: {

@@ -46,12 +46,12 @@ export function AuthOptions() {
                     </DropdownMenuTrigger>
 
                     <DropdownMenuContent className="w-48" align="end">
-                        <div className="px-2 py-1.5 text-sm border-b">
+                        <div className="px-2 py-1.5 text-sm border-b mb-1">
                             <p className="font-medium">{session.user.name}</p>
                             <p className="text-muted-foreground truncate">{session.user.email}</p>
                         </div>
 
-                        <DropdownMenuItem asChild>
+                        {/* <DropdownMenuItem asChild>
                             <Link href="/profile" className="cursor-pointer">
                                 {tUser('PROFILE')}
                             </Link>
@@ -61,11 +61,11 @@ export function AuthOptions() {
                             <Link href="/settings" className="cursor-pointer">
                                 {tUser('SETTINGS')}
                             </Link>
-                        </DropdownMenuItem>
+                        </DropdownMenuItem> */}
 
                         <DropdownMenuItem
                             onClick={() => signOut({ callbackUrl: '/' })}
-                            className="text-destructive focus:text-destructive cursor-pointer"
+                            className="text-destructive focus:text-destructive-foreground hover:bg-destructive/20 cursor-pointer mt-1"
                         >
                             {tUser('LOGOUT')}
                         </DropdownMenuItem>
@@ -78,7 +78,7 @@ export function AuthOptions() {
     // User is not authenticated - show auth buttons
     return (
         <div className="flex items-center space-x-2">
-            <Button onClick={() => router.push('/register')} variant="default" >
+            <Button onClick={() => router.push('/register')} variant="default">
                 {t('SIGN_UP')}
             </Button>
         </div>

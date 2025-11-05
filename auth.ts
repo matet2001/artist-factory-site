@@ -1,7 +1,5 @@
-import { sendVerificationEmail } from '@/lib/email'
 import prisma from '@/lib/prisma'
 import bcrypt from 'bcryptjs'
-import crypto from 'crypto'
 import { type NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
@@ -23,41 +21,9 @@ export const authOptions = {
                     where: { email: credentials.email },
                 })
 
+                // User not found
                 if (!user) {
-                    // Create new user
-                    const newUser = await prisma.user.create({
-                        data: {
-                            name: credentials.name ?? credentials.email,
-                            email: credentials.email,
-                            password: await bcrypt.hash(credentials.password, 10),
-                            // emailVerified is optional, omitting it defaults to null
-                        },
-                    })
-
-                    // Generate verification token
-                    const token = crypto.randomBytes(32).toString('hex')
-                    await prisma.verificationToken.create({
-                        data: {
-                            email: newUser.email,
-                            token,
-                            expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
-                            type: 'EMAIL_VERIFICATION',
-                        },
-                    })
-
-                    // Send verification email
-                    try {
-                        console.log("Try to send vertificaiton email")
-                        await sendVerificationEmail(newUser.email, token)
-                    } catch (error) {
-                        console.error('Failed to send verification email:', error)
-                        // Still allow user creation even if email fails
-                    }
-
-                    // Prevent auto-login after registration
-                    throw new Error(
-                        'Account created! Please check your email to verify your account.'
-                    )
+                    throw new Error('Invalid credentials')
                 }
 
                 // Check if user's email is verified
@@ -65,6 +31,7 @@ export const authOptions = {
                     throw new Error('Please verify your email before logging in')
                 }
 
+                // Check password
                 const isCorrectPassword = await bcrypt.compare(credentials.password, user.password)
 
                 if (!isCorrectPassword) {
