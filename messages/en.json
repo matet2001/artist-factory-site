@@ -223,10 +223,17 @@
         },
         "ERRORS": {
             "EMAIL_IN_USE": "This email address is already taken.",
+            "EMAIL_ALREADY_EXISTS": "This email is already registered. Please log in instead.",
             "INVALID_EMAIL": "Invalid email format.",
             "WEAK_PASSWORD": "Password must be at least 6 characters long.",
             "USER_NOT_FOUND": "User not found. Please check your email address.",
             "INVALID_CREDENTIAL": "Wrong password or email address.",
+            "INVALID_CREDENTIALS": "Wrong password or email address.",
+            "EMAIL_NOT_VERIFIED": "Please verify your email before logging in.",
+            "EMAIL_ALREADY_VERIFIED": "Your email is already verified. You can log in now.",
+            "EMAIL_SEND_FAILED": "Failed to send verification email. Please try again.",
+            "REGISTRATION_FAILED": "Registration failed. Please try again.",
+            "LOGIN_FAILED": "Login failed. Please try again.",
             "DEFAULT": "Something went wrong. Please try again."
         },
         "PASSWORD_RESET": {
@@ -278,6 +285,7 @@
         "NEW_PASSWORD": "New Password",
         "CONFIRM_PASSWORD": "Confirm Password",
         "SENDING": "Sending...",
+        "RESENDING_EMAIL": "Resending email...",
         "RESETTING": "Resetting...",
         "REGISTRATION_SUCCESS_TITLE": "Check your email!",
         "REGISTRATION_SUCCESS_DESC": "We've sent a verification link to your email address.",
@@ -285,6 +293,9 @@
         "BACK_TO_HOME": "Back to Home",
         "GO_TO_LOGIN": "Go to Login",
         "RESEND_EMAIL": "Didn't receive the email? Click to resend",
+        "RESEND_EMAIL_SUCCESS": "Verification email sent successfully!",
+        "RESEND_EMAIL_ERROR": "Failed to resend email. Please try again.",
+        "RESEND_EMAIL_RATE_LIMIT": "Please wait before requesting another email. Try again in {seconds} seconds.",
         "EMAIL_VERIFIED_TITLE": "Email Verified!",
         "EMAIL_VERIFIED_DESC": "Your email has been successfully verified. You can now log in to your account.",
         "EMAIL_VERIFY_FAILED": "Verification Failed",
@@ -296,16 +307,18 @@
             "WELCOME_TITLE": "Welcome to the New ArtistFactory!",
             "WELCOME_SUBTITLE": "We've rebuilt our platform from the ground up",
             "WHATS_NEW": "What's New?",
-            "FEATURE_1": "Modern, faster interface for better performance",
+            "FEATURE_1": "Modern, intuitive interface for better user experience",
             "FEATURE_2": "Enhanced security to protect your data",
-            "FEATURE_3": "New features and improvements based on your feedback",
+            "FEATURE_3": "Mobile-friendly design with real-time bookings",
             "SET_PASSWORD": "Set Up Your Password",
             "SET_PASSWORD_DESC": "For security reasons, you'll need to create a new password for the new platform.",
             "SETTING_UP": "Setting up...",
             "CONTINUE": "Continue to ArtistFactory",
-            "SUCCESS": "Password set successfully!",
+            "SUCCESS": "Account activated successfully!",
+            "SUCCESS_DESC": "Your email has been verified and your password is set. You can now log in.",
             "REDIRECTING": "Redirecting to login...",
             "INVALID_LINK": "Invalid or expired link",
+            "INVALID_LINK_DESC": "This migration link is no longer valid. Please contact support if you need assistance.",
             "SETUP_FAILED": "Failed to set up password",
             "ERROR": "An error occurred. Please try again."
         },
@@ -380,5 +393,39 @@
         "CTA_TITLE": "Ready to Record?",
         "CTA_DESC": "Book your studio session and bring your music to life!",
         "CTA_BUTTON": "Book Studio Session"
+    },
+    "EMAIL": {
+        "VERIFICATION": {
+            "SUBJECT": "Verify your email address",
+            "TITLE": "Email Verification",
+            "DESCRIPTION": "Click the button below to verify your email address and get started.",
+            "BUTTON": "Verify Email",
+            "OR_COPY": "Or copy this link:",
+            "EXPIRES": "This link will expire in 24 hours."
+        },
+        "PASSWORD_RESET": {
+            "SUBJECT": "Reset your password",
+            "TITLE": "Password Reset",
+            "DESCRIPTION": "We received a request to reset your password. Click the button below to create a new password.",
+            "BUTTON": "Reset Password",
+            "OR_COPY": "Or copy this link:",
+            "EXPIRES": "This link will expire in 1 hour.",
+            "NO_REQUEST": "If you didn't request this, you can safely ignore this email."
+        },
+        "MIGRATION": {
+            "SUBJECT": "Welcome to the New ArtistFactory Platform!",
+            "GREETING": "Welcome back{name, select, other {, {name}} _placeholder {}}!",
+            "SUBTITLE": "ArtistFactory has been rebuilt",
+            "WHATS_NEW": "What's new?",
+            "FEATURE_1": "Modern, faster interface",
+            "FEATURE_2": "Enhanced security",
+            "FEATURE_3": "New features and improvements",
+            "ACTION_REQUIRED": "Action Required",
+            "ACTION_DESCRIPTION": "To continue using your account, you'll need to set up a new password. Your old password won't work on the new platform for security reasons.",
+            "BUTTON": "Set Up My Password",
+            "OR_COPY": "Or copy this link:",
+            "EXPIRES": "This link will remain valid for 30 days.",
+            "SUPPORT": "If you have any questions or need assistance, please contact our support team."
+        }
     }
 }

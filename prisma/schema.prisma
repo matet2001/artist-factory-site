@@ -12,7 +12,11 @@ model User {
   name               String?
   email              String              @unique
   password           String
+  phone              String?
+  bandName           String?
   emailVerified      DateTime?
+  lastEmailSent      DateTime?
+  emailSentCount     Int                 @default(0)
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
   verificationTokens VerificationToken[]

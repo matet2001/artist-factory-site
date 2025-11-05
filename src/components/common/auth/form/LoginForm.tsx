@@ -1,7 +1,7 @@
 'use client'
 
-import { signIn } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
+import { signIn, useSession } from 'next-auth/react'
+import { useTranslations, useLocale } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -25,12 +25,32 @@ import { Input } from '@/components/ui/input'
 import { Eye, EyeOff } from 'lucide-react'
 import Link from 'next/link'
 
+/**
+ * Format user's name based on locale
+ * @param fullName - User's full name (e.g., "John Doe")
+ * @param locale - Current locale ('en' or 'hu')
+ * @returns First name for English, last name for Hungarian
+ */
+const formatNameByLocale = (fullName: string, locale: string): string => {
+    const names = fullName.trim().split(' ')
+    if (names.length === 0) return fullName
+
+    // For Hungarian (hu), use last name (second name in Western format)
+    // For English (en), use first name
+    if (locale === 'hu' && names.length > 1) {
+        return names[names.length - 1] // Last name
+    }
+    return names[0] // First name
+}
+
 const LoginForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [passwordVisible, setPasswordVisible] = useState(false)
     const t = useTranslations('AUTH')
+    const locale = useLocale()
     const router = useRouter()
+    const { update } = useSession()
 
     const form = useForm<LoginFormData>({
         defaultValues: {
@@ -54,18 +74,37 @@ const LoginForm = () => {
             })
 
             if (response?.error) {
-                setError(t('INVALID_CREDENTIALS'))
-                toast.error(t('INVALID_CREDENTIALS'))
+                // Map error messages to translation keys
+                let errorKey = 'ERRORS.INVALID_CREDENTIALS'
+
+                if (response.error.includes('verify your email')) {
+                    errorKey = 'ERRORS.EMAIL_NOT_VERIFIED'
+                } else if (response.error.includes('Invalid credentials')) {
+                    errorKey = 'ERRORS.INVALID_CREDENTIALS'
+                }
+
+                const errorMsg = t(errorKey)
+                setError(errorMsg)
+                toast.error(errorMsg)
                 return
             }
 
-            // Success toast
-            toast.success(t('ALERT.LOGIN_SUCCESS') + values.email.split('@')[0])
+            // Update session to get latest user data
+            await update()
+
+            // Fetch user data to get the full name
+            const response2 = await fetch('/api/auth/session')
+            const sessionData = await response2.json()
+
+            // Format name based on locale and show success toast
+            const userName = sessionData?.user?.name || values.email.split('@')[0]
+            const formattedName = formatNameByLocale(userName, locale)
+            toast.success(t('ALERT.LOGIN_SUCCESS') + `${formattedName}!`)
 
             router.push('/')
             router.refresh()
         } catch {
-            const errorMsg = t('LOGIN_ERROR')
+            const errorMsg = t('ERRORS.LOGIN_FAILED')
             setError(errorMsg)
             toast.error(errorMsg)
         } finally {

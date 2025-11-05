@@ -1,5 +1,6 @@
 'use client'
 
+import AuthHeader from '../AuthHeader'
 import { Button } from '@/components/ui/button'
 import {
     Form,
@@ -10,9 +11,10 @@ import {
     FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Eye, EyeOff, Sparkles } from 'lucide-react'
+import { CheckCircle2, Eye, EyeOff } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useRouter, useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 import { Suspense, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -42,17 +44,23 @@ function MigrationWelcomeContent() {
 
     const onSubmit = async (values: MigrationPasswordFormData) => {
         if (values.password !== values.confirmPassword) {
-            setError(t('PASSWORDS_NOT_MATCH'))
+            const errorMsg = t('PASSWORD_MISMATCH')
+            setError(errorMsg)
+            toast.error(errorMsg)
             return
         }
 
         if (values.password.length < 6) {
-            setError(t('PASSWORD_REQUIRED'))
+            const errorMsg = t('PASSWORD_REQUIRED')
+            setError(errorMsg)
+            toast.error(errorMsg)
             return
         }
 
         if (!token) {
-            setError(t('MIGRATION.INVALID_LINK'))
+            const errorMsg = t('MIGRATION.INVALID_LINK')
+            setError(errorMsg)
+            toast.error(errorMsg)
             return
         }
 
@@ -72,7 +80,9 @@ function MigrationWelcomeContent() {
             const data = await response.json()
 
             if (!response.ok) {
-                setError(data.error || t('MIGRATION.SETUP_FAILED'))
+                const errorMsg = data.error || t('MIGRATION.SETUP_FAILED')
+                setError(errorMsg)
+                toast.error(errorMsg)
                 return
             }
 
@@ -81,10 +91,12 @@ function MigrationWelcomeContent() {
 
             setTimeout(() => {
                 router.push('/login')
-            }, 2000)
+            }, 3000)
         } catch (error) {
             console.error(error)
-            setError(t('MIGRATION.ERROR'))
+            const errorMsg = t('MIGRATION.ERROR')
+            setError(errorMsg)
+            toast.error(errorMsg)
         } finally {
             setIsSubmitting(false)
         }
@@ -92,10 +104,21 @@ function MigrationWelcomeContent() {
 
     if (!token) {
         return (
-            <div className="min-h-screen flex items-center justify-center p-4">
-                <div className="max-w-md w-full text-center space-y-4">
-                    <p className="text-red-500">{t('MIGRATION.INVALID_LINK')}</p>
-                    <Button onClick={() => router.push('/')}>{t('BACK_TO_HOME')}</Button>
+            <div className="flex flex-col space-y-7">
+                <div className="my-2" />
+                <AuthHeader
+                    title={t('MIGRATION.INVALID_LINK')}
+                    description={t('MIGRATION.INVALID_LINK_DESC')}
+                />
+                <div className="space-y-8">
+                    <Button
+                        variant="secondary"
+                        className="w-full"
+                        size="lg"
+                        onClick={() => router.push('/')}
+                    >
+                        {t('BACK_TO_HOME')}
+                    </Button>
                 </div>
             </div>
         )
@@ -103,146 +126,162 @@ function MigrationWelcomeContent() {
 
     if (success) {
         return (
-            <div className="min-h-screen flex items-center justify-center p-4">
-                <div className="max-w-md w-full text-center space-y-4">
-                    <div className="text-green-600 text-lg font-semibold">
-                        {t('MIGRATION.SUCCESS')}
+            <div className="flex flex-col space-y-7">
+                <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="flex flex-col items-center space-y-6 py-8">
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-green-500/20 rounded-full blur-xl animate-pulse" />
+                            <div className="relative bg-green-50 dark:bg-green-950 p-6 rounded-full">
+                                <CheckCircle2
+                                    className="w-16 h-16 text-green-600 dark:text-green-400"
+                                    strokeWidth={1.5}
+                                />
+                            </div>
+                            <div className="absolute -bottom-1 -right-1 bg-white dark:bg-gray-950 rounded-full p-1">
+                                <CheckCircle2
+                                    className="w-8 h-8 text-green-600 dark:text-green-400 animate-in zoom-in duration-300"
+                                    fill="currentColor"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-3 text-center max-w-md">
+                            <h3 className="text-2xl font-semibold text-green-600 dark:text-green-400">
+                                {t('MIGRATION.SUCCESS')}
+                            </h3>
+                            <p className="text-muted-foreground text-sm leading-relaxed">
+                                {t('MIGRATION.SUCCESS_DESC')}
+                            </p>
+                            <p className="text-muted-foreground text-xs leading-relaxed mt-2">
+                                {t('MIGRATION.REDIRECTING')}
+                            </p>
+                        </div>
                     </div>
-                    <p className="text-muted-foreground">{t('MIGRATION.REDIRECTING')}</p>
+
+                    <div className="flex w-full justify-center">
+                        <Link
+                            className="text-center text-muted-foreground text-sm w-full font-semibold text-link hover:underline cursor-pointer"
+                            href={'/login'}
+                        >
+                            {t('PASSWORD_RESET.BACK_TO_LOGIN')}
+                        </Link>
+                    </div>
                 </div>
             </div>
         )
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4">
-            <div className="max-w-2xl w-full space-y-8">
-                {/* Welcome Header */}
-                <div className="text-center space-y-4">
-                    <div className="flex justify-center">
-                        <div className="rounded-full bg-gradient-to-br from-purple-100 to-blue-100 p-4">
-                            <Sparkles className="h-12 w-12 text-purple-600" />
-                        </div>
-                    </div>
-                    <h1 className="text-4xl font-bold">{t('MIGRATION.WELCOME_TITLE')}</h1>
-                    <p className="text-xl text-muted-foreground">
-                        {t('MIGRATION.WELCOME_SUBTITLE')}
-                    </p>
-                </div>
+        <div className="flex flex-col space-y-7">
+            {/* Header */}
+            <div className="my-2" />
+            <AuthHeader
+                title={t('MIGRATION.WELCOME_TITLE')}
+                description={t('MIGRATION.WELCOME_SUBTITLE')}
+            />
 
-                {/* Info Card */}
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 space-y-3">
-                    <h3 className="font-semibold text-blue-900">{t('MIGRATION.WHATS_NEW')}</h3>
-                    <ul className="space-y-2 text-sm text-blue-800">
-                        <li className="flex items-start">
-                            <span className="mr-2">✓</span>
-                            <span>{t('MIGRATION.FEATURE_1')}</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-2">✓</span>
-                            <span>{t('MIGRATION.FEATURE_2')}</span>
-                        </li>
-                        <li className="flex items-start">
-                            <span className="mr-2">✓</span>
-                            <span>{t('MIGRATION.FEATURE_3')}</span>
-                        </li>
-                    </ul>
-                </div>
+            {/* Info Card */}
+            <div className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20 border border-purple-200 dark:border-purple-800 rounded-xl p-6 space-y-4">
+                <h3 className="font-semibold text-purple-900 dark:text-purple-100">
+                    {t('MIGRATION.WHATS_NEW')}
+                </h3>
+                <ul className="space-y-3 text-sm text-purple-800 dark:text-purple-200">
+                    <li className="flex items-start gap-2">
+                        <span className="text-purple-600 dark:text-purple-400 mt-0.5">✓</span>
+                        <span>{t('MIGRATION.FEATURE_1')}</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                        <span className="text-purple-600 dark:text-purple-400 mt-0.5">✓</span>
+                        <span>{t('MIGRATION.FEATURE_2')}</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                        <span className="text-purple-600 dark:text-purple-400 mt-0.5">✓</span>
+                        <span>{t('MIGRATION.FEATURE_3')}</span>
+                    </li>
+                </ul>
+            </div>
 
-                {/* Password Setup Form */}
-                <div className="bg-white rounded-lg border p-6 space-y-6">
-                    <div className="space-y-2">
-                        <h2 className="text-2xl font-semibold">{t('MIGRATION.SET_PASSWORD')}</h2>
-                        <p className="text-muted-foreground">{t('MIGRATION.SET_PASSWORD_DESC')}</p>
-                    </div>
-
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-                            <FormField
-                                control={form.control}
-                                name="password"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>{t('NEW_PASSWORD')}</FormLabel>
-                                        <FormControl>
-                                            <div className="relative">
-                                                <Input
-                                                    type={passwordVisible ? 'text' : 'password'}
-                                                    placeholder={t('PLACEHOLDER.PASSWORD')}
-                                                    {...field}
-                                                />
-                                                <button
-                                                    type="button"
-                                                    onClick={() =>
-                                                        setPasswordVisible(!passwordVisible)
-                                                    }
-                                                    className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground"
-                                                >
-                                                    {passwordVisible ? (
-                                                        <EyeOff size={18} />
-                                                    ) : (
-                                                        <Eye size={18} />
-                                                    )}
-                                                </button>
-                                            </div>
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-
-                            <FormField
-                                control={form.control}
-                                name="confirmPassword"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>{t('CONFIRM_PASSWORD')}</FormLabel>
-                                        <FormControl>
-                                            <div className="relative">
-                                                <Input
-                                                    type={
-                                                        confirmPasswordVisible ? 'text' : 'password'
-                                                    }
-                                                    placeholder={t('PLACEHOLDER.CONFIRM_PASSWORD')}
-                                                    {...field}
-                                                />
-                                                <button
-                                                    type="button"
-                                                    onClick={() =>
-                                                        setConfirmPasswordVisible(
-                                                            !confirmPasswordVisible
-                                                        )
-                                                    }
-                                                    className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground"
-                                                >
-                                                    {confirmPasswordVisible ? (
-                                                        <EyeOff size={18} />
-                                                    ) : (
-                                                        <Eye size={18} />
-                                                    )}
-                                                </button>
-                                            </div>
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-
-                            {error && (
-                                <div className="text-red-500 text-sm text-center">{error}</div>
+            {/* Password Setup Form */}
+            <div className="space-y-8">
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>{t('NEW_PASSWORD')}</FormLabel>
+                                    <FormControl>
+                                        <div className="relative">
+                                            <Input
+                                                type={passwordVisible ? 'text' : 'password'}
+                                                placeholder={t('PLACEHOLDER.PASSWORD')}
+                                                {...field}
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => setPasswordVisible(!passwordVisible)}
+                                                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground"
+                                            >
+                                                {passwordVisible ? (
+                                                    <EyeOff size={18} />
+                                                ) : (
+                                                    <Eye size={18} />
+                                                )}
+                                            </button>
+                                        </div>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
                             )}
+                        />
 
-                            <Button
-                                className="w-full"
-                                size="lg"
-                                type="submit"
-                                disabled={isSubmitting}
-                            >
-                                {isSubmitting ? t('MIGRATION.SETTING_UP') : t('MIGRATION.CONTINUE')}
-                            </Button>
-                        </form>
-                    </Form>
-                </div>
+                        <FormField
+                            control={form.control}
+                            name="confirmPassword"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>{t('CONFIRM_PASSWORD')}</FormLabel>
+                                    <FormControl>
+                                        <div className="relative">
+                                            <Input
+                                                type={confirmPasswordVisible ? 'text' : 'password'}
+                                                placeholder={t('PLACEHOLDER.CONFIRM_PASSWORD')}
+                                                {...field}
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    setConfirmPasswordVisible(!confirmPasswordVisible)
+                                                }
+                                                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground"
+                                            >
+                                                {confirmPasswordVisible ? (
+                                                    <EyeOff size={18} />
+                                                ) : (
+                                                    <Eye size={18} />
+                                                )}
+                                            </button>
+                                        </div>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        {error && <div className="text-red-500 text-sm text-center">{error}</div>}
+
+                        <Button
+                            variant="secondary"
+                            className="w-full mt-5"
+                            size="lg"
+                            type="submit"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? t('MIGRATION.SETTING_UP') : t('MIGRATION.CONTINUE')}
+                        </Button>
+                    </form>
+                </Form>
             </div>
         </div>
     )

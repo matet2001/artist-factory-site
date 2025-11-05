@@ -1,7 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { sendPasswordResetEmail } from '@/lib/email'
+import { getLocaleForEmail } from '@/lib/email-local-helper'
 import prisma from '@/lib/prisma'
 import crypto from 'crypto'
-import { sendPasswordResetEmail } from '@/lib/email'
+import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
     try {
@@ -43,7 +44,9 @@ export async function POST(request: NextRequest) {
         })
 
         // Send reset email
-        await sendPasswordResetEmail(email, token)
+        const locale = await getLocaleForEmail()
+
+        await sendPasswordResetEmail(email, token, locale)
 
         return NextResponse.json({
             message: 'If an account exists, a password reset email has been sent.',
