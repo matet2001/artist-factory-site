@@ -157,7 +157,7 @@ export default function RoomSection({ room }: RoomSectionProps) {
                                 <Link href="/booking" className="w-full sm:w-auto">
                                     <Button
                                         size="lg"
-                                        className="w-full sm:w-auto px-14 py-7 text-lg uppercase font-bold shadow-2xl transition-all hover:scale-105 hover:-translate-y-0.5"
+                                        className="w-full sm:w-auto px-14 py-7 text-lg uppercase font-bold transition-all hover:scale-105 hover:-translate-y-0.5"
                                     >
                                         {t('CTA')}
                                     </Button>

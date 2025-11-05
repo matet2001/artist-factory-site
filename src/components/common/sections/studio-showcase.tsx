@@ -28,9 +28,9 @@ export default function StudioShowcase() {
                         fill
                         className="object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+                    <div className="absolute inset-0 bg-black/40" />
                     <div className="absolute inset-0 flex items-center justify-center px-4">
-                        <div className="text-center text-white">
+                        <div className="text-center text-white max-w-2xl mx-auto">
                             <h3 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold mb-2 sm:mb-4">
                                 {t('HERO.PROFESSIONAL_ENV_TITLE', {
                                     defaultValue: 'Professional Environment',

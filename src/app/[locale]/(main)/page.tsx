@@ -1,41 +1,24 @@
 'use client'
 
-import PalmLeafDivider from '@/components/common/palm-leaft-divider'
+import CtaSection from '@/components/common/sections/cta-section'
 import DescriptionSection from '@/components/common/sections/description-section'
 import FeaturesSection from '@/components/common/sections/features-section'
 import HeroSection from '@/components/common/sections/hero-section'
 import RoomsSection from '@/components/common/sections/rooms-section'
 import StudioShowcase from '@/components/common/sections/studio-showcase'
+import { useTranslations } from 'next-intl'
 
-export default function HomeHeroSection() {
+export default function HomePage() {
+    const tGeneral = useTranslations('GENERAL')
+
     return (
-        <div className="mb-20">
-            {/* Hero Section */}
+        <div className="flex flex-col gap-y-40">
             <HeroSection />
-
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
-
-            {/* Studio Showcase Section */}
             <StudioShowcase />
-
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
-
-            {/* Description Section */}
             <DescriptionSection />
-
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
-
-            {/* Features Section - breaks out of container with absolute positioning */}
             <FeaturesSection />
-
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
-
-            {/* Rooms Section */}
             <RoomsSection />
+            <CtaSection title={tGeneral('CTA_TITLE')} description={tGeneral('CTA_DESC')} />
         </div>
     )
 }
