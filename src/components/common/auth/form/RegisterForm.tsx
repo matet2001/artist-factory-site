@@ -1,9 +1,11 @@
 'use client'
 
-import { signIn } from 'next-auth/react'
+import { CheckCircle2, Mail } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
 import type { RegisterFormData } from '@/types/auth'
 
@@ -21,10 +23,18 @@ import AuthSwitch from './AuthSwitch'
 import EmailInput from './EmailInput'
 import PasswordInput from './PasswordInput'
 
-export default function RegisterForm() {
+interface RegisterFormProps {
+    onSuccessChange?: (success: boolean) => void
+}
+
+export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
     const router = useRouter()
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isResending, setIsResending] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const [registrationSuccess, setRegistrationSuccess] = useState(false)
+    const [userEmail, setUserEmail] = useState('')
+    const t = useTranslations('AUTH')
 
     const form = useForm<RegisterFormData>({
         defaultValues: {
@@ -41,33 +51,161 @@ export default function RegisterForm() {
             setIsSubmitting(true)
             setError(null)
 
-            // Create FormData object like in your implementation
-            const formData = new FormData()
-            formData.append('name', values.fullName) // Map fullName to name
-            formData.append('email', values.email)
-            formData.append('password', values.password)
-            formData.append('phone', values.phone)
-            formData.append('bandName', values.bandName)
-
-            const signInResult = await signIn('credentials', {
-                ...Object.fromEntries(formData),
-                redirect: false,
+            // Call the registration API
+            const response = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: values.email,
+                    password: values.password,
+                    name: values.fullName,
+                    phone: values.phone,
+                    bandName: values.bandName,
+                }),
             })
 
-            if (signInResult?.error) {
-                setError('Failed to sign in after registration')
+            const data = await response.json()
+
+            if (!response.ok) {
+                // Handle error with translation key
+                const errorKey = data.error || 'ERRORS.REGISTRATION_FAILED'
+                const errorMsg = t(errorKey)
+                setError(errorMsg)
+                toast.error(errorMsg)
                 return
             }
 
-            router.push('/')
-            router.refresh()
-        } catch (error) {
-            setError(error instanceof Error ? error.message : 'Registration failed')
+            // Registration successful
+            setUserEmail(values.email)
+            setRegistrationSuccess(true)
+            onSuccessChange?.(true)
+            toast.success(t('REGISTRATION_SUCCESS_TITLE'))
+        } catch {
+            const errorMsg = t('ERRORS.REGISTRATION_FAILED')
+            setError(errorMsg)
+            toast.error(errorMsg)
         } finally {
             setIsSubmitting(false)
         }
     }
 
+    const handleResendEmail = async () => {
+        try {
+            setIsResending(true)
+            setError(null)
+
+            const response = await fetch('/api/auth/resend-verification', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: userEmail }),
+            })
+
+            const data = await response.json()
+
+            if (!response.ok) {
+                // Handle rate limit error with remaining seconds
+                if (data.error === 'RESEND_EMAIL_RATE_LIMIT' && data.remainingSeconds) {
+                    const errorMsg = t('RESEND_EMAIL_RATE_LIMIT', {
+                        seconds: data.remainingSeconds,
+                    })
+                    setError(errorMsg)
+                    toast.error(errorMsg)
+                } else {
+                    // Handle other errors
+                    const errorKey = data.error || 'RESEND_EMAIL_ERROR'
+                    const errorMsg = t(errorKey)
+                    setError(errorMsg)
+                    toast.error(errorMsg)
+                }
+                return
+            }
+
+            // Success
+            const successMsg = t('RESEND_EMAIL_SUCCESS')
+            toast.success(successMsg)
+            setError(null)
+        } catch {
+            const errorMsg = t('RESEND_EMAIL_ERROR')
+            setError(errorMsg)
+            toast.error(errorMsg)
+        } finally {
+            setIsResending(false)
+        }
+    }
+
+    // Success state UI
+    if (registrationSuccess) {
+        return (
+            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="flex flex-col items-center space-y-6 py-8">
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-green-500/20 rounded-full blur-xl animate-pulse" />
+                        <div className="relative bg-green-50 dark:bg-green-950 p-6 rounded-full">
+                            <Mail
+                                className="w-16 h-16 text-green-600 dark:text-green-400"
+                                strokeWidth={1.5}
+                            />
+                        </div>
+                        <div className="absolute -bottom-1 -right-1 bg-white dark:bg-gray-950 rounded-full p-1">
+                            <CheckCircle2
+                                className="w-8 h-8 text-green-600 dark:text-green-400 animate-in zoom-in duration-300"
+                                fill="currentColor"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="space-y-3 text-center max-w-md">
+                        <h3 className="text-2xl font-semibold text-green-600 dark:text-green-400">
+                            {t('REGISTRATION_SUCCESS_TITLE')}
+                        </h3>
+                        <p className="text-muted-foreground text-sm leading-relaxed">
+                            {t('REGISTRATION_SUCCESS_DESC')}
+                        </p>
+                    </div>
+
+                    {/* Email display card */}
+                    <div className="flex items-center gap-2 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 px-4 py-3 rounded-lg border border-green-200 dark:border-green-800">
+                        <Mail className="h-5 w-5 text-green-600 dark:text-green-400" />
+                        <span className="text-sm font-medium text-green-900 dark:text-green-100">
+                            {userEmail}
+                        </span>
+                    </div>
+
+                    <p className="text-sm text-muted-foreground max-w-md">{t('CHECK_SPAM')}</p>
+                </div>
+
+                {error && <div className="text-red-500 text-sm text-center">{error}</div>}
+
+                {/* Action buttons */}
+                <div className="space-y-3">
+                    <Button
+                        variant="secondary"
+                        className="w-full"
+                        size="lg"
+                        onClick={() => router.push('/login')}
+                    >
+                        {t('GO_TO_LOGIN')}
+                    </Button>
+                    <Button variant="outline" className="w-full" onClick={() => router.push('/')}>
+                        {t('BACK_TO_HOME')}
+                    </Button>
+                </div>
+
+                {/* Resend email button */}
+                <div className="flex w-full justify-center">
+                    <button
+                        onClick={handleResendEmail}
+                        disabled={isResending}
+                        className="text-center text-muted-foreground text-sm w-full font-semibold hover:text-primary transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        {isResending ? t('RESENDING_EMAIL') : t('RESEND_EMAIL')}
+                    </button>
+                </div>
+            </div>
+        )
+    }
+
+    // Regular form UI
     return (
         <div className="space-y-8">
             <Form {...form}>
@@ -80,9 +218,12 @@ export default function RegisterForm() {
                             name="fullName"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Full Name</FormLabel>
+                                    <FormLabel>{t('FULL_NAME')}</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="John Doe" {...field} />
+                                        <Input
+                                            placeholder={t('PLACEHOLDER.FULL_NAME')}
+                                            {...field}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -94,9 +235,13 @@ export default function RegisterForm() {
                             name="phone"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Phone</FormLabel>
+                                    <FormLabel>{t('PHONE')}</FormLabel>
                                     <FormControl>
-                                        <Input type="tel" placeholder="+36201234567" {...field} />
+                                        <Input
+                                            type="tel"
+                                            placeholder={t('PLACEHOLDER.PHONE')}
+                                            {...field}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -111,13 +256,16 @@ export default function RegisterForm() {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>
-                                        Band Name{' '}
+                                        {t('BAND_NAME')}{' '}
                                         <span className="text-muted-foreground text-sm">
-                                            (optional)
+                                            ({t('OPTIONAL')})
                                         </span>
                                     </FormLabel>
                                     <FormControl>
-                                        <Input placeholder="The Rockers" {...field} />
+                                        <Input
+                                            placeholder={t('PLACEHOLDER.BAND_NAME')}
+                                            {...field}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -129,11 +277,20 @@ export default function RegisterForm() {
 
                     {error && <div className="text-red-500 text-sm text-center">{error}</div>}
 
-                    <Button type="submit" className="w-full mt-5" disabled={isSubmitting}>
-                        {isSubmitting ? 'Signing up...' : 'Sign up'}
+                    <Button
+                        variant={'secondary'}
+                        type="submit"
+                        className="w-full mt-5"
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? t('SIGNING_UP') : t('SIGN_UP')}
                     </Button>
 
-                    <AuthSwitch label="Already have an account?" action="Log in" href="/login" />
+                    <AuthSwitch
+                        label={t('HAVE_ACCOUNT')}
+                        action={t('SIGN_IN_CALL')}
+                        href="/login"
+                    />
                 </form>
             </Form>
         </div>

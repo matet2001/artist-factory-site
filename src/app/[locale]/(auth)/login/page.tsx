@@ -7,9 +7,8 @@ export default function LoginPage() {
     const t = useTranslations('AUTH.HEADERS')
 
     return (
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col space-y-7">
             <AuthHeader title={t('LOGIN_TITLE')} description={t('LOGIN_DESCRIPTION')} />
-            <div className="my-2" />
             <LoginForm />
         </div>
     )

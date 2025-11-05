@@ -43,7 +43,7 @@ export default function FeaturesSection() {
                     initial="initial"
                     whileInView="whileInView"
                     viewport={viewportConfig}
-                    className="bg-muted/30 rounded-3xl px-4 sm:px-6 lg:px-8 pt-10 pb-15 relative w-full"
+                    className="bg-gradient-to-br from-card to-card-elevated rounded-3xl px-4 sm:px-6 lg:px-8 pt-10 pb-15 relative w-full border border-primary/20 shadow-2xl"
                 >
                     {/* Tiki Torches in all corners - hidden on mobile */}
                     <div>
@@ -83,7 +83,7 @@ export default function FeaturesSection() {
                                                 <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-2">
                                                     {t(feature.title)}
                                                 </h3>
-                                                <p className="text-sm sm:text-base lg:text-lg text-foreground/80 leading-relaxed">
+                                                <p className="text-sm sm:text-base lg:text-lg text-card-muted-foreground leading-relaxed">
                                                     {t(feature.desc)}
                                                 </p>
                                             </div>

@@ -1,11 +1,9 @@
 // app/[locale]/rooms/[roomId]/page.tsx
 'use client'
 
-import PalmLeafDivider from '@/components/common/palm-leaft-divider'
-import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
+import CtaSection from '@/components/common/sections/cta-section'
 import { EquipmentIcon } from '@/components/common/rooms/equipment-icon'
-import TikiTorch from '@/components/common/TikiTorch'
-import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import {
     Carousel,
     CarouselContent,
@@ -17,15 +15,15 @@ import { useAnimations } from '@/hooks/use-animation'
 import { rooms } from '@/lib/rooms'
 import Autoplay from 'embla-carousel-autoplay'
 import { motion } from 'framer-motion'
-import { CalendarDays, DollarSign, Users } from 'lucide-react'
+import { DollarSign, Snowflake, Users } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
 export default function RoomDetailPage({ params }: { params: Promise<{ roomId: string }> }) {
     const t = useTranslations('ROOMS')
+    const tGeneral = useTranslations('GENERAL')
     const animations = useAnimations()
     const viewportConfig = { once: true, amount: 0.1 } as const
 
@@ -48,221 +46,205 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
     )
 
     return (
-        <div className="mb-20">
-            {/* Title Section */}
+        <div>
+            {/* Title Section - Clean, matching studio style */}
             <section className="relative">
-                <div className="w-full mx-auto text-center relative z-10">
+                <div className="max-w-7xl mx-auto px-4">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
                         animate="whileInView"
-                        whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="text-center space-y-4"
                     >
-                        {/* Palm Trees in corners */}
-                        <div className="absolute inset-0 pointer-events-none z-0">
-                            <PalmTreeSilhouette position="top-left" flipped size="sm" />
-                            <PalmTreeSilhouette position="top-right" flipped mirrored size="sm" />
-                            <PalmTreeSilhouette position="bottom-left" size="sm" />
-                            <PalmTreeSilhouette position="bottom-right" mirrored size="sm" />
-                        </div>
-
-                        <div className="relative z-10 py-8 sm:py-10 lg:py-12">
-                            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold tracking-tight capitalize">
-                                {t(room.name)}
-                            </h1>
-                        </div>
+                        <p className="text-xs sm:text-sm tracking-[0.3em] uppercase text-primary font-medium">
+                            {t('PRE_TITLE')}
+                        </p>
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight capitalize">
+                            {t(room.name)}
+                        </h1>
                     </motion.div>
                 </div>
             </section>
 
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
-
-            {/* Image Carousel Section */}
-            <section className="relative">
-                <div className="w-full mx-auto relative z-10">
+            {/* Image Carousel Section - Large, box-shaped */}
+            <section className="relative py-16 md:py-24">
+                <div className="max-w-7xl mx-auto px-4">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full"
+                        className="relative h-[400px] sm:h-[500px] lg:h-[600px] overflow-hidden rounded-3xl border border-primary/20 shadow-2xl"
                     >
-                        <div className="relative w-full rounded-2xl overflow-hidden">
-                            <Carousel
-                                plugins={[plugin.current]}
-                                className="w-full"
-                                onMouseEnter={plugin.current.stop}
-                                onMouseLeave={plugin.current.reset}
-                                opts={{
-                                    align: 'start',
-                                    loop: true,
-                                }}
-                            >
-                                <CarouselContent>
-                                    {room.images.map((img, index) => (
-                                        <CarouselItem key={index}>
-                                            <div className="relative w-full aspect-[4/3] sm:aspect-[16/9] rounded-2xl overflow-hidden">
-                                                <Image
-                                                    src={`/rooms/${img}`}
-                                                    alt={`${t(room.name)} – ${index + 1}`}
-                                                    fill
-                                                    className="object-contain sm:object-cover"
-                                                    priority={index === 0}
-                                                />
-                                            </div>
-                                        </CarouselItem>
-                                    ))}
-                                </CarouselContent>
+                        <Carousel
+                            plugins={[plugin.current]}
+                            className="w-full h-full"
+                            onMouseEnter={plugin.current.stop}
+                            onMouseLeave={plugin.current.reset}
+                            opts={{
+                                align: 'start',
+                                loop: true,
+                            }}
+                        >
+                            <CarouselContent>
+                                {room.images.map((img, index) => (
+                                    <CarouselItem key={index}>
+                                        <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] w-full">
+                                            <Image
+                                                src={`/rooms/${img}`}
+                                                alt={`${t(room.name)} – ${index + 1}`}
+                                                fill
+                                                className="object-cover"
+                                                priority={index === 0}
+                                            />
+                                        </div>
+                                    </CarouselItem>
+                                ))}
+                            </CarouselContent>
 
-                                <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 shadow-md" />
-                                <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 shadow-md" />
-                            </Carousel>
-                        </div>
+                            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 shadow-md" />
+                            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 shadow-md" />
+                        </Carousel>
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
                     </motion.div>
                 </div>
             </section>
 
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
-
-            {/* Pricing & Details Section */}
-            <section className="relative">
-                <div className="w-full mx-auto text-center relative z-10">
+            {/* Equipment Section */}
+            <section className="relative py-16 md:py-24">
+                <div className="max-w-7xl mx-auto px-4">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="space-y-12"
                     >
-                        {/* Tiki Torches in corners */}
-                        <div className="hidden sm:block">
-                            <TikiTorch position="top-left" />
-                            <TikiTorch position="top-right" />
-                            <TikiTorch position="bottom-left" />
-                            <TikiTorch position="bottom-right" />
-                        </div>
+                        <h2 className="text-3xl sm:text-4xl font-bold text-center">
+                            {t('EQUIPMENT_TITLE')}
+                        </h2>
 
-                        <div className="relative z-10 space-y-8 sm:space-y-10 lg:space-y-12">
-                            {/* Price & Capacity */}
-                            <motion.div
-                                variants={animations.stagger}
-                                initial="initial"
-                                whileInView="whileInView"
-                                viewport={viewportConfig}
-                                className="flex flex-col sm:flex-row justify-center items-center gap-8 sm:gap-16"
-                            >
-                                {/* Price */}
+                        <motion.div
+                            variants={animations.stagger}
+                            initial="initial"
+                            whileInView="whileInView"
+                            viewport={viewportConfig}
+                            className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto"
+                        >
+                            {room.equipments.map((eq, i) => (
                                 <motion.div
+                                    key={i}
                                     variants={animations.scaleIn}
-                                    className="text-center p-6 rounded-xl bg-background/70 min-w-[240px]"
+                                    className="flex items-start gap-4 p-6 rounded-xl bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg"
                                 >
-                                    <div className="flex items-center justify-center gap-2 mb-3">
-                                        <DollarSign className="h-6 w-6 text-foreground" />
-                                        <h3 className="text-lg font-bold text-foreground">
-                                            {t('BASE_PRICE')}
-                                        </h3>
+                                    <div className="flex-shrink-0 p-3 rounded-full bg-primary/10">
+                                        <EquipmentIcon type={eq.type} size={24} alt={eq.label} />
                                     </div>
-                                    <div className="text-3xl font-bold text-foreground">
-                                        {room.price.toLocaleString('hu-HU')} Ft
-                                    </div>
-                                    <div className="text-sm text-muted-foreground mt-1">
-                                        / {t('HOUR')}
+                                    <div className="flex-1 min-w-0">
+                                        <div className="font-bold text-foreground text-base mb-2">
+                                            {t(`EQUIPMENT_TYPES.${eq.type.toUpperCase()}`)}
+                                        </div>
+                                        <div className="text-sm text-card-muted-foreground">
+                                            {tFormatted(eq.label)}
+                                        </div>
                                     </div>
                                 </motion.div>
+                            ))}
+                        </motion.div>
+                    </motion.div>
+                </div>
+            </section>
 
-                                {/* Capacity */}
-                                <motion.div
-                                    variants={animations.scaleIn}
-                                    className="text-center p-6 rounded-xl bg-background/70 min-w-[240px]"
-                                >
-                                    <div className="flex items-center justify-center gap-2 mb-3">
-                                        <Users className="h-6 w-6 text-foreground" />
-                                        <h3 className="text-lg font-bold text-foreground">
-                                            {t('SIZE')}
-                                        </h3>
-                                    </div>
-                                    <div className="text-3xl font-bold text-foreground">
-                                        {room.size}
-                                    </div>
-                                    <div className="text-sm text-muted-foreground mt-1">
-                                        {t('PEOPLE')}
-                                    </div>
-                                </motion.div>
-                            </motion.div>
+            {/* Pricing & Stats Section */}
+            <section className="relative py-16 md:py-24">
+                <div className="max-w-7xl mx-auto px-4">
+                    <motion.div
+                        variants={animations.fadeUp}
+                        initial="initial"
+                        whileInView="whileInView"
+                        viewport={viewportConfig}
+                        className="space-y-12"
+                    >
+                        <h2 className="text-3xl sm:text-4xl font-bold text-center">
+                            {t('DETAILS_TITLE')}
+                        </h2>
 
-                            {/* Equipment List */}
-                            <motion.div
-                                variants={animations.fadeUp}
-                                initial="initial"
-                                whileInView="whileInView"
-                                viewport={viewportConfig}
-                            >
-                                <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 sm:mb-8">
-                                    {t('EQUIPMENT_TITLE', { default: 'Felszereltség' })}
-                                </h2>
-
-                                <motion.div
-                                    variants={animations.stagger}
-                                    initial="initial"
-                                    whileInView="whileInView"
-                                    viewport={viewportConfig}
-                                    className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6"
-                                >
-                                    {room.equipments.map((eq, i) => (
-                                        <motion.div
-                                            key={i}
-                                            variants={animations.fadeUp}
-                                            className="flex items-start gap-3 sm:gap-4 p-4 rounded-lg bg-background/70 text-left"
-                                        >
-                                            <div className="flex-shrink-0 mt-1">
-                                                <EquipmentIcon
-                                                    type={eq.type}
-                                                    size={24}
-                                                    alt={eq.label}
-                                                />
-                                            </div>
-                                            <div className="flex-1 min-w-0">
-                                                <div className="font-semibold text-foreground text-sm sm:text-base mb-1">
-                                                    {t(`EQUIPMENT_TYPES.${eq.type.toUpperCase()}`)}
-                                                </div>
-                                                <div className="text-sm text-muted-foreground break-words">
-                                                    {tFormatted(eq.label)}
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    ))}
-                                </motion.div>
-                            </motion.div>
-
-                            {/* CTA Button */}
+                        <motion.div
+                            variants={animations.stagger}
+                            initial="initial"
+                            whileInView="whileInView"
+                            viewport={viewportConfig}
+                            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
+                        >
+                            {/* Price */}
                             <motion.div
                                 variants={animations.scaleIn}
-                                initial="initial"
-                                whileInView="whileInView"
-                                viewport={viewportConfig}
-                                className="pt-4"
+                                className="flex flex-col items-center justify-center gap-4 p-10 bg-card-elevated border border-primary/20 hover:border-primary/30 hover:shadow-lg transition-all text-center"
+                                style={{
+                                    borderRadius: '48% 52% 46% 54% / 54% 48% 52% 46%',
+                                    minHeight: '280px',
+                                }}
                             >
-                                <Link
-                                    href="/booking"
-                                    className="group inline-block w-full max-w-xl mx-auto"
-                                >
-                                    <Button
-                                        size="lg"
-                                        className="w-full inline-flex items-center justify-center gap-3 text-base sm:text-lg lg:text-xl px-8 sm:px-12 py-7 sm:py-8 rounded-2xl font-bold shadow-2xl transition-all hover:scale-105 hover:-translate-y-0.5"
-                                    >
-                                        <CalendarDays className="w-5 h-5 sm:w-6 sm:h-6" />
-                                        {t('CTA')}
-                                    </Button>
-                                </Link>
+                                <div className="p-4 rounded-full bg-primary/10">
+                                    <DollarSign className="h-8 w-8 text-primary" />
+                                </div>
+                                <h3 className="text-xl font-bold text-foreground">
+                                    {t('BASE_PRICE')}
+                                </h3>
+                                <div className="text-4xl font-bold text-foreground">
+                                    {room.price.toLocaleString('hu-HU')} Ft
+                                </div>
+                                <div className="text-sm text-muted-foreground">
+                                    / {t('HOUR')}
+                                </div>
                             </motion.div>
-                        </div>
+
+                            {/* Capacity */}
+                            <motion.div
+                                variants={animations.scaleIn}
+                                className="flex flex-col items-center justify-center gap-4 p-10 bg-card-elevated border border-primary/20 hover:border-primary/30 hover:shadow-lg transition-all text-center"
+                                style={{
+                                    borderRadius: '52% 48% 50% 50% / 48% 52% 48% 52%',
+                                    minHeight: '280px',
+                                }}
+                            >
+                                <div className="p-4 rounded-full bg-primary/10">
+                                    <Users className="h-8 w-8 text-primary" />
+                                </div>
+                                <h3 className="text-xl font-bold text-foreground">{t('SIZE')}</h3>
+                                <div className="text-4xl font-bold text-foreground">{room.size}</div>
+                                <div className="text-sm text-muted-foreground">
+                                    {t('PEOPLE')}
+                                </div>
+                            </motion.div>
+
+                            {/* AC */}
+                            <motion.div
+                                variants={animations.scaleIn}
+                                className="flex flex-col items-center justify-center gap-4 p-10 bg-card-elevated border border-primary/20 hover:border-primary/30 hover:shadow-lg transition-all text-center"
+                                style={{
+                                    borderRadius: '50% 50% 48% 52% / 52% 50% 50% 48%',
+                                    minHeight: '280px',
+                                }}
+                            >
+                                <div className="p-4 rounded-full bg-primary/10">
+                                    <Snowflake className="h-8 w-8 text-primary" />
+                                </div>
+                                <h3 className="text-xl font-bold text-foreground">
+                                    {tGeneral('AIR_CONDITIONED')}
+                                </h3>
+                                <p className="text-sm text-muted-foreground max-w-xs">
+                                    {tGeneral('AIR_CONDITIONED_DESC')}
+                                </p>
+                            </motion.div>
+                        </motion.div>
                     </motion.div>
                 </div>
             </section>
+
+            {/* CTA Section */}
+            <CtaSection title={tGeneral('CTA_TITLE')} description={tGeneral('CTA_DESC')} />
         </div>
     )
 }

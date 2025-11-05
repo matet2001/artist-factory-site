@@ -5,24 +5,19 @@ import { DollarSign, Users } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 type Props = {
     room: Room
 }
 
 export default function RoomCard({ room }: Props) {
-    const router = useRouter()
-
     const t = useTranslations('ROOMS')
     const imagePath = room.heroImage ? `/rooms/${room.heroImage}` : '/rooms/Room1.jpg'
 
-    const goToRoom = () => router.push(`/rooms/${room.id}`)
-
     return (
-        <div
-            onClick={goToRoom}
-            className="group relative w-full h-80 sm:h-96 overflow-hidden rounded-2xl cursor-pointer hover:outline hover:outline-muted/50 transition-colors duration-200"
+        <Link
+            href={`/rooms/${room.id}`}
+            className="group relative block w-full h-80 sm:h-96 overflow-hidden rounded-2xl hover:outline  hover:outline-primary/50 transition-all duration-200 "
         >
             {/* Background Image */}
             <div className="absolute inset-x-0 top-0 h-2/3 z-0">
@@ -66,19 +61,10 @@ export default function RoomCard({ room }: Props) {
                     </div>
                 </div>
 
-                {/* CTA Button */}
-                <Link href={`/booking`} className="w-full">
-                    <Button
-                        variant="default"
-                        className="w-full rounded-lg shadow-xl transition-all duration-200 hover:shadow-2xl hover:-translate-y-0.5 hover:scale-105 backdrop-blur-sm"
-                    >
-                        {t('CTA')}
-                    </Button>
-                </Link>
+                <Button variant="secondary" className="w-full rounded-lg pointer-events-none">
+                    {t('VIEW_DETAILS')} {/* or "See Room Details" */}
+                </Button>
             </div>
-
-            {/* Optional: Hover effect overlay */}
-            {/* <div className="absolute inset-0 z-5 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" /> */}
-        </div>
+        </Link>
     )
 }

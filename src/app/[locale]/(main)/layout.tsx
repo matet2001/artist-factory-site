@@ -7,8 +7,8 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         <div className="min-h-dvh flex flex-col isolate">
             <Header />
 
-            <main className="flex-1">
-                <div className="container mx-auto max-w-6xl px-2 md:px-6 lg:px-8">{children}</div>
+            <main className="flex-1 py-12 mb-20">
+                <div className="container mx-auto max-w-6xl">{children}</div>
             </main>
 
             <Footer />

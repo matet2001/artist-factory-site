@@ -1,13 +1,11 @@
 'use client'
 
-import PalmLeafDivider from '@/components/common/palm-leaft-divider'
-import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
-import TikiTorch from '@/components/common/TikiTorch'
+import CtaSection from '@/components/common/sections/cta-section'
 import { Button } from '@/components/ui/button'
 import { useAnimations } from '@/hooks/use-animation'
 import { CONTACT } from '@/lib/constants'
 import { motion } from 'framer-motion'
-import { ExternalLink, Mail, MapPin, Phone } from 'lucide-react'
+import { Bus, Car, ExternalLink, Mail, MapPin, Phone, TramFront } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -22,15 +20,19 @@ function useMapsUrls() {
     }, [])
 }
 
+const accessMethods = [
+    { key: 'TRAM', icon: TramFront },
+    { key: 'TROLLEY', icon: Bus },
+    { key: 'CAR', icon: Car },
+]
+
 export default function ContactSection() {
     const t = useTranslations('CONTACT')
+    const tGeneral = useTranslations('GENERAL')
     const { mapsEmbed, mapsPlaceLink } = useMapsUrls()
     const animations = useAnimations()
-
-    const visualHeight = 'h-[16rem] sm:h-[22rem] md:h-[28rem] lg:h-[30rem]'
     const viewportConfig = { once: true, amount: 0.1 } as const
 
-    // ✅ no window — use env var or hardcode for consistent SSR/CSR
     const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'LocalBusiness',
@@ -54,292 +56,238 @@ export default function ContactSection() {
     }
 
     return (
-        <div className="mb-20">
+        <div>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
 
-            {/* Title Section */}
+            {/* Title Section - Clean, matching studio style */}
             <section className="relative">
-                <div className="w-full mx-auto text-center relative z-10">
+                <div className="max-w-7xl mx-auto px-4">
                     <motion.div
                         variants={animations.fadeUp}
                         initial="initial"
                         animate="whileInView"
+                        viewport={viewportConfig}
+                        className="text-center space-y-4"
+                    >
+                        <p className="text-xs sm:text-sm tracking-[0.3em] uppercase text-primary font-medium">
+                            {t('PRE_TITLE')}
+                        </p>
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight">
+                            {t('TITLE')}
+                        </h1>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Maps Section - Box shaped, full pictures */}
+            <section className="relative py-16 md:py-24">
+                <div className="max-w-7xl mx-auto px-4">
+                    <motion.div
+                        variants={animations.stagger}
+                        initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-8"
                     >
-                        {/* Palm Trees in corners */}
-                        <div className="absolute inset-0 pointer-events-none z-0">
-                            <PalmTreeSilhouette position="top-left" flipped size="sm" />
-                            <PalmTreeSilhouette position="top-right" flipped mirrored size="sm" />
-                            <PalmTreeSilhouette position="bottom-left" size="sm" />
-                            <PalmTreeSilhouette position="bottom-right" mirrored size="sm" />
-                        </div>
+                        {/* Google Map */}
+                        <motion.div
+                            variants={animations.scaleIn}
+                            className="relative h-[400px] sm:h-[500px] overflow-hidden rounded-3xl border border-primary/20 shadow-2xl"
+                        >
+                            <iframe
+                                title="Google Map — ArtistFactory"
+                                src={mapsEmbed}
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                className="h-full w-full border-0"
+                                allowFullScreen
+                            />
+                        </motion.div>
 
-                        <div className="relative z-10 py-8 sm:py-10 lg:py-12">
-                            {/* Title */}
-                            <div className="space-y-4 sm:space-y-6">
-                                <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-muted-foreground">
-                                    {t('PRE_TITLE')}
-                                </p>
-                                <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-semibold tracking-tight text-pretty">
-                                    {t('TITLE')}
-                                </h1>
+                        {/* Location Image */}
+                        <motion.div
+                            variants={animations.scaleIn}
+                            className="relative h-[400px] sm:h-[500px] overflow-hidden rounded-3xl border border-primary/20 shadow-2xl"
+                        >
+                            <Image
+                                src="/terkepzoom.jpg"
+                                alt="ArtistFactory megközelítési térkép és környék"
+                                fill
+                                className="object-cover"
+                                sizes="(min-width: 1024px) 50vw, 100vw"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
+                        </motion.div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* How to Get Here Section - Solid card without buttons */}
+            <section className="relative py-16 md:py-24">
+                <div className="max-w-7xl mx-auto px-4">
+                    <motion.div
+                        variants={animations.fadeUp}
+                        initial="initial"
+                        whileInView="whileInView"
+                        viewport={viewportConfig}
+                        className="bg-card rounded-3xl p-8 sm:p-12 lg:p-16 border border-primary/20 shadow-2xl"
+                    >
+                        <div className="space-y-12">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-center">
+                                {t('ACCESS.TITLE')}
+                            </h2>
+
+                            <motion.div
+                                variants={animations.stagger}
+                                initial="initial"
+                                whileInView="whileInView"
+                                viewport={viewportConfig}
+                                className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
+                            >
+                                {accessMethods.map((method) => {
+                                    const Icon = method.icon
+                                    const translationText = t(`ACCESS.${method.key}`)
+                                    const [title, ...descParts] = translationText.split(':')
+                                    const description = descParts.join(':').trim()
+
+                                    return (
+                                        <motion.div
+                                            key={method.key}
+                                            variants={animations.scaleIn}
+                                            className="flex flex-col items-center gap-4 p-6 rounded-xl bg-card-elevated border border-primary/20 text-center"
+                                        >
+                                            <div className="p-3 rounded-full bg-primary/10">
+                                                <Icon className="h-6 w-6 text-primary" />
+                                            </div>
+                                            <h3 className="text-lg font-bold text-foreground">
+                                                {title}
+                                            </h3>
+                                            <p className="text-sm text-card-muted-foreground">
+                                                {description}
+                                            </p>
+                                        </motion.div>
+                                    )
+                                })}
+                            </motion.div>
+
+                            {/* Entrance Note */}
+                            <motion.div
+                                variants={animations.scaleIn}
+                                className="text-sm italic max-w-2xl mx-auto bg-card-elevated/50 p-4 rounded-lg border border-primary/10 text-center"
+                            >
+                                {t('ACCESS.ENTRANCE')}
+                            </motion.div>
+                        </div>
+                        <div
+                            className="mt-10 flex flex-col sm:flex-row gap-4 max-w-4xl mx-auto"
+                        >
+                            <motion.div variants={animations.scaleIn} className="flex-1">
+                                <Button asChild size="xl" variant="default" className="w-full">
+                                    <a
+                                        href={mapsPlaceLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <span className="sm:hidden">Google Maps</span>
+                                        <span className="hidden sm:inline">{t('GOOGLE_MAPS')}</span>
+                                        <ExternalLink className="ml-2 h-5 w-5" aria-hidden />
+                                    </a>
+                                </Button>
+                            </motion.div>
+
+                            <motion.div variants={animations.scaleIn} className="flex-1">
+                                <Button asChild variant="secondary" size="xl" className="w-full">
+                                    <a
+                                        href="https://futar.bkk.hu/?toCoord=47.5160181%2C19.0493435&toName=Artist%20Factory&toSubName=Studio%2C%20Pozsonyi%20%C3%BAt%2016%20Budapest%201137&toDisplayName=Artist%20Factory%2C%20Budapest%201137&map=18/47.51602/19.04934"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <span className="sm:hidden">BKK Futár</span>
+                                        <span className="hidden sm:inline">{t('BKK_FUTAR')}</span>
+                                        <ExternalLink className="ml-2 h-5 w-5" aria-hidden />
+                                    </a>
+                                </Button>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Contact Info Cards - Organic shapes at the end */}
+            <section className="relative py-16 md:py-24">
+                <div className="max-w-7xl mx-auto px-4">
+                    <motion.div
+                        variants={animations.stagger}
+                        initial="initial"
+                        whileInView="whileInView"
+                        viewport={viewportConfig}
+                        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+                    >
+                        {/* Phone Card */}
+                        <motion.div
+                            variants={animations.scaleIn}
+                            className="group flex flex-col items-center gap-4 p-8 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg"
+                            style={{
+                                borderRadius: '50% 50% 45% 55% / 55% 50% 50% 45%',
+                                minHeight: '200px',
+                            }}
+                        >
+                            <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
+                                <Phone className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
                             </div>
-                        </div>
+                            <Link
+                                href={`tel:${CONTACT.phoneRaw}`}
+                                className="text-lg font-medium text-foreground hover:text-primary transition-colors text-center"
+                            >
+                                {CONTACT.phoneDisplay}
+                            </Link>
+                        </motion.div>
+
+                        {/* Email Card */}
+                        <motion.div
+                            variants={animations.scaleIn}
+                            className="group flex flex-col items-center gap-4 p-8 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg"
+                            style={{
+                                borderRadius: '55% 45% 52% 48% / 48% 55% 45% 52%',
+                                minHeight: '200px',
+                            }}
+                        >
+                            <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
+                                <Mail className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
+                            </div>
+                            <Link
+                                href={`mailto:${CONTACT.email}`}
+                                className="text-lg font-medium text-foreground hover:text-primary transition-colors text-center break-all"
+                            >
+                                {CONTACT.email}
+                            </Link>
+                        </motion.div>
+
+                        {/* Address Card */}
+                        <motion.div
+                            variants={animations.scaleIn}
+                            className="group flex flex-col items-center gap-4 p-8 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg"
+                            style={{
+                                borderRadius: '48% 52% 50% 50% / 52% 48% 52% 48%',
+                                minHeight: '200px',
+                            }}
+                        >
+                            <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
+                                <MapPin className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
+                            </div>
+                            <p className="text-lg font-medium text-foreground text-center">
+                                {CONTACT.address}
+                            </p>
+                        </motion.div>
                     </motion.div>
                 </div>
             </section>
 
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
-
-            {/* Maps Section */}
-            <section className="relative">
-                <div className="w-full mx-auto text-center relative z-10">
-                    <motion.div
-                        variants={animations.fadeUp}
-                        initial="initial"
-                        animate="whileInView"
-                        whileInView="whileInView"
-                        viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 relative overflow-hidden w-full"
-                    >
-                        <div className="relative z-10">
-                            {/* Grid: Map + Image */}
-                            <motion.div
-                                variants={animations.stagger}
-                                initial="initial"
-                                animate="whileInView"
-                                whileInView="whileInView"
-                                viewport={viewportConfig}
-                                className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6"
-                            >
-                                <motion.div
-                                    variants={animations.scaleIn}
-                                    className="w-full overflow-hidden rounded-2xl border bg-card shadow-sm"
-                                >
-                                    <div className={visualHeight}>
-                                        <iframe
-                                            title="Google Map — ArtistFactory"
-                                            src={mapsEmbed}
-                                            loading="lazy"
-                                            referrerPolicy="no-referrer-when-downgrade"
-                                            className="h-full w-full border-0"
-                                            allowFullScreen
-                                        />
-                                    </div>
-                                </motion.div>
-
-                                <motion.div
-                                    variants={animations.scaleIn}
-                                    className="w-full overflow-hidden rounded-2xl border bg-card shadow-sm"
-                                >
-                                    <div className={`relative ${visualHeight}`}>
-                                        <Image
-                                            src="/terkepzoom.jpg"
-                                            alt="ArtistFactory megközelítési térkép és környék"
-                                            fill
-                                            className="object-cover"
-                                            sizes="(min-width: 1024px) 50vw, 100vw"
-                                        />
-                                    </div>
-                                </motion.div>
-                            </motion.div>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
-
-            {/* Accessibility, Buttons and Contact Info Section */}
-            <section className="relative">
-                <div className="w-full mx-auto text-center relative z-10">
-                    <motion.div
-                        variants={animations.fadeUp}
-                        initial="initial"
-                        animate="whileInView"
-                        whileInView="whileInView"
-                        viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
-                    >
-                        {/* Tiki Torches in corners with extra padding for visibility */}
-                        <div className="hidden sm:block">
-                            <TikiTorch position="top-left" />
-                            <TikiTorch position="top-right" />
-                            <TikiTorch position="bottom-left" />
-                            <TikiTorch position="bottom-right" />
-                        </div>
-
-                        <div className="relative z-10 space-y-12 sm:space-y-16 lg:space-y-20">
-                            {/* Access Information */}
-                            <motion.div
-                                variants={animations.fadeUp}
-                                initial="initial"
-                                animate="whileInView"
-                                whileInView="whileInView"
-                                viewport={viewportConfig}
-                                className="max-w-5xl mx-auto"
-                            >
-                                <div className="space-y-6 sm:space-y-8">
-                                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold">
-                                        {t('ACCESS.TITLE')}
-                                    </h2>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 text-left text-sm sm:text-base lg:text-lg leading-relaxed text-foreground/90">
-                                        <div className="space-y-4">
-                                            <p>
-                                                <span className="font-bold">
-                                                    {t('ACCESS.TRAM').split(':')[0]}:
-                                                </span>
-                                                {t('ACCESS.TRAM').split(':').slice(1).join(':')}
-                                            </p>
-                                            <p>
-                                                <span className="font-bold">
-                                                    {t('ACCESS.TROLLEY').split(':')[0]}:
-                                                </span>
-                                                {t('ACCESS.TROLLEY').split(':').slice(1).join(':')}
-                                            </p>
-                                        </div>
-                                        <div className="space-y-4">
-                                            <p>
-                                                <span className="font-bold">
-                                                    {t('ACCESS.CAR').split(':')[0]}:
-                                                </span>
-                                                {t('ACCESS.CAR').split(':').slice(1).join(':')}
-                                            </p>
-                                            <p>{t('ACCESS.ENTRANCE')}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </motion.div>
-
-                            {/* CTA buttons */}
-                            <motion.div
-                                variants={animations.stagger}
-                                initial="initial"
-                                animate="whileInView"
-                                whileInView="whileInView"
-                                viewport={viewportConfig}
-                                className="flex flex-col gap-4 sm:flex-row sm:gap-6 lg:gap-8 max-w-4xl mx-auto"
-                            >
-                                <motion.div variants={animations.scaleIn} className="w-full">
-                                    <Button asChild size="xl" variant="default" className="w-full">
-                                        <a
-                                            href={mapsPlaceLink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <span className="sm:hidden">Google Maps</span>
-                                            <span className="hidden sm:inline">
-                                                {t('GOOGLE_MAPS')}
-                                            </span>
-                                            <ExternalLink className="ml-2 h-5 w-5" aria-hidden />
-                                        </a>
-                                    </Button>
-                                </motion.div>
-
-                                <motion.div variants={animations.scaleIn} className="w-full">
-                                    <Button
-                                        asChild
-                                        variant="secondary"
-                                        size="xl"
-                                        className="w-full"
-                                    >
-                                        <a
-                                            href="https://futar.bkk.hu/?toCoord=47.5160181%2C19.0493435&toName=Artist%20Factory&toSubName=Studio%2C%20Pozsonyi%20%C3%BAt%2016%20Budapest%201137&toDisplayName=Artist%20Factory%2C%20Budapest%201137&map=18/47.51602/19.04934"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <span className="sm:hidden">BKK Futár</span>
-                                            <span className="hidden sm:inline">
-                                                {t('BKK_FUTAR')}
-                                            </span>
-                                            <ExternalLink className="ml-2 h-5 w-5" aria-hidden />
-                                        </a>
-                                    </Button>
-                                </motion.div>
-                            </motion.div>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* Palm Leaf Divider */}
-            <PalmLeafDivider spacing="normal" />
-
-            {/* Contact Information Section */}
-            <section className="relative">
-                <div className="w-full mx-auto text-center relative z-10">
-                    <motion.div
-                        variants={animations.fadeUp}
-                        initial="initial"
-                        animate="whileInView"
-                        whileInView="whileInView"
-                        viewport={viewportConfig}
-                        className="bg-muted/30 rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative overflow-hidden w-full"
-                    >
-                        {/* Palm Trees in corners */}
-                        <div className="absolute inset-0 pointer-events-none z-0">
-                            <PalmTreeSilhouette position="top-left" flipped size="sm" />
-                            <PalmTreeSilhouette position="top-right" flipped mirrored size="sm" />
-                            <PalmTreeSilhouette position="bottom-left" size="sm" />
-                            <PalmTreeSilhouette position="bottom-right" mirrored size="sm" />
-                        </div>
-
-                        <div className="relative z-10 py-8 sm:py-10 lg:py-12">
-                            {/* Contact info */}
-                            <motion.div
-                                variants={animations.stagger}
-                                initial="initial"
-                                animate="whileInView"
-                                whileInView="whileInView"
-                                viewport={viewportConfig}
-                                className="space-y-3 sm:space-y-6 text-base sm:text-lg lg:text-xl"
-                            >
-                                <motion.div
-                                    variants={animations.fadeUp}
-                                    className="flex items-center justify-center gap-3"
-                                >
-                                    <Phone className="h-5 w-5 sm:h-6 sm:w-6 shrink-0" />
-                                    <Link
-                                        href={`tel:${CONTACT.phoneRaw}`}
-                                        className="hover:underline"
-                                    >
-                                        {CONTACT.phoneDisplay}
-                                    </Link>
-                                </motion.div>
-                                {CONTACT.email && (
-                                    <motion.div
-                                        variants={animations.fadeUp}
-                                        className="flex items-center justify-center gap-3"
-                                    >
-                                        <Mail className="h-5 w-5 sm:h-6 sm:w-6 shrink-0" />
-                                        <Link
-                                            href={`mailto:${CONTACT.email}`}
-                                            className="hover:underline"
-                                        >
-                                            {CONTACT.email}
-                                        </Link>
-                                    </motion.div>
-                                )}
-
-                                <motion.div
-                                    variants={animations.fadeUp}
-                                    className="flex items-center justify-center gap-3"
-                                >
-                                    <MapPin className="h-5 w-5 sm:h-6 sm:w-6 shrink-0" />
-                                    <span>{CONTACT.address}</span>
-                                </motion.div>
-                            </motion.div>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
+            {/* CTA Section */}
+            <CtaSection title={tGeneral('CTA_TITLE')} description={tGeneral('CTA_DESC')} />
         </div>
     )
 }
