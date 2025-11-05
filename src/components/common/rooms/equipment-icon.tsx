@@ -1,10 +1,8 @@
 import Image, { StaticImageData } from 'next/image'
 
 import ampIcon from '@/assets/icons/amp.png'
-import bassIcon from '@/assets/icons/bass.png'
 import cymbalIcon from '@/assets/icons/cymbal.png'
 import drumIcon from '@/assets/icons/drum.png'
-import guitarIcon from '@/assets/icons/guitar.png'
 import micIcon from '@/assets/icons/mic.png'
 import mixerIcon from '@/assets/icons/mixer.png'
 import pedalIcon from '@/assets/icons/pedal.png'
