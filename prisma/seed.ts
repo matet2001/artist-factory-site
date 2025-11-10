@@ -4,6 +4,26 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
+  // Seed rooms first with explicit IDs matching the slug
+  const rooms = [
+    { id: 'room1', name: 'ROOM1_NAME', slug: 'room1', size: 5, price: 5500 },
+    { id: 'room2', name: 'ROOM2_NAME', slug: 'room2', size: 5, price: 5500 },
+    { id: 'room3', name: 'ROOM3_NAME', slug: 'room3', size: 10, price: 6000 },
+    { id: 'room4', name: 'ROOM4_NAME', slug: 'room4', size: 5, price: 5500 },
+    { id: 'room5', name: 'ROOM5_NAME', slug: 'room5', size: 5, price: 5500 },
+  ];
+
+  for (const room of rooms) {
+    await prisma.room.upsert({
+      where: { slug: room.slug },
+      update: {},
+      create: room,
+    });
+  }
+
+  console.log('Rooms seeded.');
+
+  // Seed users
   await Promise.all([
     prisma.user.create({
       data: {

@@ -6,7 +6,10 @@
       "Bash(npx prisma --help:*)",
       "Bash(npx prisma migrate:*)",
       "Bash(npx prisma generate)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(npx prisma db seed:*)",
+      "Bash(npx tsx:*)",
+      "Bash(npx prisma db push:*)"
     ],
     "deny": [],
     "ask": []

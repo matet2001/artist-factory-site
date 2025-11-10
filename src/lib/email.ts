@@ -152,6 +152,81 @@ export async function sendPasswordResetEmail(email: string, token: string, local
     }
 }
 
+export async function sendBookingVerificationEmail(
+    email: string,
+    token: string,
+    bookings: Array<{ roomName: string; date: string; time: number }>,
+    locale: string = 'hu'
+) {
+    const t = await getTranslations({ locale, namespace: 'EMAIL.BOOKING' })
+    const verificationUrl = `${process.env.NEXTAUTH_URL}/verify-booking?token=${token}`
+
+    const bookingsList = bookings
+        .map((b) => `<li>${b.roomName} - ${b.date} ${b.time}:00 - ${b.time + 1}:00</li>`)
+        .join('')
+
+    try {
+        await getTransporter().sendMail({
+            from: process.env.EMAIL_FROM,
+            to: email,
+            subject: t('SUBJECT'),
+            html: `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body style="margin: 0; padding: 0; background-color: #0B0B0B; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0B0B0B; padding: 40px 20px;">
+            <tr>
+              <td align="center">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #242424; border-radius: 12px; overflow: hidden;">
+                  <tr>
+                    <td style="padding: 48px 40px; text-align: center;">
+                      <h1 style="color: #f5f5f5; font-size: 28px; font-weight: 600; margin: 0 0 16px 0;">${t('TITLE')}</h1>
+                      <p style="color: #919191; font-size: 16px; line-height: 24px; margin: 0 0 32px 0;">${t('DESCRIPTION')}</p>
+
+                      <div style="background-color: #1a1a1a; border-radius: 8px; padding: 24px; margin-bottom: 32px; text-align: left;">
+                        <h2 style="color: #f5f5f5; font-size: 18px; margin: 0 0 16px 0;">${t('YOUR_BOOKINGS')}</h2>
+                        <ul style="color: #919191; font-size: 14px; line-height: 24px; margin: 0; padding-left: 20px;">
+                          ${bookingsList}
+                        </ul>
+                      </div>
+
+                      <table width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td align="center" style="padding: 0 0 24px 0;">
+                            <a href="${verificationUrl}" style="display: inline-block; padding: 14px 32px; background-color: #ff3b7f; color: #ffffff; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">${t('BUTTON')}</a>
+                          </td>
+                        </tr>
+                      </table>
+
+                      <p style="color: #919191; font-size: 14px; line-height: 20px; margin: 24px 0 0 0;">${t('OR_COPY')}</p>
+                      <p style="color: #ff6b9d; font-size: 14px; line-height: 20px; margin: 8px 0 0 0; word-break: break-all;">${verificationUrl}</p>
+
+                      <div style="margin-top: 32px; padding-top: 32px; border-top: 1px solid #333333;">
+                        <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0;">${t('EXPIRES')}</p>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+      </html>
+    `,
+        })
+        emailStats.sent++
+        console.log(`✓ Booking verification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+    } catch (error) {
+        emailStats.failed++
+        console.error(`✗ Failed to send booking verification email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        throw error
+    }
+}
+
 export async function sendMigrationWelcomeEmail(email: string, token: string, userName?: string) {
     const resetUrl = `${process.env.NEXTAUTH_URL}/migration-welcome?token=${token}`
 

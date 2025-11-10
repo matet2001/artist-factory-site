@@ -172,24 +172,6 @@
         }
     },
 
-    "BOOKING": {
-        "TITLE": "Foglalás",
-        "SUCCESS_CONTENT": "Várunk szeretettel",
-        "FINALIZE_ORDER": "Foglalás véglegesítése",
-        "ORDER_DISCLAIM": "Helyfoglalásod legkésőbb a lefoglalt időpontot megelőző 72. óráig bármikor lemondhatod. 72 órán belüli lemondás esetén a teljes bérleti díjat ki kell fizetned!",
-        "CHOOSE_DATE": "Válassz dátumot",
-        "SUBMIT": "Foglalás",
-        "ALERT": {
-            "SUCCESS": "Sikeres foglalás!",
-            "FAIL": "Sikertelen foglalás :( Kérjük próbálja meg később",
-            "LOGIN": "Kérjük jelentkezzen be a foglaláshoz!"
-        },
-        "CONFIRM_MODAL": {
-            "TITLE": "Foglalás megerősítése",
-            "CONTENT": "Biztosan véglegesíteni szeretnéd a foglalásaidat? A megerősítés után a foglalást csak az időpont előtt legfeljebb 72 órával lehet lemondani."
-        }
-    },
-
     "AUTH": {
         "LOGIN": "Bejelentkezés",
         "REGISTER": "Regisztráció",
@@ -431,6 +413,40 @@
             "OR_COPY": "Vagy másold be ezt a linket:",
             "EXPIRES": "Ez a link 30 napig érvényes marad.",
             "SUPPORT": "Ha kérdésed van vagy segítségre van szükséged, kérjük, vedd fel a kapcsolatot támogatási csapatunkkal."
+        },
+        "BOOKING": {
+            "SUBJECT": "Foglalás megerősítése",
+            "TITLE": "Foglalás Visszaigazolás",
+            "DESCRIPTION": "Kattints az alábbi gombra a foglalásod megerősítéséhez. A foglalásod az ellenőrzés után véglegesül.",
+            "YOUR_BOOKINGS": "Foglalásaid:",
+            "BUTTON": "Foglalás Megerősítése",
+            "OR_COPY": "Vagy másold be ezt a linket:",
+            "EXPIRES": "Ez a link 24 órán belül lejár."
         }
+    },
+
+    "BOOKING": {
+        "PRE_TITLE": "Foglald le a helyed",
+        "TITLE": "Próbaterem Foglalás",
+        "FINALIZE_ORDER": "Foglalás Véglegesítése",
+        "ORDER_DISCLAIM": "Kérjük, ellenőrizd a foglalásaidat, majd kattints a küldés gombra. Email-ben kapsz egy megerősítő linket.",
+        "SUBMIT": "Foglalás Küldése",
+        "ALERT": {
+            "LOGIN": "Kérjük, jelentkezz be a foglaláshoz!"
+        },
+        "CONFIRM_MODAL": {
+            "TITLE": "Foglalás Megerősítése",
+            "CONTENT": "Biztosan el akarod küldeni a foglalásokat? Email-ben kapsz egy megerősítő linket."
+        },
+        "VERIFY": {
+            "LOADING_TITLE": "Foglalás Ellenőrzése...",
+            "LOADING_DESC": "Kérjük, várj, amíg ellenőrizzük a foglalásodat.",
+            "SUCCESS_TITLE": "✅ Foglalás Megerősítve!",
+            "ERROR_TITLE": "❌ Ellenőrzési Hiba",
+            "GO_TO_BOOKING": "Foglaláshoz",
+            "GO_TO_HOME": "Főoldalra"
+        },
+        "SUCCESS_CONTENT": "Várunk szeretettel",
+        "CHOOSE_DATE": "Válassz dátumot"
     }
 }
