@@ -168,20 +168,27 @@
     },
 
     "BOOKING": {
-        "TITLE": "Booking",
         "SUCCESS_CONTENT": "We welcome you with love",
-        "FINALIZE_ORDER": "Finalize booking",
-        "ORDER_DISCLAIM": "You can cancel your reservation at any time up to 72 hours before the booked time slot. In case of cancellation within 72 hours, you must pay the full rental fee!",
         "CHOOSE_DATE": "Choose date",
-        "SUBMIT": "Book",
+        "PRE_TITLE": "Secure your spot",
+        "TITLE": "Booking",
+        "FINALIZE_ORDER": "Finalize Booking",
+        "ORDER_DISCLAIM": "Please review your bookings, then click submit. You will receive a confirmation link via email.",
+        "SUBMIT": "Submit Booking",
         "ALERT": {
-            "SUCCESS": "Successful booking!",
-            "FAIL": "Failed booking :( Please try again later",
-            "LOGIN": "Please log in to book!"
+            "LOGIN": "Please sign in to make a booking!"
         },
         "CONFIRM_MODAL": {
-            "TITLE": "Confirm booking",
-            "CONTENT": "Are you sure you want to finalize your bookings? After confirmation, the booking can only be cancelled up to 72 hours before the appointment."
+            "TITLE": "Confirm Booking",
+            "CONTENT": "Are you sure you want to submit these bookings? You will receive a confirmation link via email."
+        },
+        "VERIFY": {
+            "LOADING_TITLE": "Verifying Booking...",
+            "LOADING_DESC": "Please wait while we verify your booking.",
+            "SUCCESS_TITLE": "✅ Booking Confirmed!",
+            "ERROR_TITLE": "❌ Verification Error",
+            "GO_TO_BOOKING": "Go to Booking",
+            "GO_TO_HOME": "Go to Homepage"
         }
     },
 
@@ -426,6 +433,15 @@
             "OR_COPY": "Or copy this link:",
             "EXPIRES": "This link will remain valid for 30 days.",
             "SUPPORT": "If you have any questions or need assistance, please contact our support team."
+        },
+        "BOOKING": {
+            "SUBJECT": "Verify your booking",
+            "TITLE": "Booking Confirmation",
+            "DESCRIPTION": "Click the button below to confirm your booking. Your reservation will be finalized after verification.",
+            "YOUR_BOOKINGS": "Your Bookings:",
+            "BUTTON": "Confirm Booking",
+            "OR_COPY": "Or copy this link:",
+            "EXPIRES": "This link will expire in 24 hours."
         }
     }
 }

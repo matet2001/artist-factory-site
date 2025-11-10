@@ -20,6 +20,10 @@ model User {
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
   verificationTokens VerificationToken[]
+
+    bookings  Booking[]
+  
+  @@map("users")
 }
 
 model VerificationToken {
@@ -33,4 +37,66 @@ model VerificationToken {
 
   @@unique([email, token])
   @@index([email])
+}
+
+model Room {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  size        Int
+  price       Int
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  bookings    Booking[]
+
+  @@map("rooms")
+}
+
+enum BookingStatus {
+  PLANNED
+  UNVERIFIED
+  VERIFIED
+  CANCELLED
+}
+
+model Booking {
+  id        String        @id @default(cuid())
+  date      DateTime      @db.Date
+  time      Int           // hour (10-22)
+  status    BookingStatus @default(UNVERIFIED)
+
+  userId    String
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  roomId    String
+  room      Room          @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  verificationToken String?  @unique
+  verifiedAt        DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([date, time, roomId])
+  @@index([date, roomId])
+  @@index([userId])
+  @@index([verificationToken])
+  @@map("bookings")
+}
+
+model BookingVerification {
+  id        String   @id @default(cuid())
+  token     String   @unique @default(cuid())
+  userId    String
+  date      DateTime @db.Date
+  bookings  Json     // Store array of {roomId, time}
+  status    String   @default("pending") // "pending" | "verified" | "expired"
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  
+  @@index([token])
+  @@index([userId])
+  @@map("booking_verifications")
 }
