@@ -10,7 +10,6 @@ import {
 import { Skeleton } from '@/components/ui/skeleton'
 import { signOut, useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { CgProfile } from 'react-icons/cg'
 
