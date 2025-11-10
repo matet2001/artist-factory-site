@@ -1,9 +1,8 @@
 // app/[locale]/rooms/[roomId]/page.tsx
 'use client'
 
-import CtaSection from '@/components/common/sections/cta-section'
 import { EquipmentIcon } from '@/components/common/rooms/equipment-icon'
-import { Badge } from '@/components/ui/badge'
+import CtaSection from '@/components/common/sections/cta-section'
 import {
     Carousel,
     CarouselContent,
@@ -195,9 +194,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                                 <div className="text-4xl font-bold text-foreground">
                                     {room.price.toLocaleString('hu-HU')} Ft
                                 </div>
-                                <div className="text-sm text-muted-foreground">
-                                    / {t('HOUR')}
-                                </div>
+                                <div className="text-sm text-muted-foreground">/ {t('HOUR')}</div>
                             </motion.div>
 
                             {/* Capacity */}
@@ -213,10 +210,10 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                                     <Users className="h-8 w-8 text-primary" />
                                 </div>
                                 <h3 className="text-xl font-bold text-foreground">{t('SIZE')}</h3>
-                                <div className="text-4xl font-bold text-foreground">{room.size}</div>
-                                <div className="text-sm text-muted-foreground">
-                                    {t('PEOPLE')}
+                                <div className="text-4xl font-bold text-foreground">
+                                    {room.size}
                                 </div>
+                                <div className="text-sm text-muted-foreground">{t('PEOPLE')}</div>
                             </motion.div>
 
                             {/* AC */}
