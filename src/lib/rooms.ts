@@ -29,8 +29,8 @@ export const rooms: Room[] = [
     {
         id: 'room1',
         name: 'ROOM1_NAME',
-        heroImage: 'Room1.jpg',
-        images: ['Room1.jpg', 'Room1_3.jpg', 'Room1_4.jpg', 'Room1_5.jpg'],
+        heroImage: 'room1/Room1.jpg',
+        images: ['room1/Room1.jpg', 'room1/Room1_2.jpg', 'room1/Room1_3.jpg', 'room1/Room1_4.jpg', 'room1/Room1_5.jpg'],
         price: 5500,
         size: '4-5',
         equipments: [
@@ -49,8 +49,8 @@ export const rooms: Room[] = [
     {
         id: 'room2',
         name: 'ROOM2_NAME',
-        heroImage: 'Room2.jpg',
-        images: ['Room2.jpg'],
+        heroImage: 'room2/Room2.jpg',
+        images: ['room2/Room2.jpg', 'room2/Room2_2.jpg', 'room2/Room2_3.jpg'],
         price: 5500,
         size: '4-5',
         equipments: [
@@ -78,8 +78,15 @@ export const rooms: Room[] = [
     {
         id: 'room3',
         name: 'ROOM3_NAME',
-        heroImage: 'Room3.jpg',
-        images: ['Room3.jpg', 'Room3_2.jpg', 'Room3_3.jpg', 'Room3_4.jpg', 'Room3_5.jpg'],
+        heroImage: 'room3/Room3.jpg',
+        images: [
+            'room3/Room3.jpg',
+            'room3/Room3_2.jpg',
+            'room3/Room3_3.jpg',
+            'room3/Room3_4.jpg',
+            'room3/Room3_5.jpg',
+            'room3/Room3_6.jpg',
+        ],
         price: 6000,
         size: '8-10',
         equipments: [
@@ -100,8 +107,8 @@ export const rooms: Room[] = [
     {
         id: 'room4',
         name: 'ROOM4_NAME',
-        heroImage: 'Room4.jpg',
-        images: ['Room4.jpg', 'Room4_2.jpg'],
+        heroImage: 'room4/Room4.jpg',
+        images: ['room4/Room4.jpg', 'room4/Room4_2.jpg', 'room4/Room4_3.jpg', 'room4/Room4_4.jpg'],
         price: 5500,
         size: '4-5',
         equipments: [
@@ -121,8 +128,8 @@ export const rooms: Room[] = [
     {
         id: 'room5',
         name: 'ROOM5_NAME',
-        heroImage: 'Room5.jpg',
-        images: ['Room5.jpg', 'Room5_3.jpg'],
+        heroImage: 'room5/Room5.jpg',
+        images: ['room5/Room5.jpg', 'room5/Room5_2.jpg', 'room5/Room5_3.jpg', 'room5/Room5_4.jpg'],
         price: 5500,
         size: '4-5',
         equipments: [
