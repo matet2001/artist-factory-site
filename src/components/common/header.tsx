@@ -53,7 +53,7 @@ export default function Header() {
                             // Active state styling for non-CTA buttons
                             !item.isCta &&
                                 isActive &&
-                                'text-primary font-semibold cursor-default hover:bg-transparent hover:text-primary'
+                                'text-primary border-primary border-b-1 font-semibold cursor-default hover:bg-transparent hover:text-primary '
                         )}
                     >
                         {translate(item.name)}

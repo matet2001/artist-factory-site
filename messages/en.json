@@ -32,23 +32,26 @@
     "HOME": {
         "HERO": {
             "TITLE": "Artist Factory",
-            "DESCRIPTION_INTRO": "Cozy, stylishly designed and always clean rehearsal rooms in the heart of the city center – so every practice session becomes an inspiring experience.",
+            "DESCRIPTION_INTRO": "Rehearsal Rooms and Studio since 2007",
             "DESCRIPTION_DETAILS": "ArtistFactory has been welcoming musicians and bands since 2007 in a friendly, professional environment where everything is available for undisturbed practice.",
             "CTA": "Book now!",
             "CTA_BOOK": "Online booking",
             "CTA_PHONE": "Available 9 AM – 10 PM",
             "PROFESSIONAL_ENV_TITLE": "Professional Environment",
             "PROFESSIONAL_ENV_DESC": "State-of-the-art rehearsal facilities",
-            "PROFESSIONAL_ENV_ALT": "Studio environment"
+            "PROFESSIONAL_ENV_ALT": "Studio environment",
+            "IMAGE_CORRIDOR": "Corridor",
+            "IMAGE_RECEPTION": "Inviting Atmosphere",
+            "IMAGE_STUDIO": "Studio"
         },
         "FEATURES": {
             "TITLE": "What we offer",
-            "ROOMS_SPACIOUS": "Spacious rooms",
+            "ROOMS_SPACIOUS": "5 soundproof rehearsal rooms and a studio",
             "ROOMS_SPACIOUS_DESC": "Our rooms comfortably accommodate 4–5 person bands, but we also have a larger room where up to 8–10 people can practice together.",
             "AFFORDABLE": "Affordable prices",
             "AFFORDABLE_DESC": "Our prices start from 5500 HUF/hour.",
             "PREMIUM_EQUIPMENT": "Premium equipment",
-            "PREMIUM_EQUIPMENT_DESC": "Top-tier instruments and amplifiers (Orange, ENGL, Fender, Warwick, Ashdown, Line6, Yamaha) plus microphones (Shure Beta 57, Audio Technica) at no extra cost.",
+            "PREMIUM_EQUIPMENT_DESC": "Top-tier instruments and amplifiers (Orange, ENGL, Fender, Warwick, Ashdown, Ampeg, Yamaha) plus microphones (Shure Beta 57, Audio Technica) at no extra cost.",
             "AIR_CONDITIONED": "Air conditioned",
             "AIR_CONDITIONED_DESC": "Stay cool in our fully air-conditioned rooms.",
             "IMAGE1_TITLE": "Professional Setup",
@@ -347,7 +350,7 @@
         "SUBTITLE": "Professional Recording & Production Services",
 
         "SERVICES_TITLE": "Our Professional Services",
-        "FULL_ALBUM": "Recording & Production",
+        "FULL_ALBUM": "Recording",
         "EDITING": "Editing, mixing and mastering",
         "AUDIOBOOKS": "Audiobooks and voice recordings",
         "COMMERCIAL": "Commercial music production",
