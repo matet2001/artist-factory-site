@@ -32,23 +32,26 @@
     "HOME": {
         "HERO": {
             "TITLE": "Artist Factory",
-            "DESCRIPTION_INTRO": "Próbtermek és stúdió",
+            "DESCRIPTION_INTRO": " Próbatermek és Stúdió 2007 óta",
             "DESCRIPTION_DETAILS": "Az ArtistFactory 2007 óta várja a zenészeket és zenekarokat barátságos, professzionális környezetben, ahol minden adott a zavartalan gyakorláshoz.",
             "CTA": "Foglalj most!",
             "CTA_BOOK": "Online foglalás",
             "CTA_PHONE": "9–22 óráig hívható",
             "PROFESSIONAL_ENV_TITLE": "Professzionális környezet",
             "PROFESSIONAL_ENV_DESC": "Hangulatos, igényesen kialakított és mindig tiszta próbatermek a belváros szívében – hogy minden próba inspiráló élmény legyen.",
-            "PROFESSIONAL_ENV_ALT": "Stúdió környezet"
+            "PROFESSIONAL_ENV_ALT": "Stúdió környezet",
+            "IMAGE_CORRIDOR": "Folyosó",
+            "IMAGE_RECEPTION": "Hangulatos környezet",
+            "IMAGE_STUDIO": "Stúdió"
         },
         "FEATURES": {
             "TITLE": "Amit kínálunk",
-            "ROOMS_SPACIOUS": "Tágas termek",
+            "ROOMS_SPACIOUS": "5 hangszigetelt próbaterem és stúdió",
             "ROOMS_SPACIOUS_DESC": "Termeink kényelmesen befogadnak 4–5 fős zenekarokat, de rendelkezünk egy nagyobb teremmel is, ahol akár 8–10 fő is együtt próbálhat.",
             "AFFORDABLE": "Megfizethető árak",
             "AFFORDABLE_DESC": "Áraink 5500 Ft/óra-tól indulnak.",
             "PREMIUM_EQUIPMENT": "Prémium felszerelés",
-            "PREMIUM_EQUIPMENT_DESC": "Felső kategóriás hangszerek és erősítők (Orange, ENGL, Fender, Warwick, Ashdown, Line6, Yamaha) plusz mikrofonok (Shure Beta 57, Audio Technica) felár nélkül.",
+            "PREMIUM_EQUIPMENT_DESC": "Felső kategóriás hangszerek és erősítők (Orange, ENGL, Fender, Warwick, Ashdown, Ampeg, Yamaha) plusz mikrofonok (Shure Beta 57, Audio Technica) felár nélkül.",
             "AIR_CONDITIONED": "Légkondicionált",
             "AIR_CONDITIONED_DESC": "Maradj hűvös a teljesen klimatizált termeinkben.",
             "IMAGE_ALT": "Próbaterem belső tere",
@@ -327,7 +330,7 @@
         "SUBTITLE": "Professzionális Felvétel és Produkciós Szolgáltatások",
 
         "SERVICES_TITLE": "Professzionális Szolgáltatásaink",
-        "FULL_ALBUM": "Felvétel és Produkciós",
+        "FULL_ALBUM": "Felvétel",
         "EDITING": "Editálás, keverés és maszterelés",
         "AUDIOBOOKS": "Hangoskönyvek és szöveges felvételek készítése",
         "COMMERCIAL": "Reklámzene készítés",

@@ -1,8 +1,8 @@
 // app/[locale]/studio/page.tsx
 'use client'
 
-import CtaSection from '@/components/common/sections/cta-section'
 import { EquipmentIcon } from '@/components/common/rooms/equipment-icon'
+import CtaSection from '@/components/common/sections/cta-section'
 import { useAnimations } from '@/hooks/use-animation'
 import { motion } from 'framer-motion'
 import { Disc3, DollarSign, Headphones, Mic2, Music, Radio } from 'lucide-react'
@@ -254,13 +254,9 @@ export default function StudioPage() {
                         initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-card rounded-3xl p-8 sm:p-12 lg:p-16 border border-primary/20 shadow-2xl"
+                        className=" p-8 sm:p-12 lg:p-16 "
                     >
                         <div className="space-y-12">
-                            <h2 className="text-3xl sm:text-4xl font-bold text-center">
-                                {t('PRICING_TITLE')}
-                            </h2>
-
                             <motion.div
                                 variants={animations.stagger}
                                 initial="initial"
@@ -273,11 +269,11 @@ export default function StudioPage() {
                                     variants={animations.scaleIn}
                                     className="flex-1 text-center p-8 rounded-xl bg-card-elevated border border-primary/20"
                                 >
-                                    <div className="flex items-center justify-center gap-2 mb-4">
-                                        <DollarSign className="h-6 w-6 text-primary" />
-                                        <h3 className="text-lg font-bold text-foreground">
-                                            {t('STUDIO_RATE')}
-                                        </h3>
+                                    <div className="flex items-center justify-center gap-2 mb-10">
+                                        <DollarSign className="h-8 w-8 text-primary" />
+                                        <h2 className="text-3xl sm:text-4xl font-bold text-center">
+                                            {t('PRICING_TITLE')}
+                                        </h2>
                                     </div>
                                     <div className="text-4xl font-bold text-foreground mb-2">
                                         10,000 Ft
@@ -289,13 +285,6 @@ export default function StudioPage() {
                                         {t('VAT_FREE')}
                                     </div>
                                 </motion.div>
-                            </motion.div>
-
-                            <motion.div
-                                variants={animations.scaleIn}
-                                className="text-sm italic max-w-2xl mx-auto bg-card-elevated/50 p-4 rounded-lg border border-primary/10 text-center"
-                            >
-                                {t('NOTE')}
                             </motion.div>
                         </div>
                     </motion.div>

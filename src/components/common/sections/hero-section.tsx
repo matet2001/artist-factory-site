@@ -2,10 +2,8 @@
 
 import { useAnimations } from '@/hooks/use-animation'
 import { motion } from 'framer-motion'
-import { CalendarDays, Phone } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import Link from 'next/link'
-import CtaButton from '../cta-button'
+import Image from 'next/image'
 
 export default function HeroSection() {
     const t = useTranslations('HOME')
@@ -20,12 +18,12 @@ export default function HeroSection() {
                     initial="initial"
                     whileInView="whileInView"
                     viewport={viewportConfig}
-                    className="  p-4 sm:p-6 lg:p-8 py-12 sm:py-16 lg:py-20 relative w-full"
+                    className="p-4 sm:p-6 lg:p-8 py-12 sm:py-16 lg:py-20 relative w-full"
                 >
                     <div className="relative z-10 space-y-8 sm:space-y-10 lg:space-y-12">
                         <motion.div
                             variants={animations.stagger}
-                            className="mx-auto w-full max-w-4xl text-center flex flex-col justify-center space-y-6 sm:space-y-8"
+                            className="mx-auto w-full max-w-7xl text-center flex flex-col justify-center space-y-6 sm:space-y-8"
                         >
                             {/* Title */}
                             <motion.h1
@@ -33,47 +31,65 @@ export default function HeroSection() {
                                 className="text-3xl font-bold sm:text-5xl lg:text-6xl xl:text-7xl"
                             >
                                 {t('HERO.TITLE')}
-                                <p className="text-base sm:text-lg lg:text-xl xl:text-2xl text-muted-foreground px-4 mt-3">
-                                    {t('HERO.DESCRIPTION_INTRO')}
-                                </p>
                             </motion.h1>
 
-                            {/* Main CTA */}
-                            <motion.div variants={animations.scaleIn} className="px-4">
-                                <CtaButton />
-                            </motion.div>
+                            {/* Subtitle */}
+                            <motion.p
+                                variants={animations.fadeUp}
+                                className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground"
+                            >
+                                {t('HERO.DESCRIPTION_INTRO')}
+                            </motion.p>
 
-                            {/* Small CTA cards */}
+                            {/* 3 Images Section */}
                             <motion.div
                                 variants={animations.stagger}
-                                className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 lg:gap-6 max-w-xl mx-auto w-full px-4"
+                                className="grid grid-cols-1 md:grid-cols-3 gap-0 mt-8"
                             >
-                                <motion.div variants={animations.scaleIn}>
-                                    <Link href="/booking" className="group h-full block">
-                                        <div className="h-full min-h-[100px] sm:min-h-[120px] w-full flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl bg-secondary hover:bg-secondary-hover transition-all duration-300 group-hover:scale-110">
-                                            <CalendarDays
-                                                className="w-5 h-5 sm:w-6 sm:h-6 mb-2"
-                                                aria-hidden="true"
-                                            />
-                                            <span className="text-sm sm:text-base font-medium text-center">
-                                                {t('HERO.CTA_BOOK')}
-                                            </span>
-                                        </div>
-                                    </Link>
+                                {/* Corridor Image - Left with rounded left corners */}
+                                <motion.div
+                                    variants={animations.scaleIn}
+                                    className="relative group"
+                                >
+                                    <div className="relative aspect-[3/4] overflow-hidden rounded-l-2xl">
+                                        <Image
+                                            src="/pictures/corridor.jpg"
+                                            alt={t('HERO.IMAGE_CORRIDOR')}
+                                            fill
+                                            className="object-cover transition-transform duration-300 group-hover:scale-110"
+                                        />
+                                    </div>
                                 </motion.div>
 
-                                <motion.div variants={animations.scaleIn}>
-                                    <Link href="/contact" className="group h-full block">
-                                        <div className="h-full min-h-[100px] sm:min-h-[120px] flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl transition-all duration-300 group-hover:scale-110 group-hover:bg-primary bg-secondary hover:bg-secondary-hover">
-                                            <Phone
-                                                className="w-5 h-5 sm:w-6 sm:h-6 mb-2"
-                                                aria-hidden="true"
-                                            />
-                                            <span className="text-sm sm:text-base font-medium text-center">
-                                                {t('HERO.CTA_PHONE')}
-                                            </span>
-                                        </div>
-                                    </Link>
+                                {/* Reception Image - Middle with text at bottom */}
+                                <motion.div
+                                    variants={animations.scaleIn}
+                                    className="relative group"
+                                >
+                                    <div className="relative aspect-[3/4] overflow-hidden">
+                                        <Image
+                                            src="/pictures/lobby.jpg"
+                                            alt={t('HERO.IMAGE_RECEPTION')}
+                                            fill
+                                            className="object-cover transition-transform duration-300 group-hover:scale-110"
+                                        />
+                                    </div>
+                                </motion.div>
+
+                                {/* Studio Image - Right with rounded right corners */}
+                                <motion.div
+                                    variants={animations.scaleIn}
+                                    className="relative group"
+                                >
+                                    <div className="relative aspect-[3/4] overflow-hidden rounded-r-2xl">
+                                        <Image
+                                            src="/pictures/studio.jpg"
+                                            alt={t('HERO.IMAGE_STUDIO')}
+                                            fill
+                                            className="object-cover transition-transform duration-300 group-hover:scale-110"
+                                        />
+                                        {/* Dark overlay */}
+                                    </div>
                                 </motion.div>
                             </motion.div>
                         </motion.div>
