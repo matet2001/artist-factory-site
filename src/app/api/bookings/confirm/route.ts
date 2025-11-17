@@ -3,8 +3,8 @@ import { sendBookingVerificationEmail } from '@/lib/email'
 import { BookingStatus } from '@prisma/client'
 import { getServerSession } from 'next-auth'
 import { NextRequest, NextResponse } from 'next/server'
-import { authOptions } from '@/auth'
 import { randomBytes } from 'crypto'
+import { authOptions } from '../../../../../auth'
 
 export async function POST(request: NextRequest) {
     try {
