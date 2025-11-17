@@ -105,7 +105,7 @@ export default function FeaturesSection() {
                             <motion.div variants={animations.slideIn} className="relative">
                                 <div className="relative h-48 sm:h-64 lg:h-80 rounded-3xl overflow-hidden shadow-2xl">
                                     <Image
-                                        src="/pictures/IMG_1466.jpg"
+                                        src="/pictures/corridor.jpg"
                                         alt={t('FEATURES.IMAGE_ALT', {
                                             defaultValue: 'Rehearsal space interior',
                                         })}
@@ -135,7 +135,7 @@ export default function FeaturesSection() {
                             <motion.div variants={animations.slideInRight} className="relative">
                                 <div className="relative h-48 sm:h-64 lg:h-80 rounded-3xl overflow-hidden shadow-2xl">
                                     <Image
-                                        src="/pictures/IMG_1468.jpg"
+                                        src="/pictures/lobby.jpg"
                                         alt={t('FEATURES.IMAGE2_ALT', {
                                             defaultValue: 'Studio environment',
                                         })}

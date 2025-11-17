@@ -33,11 +33,11 @@
         "HERO": {
             "TITLE": "Artist Factory",
             "DESCRIPTION_INTRO": " Próbatermek és Stúdió 2007 óta",
-            "DESCRIPTION_DETAILS": "Az ArtistFactory 2007 óta várja a zenészeket és zenekarokat barátságos, professzionális környezetben, ahol minden adott a zavartalan gyakorláshoz.",
+            "DESCRIPTION_DETAILS": "Az ArtistFactory 2007 óta várja a zenészeket és zenekarokat barátságos, inspiráló környezetben, ahol minden adott a zavartalan gyakorláshoz.",
             "CTA": "Foglalj most!",
             "CTA_BOOK": "Online foglalás",
             "CTA_PHONE": "9–22 óráig hívható",
-            "PROFESSIONAL_ENV_TITLE": "Professzionális környezet",
+            "PROFESSIONAL_ENV_TITLE": "Hangulatos környezet",
             "PROFESSIONAL_ENV_DESC": "Hangulatos, igényesen kialakított és mindig tiszta próbatermek a belváros szívében – hogy minden próba inspiráló élmény legyen.",
             "PROFESSIONAL_ENV_ALT": "Stúdió környezet",
             "IMAGE_CORRIDOR": "Folyosó",
@@ -55,11 +55,25 @@
             "AIR_CONDITIONED": "Légkondicionált",
             "AIR_CONDITIONED_DESC": "Maradj hűvös a teljesen klimatizált termeinkben.",
             "IMAGE_ALT": "Próbaterem belső tere",
-            "IMAGE1_TITLE": "Professzionális felszereltség",
+            "IMAGE1_TITLE": "Korszerű felszereltség",
             "IMAGE1_DESC": "Korszerű hangtechnikai eszközök",
             "IMAGE2_TITLE": "Kényelmes tér",
             "IMAGE2_DESC": "Tökéletes a kreativitáshoz",
             "IMAGE2_ALT": "Stúdió környezet"
+        },
+        "STUDIO_SECTION": {
+            "PRE_TITLE": "Felvétel",
+            "TITLE": "Stúdió",
+            "DESCRIPTION": "Valósítsd meg zenei ötleteidet professzionális felvételi, keverési és maszterelési szolgáltatásokkal.",
+            "FEATURE_1": "Csúcskategóriás felszerelés",
+            "FEATURE_1_DESC": "Prémium felvételi eszközök és szoftverek",
+            "FEATURE_2": "Szakértői produkció",
+            "FEATURE_2_DESC": "Tapasztalt hangmérnökök",
+            "FEATURE_3": "Rugalmas időpontok",
+            "FEATURE_3_DESC": "Demótól a teljes albumig",
+            "CTA": "Tudj meg többet",
+            "PRICE_LABEL": "Ár kezdve",
+            "PRICE": "10 000 Ft / óra"
         }
     },
 
@@ -325,11 +339,11 @@
         }
     },
     "STUDIO": {
-        "PRE_TITLE": "Professzionális Felvétel",
+        "PRE_TITLE": "Felvétel",
         "TITLE": "Stúdió",
-        "SUBTITLE": "Professzionális Felvétel és Produkciós Szolgáltatások",
+        "SUBTITLE": "Felvétel és Produkciós Szolgáltatások",
 
-        "SERVICES_TITLE": "Professzionális Szolgáltatásaink",
+        "SERVICES_TITLE": "Szolgáltatásaink",
         "FULL_ALBUM": "Felvétel",
         "EDITING": "Editálás, keverés és maszterelés",
         "AUDIOBOOKS": "Hangoskönyvek és szöveges felvételek készítése",
