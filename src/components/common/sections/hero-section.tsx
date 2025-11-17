@@ -46,6 +46,21 @@ export default function HeroSection() {
                                 variants={animations.stagger}
                                 className="grid grid-cols-1 md:grid-cols-3 gap-0 mt-8"
                             >
+
+                                {/* Reception Image - Middle with text at bottom */}
+                                <motion.div
+                                    variants={animations.scaleIn}
+                                    className="relative group"
+                                >
+                                    <div className="relative aspect-[3/4] overflow-hidden">
+                                        <Image
+                                            src="/pictures/chill_zone.jpg"
+                                            alt={t('HERO.IMAGE_RECEPTION')}
+                                            fill
+                                            className="object-cover transition-transform duration-300 group-hover:scale-110"
+                                        />
+                                    </div>
+                                </motion.div>
                                 {/* Corridor Image - Left with rounded left corners */}
                                 <motion.div
                                     variants={animations.scaleIn}
@@ -61,21 +76,6 @@ export default function HeroSection() {
                                     </div>
                                 </motion.div>
 
-                                {/* Reception Image - Middle with text at bottom */}
-                                <motion.div
-                                    variants={animations.scaleIn}
-                                    className="relative group"
-                                >
-                                    <div className="relative aspect-[3/4] overflow-hidden">
-                                        <Image
-                                            src="/pictures/lobby.jpg"
-                                            alt={t('HERO.IMAGE_RECEPTION')}
-                                            fill
-                                            className="object-cover transition-transform duration-300 group-hover:scale-110"
-                                        />
-                                    </div>
-                                </motion.div>
-
                                 {/* Studio Image - Right with rounded right corners */}
                                 <motion.div
                                     variants={animations.scaleIn}
@@ -83,7 +83,7 @@ export default function HeroSection() {
                                 >
                                     <div className="relative aspect-[3/4] overflow-hidden rounded-r-2xl">
                                         <Image
-                                            src="/pictures/studio.jpg"
+                                            src="/pictures/reception.jpg"
                                             alt={t('HERO.IMAGE_STUDIO')}
                                             fill
                                             className="object-cover transition-transform duration-300 group-hover:scale-110"

@@ -13,40 +13,55 @@ export default function BookingCtaSection() {
     const viewportConfig = { once: true, amount: 0.3 } as const
 
     return (
-        <section className="relative">
-            <div className="w-full text-center relative z-10">
+        <section className="relative py-12 sm:py-16">
+            <div className="max-w-6xl mx-auto px-4">
                 <motion.div
                     variants={animations.fadeUp}
                     initial="initial"
                     whileInView="whileInView"
                     viewport={viewportConfig}
-                    className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative w-full "
+                    className="relative overflow-hidden"
+                    style={{
+                        borderRadius: '60% 40% 65% 35% / 55% 45% 55% 45%',
+                    }}
                 >
-                    <div className="relative z-10 space-y-8 sm:space-y-10">
+                    {/* Background with gradient and subtle pattern */}
+                    <div
+                        className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/20 shadow-2xl"
+                        style={{
+                            borderRadius: '60% 40% 65% 35% / 55% 45% 55% 45%',
+                        }}
+                    />
+
+                    {/* Content */}
+                    <div className="relative z-10 p-8 sm:p-12 lg:p-16">
                         <motion.div
                             variants={animations.stagger}
-                            className="mx-auto w-full max-w-4xl text-center flex flex-col justify-center space-y-6 sm:space-y-8"
+                            className="space-y-8 sm:space-y-10"
                         >
-                          
-
                             {/* Main CTA Button */}
-                            <motion.div variants={animations.scaleIn} className="px-4">
+                            <motion.div variants={animations.scaleIn} className="flex justify-center">
                                 <CtaButton />
                             </motion.div>
 
-                            {/* Small CTA cards */}
+                            {/* Small CTA cards with organic shapes */}
                             <motion.div
                                 variants={animations.stagger}
-                                className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 lg:gap-6 max-w-xl mx-auto w-full px-4"
+                                className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto"
                             >
                                 <motion.div variants={animations.scaleIn}>
                                     <Link href="/booking" className="group h-full block">
-                                        <div className="h-full min-h-[100px] sm:min-h-[120px] w-full flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl bg-secondary hover:bg-secondary-hover transition-all duration-300 group-hover:scale-110">
+                                        <div
+                                            className="h-full min-h-[120px] sm:min-h-[140px] flex flex-col items-center justify-center p-6 bg-card/60 backdrop-blur-sm border border-primary/20 hover:border-primary/40 hover:bg-card/80 transition-all duration-300 group-hover:scale-105 hover:shadow-xl"
+                                            style={{
+                                                borderRadius: '55% 45% 50% 50% / 50% 55% 45% 50%',
+                                            }}
+                                        >
                                             <CalendarDays
-                                                className="w-5 h-5 sm:w-6 sm:h-6 mb-2"
+                                                className="w-6 h-6 sm:w-7 sm:h-7 mb-3 text-primary group-hover:scale-110 transition-transform"
                                                 aria-hidden="true"
                                             />
-                                            <span className="text-sm sm:text-base font-medium text-center">
+                                            <span className="text-base sm:text-lg font-semibold text-center">
                                                 {t('HERO.CTA_BOOK')}
                                             </span>
                                         </div>
@@ -55,12 +70,17 @@ export default function BookingCtaSection() {
 
                                 <motion.div variants={animations.scaleIn}>
                                     <Link href="/contact" className="group h-full block">
-                                        <div className="h-full min-h-[100px] sm:min-h-[120px] flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl transition-all duration-300 group-hover:scale-110 group-hover:bg-primary bg-secondary hover:bg-secondary-hover">
+                                        <div
+                                            className="h-full min-h-[120px] sm:min-h-[140px] flex flex-col items-center justify-center p-6 bg-card/60 backdrop-blur-sm border border-primary/20 hover:border-primary/40 hover:bg-card/80 transition-all duration-300 group-hover:scale-105 hover:shadow-xl"
+                                            style={{
+                                                borderRadius: '45% 55% 48% 52% / 52% 45% 55% 48%',
+                                            }}
+                                        >
                                             <Phone
-                                                className="w-5 h-5 sm:w-6 sm:h-6 mb-2"
+                                                className="w-6 h-6 sm:w-7 sm:h-7 mb-3 text-primary group-hover:scale-110 transition-transform"
                                                 aria-hidden="true"
                                             />
-                                            <span className="text-xs sm:text-sm font-medium text-center px-2">
+                                            <span className="text-sm sm:text-base font-semibold text-center px-2">
                                                 {t('HERO.CTA_PHONE')}
                                             </span>
                                         </div>

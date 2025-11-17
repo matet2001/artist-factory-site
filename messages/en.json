@@ -33,11 +33,11 @@
         "HERO": {
             "TITLE": "Artist Factory",
             "DESCRIPTION_INTRO": "Rehearsal Rooms and Studio since 2007",
-            "DESCRIPTION_DETAILS": "ArtistFactory has been welcoming musicians and bands since 2007 in a friendly, professional environment where everything is available for undisturbed practice.",
+            "DESCRIPTION_DETAILS": "Since 2007, ArtistFactory has welcomed musicians and bands in a friendly, inspiring environment where everything is set for uninterrupted practice.",
             "CTA": "Book now!",
             "CTA_BOOK": "Online booking",
             "CTA_PHONE": "Available 9 AM – 10 PM",
-            "PROFESSIONAL_ENV_TITLE": "Professional Environment",
+            "PROFESSIONAL_ENV_TITLE": "Inviting Environment",
             "PROFESSIONAL_ENV_DESC": "State-of-the-art rehearsal facilities",
             "PROFESSIONAL_ENV_ALT": "Studio environment",
             "IMAGE_CORRIDOR": "Corridor",
@@ -54,19 +54,33 @@
             "PREMIUM_EQUIPMENT_DESC": "Top-tier instruments and amplifiers (Orange, ENGL, Fender, Warwick, Ashdown, Ampeg, Yamaha) plus microphones (Shure Beta 57, Audio Technica) at no extra cost.",
             "AIR_CONDITIONED": "Air conditioned",
             "AIR_CONDITIONED_DESC": "Stay cool in our fully air-conditioned rooms.",
-            "IMAGE1_TITLE": "Professional Setup",
+            "IMAGE1_TITLE": "Modern Equipment",
             "IMAGE1_DESC": "State-of-the-art equipment",
             "IMAGE2_TITLE": "Comfortable Space",
             "IMAGE2_DESC": "Perfect for creativity",
             "IMAGE2_ALT": "Studio environment",
             "IMAGE_ALT": "Rehearsal space interior"
+        },
+        "STUDIO_SECTION": {
+            "PRE_TITLE": "Recording",
+            "TITLE": "Recording Studio",
+            "DESCRIPTION": "Turn your musical ideas into reality with professional recording, mixing, and mastering services.",
+            "FEATURE_1": "Top-Tier Equipment",
+            "FEATURE_1_DESC": "High-end recording gear and software",
+            "FEATURE_2": "Expert Production",
+            "FEATURE_2_DESC": "Experienced sound engineers",
+            "FEATURE_3": "Flexible Sessions",
+            "FEATURE_3_DESC": "From demos to full albums",
+            "CTA": "Learn More",
+            "PRICE_LABEL": "Starting from",
+            "PRICE": "10,000 HUF/hour"
         }
     },
 
     "ROOMS": {
         "PRE_TITLE": "Downtown and Modern",
         "TITLE": "Our Rehearsal Rooms",
-        "DESCRIPTION": "Five stylish rehearsal rooms, professional environment — just bring your instrument, the atmosphere is provided.",
+        "DESCRIPTION": "Five stylish rehearsal rooms — just bring your instrument, the vibe is already here.",
         "EQUIPMENT": "Equipment",
         "SIZE": "Size",
         "BASE_PRICE": "Base Price",
@@ -347,9 +361,9 @@
     "STUDIO": {
         "PRE_TITLE": "Professional Recording",
         "TITLE": "Recording Studio",
-        "SUBTITLE": "Professional Recording & Production Services",
+        "SUBTITLE": "Recording & Production Services",
 
-        "SERVICES_TITLE": "Our Professional Services",
+        "SERVICES_TITLE": "Our Services",
         "FULL_ALBUM": "Recording",
         "EDITING": "Editing, mixing and mastering",
         "AUDIOBOOKS": "Audiobooks and voice recordings",
