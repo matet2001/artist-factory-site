@@ -54,10 +54,6 @@ export async function GET(request: NextRequest) {
             date: booking.date,
             status: booking.status,
             userId: booking.userId,
-            user: {
-                fullName: booking.user.name || booking.user.email,
-                bandName: booking.user.bandName,
-            },
         }))
 
         return NextResponse.json({
