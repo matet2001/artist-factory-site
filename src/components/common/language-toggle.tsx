@@ -23,6 +23,7 @@ export default function LanguageToggle() {
     const nextLocale: Locale = currentLocale === 'en' ? 'hu' : 'en'
 
     const handleToggle = () => {
+        console.log('Replace: ', { pathname, params }, 'With: ', nextLocale)
         startTransition(() => {
             router.replace(
                 // @ts-expect-error safe param assumption
