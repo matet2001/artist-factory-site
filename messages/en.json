@@ -206,6 +206,12 @@
             "ERROR_TITLE": "❌ Verification Error",
             "GO_TO_BOOKING": "Go to Booking",
             "GO_TO_HOME": "Go to Homepage"
+        },
+        "ERROR_FALLBACK": {
+            "TITLE": "Booking System Temporarily Unavailable",
+            "DESCRIPTION": "We're experiencing technical difficulties with our online booking system. Our team is working to resolve this issue as quickly as possible.",
+            "ALTERNATIVE": "In the meantime, you can book by phone:",
+            "AVAILABILITY": "Available 9 AM – 10 PM"
         }
     },
 

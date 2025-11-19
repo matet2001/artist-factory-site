@@ -1,5 +1,6 @@
 'use client'
 
+import { BookingErrorFallback } from '@/components/booking/booking-error-fallback'
 import { BookingSummary } from '@/components/booking/booking-summary'
 import { BookingTable } from '@/components/booking/booking-table'
 import { useAnimations } from '@/hooks/use-animation'
@@ -10,23 +11,26 @@ import {
     getCurrentTimePosition,
     getOpeningHoursArray,
 } from '@/lib/booking-utils'
-import { motion } from 'framer-motion'
 import { useSession } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
 
 export default function BookingPage() {
     const t = useTranslations('BOOKING')
     const { data: session } = useSession()
+    const locale = useLocale()
+    const router = useRouter()
     const animations = useAnimations()
-    const viewportConfig = { once: true, amount: 0.1 } as const
 
     const [selectedDate, setSelectedDate] = useState<Date>(new Date())
     const [bookings, setBookings] = useState<BookingData[]>([])
     const [isLoading, setIsLoading] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [loadingCells, setLoadingCells] = useState<Set<string>>(new Set())
+    const [hasError, setHasError] = useState(false)
+    const [error, setError] = useState<Error | null>(null)
 
     const hours = getOpeningHoursArray(OPENING_HOURS)
     const timelinePosition = getCurrentTimePosition(OPENING_HOURS)
@@ -46,16 +50,30 @@ export default function BookingPage() {
 
     const fetchBookings = async (date: Date) => {
         setIsLoading(true)
+        setHasError(false)
+        setError(null)
         try {
             const response = await fetch(`/api/bookings?date=${date.toISOString().split('T')[0]}`)
 
             if (!response.ok) {
+                // Check if it's a server error (500)
+                if (response.status >= 500) {
+                    const err = new Error(`Server error: ${response.status}`)
+                    setError(err)
+                    setHasError(true)
+                    return
+                }
                 throw new Error('Failed to fetch bookings')
             }
 
             const data = await response.json()
             setBookings(data.bookings || [])
         } catch (error) {
+            // Network errors or other fetch failures
+            const err = error instanceof Error ? error : new Error('Failed to load bookings')
+            setError(err)
+            setHasError(true)
+
             toast.error('Error', {
                 description: 'Failed to load bookings',
             })
@@ -82,6 +100,10 @@ export default function BookingPage() {
             toast.error('Authentication Required', {
                 description: 'Please sign in to make a booking',
             })
+            // Redirect to register page after showing the alert
+            setTimeout(() => {
+                router.push(`/${locale}/register`)
+            }, 1500)
             return
         }
 
@@ -194,60 +216,52 @@ export default function BookingPage() {
             {/* Title Section */}
             <section className="relative">
                 <div className="max-w-7xl mx-auto px-4">
-                    <motion.div
-                        variants={animations.fadeUp}
-                        initial="initial"
-                        animate="whileInView"
-                        viewport={viewportConfig}
-                        className="text-center space-y-4"
-                    >
+                    <div className="text-center space-y-4">
                         <p className="text-xs sm:text-sm tracking-[0.3em] uppercase text-primary font-medium">
                             {t('PRE_TITLE')}
                         </p>
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight">
                             {t('TITLE')}
                         </h1>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
             {/* Booking Table Section */}
             <section className="relative py-10">
                 <div className="w-full mx-auto px-4">
-                    <motion.div
-                        variants={animations.fadeUp}
-                        initial="initial"
-                        whileInView="whileInView"
-                        viewport={viewportConfig}
-                        className="relative"
-                    >
-                        {/* Background card */}
-                        <div className="absolute inset-0 bg-card/80 backdrop-blur-xl rounded-3xl border border-primary/20 shadow-2xl" />
+                    {hasError ? (
+                        <BookingErrorFallback error={error} />
+                    ) : (
+                        <div className="relative">
+                            {/* Background card */}
+                            <div className="absolute inset-0 bg-card/80 backdrop-blur-xl rounded-3xl border border-primary/20 shadow-2xl" />
 
-                        <div className="relative z-10 p-4 sm:p-8 lg:p-12">
-                            <BookingTable
-                                selectedDate={selectedDate}
-                                onDateChange={setSelectedDate}
-                                hours={hours}
-                                bookings={bookings}
-                                isLoading={isLoading}
-                                loadingCells={loadingCells}
-                                timelinePosition={timelinePosition}
-                                isToday={isToday}
-                                getBooking={getBooking}
-                                isPlannedByUser={isPlannedByUser}
-                                onBook={handleBook}
-                                onDeletePlanned={handleDeletePlanned}
-                            />
+                            <div className="relative z-10 p-4 sm:p-8 lg:p-12">
+                                <BookingTable
+                                    selectedDate={selectedDate}
+                                    onDateChange={setSelectedDate}
+                                    hours={hours}
+                                    bookings={bookings}
+                                    isLoading={isLoading}
+                                    loadingCells={loadingCells}
+                                    timelinePosition={timelinePosition}
+                                    isToday={isToday}
+                                    getBooking={getBooking}
+                                    isPlannedByUser={isPlannedByUser}
+                                    onBook={handleBook}
+                                    onDeletePlanned={handleDeletePlanned}
+                                />
 
-                            <BookingSummary
-                                plannedBookings={plannedBookings}
-                                isSubmitting={isSubmitting}
-                                onConfirm={handleConfirmBookings}
-                                animations={animations}
-                            />
+                                <BookingSummary
+                                    plannedBookings={plannedBookings}
+                                    isSubmitting={isSubmitting}
+                                    onConfirm={handleConfirmBookings}
+                                    animations={animations}
+                                />
+                            </div>
                         </div>
-                    </motion.div>
+                    )}
                 </div>
             </section>
         </>
