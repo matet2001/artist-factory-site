@@ -464,6 +464,12 @@
             "GO_TO_HOME": "Főoldalra"
         },
         "SUCCESS_CONTENT": "Várunk szeretettel",
-        "CHOOSE_DATE": "Válassz dátumot"
+        "CHOOSE_DATE": "Válassz dátumot",
+        "ERROR_FALLBACK": {
+            "TITLE": "Foglalási Rendszer Átmenetileg Nem Elérhető",
+            "DESCRIPTION": "Technikai problémák merültek fel az online foglalási rendszerünkben. Csapatunk dolgozik a probléma mielőbbi megoldásán.",
+            "ALTERNATIVE": "Addig is telefonon tudsz foglalni:",
+            "AVAILABILITY": "9–22 óráig hívható"
+        }
     }
 }
