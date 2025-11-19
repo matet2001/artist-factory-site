@@ -4,7 +4,6 @@ import { BookingTableHeader } from '@/components/booking/booking-table-header'
 import { TimelineIndicator } from '@/components/booking/timeline-indicator'
 import { BookingData, BookingIntent } from '@/lib/booking-utils'
 import { rooms } from '@/lib/rooms'
-import { Loader2 } from 'lucide-react'
 import { BookingCell } from './booking-cell'
 
 interface BookingTableProps {
@@ -48,38 +47,40 @@ export function BookingTable({
 
                         <tbody className="divide-y divide-border bg-card/50 relative">
                             {/* Current Time Indicator */}
-                            {isToday && timelinePosition !== null && (
+                            {isToday && timelinePosition !== null && !isLoading && (
                                 <TimelineIndicator position={timelinePosition} />
                             )}
 
-                            {isLoading ? (
-                                <tr>
-                                    <td colSpan={rooms.length + 1} className="py-20 text-center">
-                                        <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
+                            {hours.map((time) => (
+                                <tr key={time} className="group">
+                                    <td className="px-4 py-3 text-center font-semibold whitespace-nowrap bg-card-elevated">
+                                        {time}:00 - {time + 1}:00
                                     </td>
-                                </tr>
-                            ) : (
-                                hours.map((time) => (
-                                    <tr key={time} className="group">
-                                        <td className="px-4 py-3 text-center font-semibold whitespace-nowrap bg-card-elevated">
-                                            {time}:00 - {time + 1}:00
+                                    {rooms.map((room) => (
+                                        <td
+                                            key={`${room.id}-${time}`}
+                                            className="h-16 relative transition-all duration-200 border border-border/50 bg-card/30"
+                                        >
+                                            {isLoading ? (
+                                                <div className="absolute inset-0 flex items-center justify-center">
+                                                    <div className="h-8 w-8 rounded-full bg-card-elevated animate-pulse" />
+                                                </div>
+                                            ) : (
+                                                <BookingCell
+                                                    booking={getBooking(room.id, time)}
+                                                    roomId={room.id}
+                                                    time={time}
+                                                    date={selectedDate}
+                                                    isPlannedByUser={isPlannedByUser(room.id, time)}
+                                                    isLoading={loadingCells.has(`${room.id}-${time}`)}
+                                                    onBook={onBook}
+                                                    onDeletePlanned={onDeletePlanned}
+                                                />
+                                            )}
                                         </td>
-                                        {rooms.map((room) => (
-                                            <BookingCell
-                                                key={`${room.id}-${time}`}
-                                                booking={getBooking(room.id, time)}
-                                                roomId={room.id}
-                                                time={time}
-                                                date={selectedDate}
-                                                isPlannedByUser={isPlannedByUser(room.id, time)}
-                                                isLoading={loadingCells.has(`${room.id}-${time}`)}
-                                                onBook={onBook}
-                                                onDeletePlanned={onDeletePlanned}
-                                            />
-                                        ))}
-                                    </tr>
-                                ))
-                            )}
+                                    ))}
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>

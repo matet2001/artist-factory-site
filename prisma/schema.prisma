@@ -73,7 +73,7 @@ model Booking {
   roomId    String
   room      Room          @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
-  verificationToken String?  @unique
+  verificationToken String?
   verifiedAt        DateTime?
 
   createdAt DateTime @default(now())

@@ -126,7 +126,20 @@ export default function BookingPage() {
                 throw new Error(error.error || 'Failed to book')
             }
 
-            await fetchBookings(selectedDate)
+            const data = await response.json()
+
+            // Optimistic update - add booking to state immediately
+            setBookings((prev) => [
+                ...prev,
+                {
+                    id: data.booking.id,
+                    roomId: intent.roomId,
+                    time: intent.time,
+                    date: selectedDate,
+                    status: 'PLANNED' as const,
+                    userId: session.user.id,
+                },
+            ])
 
             toast.success('Success', {
                 description: 'Booking added to cart',
@@ -160,7 +173,8 @@ export default function BookingPage() {
                 throw new Error('Failed to delete booking')
             }
 
-            await fetchBookings(selectedDate)
+            // Optimistic update - remove booking from state immediately
+            setBookings((prev) => prev.filter((b) => b.id !== booking.id))
 
             toast.success('Success', {
                 description: 'Booking removed',
@@ -197,7 +211,14 @@ export default function BookingPage() {
                 throw new Error(error.error || 'Failed to confirm bookings')
             }
 
-            await fetchBookings(selectedDate)
+            // Optimistic update - update booking statuses to UNVERIFIED
+            setBookings((prev) =>
+                prev.map((b) =>
+                    b.status === 'PLANNED' && b.userId === session?.user?.id
+                        ? { ...b, status: 'UNVERIFIED' as const }
+                        : b
+                )
+            )
 
             toast.success('Success!', {
                 description: 'Verification email sent. Please check your inbox.',
