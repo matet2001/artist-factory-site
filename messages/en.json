@@ -192,6 +192,8 @@
         "FINALIZE_ORDER": "Finalize Booking",
         "ORDER_DISCLAIM": "Please review your bookings, then click submit. You will receive a confirmation link via email.",
         "SUBMIT": "Submit Booking",
+        "SELECTED_BOOKINGS": "Selected Bookings ({count})",
+        "BOOKING_PLANNED": "Booking planned",
         "ALERT": {
             "LOGIN": "Please sign in to make a booking!"
         },
@@ -346,7 +348,10 @@
             "SETUP_FAILED": "Failed to set up password",
             "ERROR": "An error occurred. Please try again."
         },
-        "PASSWORDS_NOT_MATCH": "Passwords do not match"
+        "PASSWORDS_NOT_MATCH": "Passwords do not match",
+        "PRIVACY_CONSENT": "By providing my registration details, I declare that I have read and accept the",
+        "PRIVACY_POLICY": "Privacy Policy",
+        "PRIVACY_REQUIRED": "You must accept the privacy policy to register"
     },
 
     "PROFILE": {
@@ -459,6 +464,47 @@
             "BUTTON": "Confirm Booking",
             "OR_COPY": "Or copy this link:",
             "EXPIRES": "This link will expire in 24 hours."
+        }
+    },
+    "PRIVACY": {
+        "TITLE": "Privacy Policy",
+        "INTRO": "We collect and process personal data only in accordance with applicable laws.",
+        "GENERAL": {
+            "TITLE": "General Information",
+            "DM_CONSENT": "We only send direct messages with separate consent. System messages may be sent without consent.",
+            "SECURE_STORAGE": "We store data as securely as possible.",
+            "THIRD_PARTY": "We only share personal data with third parties with your consent.",
+            "DATA_ACCESS": "Anyone can request information about the data stored about them, and data deletion can be requested at any time through our contact channels."
+        },
+        "PURPOSE": {
+            "TITLE": "Purpose of Data Processing",
+            "IDENTIFICATION": {
+                "TITLE": "Identification and Registration",
+                "PASSWORD": {
+                    "LABEL": "Password",
+                    "DESCRIPTION": "Ensures secure access to the user account"
+                }
+            },
+            "COMMUNICATION": {
+                "TITLE": "Communication",
+                "EMAIL": {
+                    "LABEL": "Email Address",
+                    "DESCRIPTION": "Processed for communication purposes"
+                }
+            }
+        },
+        "LEGAL": {
+            "TITLE": "Legal Basis for Data Processing",
+            "USER_CONSENT": "The User's consent",
+            "INFOTV": "Section 5(1) of the Information Act (Infotv.)",
+            "ECOMMERCE_ACT": "Section 13/A(3) of Act CVIII of 2001 on certain issues of electronic commerce services and information society services"
+        },
+        "RIGHTS": {
+            "TITLE": "Your Rights",
+            "REQUEST_INFO": "Request information about your processed personal data",
+            "CORRECTION_DELETION": "Request correction or deletion of your data",
+            "WITHDRAW_CONSENT": "Withdraw your consent to data processing",
+            "FILE_COMPLAINT": "File a complaint with the supervisory authority"
         }
     }
 }

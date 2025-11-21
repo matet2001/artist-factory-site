@@ -326,7 +326,10 @@
             "SETUP_FAILED": "Nem sikerült beállítani a jelszót",
             "ERROR": "Hiba történt. Kérjük, próbáld újra."
         },
-        "PASSWORDS_NOT_MATCH": "A jelszavak nem egyeznek"
+        "PASSWORDS_NOT_MATCH": "A jelszavak nem egyeznek",
+        "PRIVACY_CONSENT": "Regisztrációs adataim megadásával kijelentem, hogy megismertem és elfogadom az",
+        "PRIVACY_POLICY": "Adatvédelmi tájékoztatót",
+        "PRIVACY_REQUIRED": "Az adatvédelmi tájékoztató elfogadása kötelező a regisztrációhoz"
     },
 
     "PROFILE": {
@@ -448,6 +451,8 @@
         "FINALIZE_ORDER": "Foglalás Véglegesítése",
         "ORDER_DISCLAIM": "Kérjük, ellenőrizd a foglalásaidat, majd kattints a küldés gombra. Email-ben kapsz egy megerősítő linket.",
         "SUBMIT": "Foglalás Küldése",
+        "SELECTED_BOOKINGS": "Kiválasztott Foglalások ({count})",
+        "BOOKING_PLANNED": "Foglalás betervezve",
         "ALERT": {
             "LOGIN": "Kérjük, jelentkezz be a foglaláshoz!"
         },
@@ -465,5 +470,46 @@
         },
         "SUCCESS_CONTENT": "Várunk szeretettel",
         "CHOOSE_DATE": "Válassz dátumot"
+    },
+    "PRIVACY": {
+        "TITLE": "Adatkezelési Tájékoztató",
+        "INTRO": "Személyes adatokat csak a törvényeknek megfelelően gyűjtünk és kezelünk.",
+        "GENERAL": {
+            "TITLE": "Általános információk",
+            "DM_CONSENT": "DM levelet csak külön hozzájárulás esetén küldünk. Rendszerüzenetet anélkül is küldhetünk.",
+            "SECURE_STORAGE": "Az adatokat a lehető legbiztonságosabban tároljuk.",
+            "THIRD_PARTY": "Harmadik félnek személyes adatokat csak hozzájárulással adunk át.",
+            "DATA_ACCESS": "Bárkinek felvilágosítást adunk a róla tárolt adatokról, és az adatok törlését is bármikor kérheti az elérhetőségeinken."
+        },
+        "PURPOSE": {
+            "TITLE": "Adatkezelés célja",
+            "IDENTIFICATION": {
+                "TITLE": "Azonosítás, a regisztráció lehetővé tétele",
+                "PASSWORD": {
+                    "LABEL": "Jelszó",
+                    "DESCRIPTION": "A felhasználói fiókba történő biztonságos belépést szolgálja"
+                }
+            },
+            "COMMUNICATION": {
+                "TITLE": "Kapcsolattartás",
+                "EMAIL": {
+                    "LABEL": "E-mail cím",
+                    "DESCRIPTION": "Kapcsolattartás céljából kezeljük"
+                }
+            }
+        },
+        "LEGAL": {
+            "TITLE": "Az adatfeldolgozás jogalapja",
+            "USER_CONSENT": "A Felhasználó hozzájárulása",
+            "INFOTV": "Az Infotv. 5. § (1) bekezdése",
+            "ECOMMERCE_ACT": "Az elektronikus kereskedelmi szolgáltatások, valamint az információs társadalommal összefüggő szolgáltatások egyes kérdéseiről szóló 2001. évi CVIII. törvény 13/A. § (3) bekezdése"
+        },
+        "RIGHTS": {
+            "TITLE": "Az Ön jogai",
+            "REQUEST_INFO": "Tájékoztatást kérni a kezelt személyes adatairól",
+            "CORRECTION_DELETION": "Kérni adatai helyesbítését vagy törlését",
+            "WITHDRAW_CONSENT": "Visszavonni hozzájárulását az adatkezeléshez",
+            "FILE_COMPLAINT": "Panaszt benyújtani a felügyeleti hatóságnál"
+        }
     }
 }

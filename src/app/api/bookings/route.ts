@@ -47,14 +47,26 @@ export async function GET(request: NextRequest) {
         })
 
         // Transform the data to match the BookingData interface
-        const transformedBookings = bookings.map((booking) => ({
-            id: booking.id,
-            roomId: booking.roomId,
-            time: booking.time,
-            date: booking.date,
-            status: booking.status,
-            userId: booking.userId,
-        }))
+        const transformedBookings = bookings.map((booking) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const bookingWithUser = booking as any
+            const userData = bookingWithUser.user
+                ? {
+                      fullName: bookingWithUser.user.name || '',
+                      bandName: bookingWithUser.user.bandName || null,
+                  }
+                : undefined
+
+            return {
+                id: booking.id,
+                roomId: booking.roomId,
+                time: booking.time,
+                date: booking.date,
+                status: booking.status,
+                userId: booking.userId,
+                user: userData,
+            }
+        })
 
         return NextResponse.json({
             success: true,
