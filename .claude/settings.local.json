@@ -9,7 +9,10 @@
       "Bash(cat:*)",
       "Bash(npx prisma db seed:*)",
       "Bash(npx tsx:*)",
-      "Bash(npx prisma db push:*)"
+      "Bash(npx prisma db push:*)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(npm run build:*)",
+      "Bash(timeout 60 npm run build:*)"
     ],
     "deny": [],
     "ask": []

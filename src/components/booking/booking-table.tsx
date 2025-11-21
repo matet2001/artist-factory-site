@@ -39,7 +39,14 @@ export function BookingTable({
     return (
         <div className="overflow-x-auto">
             <div className="inline-block min-w-full align-middle">
-                <div className="overflow-hidden border border-border rounded-xl shadow-lg">
+                <div className="overflow-hidden border border-border rounded-xl shadow-lg relative">
+                    {/* Loading Overlay */}
+                    {isLoading && (
+                        <div className="absolute inset-0 bg-background/50 backdrop-blur-sm z-50 flex items-center justify-center">
+                            <Loader2 className="h-12 w-12 animate-spin text-primary" />
+                        </div>
+                    )}
+
                     <table className="min-w-full divide-y divide-border">
                         <BookingTableHeader
                             selectedDate={selectedDate}
@@ -48,38 +55,32 @@ export function BookingTable({
 
                         <tbody className="divide-y divide-border bg-card/50 relative">
                             {/* Current Time Indicator */}
-                            {isToday && timelinePosition !== null && (
+                            {isToday && timelinePosition !== null && !isLoading && (
                                 <TimelineIndicator position={timelinePosition} />
                             )}
 
-                            {isLoading ? (
-                                <tr>
-                                    <td colSpan={rooms.length + 1} className="py-20 text-center">
-                                        <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
+                            {hours.map((time) => (
+                                <tr key={time} className="group">
+                                    <td className="px-4 py-3 text-center font-semibold whitespace-nowrap bg-card-elevated">
+                                        {time}:00 - {time + 1}:00
                                     </td>
+                                    {rooms.map((room) => (
+                                        <BookingCell
+                                            key={`${room.id}-${time}`}
+                                            booking={isLoading ? undefined : getBooking(room.id, time)}
+                                            roomId={room.id}
+                                            time={time}
+                                            date={selectedDate}
+                                            isPlannedByUser={
+                                                isLoading ? false : isPlannedByUser(room.id, time)
+                                            }
+                                            isLoading={loadingCells.has(`${room.id}-${time}`)}
+                                            onBook={onBook}
+                                            onDeletePlanned={onDeletePlanned}
+                                        />
+                                    ))}
                                 </tr>
-                            ) : (
-                                hours.map((time) => (
-                                    <tr key={time} className="group">
-                                        <td className="px-4 py-3 text-center font-semibold whitespace-nowrap bg-card-elevated">
-                                            {time}:00 - {time + 1}:00
-                                        </td>
-                                        {rooms.map((room) => (
-                                            <BookingCell
-                                                key={`${room.id}-${time}`}
-                                                booking={getBooking(room.id, time)}
-                                                roomId={room.id}
-                                                time={time}
-                                                date={selectedDate}
-                                                isPlannedByUser={isPlannedByUser(room.id, time)}
-                                                isLoading={loadingCells.has(`${room.id}-${time}`)}
-                                                onBook={onBook}
-                                                onDeletePlanned={onDeletePlanned}
-                                            />
-                                        ))}
-                                    </tr>
-                                ))
-                            )}
+                            ))}
                         </tbody>
                     </table>
                 </div>

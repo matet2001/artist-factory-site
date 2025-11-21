@@ -2,6 +2,7 @@
 
 import { CheckCircle2, Mail } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -10,6 +11,7 @@ import { toast } from 'sonner'
 import type { RegisterFormData } from '@/types/auth'
 
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
     Form,
     FormControl,
@@ -43,6 +45,7 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
             fullName: '',
             phone: '',
             bandName: '',
+            privacyConsent: false,
         },
     })
 
@@ -50,6 +53,15 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
         try {
             setIsSubmitting(true)
             setError(null)
+
+            // Check privacy consent
+            if (!values.privacyConsent) {
+                const errorMsg = t('PRIVACY_REQUIRED')
+                setError(errorMsg)
+                toast.error(errorMsg)
+                setIsSubmitting(false)
+                return
+            }
 
             // Call the registration API
             const response = await fetch('/api/auth/register', {
@@ -274,6 +286,42 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
 
                         <PasswordInput {...form} />
                     </div>
+
+                    {/* Privacy Policy Consent */}
+                    <FormField
+                        control={form.control}
+                        name="privacyConsent"
+                        render={({ field }) => (
+                            <FormItem>
+                                <div className="flex items-start gap-3 mt-3">
+                                    <FormControl>
+                                        <Checkbox
+                                            id="privacy-consent"
+                                            checked={field.value}
+                                            onCheckedChange={field.onChange}
+                                            className="mt-1"
+                                        />
+                                    </FormControl>
+                                    <label
+                                        htmlFor="privacy-consent"
+                                        className="text-sm font-normal leading-relaxed cursor-pointer flex-1"
+                                    >
+                                        {t('PRIVACY_CONSENT')}{' '}
+                                        <Link
+                                            href="/privacy-policy"
+                                            className="text-primary hover:underline font-medium"
+                                            target="_blank"
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                            {t('PRIVACY_POLICY')}
+                                        </Link>
+                                        .
+                                    </label>
+                                </div>
+                                <FormMessage className="ml-9" />
+                            </FormItem>
+                        )}
+                    />
 
                     {error && <div className="text-red-500 text-sm text-center">{error}</div>}
 

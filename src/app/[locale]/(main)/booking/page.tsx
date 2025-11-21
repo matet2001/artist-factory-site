@@ -106,9 +106,7 @@ export default function BookingPage() {
 
             await fetchBookings(selectedDate)
 
-            toast.success('Success', {
-                description: 'Booking added to cart',
-            })
+            toast.success(t('BOOKING_PLANNED'))
         } catch (error: any) {
             toast.error('Error', {
                 description: error.message,

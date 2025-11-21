@@ -9,4 +9,5 @@ export interface RegisterFormData {
     fullName: string
     phone: string
     bandName: string
+    privacyConsent: boolean
 }
