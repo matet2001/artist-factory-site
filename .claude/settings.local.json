@@ -1,20 +1,21 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(ls:*)",
-      "Bash(npx prisma format:*)",
-      "Bash(npx prisma --help:*)",
-      "Bash(npx prisma migrate:*)",
-      "Bash(npx prisma generate)",
-      "Bash(cat:*)",
-      "Bash(npx prisma db seed:*)",
-      "Bash(npx tsx:*)",
-      "Bash(npx prisma db push:*)",
-      "Bash(npx shadcn@latest add:*)",
-      "Bash(npm run build:*)",
-      "Bash(timeout 60 npm run build:*)"
-    ],
-    "deny": [],
-    "ask": []
-  }
+    "permissions": {
+        "allow": [
+            "Bash(ls:*)",
+            "Bash(npx prisma format:*)",
+            "Bash(npx prisma --help:*)",
+            "Bash(npx prisma migrate:*)",
+            "Bash(npx prisma generate)",
+            "Bash(cat:*)",
+            "Bash(npx prisma db seed:*)",
+            "Bash(npx tsx:*)",
+            "Bash(npx prisma db push:*)",
+            "Bash(npx shadcn@latest add:*)",
+            "Bash(npm run build:*)",
+            "Bash(timeout 60 npm run build:*)",
+            "Bash(del check-rooms.ts fix-room-ids.ts)"
+        ],
+        "deny": [],
+        "ask": []
+    }
 }
