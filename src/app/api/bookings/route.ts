@@ -10,13 +10,9 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ error: 'Date parameter is required' }, { status: 400 })
         }
 
-        // Parse the date and set time bounds for the day
-        const selectedDate = new Date(dateParam)
-        const startOfDay = new Date(selectedDate)
-        startOfDay.setHours(0, 0, 0, 0)
-
-        const endOfDay = new Date(selectedDate)
-        endOfDay.setHours(23, 59, 59, 999)
+        // Parse UTC date string and set time bounds for the day in UTC
+        const startOfDay = new Date(dateParam + 'T00:00:00.000Z')
+        const endOfDay = new Date(dateParam + 'T23:59:59.999Z')
 
         // Fetch all bookings for the selected date
         const bookings = await prisma.booking.findMany({

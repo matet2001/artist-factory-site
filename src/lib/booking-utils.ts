@@ -37,7 +37,9 @@ export enum CellState {
     PLANNED_CANCELABLE = 'PLANNED_CANCELABLE',
     UNVERIFIED = 'UNVERIFIED',
     VERIFIED = 'VERIFIED',
+    VERIFIED_CANCELABLE = 'VERIFIED_CANCELABLE',
     PAST = 'PAST',
+    TOO_SOON = 'TOO_SOON',
 }
 
 export const OPENING_HOURS: OpeningHours = {
@@ -84,4 +86,24 @@ export function getCurrentTimePosition(openingHours: OpeningHours = OPENING_HOUR
     const minutesFraction = currentMinutes / 60
 
     return ((hoursFromOpen + minutesFraction) / totalHours) * 100
+}
+
+export function isWithin24Hours(date: Date, time: number): boolean {
+    const now = new Date()
+    const bookingDateTime = new Date(date)
+    bookingDateTime.setHours(time, 0, 0, 0) // Start of the hour slot
+
+    const hoursUntilBooking = (bookingDateTime.getTime() - now.getTime()) / (1000 * 60 * 60)
+
+    return hoursUntilBooking < 24
+}
+
+export function isWithin48Hours(date: Date, time: number): boolean {
+    const now = new Date()
+    const bookingDateTime = new Date(date)
+    bookingDateTime.setHours(time, 0, 0, 0) // Start of the hour slot
+
+    const hoursUntilBooking = (bookingDateTime.getTime() - now.getTime()) / (1000 * 60 * 60)
+
+    return hoursUntilBooking < 48
 }

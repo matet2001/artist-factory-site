@@ -22,9 +22,8 @@ export async function POST(request: NextRequest) {
             )
         }
 
-        // Parse and normalize the date
-        const bookingDate = new Date(date)
-        bookingDate.setHours(0, 0, 0, 0)
+        // Parse UTC date string (YYYY-MM-DD) and create UTC date at midnight
+        const bookingDate = new Date(date + 'T00:00:00.000Z')
 
         // Check if the time slot is already booked
         const existingBooking = await prisma.booking.findUnique({
