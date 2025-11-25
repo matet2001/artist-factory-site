@@ -441,7 +441,7 @@ export async function sendAdminBookingNotification(
 
                       ${bookingsList}
 
-                      <div style="margin-top: 32px; padding-top: 32px; border-top: 1px solid #333333;">
+                      <div style="margin-top: 32px; padding-top: 33px; border-top: 1px solid #333333;">
                         <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0;">ArtistFactory - Próbaterem és Stúdió</p>
                       </div>
                     </td>
