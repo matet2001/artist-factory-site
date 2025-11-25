@@ -34,25 +34,31 @@ export default function HeroSection() {
                             </motion.h1>
 
                             {/* Subtitle */}
-                            <motion.p
+                            <motion.div
                                 variants={animations.fadeUp}
                                 className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground"
                             >
                                 {t('HERO.DESCRIPTION_INTRO')}
-                            </motion.p>
+                                <p className="mt-1 italic">{t('HERO.SINCE')}</p>
+                            </motion.div>
+
+                            {/* Since */}
+                            <motion.p
+                                variants={animations.fadeUp}
+                                className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground text-ital"
+                            ></motion.p>
 
                             {/* 3 Images Section */}
                             <motion.div
                                 variants={animations.stagger}
                                 className="grid grid-cols-1 md:grid-cols-3 gap-0 mt-8"
                             >
-
                                 {/* Reception Image - Middle with text at bottom */}
                                 <motion.div
                                     variants={animations.scaleIn}
-                                    className="relative group"
+                                    className="relative group "
                                 >
-                                    <div className="relative aspect-[3/4] overflow-hidden">
+                                    <div className="relative aspect-[3/4] overflow-hidden  rounded-l-2xl border-t-2 border-b-3 border-primary">
                                         <Image
                                             src="/pictures/chill_zone.jpg"
                                             alt={t('HERO.IMAGE_RECEPTION')}
@@ -66,7 +72,7 @@ export default function HeroSection() {
                                     variants={animations.scaleIn}
                                     className="relative group"
                                 >
-                                    <div className="relative aspect-[3/4] overflow-hidden rounded-l-2xl">
+                                    <div className="relative aspect-[3/4] overflow-hidden border-t-3 border-b-3 border-primary">
                                         <Image
                                             src="/pictures/corridor.jpg"
                                             alt={t('HERO.IMAGE_CORRIDOR')}
@@ -81,7 +87,7 @@ export default function HeroSection() {
                                     variants={animations.scaleIn}
                                     className="relative group"
                                 >
-                                    <div className="relative aspect-[3/4] overflow-hidden rounded-r-2xl">
+                                    <div className="relative aspect-[3/4] overflow-hidden rounded-r-2xl border-t-3 border-b-3 border-primary">
                                         <Image
                                             src="/pictures/reception.jpg"
                                             alt={t('HERO.IMAGE_STUDIO')}

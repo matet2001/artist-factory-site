@@ -13,7 +13,9 @@
         "ARTISTS": "Artists Who Practice Here",
         "RIGHTS": "All rights reserved",
         "CONTACT": "Contact Information",
-        "DEVELOPMENT": "Web Development"
+        "DEVELOPMENT": "Web Development",
+        "PRIVACY_POLICY": "Privacy Policy",
+        "TERMS_OF_BOOKING": "Terms of Booking"
     },
     "USER": {
         "PROFILE": "Your Profile",
@@ -32,7 +34,8 @@
     "HOME": {
         "HERO": {
             "TITLE": "Artist Factory",
-            "DESCRIPTION_INTRO": "Rehearsal Rooms and Studio since 2007",
+            "DESCRIPTION_INTRO": "Rehearsal Rooms and Studio",
+            "SINCE": "since 2007",
             "DESCRIPTION_DETAILS": "Since 2007, ArtistFactory has welcomed musicians and bands in a friendly, inspiring environment where everything is set for uninterrupted practice.",
             "CTA": "Book now!",
             "CTA_BOOK": "Online booking",
@@ -189,11 +192,32 @@
         "CHOOSE_DATE": "Choose date",
         "PRE_TITLE": "Secure your spot",
         "TITLE": "Booking",
+        "LOADING": "Loading bookings...",
         "FINALIZE_ORDER": "Finalize Booking",
-        "ORDER_DISCLAIM": "Please review your bookings, then click submit. You will receive a confirmation link via email.",
+        "ORDER_DISCLAIM": "Please review your bookings, then click submit. You will receive a confirmation email.",
         "SUBMIT": "Submit Booking",
+        "BOOKING_SUCCESS_TITLE": "Booking Confirmed!",
+        "BOOKING_SUCCESS_DESC": "Your booking has been successfully confirmed. We've sent a confirmation email with all the details.",
+        "BOOKING_SUCCESS_EMAIL_NOTICE": "Please check your email for the confirmation and booking details. We look forward to welcoming you!",
+        "BACK_TO_HOME": "Back to Home",
         "SELECTED_BOOKINGS": "Selected Bookings ({count})",
         "BOOKING_PLANNED": "Booking planned",
+        "BOOKING_REMOVED": "Booking removed",
+        "TERMS_CONSENT": "I have read and accept the",
+        "TERMS_OF_BOOKING": "Terms of Booking",
+        "TERMS_REQUIRED": "You must accept the terms of booking to proceed",
+        "TERMS": {
+            "TITLE": "Terms of Booking",
+            "ADVANCE_BOOKING_TITLE": "Online Booking Time Requirement",
+            "ADVANCE_BOOKING": "Online bookings must be made at least 24 hours in advance. For bookings within 24 hours, please contact us by phone or email.",
+            "CANCELLATION_TITLE": "Cancellation Policy",
+            "CANCELLATION": "Cancellations made within 48 hours of the scheduled rehearsal require full payment. Rescheduling to another day is not possible in this case, as it would count as a new booking.",
+            "SAME_DAY_CHANGES_TITLE": "Same-Day Changes",
+            "SAME_DAY_CHANGES": "Changes to the rehearsal time on the same day are possible, subject to availability.",
+            "CONTACT_TITLE": "Contact Information",
+            "CONTACT": "For cancellations or changes, please reach out via email or phone.",
+            "CLOSE": "Close"
+        },
         "ALERT": {
             "LOGIN": "Please sign in to make a booking!"
         },
@@ -214,6 +238,17 @@
             "DESCRIPTION": "We're experiencing technical difficulties with our online booking system. Our team is working to resolve this issue as quickly as possible.",
             "ALTERNATIVE": "In the meantime, you can book by phone:",
             "AVAILABILITY": "Available 9 AM – 10 PM"
+        },
+        "BOOKING_TOO_SOON": "Bookings must be made at least 24 hours in advance. Please contact us by phone or email for last-minute bookings.",
+        "CANCEL_TOO_LATE": "This booking cannot be cancelled online as it's less than 48 hours away. Please contact us by phone or email. Note: Full payment is required for cancellations within 48 hours.",
+        "CANCEL_BOOKING": "Cancel Booking",
+        "CANCEL_CONFIRM": "Are you sure you want to cancel this booking?",
+        "BOOKING_CANCELLED": "Booking cancelled successfully",
+        "RULES": {
+            "TITLE": "Important Booking Rules",
+            "ADVANCE_24H": "📅 Bookings must be made at least 24 hours in advance",
+            "CANCEL_48H": "⏰ Cancellations within 48 hours will be charged the full price, and can only be made by phone.",
+            "VIEW_FULL_TERMS": "View Full Terms"
         }
     },
 
@@ -462,15 +497,19 @@
             "EXPIRES": "This link will remain valid for 30 days.",
             "SUPPORT": "If you have any questions or need assistance, please contact our support team."
         },
-        "BOOKING": {
-            "SUBJECT": "Verify your booking",
-            "TITLE": "Booking Confirmation",
-            "DESCRIPTION": "Click the button below to confirm your booking. Your reservation will be finalized after verification.",
+        "BOOKING_CONFIRMATION": {
+            "SUBJECT": "Booking Confirmed - ArtistFactory",
+            "TITLE": "Your Booking is Confirmed!",
             "YOUR_BOOKINGS": "Your Bookings:",
-            "BUTTON": "Confirm Booking",
-            "OR_COPY": "Or copy this link:",
-            "EXPIRES": "This link will expire in 24 hours."
-        }
+            "PRICE_PER_HOUR": "Price per hour",
+            "CLOSING": "We look forward to welcoming you!",
+            "CANCELLATION_POLICY": "Cancellation Policy",
+            "CANCELLATION_INFO": "Bookings can be cancelled online up to 48 hours in advance. After that, cancellations must be made via email or phone, and the full price must be paid.",
+            "CONTACT_INFO": "For cancellations or changes, please contact us:",
+            "PHONE": "Phone",
+            "EMAIL": "Email"
+        },
+        "FOOTER": "ArtistFactory - Rehearsal Rooms and Studio"
     },
     "PRIVACY": {
         "TITLE": "Privacy Policy",

@@ -19,20 +19,8 @@ type RentableItem = {
 const rentable: RentableItem[] = [
     { translationKey: 'RENTABLE_BOOM_STAND', price: 300 },
     { translationKey: 'RENTABLE_STRAIGHT_STAND', price: 300 },
-    { translationKey: 'RENTABLE_CYMBAL', price: 300 },
+    { translationKey: 'RENTABLE_CYMBAL', price: 500 },
     { translationKey: 'RENTABLE_DOUBLE_PEDAL', price: 300 },
-]
-
-type DrinkItem = {
-    translationKey: string
-    price?: number
-}
-
-const drinks: DrinkItem[] = [
-    { translationKey: 'DRINK_BEER', price: 800 },
-    { translationKey: 'DRINK_WATER', price: 400 },
-    { translationKey: 'DRINK_SODA', price: 500 },
-    { translationKey: 'DRINK_COFFEE', price: 300 },
 ]
 
 export default function PricesPage() {
@@ -237,7 +225,7 @@ export default function PricesPage() {
                                 initial="initial"
                                 whileInView="whileInView"
                                 viewport={viewportConfig}
-                                className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto"
+                                className="flex flex-col gap-18 max-w-5xl mx-auto"
                             >
                                 {/* Rentable Equipment */}
                                 <motion.div variants={animations.scaleIn} className="space-y-6">
@@ -265,25 +253,11 @@ export default function PricesPage() {
                                                     <span className="font-medium text-foreground text-left flex-1 pr-4">
                                                         {t(item.translationKey)}
                                                     </span>
-                                                    <div className="text-right flex-shrink-0">
-                                                        {isCymbal ? (
-                                                            <>
-                                                                <div className="font-bold text-foreground whitespace-nowrap">
-                                                                    {item.price.toLocaleString(
-                                                                        'hu-HU'
-                                                                    )}{' '}
-                                                                    Ft
-                                                                </div>
-                                                                <div className="text-xs text-muted-foreground whitespace-nowrap">
-                                                                    / {t('HOUR')}
-                                                                </div>
-                                                            </>
-                                                        ) : (
-                                                            <div className="font-bold text-foreground whitespace-nowrap">
-                                                                {item.price.toLocaleString('hu-HU')}{' '}
-                                                                Ft / {t('HOUR')}
-                                                            </div>
-                                                        )}
+                                                    <div className="text-right flex-shrink-0 min-w-md">
+                                                        <div className="font-bold text-foreground whitespace-nowrap">
+                                                            {item.price.toLocaleString('hu-HU')} Ft
+                                                            / {t('HOUR')}
+                                                        </div>
                                                     </div>
                                                 </motion.div>
                                             )
@@ -292,7 +266,10 @@ export default function PricesPage() {
                                 </motion.div>
 
                                 {/* Drinks */}
-                                <motion.div variants={animations.scaleIn} className="space-y-6">
+                                <motion.div
+                                    variants={animations.scaleIn}
+                                    className="space-y-6 self-center"
+                                >
                                     <div className="text-center space-y-2">
                                         <div className="flex items-center justify-center gap-2">
                                             <Coffee className="h-6 w-6 text-primary" />
@@ -303,25 +280,6 @@ export default function PricesPage() {
                                         <p className="text-muted-foreground text-sm">
                                             {t('DRINKS_DESC')}
                                         </p>
-                                    </div>
-
-                                    <div className="space-y-3">
-                                        {drinks.map((item, idx) => (
-                                            <motion.div
-                                                key={idx}
-                                                variants={animations.fadeUp}
-                                                className="flex items-center justify-between p-4 rounded-xl bg-card-elevated border border-primary/10 hover:border-primary/20 transition-all"
-                                            >
-                                                <span className="font-medium text-foreground text-left flex-1 pr-4">
-                                                    {t(item.translationKey)}
-                                                </span>
-                                                {item.price && (
-                                                    <span className="font-bold text-foreground whitespace-nowrap flex-shrink-0">
-                                                        {item.price.toLocaleString('hu-HU')} Ft
-                                                    </span>
-                                                )}
-                                            </motion.div>
-                                        ))}
                                     </div>
                                 </motion.div>
                             </motion.div>

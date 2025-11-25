@@ -1,10 +1,10 @@
 'use client'
 
+import { CONTACT } from '@/lib/constants'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa'
 import Logo from './logo'
-import { CONTACT } from '@/lib/constants'
 
 const equipmentBrands: string[] = [
     'DW',
@@ -91,6 +91,17 @@ export default function Footer() {
                         <span>© 2025 ArtistFactory</span>
                         <span>|</span>
                         <span>{t('RIGHTS')}</span>
+                        <span>|</span>
+                        <Link href="/privacy-policy" className="hover:text-primary hover:underline">
+                            {t('PRIVACY_POLICY')}
+                        </Link>
+                        <span>|</span>
+                        <Link
+                            href="/terms-of-booking"
+                            className="hover:text-primary hover:underline"
+                        >
+                            {t('TERMS_OF_BOOKING')}
+                        </Link>
                         <span>|</span>
                         <span>
                             {t('DEVELOPMENT')}:&nbsp;
