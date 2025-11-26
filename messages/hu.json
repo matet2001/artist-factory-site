@@ -20,7 +20,11 @@
     "USER": {
         "PROFILE": "Profilod",
         "SETTINGS": "Beállítások",
-        "LOGOUT": "Kijelentkezés"
+        "LOGOUT": "Kijelentkezés",
+        "ADMIN": {
+            "USERS": "Felhasználók",
+            "BOOKINGS": "Foglalások"
+        }
     },
     "GENERAL": {
         "CLOSE": "Bezárás",
@@ -452,6 +456,31 @@
         "FOOTER": "ArtistFactory - Próbaterem és Stúdió"
     },
 
+    "ADMIN_BOOKINGS": {
+        "PAGE_TITLE": "Admin - Foglalások",
+        "PAGE_SUBTITLE": "Telefonos foglalások kezelése és összes foglalás megtekintése",
+        "LOADING": "Betöltés...",
+        "CUSTOMER_INFO_TITLE": "1. Ügyfél adatai",
+        "CUSTOMER_INFO_DESC": "Add meg az ügyfél nevét, majd válassz időpontokat a lenti táblázatból.",
+        "NAME_LABEL": "Név",
+        "BAND_NAME_LABEL": "Zenekar neve (opcionális)",
+        "NAME_PLACEHOLDER": "Kovács János",
+        "BAND_NAME_PLACEHOLDER": "The Rock Band",
+        "NAME_CONFIRMED": "✓ Név megadva. Most válassz időpontokat a lenti táblázatból.",
+        "SUBMIT_BUTTON": "Foglalás leadása",
+        "SUBMITTING_BUTTON": "Foglalás...",
+        "SELECTED_BOOKINGS_TITLE": "Kiválasztott időpontok ({count})",
+        "CLEAR_ALL": "Összes törlése",
+        "TABLE_TITLE": "Foglalási táblázat",
+        "TABLE_DESC_WITH_NAME": "Időpontok kiválasztása a következő ügyfélnek: {name}",
+        "TABLE_DESC_NO_NAME": "Töltsd ki az ügyfél nevét a fenti űrlapon az időpontok kiválasztásához",
+        "ERROR_NAME_REQUIRED": "Először add meg az ügyfél nevét a fenti űrlapon!",
+        "ERROR_NAME_MISSING": "Add meg az ügyfél nevét!",
+        "ERROR_NO_BOOKINGS": "Válassz legalább egy időpontot!",
+        "ERROR_LOAD_FAILED": "Nem sikerült betölteni a foglalásokat",
+        "SUCCESS_CREATED": "Foglalás létrehozva: {name}",
+        "SUCCESS_DELETED": "Foglalás törölve"
+    },
     "BOOKING": {
         "PRE_TITLE": "Foglald le a helyed",
         "TITLE": "Próbaterem Foglalás",
@@ -511,7 +540,7 @@
         "BOOKING_CANCELLED": "Foglalás sikeresen lemondva",
         "RULES": {
             "TITLE": "Fontos Foglalási Szabályok",
-            "ADVANCE_24H": "📅 Foglalást legalább 24 órával a kezdés előtt lehet leadni.",
+            "ADVANCE_24H": "📅 Online foglalást legalább 24 órával a kezdés előtt lehet leadni.",
             "CANCEL_48H": "⏰ 48 órán belüli lemondás esetén a teljes ár felszámításra kerül, és a lemondás csak telefonon lehetséges.",
             "VIEW_FULL_TERMS": "Teljes Feltételek Megtekintése"
         }

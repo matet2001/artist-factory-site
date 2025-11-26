@@ -5,11 +5,13 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Skeleton } from '@/components/ui/skeleton'
 import { signOut, useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/navigation'
 import { useRouter } from 'next/navigation'
 import { CgProfile } from 'react-icons/cg'
 
@@ -49,6 +51,25 @@ export function AuthOptions() {
                             <p className="font-medium">{session.user.name}</p>
                             <p className="text-muted-foreground truncate">{session.user.email}</p>
                         </div>
+
+                        {/* Admin menu items */}
+                        {session.user?.isAdmin && (
+                            <>
+                                <DropdownMenuItem asChild>
+                                    <Link href="/admin/users" className="cursor-pointer">
+                                        {tUser('ADMIN.USERS')}
+                                    </Link>
+                                </DropdownMenuItem>
+
+                                <DropdownMenuItem asChild>
+                                    <Link href="/admin/bookings" className="cursor-pointer">
+                                        {tUser('ADMIN.BOOKINGS')}
+                                    </Link>
+                                </DropdownMenuItem>
+
+                                <DropdownMenuSeparator />
+                            </>
+                        )}
 
                         {/* <DropdownMenuItem asChild>
                             <Link href="/profile" className="cursor-pointer">

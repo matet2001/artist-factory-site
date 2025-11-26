@@ -5,21 +5,31 @@ export async function GET(request: NextRequest) {
     try {
         const { searchParams } = new URL(request.url)
         const dateParam = searchParams.get('date')
+        const startDateParam = searchParams.get('startDate')
+        const endDateParam = searchParams.get('endDate')
 
-        if (!dateParam) {
+        let startOfRange: Date
+        let endOfRange: Date
+
+        // Support both single date and date range queries
+        if (startDateParam && endDateParam) {
+            // Date range query (for admin)
+            startOfRange = new Date(startDateParam + 'T00:00:00.000Z')
+            endOfRange = new Date(endDateParam + 'T23:59:59.999Z')
+        } else if (dateParam) {
+            // Single date query (for regular booking page)
+            startOfRange = new Date(dateParam + 'T00:00:00.000Z')
+            endOfRange = new Date(dateParam + 'T23:59:59.999Z')
+        } else {
             return NextResponse.json({ error: 'Date parameter is required' }, { status: 400 })
         }
 
-        // Parse UTC date string and set time bounds for the day in UTC
-        const startOfDay = new Date(dateParam + 'T00:00:00.000Z')
-        const endOfDay = new Date(dateParam + 'T23:59:59.999Z')
-
-        // Fetch all bookings for the selected date
+        // Fetch all bookings for the date range
         const bookings = await prisma.booking.findMany({
             where: {
                 date: {
-                    gte: startOfDay,
-                    lte: endOfDay,
+                    gte: startOfRange,
+                    lte: endOfRange,
                 },
             },
             include: {

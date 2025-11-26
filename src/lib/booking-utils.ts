@@ -5,6 +5,7 @@ export type { BookingStatus }
 export interface BookingIntent {
     roomId: string
     time: number
+    date: Date
 }
 
 export interface OpeningHours {

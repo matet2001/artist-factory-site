@@ -50,11 +50,11 @@ export async function sendVerificationEmail(email: string, token: string, locale
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
-        <body style="margin: 0; padding: 0; background-color: #0B0B0B; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0B0B0B; padding: 40px 20px;">
+        <body style="margin: 0; padding: 0; background-color: #242424; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #242424; padding: 40px 20px;">
             <tr>
               <td align="center">
-                <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #242424; border-radius: 12px; overflow: hidden;">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #242424;">
                   <tr>
                     <td style="padding: 48px 40px; text-align: center;">
                       <h1 style="color: #f5f5f5; font-size: 28px; font-weight: 600; margin: 0 0 16px 0;">${t('TITLE')}</h1>
@@ -71,8 +71,8 @@ export async function sendVerificationEmail(email: string, token: string, locale
                       <p style="color: #919191; font-size: 14px; line-height: 20px; margin: 24px 0 0 0;">${t('OR_COPY')}</p>
                       <p style="color: #ff6b9d; font-size: 14px; line-height: 20px; margin: 8px 0 0 0; word-break: break-all;">${verificationUrl}</p>
 
-                      <div style="margin-top: 32px; padding-top: 32px; border-top: 1px solid #333333;">
-                        <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0 0 8px 0;">${t('EXPIRES')}</p>
+                      <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #333333;">
+                        <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0 0 4px 0;">${t('EXPIRES')}</p>
                         <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0;">${tFooter('FOOTER')}</p>
                       </div>
                     </td>
@@ -111,11 +111,11 @@ export async function sendPasswordResetEmail(email: string, token: string, local
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
-        <body style="margin: 0; padding: 0; background-color: #0B0B0B; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0B0B0B; padding: 40px 20px;">
+        <body style="margin: 0; padding: 0; background-color: #242424; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #242424; padding: 40px 20px;">
             <tr>
               <td align="center">
-                <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #242424; border-radius: 12px; overflow: hidden;">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #242424;">
                   <tr>
                     <td style="padding: 48px 40px; text-align: center;">
                       <h1 style="color: #f5f5f5; font-size: 28px; font-weight: 600; margin: 0 0 16px 0;">${t('TITLE')}</h1>
@@ -132,9 +132,9 @@ export async function sendPasswordResetEmail(email: string, token: string, local
                       <p style="color: #919191; font-size: 14px; line-height: 20px; margin: 24px 0 0 0;">${t('OR_COPY')}</p>
                       <p style="color: #ff6b9d; font-size: 14px; line-height: 20px; margin: 8px 0 0 0; word-break: break-all;">${resetUrl}</p>
 
-                      <div style="margin-top: 32px; padding-top: 32px; border-top: 1px solid #333333;">
-                        <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0 0 8px 0;">${t('EXPIRES')}</p>
-                        <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0 0 8px 0;">${t('NO_REQUEST')}</p>
+                      <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #333333;">
+                        <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0 0 4px 0;">${t('EXPIRES')}</p>
+                        <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0 0 4px 0;">${t('NO_REQUEST')}</p>
                         <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0;">${tFooter('FOOTER')}</p>
                       </div>
                     </td>
@@ -182,11 +182,11 @@ export async function sendBookingVerificationEmail(
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
-        <body style="margin: 0; padding: 0; background-color: #0B0B0B; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0B0B0B; padding: 60px 20px;">
+        <body style="margin: 0; padding: 0; background-color: #242424; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #242424; padding: 60px 20px;">
             <tr>
               <td align="center">
-                <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #242424; border-radius: 12px; overflow: hidden;">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #242424;">
                   <tr>
                     <td style="padding: 48px 40px; text-align: center;">
                       <h1 style="color: #f5f5f5; font-size: 28px; font-weight: 600; margin: 0 0 16px 0;">${t('TITLE')}</h1>
@@ -210,8 +210,8 @@ export async function sendBookingVerificationEmail(
                       <p style="color: #919191; font-size: 14px; line-height: 20px; margin: 24px 0 0 0;">${t('OR_COPY')}</p>
                       <p style="color: #ff6b9d; font-size: 14px; line-height: 20px; margin: 8px 0 0 0; word-break: break-all;">${verificationUrl}</p>
 
-                      <div style="margin-top: 32px; padding-top: 32px; border-top: 1px solid #333333;">
-                        <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0 0 8px 0;">${t('EXPIRES')}</p>
+                      <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #333333;">
+                        <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0 0 4px 0;">${t('EXPIRES')}</p>
                         <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0;">${tFooter('FOOTER')}</p>
                       </div>
                     </td>
@@ -324,11 +324,11 @@ export async function sendBookingConfirmationEmail(
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
-        <body style="margin: 0; padding: 0; background-color: #0B0B0B; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0B0B0B; padding: 40px 20px;">
+        <body style="margin: 0; padding: 0; background-color: #242424; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #242424; padding: 40px 20px;">
             <tr>
               <td align="center">
-                <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #242424; border-radius: 12px; overflow: hidden;">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #242424;">
                   <tr>
                     <td style="padding: 48px 40px; text-align: center;">
                       <h1 style="color: #f5f5f5; font-size: 28px; font-weight: 600; margin: 0 0 32px 0;">${t('TITLE')}</h1>
@@ -354,7 +354,7 @@ export async function sendBookingConfirmationEmail(
                         </p>
                       </div>
 
-                      <div style="margin-top: 32px; padding-top: 32px; border-top: 1px solid #333333;">
+                      <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #333333;">
                         <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0;">${tFooter('FOOTER')}</p>
                       </div>
                     </td>
@@ -427,11 +427,11 @@ export async function sendAdminBookingNotification(
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
-        <body style="margin: 0; padding: 5; background-color: #0B0B0B; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0B0B0B; padding: 40px 20px;">
+        <body style="margin: 0; padding: 0; background-color: #242424; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #242424; padding: 40px 20px;">
             <tr>
               <td align="center">
-                <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #242424; border-radius: 12px; overflow: hidden;">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #242424;">
                   <tr>
                     <td style="padding: 48px 40px;">
                       <h1 style="color: #f5f5f5; font-size: 24px; font-weight: 600; margin: 0 0 16px 0;">Tisztelt Admin,</h1>
@@ -441,7 +441,7 @@ export async function sendAdminBookingNotification(
 
                       ${bookingsList}
 
-                      <div style="margin-top: 32px; padding-top: 33px; border-top: 1px solid #333333;">
+                      <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #333333;">
                         <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0;">ArtistFactory - Próbaterem és Stúdió</p>
                       </div>
                     </td>
@@ -478,8 +478,8 @@ export async function sendMigrationWelcomeEmail(email: string, token: string, us
 <!DOCTYPE html>
 <html>
   <head><meta charset="UTF-8" /></head>
-  <body style="background-color: #0B0B0B; font-family: sans-serif; padding: 40px 20px; color: #f5f5f5;">
-    <div style="max-width: 600px; margin: 0 auto; background: #242424; border-radius: 12px; padding: 40px;">
+  <body style="background-color: #242424; font-family: sans-serif; padding: 40px 20px; color: #f5f5f5;">
+    <div style="max-width: 600px; margin: 0 auto; background: #242424; padding: 40px;">
 
       <!-- HUNGARIAN VERSION -->
       <h1 style="margin-bottom: 8px;">Szia ${userName || ''}!</h1>
