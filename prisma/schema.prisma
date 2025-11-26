@@ -15,14 +15,15 @@ model User {
   phone              String?
   bandName           String?
   emailVerified      DateTime?
+  isAdmin            Boolean             @default(false)
   lastEmailSent      DateTime?
   emailSentCount     Int                 @default(0)
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
   verificationTokens VerificationToken[]
 
-    bookings  Booking[]
-  
+  bookings Booking[]
+
   @@map("users")
 }
 
@@ -49,7 +50,7 @@ model Room {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  bookings    Booking[]
+  bookings Booking[]
 
   @@map("rooms")
 }
@@ -62,16 +63,16 @@ enum BookingStatus {
 }
 
 model Booking {
-  id        String        @id @default(cuid())
-  date      DateTime      @db.Date
-  time      Int           // hour (10-22)
-  status    BookingStatus @default(UNVERIFIED)
+  id     String        @id @default(cuid())
+  date   DateTime      @db.Date
+  time   Int // hour (10-22)
+  status BookingStatus @default(UNVERIFIED)
 
-  userId    String
-  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  roomId    String
-  room      Room          @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  roomId String
+  room   Room   @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
   verificationToken String?
   verifiedAt        DateTime?
@@ -91,11 +92,11 @@ model BookingVerification {
   token     String   @unique @default(cuid())
   userId    String
   date      DateTime @db.Date
-  bookings  Json     // Store array of {roomId, time}
+  bookings  Json // Store array of {roomId, time}
   status    String   @default("pending") // "pending" | "verified" | "expired"
   expiresAt DateTime
   createdAt DateTime @default(now())
-  
+
   @@index([token])
   @@index([userId])
   @@map("booking_verifications")

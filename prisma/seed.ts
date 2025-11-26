@@ -23,44 +23,44 @@ async function main() {
 
   console.log('Rooms seeded.');
 
-  // Seed users
-  await Promise.all([
-    prisma.user.create({
-      data: {
-        email: 'alice@example.com',
-        name: 'Alice',
+  // Seed admin user
+  await prisma.user.upsert({
+    where: { email: 'artistfactory@artistfactory.hu' },
+    update: {
+      password: await bcrypt.hash('artistfactory99', 10),
+      isAdmin: true,
+    },
+    create: {
+      email: 'artistfactory@artistfactory.hu',
+      name: 'ArtistFactory Admin',
+      password: await bcrypt.hash('artistfactory99', 10),
+      isAdmin: true,
+      emailVerified: new Date(),
+    },
+  });
+
+  console.log('Admin user seeded.');
+
+  // Seed regular users (only if they don't exist)
+  const testUsers = [
+    { email: 'alice@example.com', name: 'Alice' },
+    { email: 'bob@example.com', name: 'Bob' },
+    { email: 'charlie@example.com', name: 'Charlie' },
+    { email: 'diana@example.com', name: 'Diana' },
+    { email: 'edward@example.com', name: 'Edward' },
+  ];
+
+  for (const user of testUsers) {
+    await prisma.user.upsert({
+      where: { email: user.email },
+      update: {},
+      create: {
+        email: user.email,
+        name: user.name,
         password: await bcrypt.hash('password123', 10),
       },
-    }),
-    prisma.user.create({
-      data: {
-        email: 'bob@example.com',
-        name: 'Bob',
-        password: await bcrypt.hash('password123', 10),
-      },
-    }),
-    prisma.user.create({
-      data: {
-        email: 'charlie@example.com',
-        name: 'Charlie',
-        password: await bcrypt.hash('password123', 10),
-      },
-    }),
-    prisma.user.create({
-      data: {
-        email: 'diana@example.com',
-        name: 'Diana',
-        password: await bcrypt.hash('password123', 10),
-      },
-    }),
-    prisma.user.create({
-      data: {
-        email: 'edward@example.com',
-        name: 'Edward',
-        password: await bcrypt.hash('password123', 10),
-      },
-    }),
-  ]);
+    });
+  }
 
   console.log('Seeding completed.');
 }

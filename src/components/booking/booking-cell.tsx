@@ -83,12 +83,18 @@ export function BookingCell({
     const handleClick = () => {
         if (isLoading) return
 
+        const intent: BookingIntent = {
+            roomId,
+            time,
+            date,
+        }
+
         if (cellState === CellState.OPEN) {
-            onBook({ roomId, time })
+            onBook(intent)
         } else if (cellState === CellState.PLANNED_CANCELABLE) {
-            onDeletePlanned({ roomId, time })
+            onDeletePlanned(intent)
         } else if (cellState === CellState.VERIFIED_CANCELABLE && onCancelVerified) {
-            onCancelVerified({ roomId, time })
+            onCancelVerified(intent)
         }
     }
 

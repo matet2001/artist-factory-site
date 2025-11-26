@@ -20,7 +20,11 @@
     "USER": {
         "PROFILE": "Your Profile",
         "SETTINGS": "Settings",
-        "LOGOUT": "Logout"
+        "LOGOUT": "Logout",
+        "ADMIN": {
+            "USERS": "Users",
+            "BOOKINGS": "Bookings"
+        }
     },
     "GENERAL": {
         "CLOSE": "Close",
@@ -187,6 +191,31 @@
         }
     },
 
+    "ADMIN_BOOKINGS": {
+        "PAGE_TITLE": "Admin - Bookings",
+        "PAGE_SUBTITLE": "Manage phone bookings and view all reservations",
+        "LOADING": "Loading...",
+        "CUSTOMER_INFO_TITLE": "1. Customer Information",
+        "CUSTOMER_INFO_DESC": "Enter the customer's name, then select time slots from the table below.",
+        "NAME_LABEL": "Name",
+        "BAND_NAME_LABEL": "Band Name (optional)",
+        "NAME_PLACEHOLDER": "John Doe",
+        "BAND_NAME_PLACEHOLDER": "The Rock Band",
+        "NAME_CONFIRMED": "✓ Name entered. Now select time slots from the table below.",
+        "SUBMIT_BUTTON": "Submit Booking",
+        "SUBMITTING_BUTTON": "Booking...",
+        "SELECTED_BOOKINGS_TITLE": "Selected Time Slots ({count})",
+        "CLEAR_ALL": "Clear All",
+        "TABLE_TITLE": "Booking Table",
+        "TABLE_DESC_WITH_NAME": "Select time slots for customer: {name}",
+        "TABLE_DESC_NO_NAME": "Fill in the customer's name in the form above to select time slots",
+        "ERROR_NAME_REQUIRED": "Please enter the customer's name in the form above first!",
+        "ERROR_NAME_MISSING": "Please enter the customer's name!",
+        "ERROR_NO_BOOKINGS": "Please select at least one time slot!",
+        "ERROR_LOAD_FAILED": "Failed to load bookings",
+        "SUCCESS_CREATED": "Booking created: {name}",
+        "SUCCESS_DELETED": "Booking deleted"
+    },
     "BOOKING": {
         "SUCCESS_CONTENT": "We welcome you with love",
         "CHOOSE_DATE": "Choose date",
@@ -246,7 +275,7 @@
         "BOOKING_CANCELLED": "Booking cancelled successfully",
         "RULES": {
             "TITLE": "Important Booking Rules",
-            "ADVANCE_24H": "📅 Bookings must be made at least 24 hours in advance",
+            "ADVANCE_24H": "📅 Online bookings must be made at least 24 hours in advance",
             "CANCEL_48H": "⏰ Cancellations within 48 hours will be charged the full price, and can only be made by phone.",
             "VIEW_FULL_TERMS": "View Full Terms"
         }

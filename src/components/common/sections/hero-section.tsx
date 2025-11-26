@@ -51,22 +51,8 @@ export default function HeroSection() {
                             {/* 3 Images Section */}
                             <motion.div
                                 variants={animations.stagger}
-                                className="grid grid-cols-1 md:grid-cols-3 gap-0 mt-8"
+                                className="grid grid-cols-1 md:grid-cols-2 gap-0 mt-8"
                             >
-                                {/* Reception Image - Middle with text at bottom */}
-                                <motion.div
-                                    variants={animations.scaleIn}
-                                    className="relative group "
-                                >
-                                    <div className="relative aspect-[3/4] overflow-hidden  rounded-l-2xl border-t-2 border-b-3 border-primary">
-                                        <Image
-                                            src="/pictures/chill_zone.jpg"
-                                            alt={t('HERO.IMAGE_RECEPTION')}
-                                            fill
-                                            className="object-cover transition-transform duration-300 group-hover:scale-110"
-                                        />
-                                    </div>
-                                </motion.div>
                                 {/* Corridor Image - Left with rounded left corners */}
                                 <motion.div
                                     variants={animations.scaleIn}
