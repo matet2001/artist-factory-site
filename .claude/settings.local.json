@@ -14,7 +14,10 @@
       "Bash(npm run build:*)",
       "Bash(timeout 60 npm run build:*)",
       "Bash(del check-rooms.ts fix-room-ids.ts)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(npm install:*)",
+      "Bash(head:*)",
+      "Bash(wc:*)"
     ],
     "deny": [],
     "ask": []

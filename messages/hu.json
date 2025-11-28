@@ -585,5 +585,24 @@
             "WITHDRAW_CONSENT": "Visszavonni hozzájárulását az adatkezeléshez",
             "FILE_COMPLAINT": "Panaszt benyújtani a felügyeleti hatóságnál"
         }
+    },
+    "ADMIN_USERS": {
+        "PAGE_TITLE": "Felhasználók kezelése",
+        "PAGE_SUBTITLE": "Az összes regisztrált felhasználó megtekintése és kezelése",
+        "SEARCH_PLACEHOLDER": "Keresés név, email vagy zenekar neve alapján...",
+        "TOTAL_USERS": "Összesen {count} felhasználó",
+        "COLUMN_NAME": "Név",
+        "COLUMN_EMAIL": "Email",
+        "COLUMN_PHONE": "Telefon",
+        "COLUMN_BAND_NAME": "Zenekar neve",
+        "COLUMN_ADMIN": "Admin",
+        "COLUMN_EMAIL_VERIFIED": "Megerősítve",
+        "COLUMN_BOOKINGS_COUNT": "Foglalások",
+        "COLUMN_CREATED_AT": "Létrehozva",
+        "NOT_SET": "Nincs megadva",
+        "YES": "Igen",
+        "NO": "Nem",
+        "NO_USERS_FOUND": "Nem található felhasználó",
+        "ERROR_LOAD_FAILED": "Nem sikerült betölteni a felhasználókat"
     }
 }

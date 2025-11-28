@@ -133,7 +133,7 @@ export default function ContactSection() {
                         initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="bg-card rounded-3xl p-8 sm:p-12 lg:p-16 border border-primary/20 shadow-2xl"
+                        className="bg-transparent md:bg-card rounded-none md:rounded-3xl p-0 md:p-8 lg:p-12 border-0 md:border md:border-primary/20 md:shadow-2xl"
                     >
                         <div className="space-y-12">
                             <h2 className="text-3xl sm:text-4xl font-bold text-center">
@@ -229,12 +229,18 @@ export default function ContactSection() {
                         {/* Phone Card */}
                         <motion.div
                             variants={animations.scaleIn}
-                            className="group flex flex-col items-center gap-4 p-8 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg"
+                            className="group relative flex flex-col items-center gap-4 p-8 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg rounded-2xl"
                             style={{
-                                borderRadius: '50% 50% 45% 55% / 55% 50% 50% 45%',
                                 minHeight: '200px',
                             }}
                         >
+                            {/* Desktop only: oval shape overlay */}
+                            <div
+                                className="hidden md:block absolute inset-0 pointer-events-none -z-10 bg-card/80 border border-primary/20"
+                                style={{
+                                    borderRadius: '50% 50% 45% 55% / 55% 50% 50% 45%',
+                                }}
+                            />
                             <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
                                 <Phone className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
                             </div>
@@ -249,12 +255,18 @@ export default function ContactSection() {
                         {/* Email Card */}
                         <motion.div
                             variants={animations.scaleIn}
-                            className="group flex flex-col items-center gap-4 p-8 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg"
+                            className="group relative flex flex-col items-center gap-4 p-8 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg rounded-2xl"
                             style={{
-                                borderRadius: '55% 45% 52% 48% / 48% 55% 45% 52%',
                                 minHeight: '200px',
                             }}
                         >
+                            {/* Desktop only: oval shape overlay */}
+                            <div
+                                className="hidden md:block absolute inset-0 pointer-events-none -z-10 bg-card/80 border border-primary/20"
+                                style={{
+                                    borderRadius: '55% 45% 52% 48% / 48% 55% 45% 52%',
+                                }}
+                            />
                             <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
                                 <Mail className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
                             </div>
@@ -269,12 +281,18 @@ export default function ContactSection() {
                         {/* Address Card */}
                         <motion.div
                             variants={animations.scaleIn}
-                            className="group flex flex-col items-center gap-4 p-8 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg"
+                            className="group relative flex flex-col items-center gap-4 p-8 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg rounded-2xl"
                             style={{
-                                borderRadius: '48% 52% 50% 50% / 52% 48% 52% 48%',
                                 minHeight: '200px',
                             }}
                         >
+                            {/* Desktop only: oval shape overlay */}
+                            <div
+                                className="hidden md:block absolute inset-0 pointer-events-none -z-10 bg-card/80 border border-primary/20"
+                                style={{
+                                    borderRadius: '48% 52% 50% 50% / 52% 48% 52% 48%',
+                                }}
+                            />
                             <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
                                 <MapPin className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
                             </div>

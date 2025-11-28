@@ -12,7 +12,7 @@ export default function HomePage() {
     const tGeneral = useTranslations('GENERAL')
 
     return (
-        <div className="flex flex-col gap-y-40">
+        <div className="flex flex-col gap-y-16 md:gap-y-40">
             <HeroSection />
             <FeaturesSection />
             <BookingCtaSection />

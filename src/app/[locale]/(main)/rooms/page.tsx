@@ -44,14 +44,14 @@ function RoomSection({
     )
 
     return (
-        <section className="relative py-16 md:py-24">
-            <div className="max-w-7xl mx-auto px-4">
+        <section className="relative py-10 md:py-16 lg:py-24">
+            <div className="w-full md:max-w-7xl md:mx-auto md:px-4">
                 <motion.div
                     variants={animations.fadeUp}
                     initial="initial"
                     whileInView="whileInView"
                     viewport={viewportConfig}
-                    className="bg-card rounded-3xl overflow-hidden border border-primary/20 shadow-2xl"
+                    className="bg-card md:bg-card md:rounded-3xl overflow-hidden border-0 md:border md:border-primary/20 md:shadow-2xl rounded-sm" 
                 >
                     <div className={`grid grid-cols-1 lg:grid-cols-2 items-stretch`}>
                         {/* Image Carousel */}
@@ -97,18 +97,18 @@ function RoomSection({
                                     </Badge>
                                 </div>
 
-                                {/* Gradient overlay between image and content */}
+                                {/* Gradient overlay between image and content - desktop only */}
                                 <div
-                                    className={`absolute inset-y-0 ${isReversed ? 'left-0' : 'right-0'} w-3 z-10 pointer-events-none ${isReversed ? 'bg-gradient-to-r' : 'bg-gradient-to-l'} from-card to-card/0 backdrop-blur-md`}
+                                    className={`hidden md:block absolute inset-y-0 ${isReversed ? 'left-0' : 'right-0'} w-3 z-10 pointer-events-none ${isReversed ? 'bg-gradient-to-r' : 'bg-gradient-to-l'} from-card to-card/0 backdrop-blur-md`}
                                 />
                             </div>
                         </div>
 
                         {/* Content */}
                         <div
-                            className={`${isReversed ? 'lg:order-1' : 'lg:order-2'} p-8  flex flex-col justify-start space-y-10`}
+                            className={`${isReversed ? 'lg:order-1' : 'lg:order-2'} p-4 md:p-8 flex flex-col justify-start space-y-10 py-8`}
                         >
-                            <motion.div variants={animations.fadeUp}>
+                            <motion.div variants={animations.fadeUp} className="text-center lg:text-left">
                                 <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold capitalize">
                                     {tRooms(room.name)}
                                 </h2>
@@ -248,7 +248,7 @@ function StudioSection({
                     initial="initial"
                     whileInView="whileInView"
                     viewport={viewportConfig}
-                    className="bg-gradient-to-br from-card to-card-elevated rounded-3xl p-8 sm:p-12 lg:p-16 border border-primary/20 shadow-2xl"
+                    className="bg-transparent md:bg-gradient-to-br md:from-card md:to-card-elevated rounded-none md:rounded-3xl p-0 md:p-8 lg:p-12 border-0 md:border md:border-primary/20 md:shadow-2xl"
                 >
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                         {/* Image */}
