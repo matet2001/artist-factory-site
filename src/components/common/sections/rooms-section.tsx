@@ -24,9 +24,7 @@ export default function RoomsSection() {
                     whileInView="whileInView"
                     viewport={viewportConfig}
                     className="
-                        /* mobile: full-width card, no rounded */
                         bg-card rounded-none p-4 py-8
-                        /* md+: rounded card with palm trees */
                         md:rounded-3xl md:p-6 md:py-10
                         lg:p-8 lg:py-12
                         relative w-full

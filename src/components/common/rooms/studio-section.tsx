@@ -31,7 +31,6 @@ export default function StudioSection() {
         })
     )
 
-    // Add your studio images here
     const studioImages = ['hero.jpg']
 
     return (
@@ -45,7 +44,7 @@ export default function StudioSection() {
             >
                 <div className="relative w-full overflow-hidden rounded-2xl shadow-xl bg-card">
                     {/* === IMAGE SECTION === */}
-                    <div className="relative h-[500px] sm:h-[550px]">
+                    <div className="relative h-[420px] sm:h-[480px] lg:h-[520px]">
                         <Carousel
                             plugins={[plugin.current]}
                             className="w-full h-full"
@@ -59,7 +58,7 @@ export default function StudioSection() {
                             <CarouselContent>
                                 {studioImages.map((img, index) => (
                                     <CarouselItem key={index}>
-                                        <div className="relative h-[500px] sm:h-[550px] w-full overflow-hidden rounded-t-2xl">
+                                        <div className="relative h-[420px] sm:h-[480px] lg:h-[520px] w-full overflow-hidden">
                                             <Image
                                                 src={`/studio/${img}`}
                                                 alt={`${t('TITLE')} – ${index + 1}`}
@@ -67,117 +66,109 @@ export default function StudioSection() {
                                                 className="object-cover object-center"
                                                 priority={index === 0}
                                             />
+                                            {/* Subtle gradient for better legibility near the bottom */}
+                                            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-card/80 via-card/40 to-transparent" />
                                         </div>
                                     </CarouselItem>
                                 ))}
                             </CarouselContent>
 
-                            {/* Position arrows outside the image carousel */}
                             <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 shadow-md" />
                             <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 shadow-md" />
                         </Carousel>
                     </div>
 
-                    {/* === OVERLAY CONTENT AREA === */}
-                    <div className="relative z-10 -mt-10 px-6 sm:px-10 pb-5">
-                        {/* Gradient behind content – only lower portion of image */}
-                        <div className="absolute inset-x-0 top-0 h-[60%] bg-gradient-to-t from-card/90 to-card/10 backdrop-blur-md rounded-b-2xl z-[-1]" />
+                    {/* === OVERLAY CONTENT CARD === */}
+                    <div className="relative z-10 -mt-16 px-4 sm:px-8 pb-8">
+                        <div className="relative mx-auto max-w-5xl bg-card/95 backdrop-blur-md rounded-2xl shadow-2xl border border-border p-6 sm:p-8 space-y-6 sm:space-y-8">
+                            {/* Palm Trees in corners of the card */}
+                            <div className="pointer-events-none absolute inset-0 z-0">
+                                <PalmTreeSilhouette position="bottom-left" size="sm" />
+                                <PalmTreeSilhouette position="bottom-right" mirrored size="sm" />
+                            </div>
 
-                        <div className="w-full text-center p-5 space-y-6">
-                            {/* --- Title --- */}
-                            <motion.h2
-                                variants={animations.fadeUp}
-                                className="text-white text-3xl sm:text-5xl font-bold capitalize drop-shadow-lg"
-                            >
-                                {t('TITLE')}
-                            </motion.h2>
-
-                            {/* --- Description --- */}
-                            {/* <motion.p
-                                variants={animations.fadeUp}
-                                className="text-white/90 text-base sm:text-lg max-w-2xl mx-auto drop-shadow-md"
-                            >
-                                {t('SUBTITLE')}
-                            </motion.p> */}
-
-                            {/* --- Features (Price / Service Type) --- */}
-                            <motion.div
-                                variants={animations.stagger}
-                                initial="initial"
-                                whileInView="whileInView"
-                                viewport={viewportConfig}
-                                className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-12"
-                            >
-                                <motion.div
+                            <div className="relative z-10 space-y-5 sm:space-y-6">
+                                {/* --- Title --- */}
+                                <motion.h2
                                     variants={animations.fadeUp}
-                                    className="flex items-center gap-3"
+                                    className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center"
                                 >
-                                    <div className="bg-white/20 backdrop-blur-sm rounded-full p-2.5">
-                                        <DollarSign className="w-6 h-6 text-white" />
-                                    </div>
-                                    <div className="text-left">
-                                        <p className="text-white/70 text-xs font-medium uppercase tracking-wide drop-shadow-md">
-                                            {t('STUDIO_RATE')}
-                                        </p>
-                                        <p className="text-white text-xl sm:text-2xl font-bold drop-shadow-lg">
-                                            10,000 Ft / {t('HOUR')}
-                                        </p>
-                                        <p className="text-white/60 text-xs drop-shadow-md">
-                                            {t('VAT_FREE')}
-                                        </p>
-                                    </div>
-                                </motion.div>
+                                    {t('TITLE')}
+                                </motion.h2>
 
+                                {/* --- 3-column layout: Price / Services / CTA --- */}
                                 <motion.div
-                                    variants={animations.fadeUp}
-                                    className="flex items-center gap-3"
+                                    variants={animations.stagger}
+                                    initial="initial"
+                                    whileInView="whileInView"
+                                    viewport={viewportConfig}
+                                    className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 items-stretch"
                                 >
-                                    <div className="bg-white/20 backdrop-blur-sm rounded-full p-2.5">
-                                        <Mic2 className="w-6 h-6 text-white" />
-                                    </div>
-                                    <div className="text-left">
-                                        <p className="text-white/70 text-xs font-medium uppercase tracking-wide drop-shadow-md">
-                                            {t('SERVICES_TITLE')}
-                                        </p>
-                                        <p className="text-white text-lg sm:text-xl lg:text-2xl font-bold drop-shadow-lg break-words">
-                                            {t('FULL_ALBUM')}
-                                        </p>
-                                    </div>
+                                    {/* Price block */}
+                                    <motion.div
+                                        variants={animations.fadeUp}
+                                        className="flex items-center md:items-start gap-3 sm:gap-4"
+                                    >
+                                        <div className="flex-shrink-0 rounded-full bg-primary/10 p-2.5">
+                                            <DollarSign className="w-6 h-6 text-primary" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                                                {t('STUDIO_RATE')}
+                                            </p>
+                                            <p className="text-xl sm:text-2xl font-bold">
+                                                10,000 Ft / {t('HOUR')}
+                                            </p>
+                                            <p className="text-xs text-muted-foreground mt-1">
+                                                {t('VAT_FREE')}
+                                            </p>
+                                        </div>
+                                    </motion.div>
+
+                                    {/* Services block */}
+                                    <motion.div
+                                        variants={animations.fadeUp}
+                                        className="flex items-center md:items-start gap-3 sm:gap-4"
+                                    >
+                                        <div className="flex-shrink-0 rounded-full bg-primary/10 p-2.5">
+                                            <Mic2 className="w-6 h-6 text-primary" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                                                {t('SERVICES_TITLE')}
+                                            </p>
+                                            <p className="text-base sm:text-lg lg:text-xl font-semibold leading-snug">
+                                                {t('FULL_ALBUM')}
+                                            </p>
+                                        </div>
+                                    </motion.div>
+
+                                    {/* CTA column – same visual weight as other columns */}
+                                    <motion.div
+                                        variants={animations.fadeUp}
+                                        className="flex flex-col justify-center gap-3 items-center"
+                                    >
+                                        <Link href="/booking" className="w-full">
+                                            <Button
+                                                size="lg"
+                                                className="w-full h-12 sm:h-14 text-sm sm:text-base font-bold uppercase shadow-lg transition-transform hover:scale-[1.02] hover:-translate-y-0.5"
+                                            >
+                                                {t('CTA_BUTTON')}
+                                            </Button>
+                                        </Link>
+
+                                        <Link href="/studio" className="w-full">
+                                            <Button
+                                                variant="outline"
+                                                size="lg"
+                                                className="w-full h-12 sm:h-12 text-sm sm:text-base font-medium"
+                                            >
+                                                {tRooms('SEE_DETAILS')}
+                                            </Button>
+                                        </Link>
+                                    </motion.div>
                                 </motion.div>
-                            </motion.div>
-
-                            {/* --- CTA Buttons --- */}
-                            <motion.div
-                                variants={animations.fadeUpDelay}
-                                initial="initial"
-                                whileInView="whileInView"
-                                viewport={viewportConfig}
-                                className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-4 pt-4"
-                            >
-                                <Link href="/studio" className="w-full sm:w-auto">
-                                    <Button
-                                        variant="secondary"
-                                        size="lg"
-                                        className="w-full sm:w-auto px-10 py-7 text-lg font-bold shadow-2xl transition-all hover:scale-105 hover:-translate-y-0.5"
-                                    >
-                                        {tRooms('SEE_DETAILS')}
-                                    </Button>
-                                </Link>
-
-                                <Link href="/booking" className="w-full sm:w-auto">
-                                    <Button
-                                        size="lg"
-                                        className="w-full sm:w-auto px-14 py-7 text-lg uppercase font-bold transition-all hover:scale-105 hover:-translate-y-0.5"
-                                    >
-                                        {t('CTA_BUTTON')}
-                                    </Button>
-                                </Link>
-                            </motion.div>
-                        </div>
-                        {/* Palm Trees in bottom corners */}
-                        <div className="absolute inset-0 pointer-events-none z-0">
-                            <PalmTreeSilhouette position="bottom-left" size="sm" />
-                            <PalmTreeSilhouette position="bottom-right" mirrored size="sm" />
+                            </div>
                         </div>
                     </div>
                 </div>

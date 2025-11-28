@@ -69,11 +69,11 @@ export default function Header() {
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="sticky top-0 z-50 mx-auto max-w-6xl w-full backdrop-blur-md rounded-b-3xl h-[var(--header-height)] bg-background/70 supports-[backdrop-filter]:bg-background/30"
         >
-            <div className="container mx-auto flex h-full items-center justify-between px-10 w-full">
+            <div className="mx-auto flex h-full items-center justify-between md:justify-center w-full px-4 md:px-6">
                 <Logo />
 
                 {/* Desktop Nav */}
-                <nav className="hidden md:flex gap-4 justify-center">{renderNavLinks()}</nav>
+                <nav className="hidden md:flex gap-4 justify-center w-full">{renderNavLinks()}</nav>
 
                 <div className="hidden md:flex justify-center items-center space-x-5">
                     <AuthOptions />

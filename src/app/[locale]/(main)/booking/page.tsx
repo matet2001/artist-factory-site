@@ -365,17 +365,17 @@ export default function BookingPage() {
 
             {/* Booking Table Section */}
             <section className="relative py-10">
-                <div className="w-full mx-auto px-4">
+                <div className="w-full mx-auto px-0 md:px-4">
                     {hasError && isInitialLoading ? (
                         <BookingErrorFallback error={error} />
                     ) : (
                         <div className="relative">
                             {/* Background card */}
-                            <div className="absolute inset-0 bg-card/80 backdrop-blur-xl rounded-3xl border border-primary/20 shadow-2xl" />
+                            <div className="absolute inset-0 bg-card/80 backdrop-blur-xl rounded-none md:rounded-3xl border-0 md:border md:border-primary/20 md:shadow-2xl" />
 
-                            <div className="relative z-10">
+                            <div className="relative z-10 py-5">
                                 {/* Booking Rules Info - Always visible */}
-                                <div className="p-4 sm:p-8 lg:p-12 pb-0">
+                                <div className="p-2 md:p-4 lg:p-12 pb-0">
                                     <BookingRulesInfo />
                                 </div>
 
