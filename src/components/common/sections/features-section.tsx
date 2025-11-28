@@ -1,11 +1,11 @@
 'use client'
 
+import TikiTorch from '@/components/common/TikiTorch'
 import { useAnimations } from '@/hooks/use-animation'
 import { motion } from 'framer-motion'
 import { BadgeDollarSign, Headphones, LayoutDashboard, Snowflake } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import TikiTorch from '@/components/common/TikiTorch'
 
 export default function FeaturesSection() {
     const t = useTranslations('HOME')
@@ -36,17 +36,25 @@ export default function FeaturesSection() {
     ]
 
     return (
-        <section className="relative">
+        <section className="relative px-4 sm:px-6 lg:px-8">
             <div className="w-full h-full text-center relative z-10">
                 <motion.div
                     variants={animations.fadeUp}
                     initial="initial"
                     whileInView="whileInView"
                     viewport={viewportConfig}
-                    className="bg-gradient-to-br from-card to-card-elevated rounded-3xl px-4 sm:px-6 lg:px-8 pt-10 pb-15 relative w-full border border-primary/20 shadow-2xl"
+                    className={`
+            relative w-full text-left
+            /* mobile: flat layout */
+            bg-transparent border-0 shadow-none rounded-none p-0
+            /* md+: card look */
+            md:bg-gradient-to-br md:from-card md:to-card-elevated
+            md:rounded-3xl md:border md:border-primary/20 md:shadow-2xl
+            md:px-8 md:pt-10 md:pb-12
+          `}
                 >
-                    {/* Tiki Torches in all corners - hidden on mobile */}
-                    <div>
+                    {/* Tiki Torches - only on md+ */}
+                    <div className="hidden md:block">
                         <TikiTorch position="top-left" />
                         <TikiTorch position="top-right" />
                         <TikiTorch position="bottom-left" />
@@ -54,19 +62,15 @@ export default function FeaturesSection() {
                     </div>
 
                     <div className="relative z-10 space-y-8 sm:space-y-10 lg:space-y-12">
-                        {/* Features Header */}
-                        <motion.div
-                            variants={animations.fadeUp}
-                            className="text-center"
-                        >
-                            <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold mb-8 sm:mb-12">
+                        {/* Features Header + List */}
+                        <motion.div variants={animations.fadeUp} className="text-center">
+                            <h2 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold mb-6 sm:mb-10">
                                 {t('FEATURES.TITLE')}
                             </h2>
 
-                            {/* Features List - 2x2 Grid Layout */}
                             <motion.div
                                 variants={animations.stagger}
-                                className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12"
+                                className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8"
                             >
                                 {features.map((feature) => {
                                     const IconComponent = feature.icon
@@ -74,16 +78,16 @@ export default function FeaturesSection() {
                                         <motion.div
                                             key={feature.title}
                                             variants={animations.fadeUp}
-                                            className="flex items-start gap-3 sm:gap-4 lg:gap-6 text-left"
+                                            className="flex items-start gap-3 sm:gap-4 text-left"
                                         >
-                                            <div className="flex-shrink-0 p-3 rounded-full bg-primary/10">
-                                                <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-primary" />
+                                            <div className="flex-shrink-0 p-2 sm:p-3 rounded-full bg-primary/10">
+                                                <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
                                             </div>
                                             <div className="flex-1">
-                                                <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-2">
+                                                <h3 className="text-base sm:text-lg lg:text-xl font-semibold mb-1">
                                                     {t(feature.title)}
                                                 </h3>
-                                                <p className="text-sm sm:text-base lg:text-lg text-card-muted-foreground leading-relaxed">
+                                                <p className="text-sm sm:text-base text-card-muted-foreground leading-relaxed">
                                                     {t(feature.desc)}
                                                 </p>
                                             </div>
@@ -93,17 +97,17 @@ export default function FeaturesSection() {
                             </motion.div>
                         </motion.div>
 
-                        {/* Two Images Section */}
+                        {/* Images Section */}
                         <motion.div
                             variants={animations.stagger}
                             initial="initial"
                             whileInView="whileInView"
                             viewport={viewportConfig}
-                            className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12"
+                            className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8"
                         >
                             {/* First Image */}
                             <motion.div variants={animations.slideIn} className="relative">
-                                <div className="relative h-48 sm:h-64 lg:h-80 rounded-3xl overflow-hidden shadow-2xl">
+                                <div className="relative w-full h-52 sm:h-64 lg:h-80 rounded-2xl overflow-hidden shadow-2xl">
                                     <Image
                                         src="/pictures/corridor.jpg"
                                         alt={t('FEATURES.IMAGE_ALT', {
@@ -113,15 +117,14 @@ export default function FeaturesSection() {
                                         className="object-cover"
                                     />
 
-                                    {/* Left-anchored backdrop blur with text as child */}
                                     <div className="absolute bottom-0 left-0">
-                                        <div className="bg-gradient-to-t from-black/60 to-black/10 backdrop-blur-sm rounded-tr-xl px-4 py-3">
-                                            <h4 className="text-white font-semibold text-lg sm:text-xl mb-1 drop-shadow-md whitespace-nowrap">
+                                        <div className="bg-gradient-to-t from-black/70 to-black/10 backdrop-blur-sm rounded-tr-xl px-4 py-3">
+                                            <h4 className="text-white font-semibold text-base sm:text-lg mb-1 drop-shadow-md">
                                                 {t('FEATURES.IMAGE1_TITLE', {
                                                     defaultValue: 'Professional Setup',
                                                 })}
                                             </h4>
-                                            <p className="text-white/90 text-sm sm:text-base drop-shadow-md whitespace-nowrap">
+                                            <p className="text-white/90 text-xs sm:text-sm drop-shadow-md">
                                                 {t('FEATURES.IMAGE1_DESC', {
                                                     defaultValue: 'State-of-the-art equipment',
                                                 })}
@@ -133,7 +136,7 @@ export default function FeaturesSection() {
 
                             {/* Second Image */}
                             <motion.div variants={animations.slideInRight} className="relative">
-                                <div className="relative h-48 sm:h-64 lg:h-80 rounded-3xl overflow-hidden shadow-2xl">
+                                <div className="relative w-full h-52 sm:h-64 lg:h-80 rounded-2xl overflow-hidden shadow-2xl">
                                     <Image
                                         src="/pictures/lobby.jpg"
                                         alt={t('FEATURES.IMAGE2_ALT', {
@@ -143,15 +146,14 @@ export default function FeaturesSection() {
                                         className="object-cover"
                                     />
 
-                                    {/* Left-anchored backdrop blur with text as child */}
                                     <div className="absolute bottom-0 left-0">
-                                        <div className="bg-gradient-to-t from-black/60 to-black/10 backdrop-blur-sm rounded-tr-xl px-4 py-3">
-                                            <h4 className="text-white font-semibold text-lg sm:text-xl mb-1 drop-shadow-md whitespace-nowrap">
+                                        <div className="bg-gradient-to-t from-black/70 to-black/10 backdrop-blur-sm rounded-tr-xl px-4 py-3">
+                                            <h4 className="text-white font-semibold text-base sm:text-lg mb-1 drop-shadow-md">
                                                 {t('FEATURES.IMAGE2_TITLE', {
                                                     defaultValue: 'Comfortable Space',
                                                 })}
                                             </h4>
-                                            <p className="text-white/90 text-sm sm:text-base drop-shadow-md whitespace-nowrap">
+                                            <p className="text-white/90 text-xs sm:text-sm drop-shadow-md">
                                                 {t('FEATURES.IMAGE2_DESC', {
                                                     defaultValue: 'Perfect for creativity',
                                                 })}

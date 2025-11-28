@@ -23,10 +23,17 @@ export default function RoomsSection() {
                     initial="initial"
                     whileInView="whileInView"
                     viewport={viewportConfig}
-                    className="bg-card rounded-3xl p-4 sm:p-6 lg:p-8 py-8 sm:py-10 lg:py-12 relative w-full"
+                    className="
+                        /* mobile: full-width card, no rounded */
+                        bg-card rounded-none p-4 py-8
+                        /* md+: rounded card with palm trees */
+                        md:rounded-3xl md:p-6 md:py-10
+                        lg:p-8 lg:py-12
+                        relative w-full
+                    "
                 >
-                    {/* Palm Trees in all corners */}
-                    <div className="absolute inset-0 pointer-events-none z-0">
+                    {/* Palm Trees - only on md+ */}
+                    <div className="hidden md:block absolute inset-0 pointer-events-none z-0">
                         <PalmTreeSilhouette position="top-left" flipped size="lg" />
                         <PalmTreeSilhouette position="top-right" flipped mirrored size="lg" />
                         <PalmTreeSilhouette position="bottom-left" size="lg" />

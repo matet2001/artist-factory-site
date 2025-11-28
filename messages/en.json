@@ -580,5 +580,24 @@
             "WITHDRAW_CONSENT": "Withdraw your consent to data processing",
             "FILE_COMPLAINT": "File a complaint with the supervisory authority"
         }
+    },
+    "ADMIN_USERS": {
+        "PAGE_TITLE": "User Management",
+        "PAGE_SUBTITLE": "View and manage all registered users",
+        "SEARCH_PLACEHOLDER": "Search by name, email, or band name...",
+        "TOTAL_USERS": "{count} {count, plural, one {user} other {users}} total",
+        "COLUMN_NAME": "Name",
+        "COLUMN_EMAIL": "Email",
+        "COLUMN_PHONE": "Phone",
+        "COLUMN_BAND_NAME": "Band Name",
+        "COLUMN_ADMIN": "Admin",
+        "COLUMN_EMAIL_VERIFIED": "Verified",
+        "COLUMN_BOOKINGS_COUNT": "Bookings",
+        "COLUMN_CREATED_AT": "Created At",
+        "NOT_SET": "Not set",
+        "YES": "Yes",
+        "NO": "No",
+        "NO_USERS_FOUND": "No users found",
+        "ERROR_LOAD_FAILED": "Failed to load users"
     }
 }

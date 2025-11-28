@@ -111,7 +111,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
             </section>
 
             {/* Equipment Section */}
-            <section className="relative py-16 md:py-24">
+            <section className="relative py-8 md:py-24">
                 <div className="max-w-7xl mx-auto px-4">
                     <motion.div
                         variants={animations.fadeUp}

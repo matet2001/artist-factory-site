@@ -82,6 +82,15 @@
     }
 }
 
+@layer utilities {
+    .text-outline-primary {
+        text-shadow:
+            0 0 2px var(--color-primary),
+            0 0 4px rgb(255 59 127 / 0.3),
+            0 0 6px rgb(255 59 127 / 0.2);
+    }
+}
+
 html {
     scroll-behavior: smooth;
 }

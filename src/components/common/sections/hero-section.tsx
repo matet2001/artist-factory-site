@@ -20,15 +20,15 @@ export default function HeroSection() {
                     viewport={viewportConfig}
                     className="p-4 sm:p-6 lg:p-8 py-12 sm:py-16 lg:py-20 relative w-full"
                 >
-                    <div className="relative z-10 space-y-8 sm:space-y-10 lg:space-y-12">
+                    <div className="relative z-10 space-y-6 sm:space-y-10 lg:space-y-12">
                         <motion.div
                             variants={animations.stagger}
-                            className="mx-auto w-full max-w-7xl text-center flex flex-col justify-center space-y-6 sm:space-y-8"
+                            className="mx-auto w-full max-w-7xl px-4 sm:px-6 text-center flex flex-col items-center justify-center space-y-4 sm:space-y-8"
                         >
                             {/* Title */}
                             <motion.h1
                                 variants={animations.fadeUp}
-                                className="text-3xl font-bold sm:text-5xl lg:text-6xl xl:text-7xl"
+                                className="text-5xl font-bold sm:text-5xl lg:text-6xl xl:text-7xl text-outline-primary"
                             >
                                 {t('HERO.TITLE')}
                             </motion.h1>
@@ -42,47 +42,35 @@ export default function HeroSection() {
                                 <p className="mt-1 italic">{t('HERO.SINCE')}</p>
                             </motion.div>
 
-                            {/* Since */}
-                            <motion.p
-                                variants={animations.fadeUp}
-                                className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground text-ital"
-                            ></motion.p>
+                            {/* Images Section */}
+                            <motion.div variants={animations.stagger} className="mt-8 w-full">
+                                {/* Edge-to-edge on mobile, centered on larger screens */}
+                                <div className="w-full max-w-5xl mx-auto  sm:mx-0">
+                                    {/* Shared pill container: rounded top+bottom, border only on Y */}
+                                    <div className="group relative overflow-hidden rounded-3xl border-y-4 border-primary">
+                                        <div className="grid grid-cols-1 md:grid-cols-2">
+                                            {/* Corridor Image (top on mobile, left on desktop) */}
+                                            <div className="relative aspect-[3/4] md:aspect-[4/3] overflow-hidden">
+                                                <Image
+                                                    src="/pictures/corridor.jpg"
+                                                    alt={t('HERO.IMAGE_CORRIDOR')}
+                                                    fill
+                                                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                                                />
+                                            </div>
 
-                            {/* 3 Images Section */}
-                            <motion.div
-                                variants={animations.stagger}
-                                className="grid grid-cols-1 md:grid-cols-2 gap-0 mt-8"
-                            >
-                                {/* Corridor Image - Left with rounded left corners */}
-                                <motion.div
-                                    variants={animations.scaleIn}
-                                    className="relative group"
-                                >
-                                    <div className="relative aspect-[3/4] overflow-hidden border-t-3 border-b-3 border-primary">
-                                        <Image
-                                            src="/pictures/corridor.jpg"
-                                            alt={t('HERO.IMAGE_CORRIDOR')}
-                                            fill
-                                            className="object-cover transition-transform duration-300 group-hover:scale-110"
-                                        />
+                                            {/* Chill zone Image (bottom on mobile, right on desktop) */}
+                                            <div className="relative aspect-[3/4] md:aspect-[4/3] overflow-hidden">
+                                                <Image
+                                                    src="/pictures/chill_zone.jpg"
+                                                    alt={t('HERO.IMAGE_STUDIO')}
+                                                    fill
+                                                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
-                                </motion.div>
-
-                                {/* Studio Image - Right with rounded right corners */}
-                                <motion.div
-                                    variants={animations.scaleIn}
-                                    className="relative group"
-                                >
-                                    <div className="relative aspect-[3/4] overflow-hidden rounded-r-2xl border-t-3 border-b-3 border-primary">
-                                        <Image
-                                            src="/pictures/reception.jpg"
-                                            alt={t('HERO.IMAGE_STUDIO')}
-                                            fill
-                                            className="object-cover transition-transform duration-300 group-hover:scale-110"
-                                        />
-                                        {/* Dark overlay */}
-                                    </div>
-                                </motion.div>
+                                </div>
                             </motion.div>
                         </motion.div>
                     </div>

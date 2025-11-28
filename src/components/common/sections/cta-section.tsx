@@ -16,13 +16,13 @@ export default function CtaSection({ title, description }: CtaSectionProps) {
 
     return (
         <section className="relative py-16 md:py-24">
-            <div className="max-w-7xl mx-auto px-4">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 <motion.div
                     variants={animations.fadeUp}
                     initial="initial"
                     whileInView="whileInView"
                     viewport={viewportConfig}
-                    className="relative bg-gradient-to-br from-card to-card-elevated rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden border border-primary/20 shadow-2xl"
+                    className="relative bg-gradient-to-br from-card to-card-elevated rounded-3xl p-10 py-12 sm:p-12 lg:p-16 overflow-hidden border border-primary/20 shadow-2xl min-h-[320px] sm:min-h-[280px] flex items-center justify-center"
                 >
                     {/* Palm Trees in corners */}
                     <div className="absolute inset-0 pointer-events-none z-0">
@@ -32,27 +32,27 @@ export default function CtaSection({ title, description }: CtaSectionProps) {
                         <PalmTreeSilhouette position="bottom-right" mirrored size="sm" />
                     </div>
 
-                    <div className="relative z-10">
+                    <div className="relative z-10 w-full">
                         <motion.div
                             variants={animations.stagger}
                             initial="initial"
                             whileInView="whileInView"
                             viewport={viewportConfig}
-                            className="space-y-8 text-center"
+                            className="space-y-6 sm:space-y-8 text-center"
                         >
                             <motion.h2
                                 variants={animations.fadeUp}
-                                className="text-3xl sm:text-4xl lg:text-5xl font-bold"
+                                className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight"
                             >
                                 {title}
                             </motion.h2>
                             <motion.p
                                 variants={animations.fadeUp}
-                                className="text-card-muted-foreground text-base sm:text-lg lg:text-xl max-w-2xl mx-auto"
+                                className="text-card-muted-foreground text-base sm:text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed px-2"
                             >
                                 {description}
                             </motion.p>
-                            <motion.div variants={animations.scaleIn}>
+                            <motion.div variants={animations.scaleIn} className="pt-2">
                                 <CtaButton />
                             </motion.div>
                         </motion.div>

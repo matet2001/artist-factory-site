@@ -42,18 +42,18 @@ export default function Header() {
                 <Link
                     key={item.href}
                     href={item.href}
-                    className="group"
+                    className={cn('group', mobile && 'flex justify-center')}
                     onClick={() => mobile && setIsSheetOpen(false)}
                 >
                     <Button
                         variant={item.isCta ? 'default' : 'ghost'}
                         className={cn(
-                            'text-md transition-colors',
-                            mobile && 'w-full justify-center',
+                            'text-md transition-colors w-full',
+                            mobile && 'justify-center py-3 text-lg px-8',
                             // Active state styling for non-CTA buttons
                             !item.isCta &&
                                 isActive &&
-                                'text-primary border-primary rounded-none border-b-1 font-semibold cursor-default hover:bg-transparent hover:text-primary '
+                                'text-primary border-primary rounded-none border-b-1 font-semibold cursor-default hover:bg-transparent hover:text-primary'
                         )}
                     >
                         {translate(item.name)}
@@ -80,7 +80,7 @@ export default function Header() {
                     <LanguageToggle />
                 </div>
 
-                {/* Mobile Menu - FIXED */}
+                {/* Mobile Menu */}
                 <div className="md:hidden flex items-center gap-3">
                     <LanguageToggle />
                     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
@@ -89,14 +89,22 @@ export default function Header() {
                                 <Menu className="h-6 w-6" />
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="left">
-                            <SheetHeader className="text-left">
+                        <SheetContent side="left" className="flex flex-col px-6">
+                            <SheetHeader className="text-left max-w-[66%] mx-auto w-full">
                                 <SheetTitle className="text-lg font-semibold">
                                     {translate('SHEET_TITLE')}
                                 </SheetTitle>
                             </SheetHeader>
-                            <nav className="flex flex-col space-y-2 mt-6">
-                                {renderNavLinks(true)}
+
+                            {/* NAV + AUTH – mobil layout */}
+                            <nav className="flex flex-col mt-8 w-full items-center">
+                                <div className="flex flex-col space-y-4 w-full max-w-[66%]">
+                                    {renderNavLinks(true)}
+                                </div>
+
+                                <div className="pt-8 border-t mt-8 w-full max-w-[90%]">
+                                    <AuthOptions variant="mobile" />
+                                </div>
                             </nav>
                         </SheetContent>
                     </Sheet>

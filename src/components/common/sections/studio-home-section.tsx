@@ -35,7 +35,7 @@ export default function StudioHomeSection() {
     ]
 
     return (
-        <section className="relative py-12 sm:py-16">
+        <section className="relative py-6 sm:py-16">
             <div className="max-w-7xl mx-auto px-4">
                 <motion.div
                     variants={animations.fadeUp}
@@ -45,9 +45,9 @@ export default function StudioHomeSection() {
                 >
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         {/* Content Left */}
-                        <motion.div variants={animations.stagger} className="space-y-6">
+                        <motion.div variants={animations.stagger} className="space-y-6 mx-auto lg:mx-0 max-w-xl lg:max-w-none">
                             {/* Header */}
-                            <motion.div variants={animations.fadeUp} className="space-y-4">
+                            <motion.div variants={animations.fadeUp} className="space-y-4 text-center lg:text-left">
                                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
                                     {t('TITLE')}
                                 </h2>
@@ -64,14 +64,9 @@ export default function StudioHomeSection() {
                                         <motion.div
                                             key={idx}
                                             variants={animations.scaleIn}
-                                            className="group"
+                                            className="group relative"
                                         >
-                                            <div
-                                                className="flex items-start justify-start pl-16 gap-4 p-4 bg-card-elevated/60 backdrop-blur-sm border border-primary/20 hover:border-primary/40 hover:bg-card-elevated transition-all duration-300 hover:shadow-xl"
-                                                style={{
-                                                    borderRadius: feature.shape,
-                                                }}
-                                            >
+                                            <div className="flex items-start justify-start pl-4 lg:pl-16 gap-4 p-4 bg-card-elevated/60 backdrop-blur-sm border border-primary/20 hover:border-primary/40 hover:bg-card-elevated transition-all duration-300 hover:shadow-xl rounded-xl">
                                                 <div className="p-2 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors shrink-0">
                                                     <Icon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
                                                 </div>
@@ -84,6 +79,13 @@ export default function StudioHomeSection() {
                                                     </p>
                                                 </div>
                                             </div>
+                                            {/* Desktop only: organic shape overlay */}
+                                            <div
+                                                className="hidden lg:block absolute inset-0 pointer-events-none -z-10 bg-card-elevated/60 backdrop-blur-sm border border-primary/20"
+                                                style={{
+                                                    borderRadius: feature.shape,
+                                                }}
+                                            />
                                         </motion.div>
                                     )
                                 })}
@@ -92,20 +94,24 @@ export default function StudioHomeSection() {
                             {/* CTA & Price - moved up, more compact */}
                             <motion.div
                                 variants={animations.fadeUp}
-                                className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pt-2"
+                                className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pt-2 items-center lg:items-start"
                             >
-                                <div
-                                    className="px-6 py-4 bg-primary/10 backdrop-blur-sm border border-primary/30"
-                                    style={{
-                                        borderRadius: '50% 50% 45% 55% / 55% 45% 55% 45%',
-                                    }}
-                                >
-                                    <p className="text-xs sm:text-sm text-card-muted-foreground uppercase tracking-wider mb-1">
-                                        {t('PRICE_LABEL')}
-                                    </p>
-                                    <p className="text-xl sm:text-2xl font-bold text-primary">
-                                        {t('PRICE')}
-                                    </p>
+                                <div className="relative">
+                                    <div className="px-6 py-4 bg-primary/10 backdrop-blur-sm border border-primary/30 rounded-xl lg:rounded-none">
+                                        <p className="text-xs sm:text-sm text-card-muted-foreground uppercase tracking-wider mb-1">
+                                            {t('PRICE_LABEL')}
+                                        </p>
+                                        <p className="text-xl sm:text-2xl font-bold text-primary">
+                                            {t('PRICE')}
+                                        </p>
+                                    </div>
+                                    {/* Desktop only: organic shape overlay for price */}
+                                    <div
+                                        className="hidden lg:block absolute inset-0 pointer-events-none -z-10 bg-primary/10 backdrop-blur-sm border border-primary/30"
+                                        style={{
+                                            borderRadius: '50% 50% 45% 55% / 55% 45% 55% 45%',
+                                        }}
+                                    />
                                 </div>
 
                                 <Link href="/studio">
@@ -124,17 +130,9 @@ export default function StudioHomeSection() {
                         {/* Right Column - Studio Image */}
                         <motion.div
                             variants={animations.scaleIn}
-                            className="relative h-[400px] lg:h-[600px] overflow-hidden"
-                            style={{
-                                borderRadius: '60% 40% 55% 45% / 50% 60% 40% 50%',
-                            }}
+                            className="relative h-[400px] lg:h-[600px] overflow-hidden mx-auto lg:mx-0 max-w-xl lg:max-w-none w-full"
                         >
-                            <div
-                                className="relative h-full border border-primary/30 shadow-xl overflow-hidden"
-                                style={{
-                                    borderRadius: '60% 40% 55% 45% / 50% 60% 40% 50%',
-                                }}
-                            >
+                            <div className="relative h-full border border-primary/30 shadow-xl overflow-hidden rounded-2xl lg:rounded-none">
                                 <Image
                                     src="/studio/hero.jpg"
                                     alt={t('TITLE')}
@@ -143,6 +141,13 @@ export default function StudioHomeSection() {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
                             </div>
+                            {/* Desktop only: organic shape overlay for image */}
+                            <div
+                                className="hidden lg:block absolute inset-0 pointer-events-none -z-10 border border-primary/30 shadow-xl"
+                                style={{
+                                    borderRadius: '60% 40% 55% 45% / 50% 60% 40% 50%',
+                                }}
+                            />
                         </motion.div>
                     </div>
                 </motion.div>

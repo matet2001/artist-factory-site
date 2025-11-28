@@ -13,7 +13,7 @@ export default function BookingCtaSection() {
     const viewportConfig = { once: true, amount: 0.3 } as const
 
     return (
-        <section className="relative py-12 sm:py-16">
+        <section className="relative py-6 sm:py-16">
             <div className="max-w-6xl mx-auto px-4">
                 <motion.div
                     variants={animations.fadeUp}
@@ -21,20 +21,23 @@ export default function BookingCtaSection() {
                     whileInView="whileInView"
                     viewport={viewportConfig}
                     className="relative overflow-hidden"
-                    style={{
-                        borderRadius: '60% 40% 65% 35% / 55% 45% 55% 45%',
-                    }}
                 >
-                    {/* Background with gradient and subtle pattern */}
+                    {/* Background - hidden on mobile, organic shape on desktop */}
                     <div
-                        className="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/20 shadow-2xl"
+                        className="
+                            hidden md:block
+                            absolute inset-0
+                            bg-gradient-to-br from-primary/10 via-primary/5 to-transparent
+                            border border-primary/20
+                            shadow-2xl
+                        "
                         style={{
                             borderRadius: '60% 40% 65% 35% / 55% 45% 55% 45%',
                         }}
                     />
 
                     {/* Content */}
-                    <div className="relative z-10 p-8 sm:p-12 lg:p-16">
+                    <div className="relative z-10 p-6 sm:p-12 lg:p-16">
                         <motion.div
                             variants={animations.stagger}
                             className="space-y-8 sm:space-y-10"
