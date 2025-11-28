@@ -66,7 +66,7 @@ export function BookingCell({
         return formatDisplayName(booking.user)
     }
 
-    const cellClasses = cn('h-16 relative transition-all duration-200 border border-border/50', {
+    const cellClasses = cn('h-10 md:h-16 relative transition-all duration-200 border border-border/50', {
         'bg-card/30 hover:bg-yellow-500/20 cursor-pointer': cellState === CellState.OPEN,
         'bg-card/20': cellState === CellState.CLOSED,
         'bg-card/20 opacity-60': cellState === CellState.TOO_SOON,
@@ -104,20 +104,20 @@ export function BookingCell({
         <td className={cellClasses} onClick={handleClick}>
             <div className="absolute inset-0 flex items-center justify-center">
                 {isLoading ? (
-                    <Loader2 className="h-5 w-5 animate-spin text-foreground/70" />
+                    <Loader2 className="h-3 w-3 md:h-5 md:w-5 animate-spin text-foreground/70" />
                 ) : cellState === CellState.OPEN ? (
-                    <Plus className="h-6 w-6 text-foreground/50 group-hover:text-foreground transition-colors" />
+                    <Plus className="h-4 w-4 md:h-6 md:w-6 text-foreground/50 group-hover:text-foreground transition-colors" />
                 ) : cellState === CellState.VERIFIED_CANCELABLE ? (
-                    <div className="flex flex-col items-center justify-center gap-1">
+                    <div className="flex flex-col items-center justify-center gap-0.5 md:gap-1">
                         {displayName && (
-                            <span className="text-xs font-medium text-foreground px-2 text-center">
+                            <span className="text-[9px] md:text-xs font-medium text-foreground px-1 md:px-2 text-center">
                                 {displayName}
                             </span>
                         )}
-                        <X className="h-4 w-4 text-foreground/70" />
+                        <X className="h-3 w-3 md:h-4 md:w-4 text-foreground/70" />
                     </div>
                 ) : displayName ? (
-                    <span className="text-sm font-medium text-foreground px-2 text-center">
+                    <span className="text-[9px] md:text-sm font-medium text-foreground px-1 md:px-2 text-center">
                         {displayName}
                     </span>
                 ) : null}

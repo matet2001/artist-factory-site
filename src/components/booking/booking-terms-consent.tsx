@@ -23,53 +23,53 @@ export function BookingTermsDialog({ open, onOpenChange }: BookingTermsDialogPro
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+            <DialogContent className="max-w-sm md:max-w-2xl max-h-[85vh] md:max-h-[80vh] overflow-y-auto mx-auto">
                 <DialogHeader>
-                    <DialogTitle className="text-2xl font-bold mb-6">
+                    <DialogTitle className="text-lg md:text-2xl font-bold mb-3 md:mb-6">
                         {t('TERMS.TITLE')}
                     </DialogTitle>
                 </DialogHeader>
                 <DialogDescription asChild>
-                    <div className="space-y-6 text-foreground">
+                    <div className="space-y-3 md:space-y-6 text-foreground">
                         <div>
-                            <h3 className="font-semibold text-lg mb-2 text-foreground">
+                            <h3 className="font-semibold text-sm md:text-lg mb-1 md:mb-2 text-foreground">
                                 {t('TERMS.ADVANCE_BOOKING_TITLE')}
                             </h3>
-                            <p className="text-muted-foreground leading-relaxed">
+                            <p className="text-xs md:text-base text-muted-foreground leading-relaxed">
                                 {t('TERMS.ADVANCE_BOOKING')}
                             </p>
                         </div>
 
                         <div>
-                            <h3 className="font-semibold text-lg mb-2 text-foreground">
+                            <h3 className="font-semibold text-sm md:text-lg mb-1 md:mb-2 text-foreground">
                                 {t('TERMS.CANCELLATION_TITLE')}
                             </h3>
-                            <p className="text-muted-foreground leading-relaxed">
+                            <p className="text-xs md:text-base text-muted-foreground leading-relaxed">
                                 {t('TERMS.CANCELLATION')}
                             </p>
                         </div>
 
                         <div>
-                            <h3 className="font-semibold text-lg mb-2 text-foreground">
+                            <h3 className="font-semibold text-sm md:text-lg mb-1 md:mb-2 text-foreground">
                                 {t('TERMS.SAME_DAY_CHANGES_TITLE')}
                             </h3>
-                            <p className="text-muted-foreground leading-relaxed">
+                            <p className="text-xs md:text-base text-muted-foreground leading-relaxed">
                                 {t('TERMS.SAME_DAY_CHANGES')}
                             </p>
                         </div>
 
                         <div>
-                            <h3 className="font-semibold text-lg mb-2 text-foreground">
+                            <h3 className="font-semibold text-sm md:text-lg mb-1 md:mb-2 text-foreground">
                                 {t('TERMS.CONTACT_TITLE')}
                             </h3>
-                            <p className="text-muted-foreground leading-relaxed">
+                            <p className="text-xs md:text-base text-muted-foreground leading-relaxed">
                                 {t('TERMS.CONTACT')}
                             </p>
                         </div>
 
                         <Button
                             onClick={() => onOpenChange(false)}
-                            className="w-full mt-4"
+                            className="w-full mt-2 md:mt-4"
                         >
                             {t('TERMS.CLOSE')}
                         </Button>

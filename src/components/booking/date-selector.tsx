@@ -49,31 +49,34 @@ export function DateSelector({ selectedDate, onDateChange }: DateSelectorProps) 
     }
 
     return (
-        <div className="flex items-center gap-2 justify-center border-1 border-primary rounded-xl">
+        <div className="flex items-center gap-0  justify-center rounded-lg md:rounded-xl">
             <Popover>
-                <div className="flex gap-2 items-center justify-center p-1">
+                <div className="flex gap-0 items-center justify-center p-0.5 md:p-1">
                     <Button
                         variant="ghost"
                         size="icon"
                         onClick={handlePreviousDay}
                         disabled={isPastDate()}
-                        className="h-10 w-10 shrink-0 border-primary/30 hover:border-primary/60 hover:bg-accent transition-colors"
+                        className="h-6 w-5 md:h-10 md:w-10 shrink-0 border-primary/30 hover:border-primary/60 hover:bg-accent transition-colors p-0"
                     >
-                        <ChevronLeft className="h-4 w-4" />
+                        <ChevronLeft className="h-3 w-3 md:h-4 md:w-4" />
                     </Button>
                     <PopoverTrigger asChild>
                         <Button
                             variant="ghost"
                             className={cn(
-                                'justify-center text-left font-semibold border-primary/30 hover:border-primary/60 hover:bg-accent transition-colors',
+                                'justify-center text-left font-semibold border-primary/30 hover:border-primary/60 hover:bg-accent transition-colors px-0.5 md:px-2 py-1 md:py-2 h-7 md:h-10 text-[10px] md:text-xs min-w-0',
                                 !selectedDate && 'text-muted-foreground'
                             )}
                         >
-                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            <CalendarIcon className="mr-0.5 md:mr-1 h-3 w-3 md:h-4 md:w-4 shrink-0" />
                             {selectedDate ? (
-                                format(selectedDate, 'PPP', { locale: dateLocale })
+                                <span className="hidden sm:inline whitespace-nowrap">{format(selectedDate, 'MMM d', { locale: dateLocale })}</span>
                             ) : (
                                 <span>Pick a date</span>
+                            )}
+                            {selectedDate && (
+                                <span className="sm:hidden whitespace-nowrap">{format(selectedDate, 'M/d', { locale: dateLocale })}</span>
                             )}
                         </Button>
                     </PopoverTrigger>
@@ -81,9 +84,9 @@ export function DateSelector({ selectedDate, onDateChange }: DateSelectorProps) 
                         variant="ghost"
                         size="icon"
                         onClick={handleNextDay}
-                        className="h-10 w-10 shrink-0 border-primary/30 hover:border-primary/60 hover:bg-accent transition-colors"
+                        className="h-6 w-5 md:h-10 md:w-10 shrink-0 border-primary/30 hover:border-primary/60 hover:bg-accent transition-colors p-0"
                     >
-                        <ChevronRight className="h-4 w-4" />
+                        <ChevronRight className="h-3 w-3 md:h-4 md:w-4" />
                     </Button>
                 </div>
 

@@ -45,9 +45,15 @@ export default function StudioHomeSection() {
                 >
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         {/* Content Left */}
-                        <motion.div variants={animations.stagger} className="space-y-6 mx-auto lg:mx-0 max-w-xl lg:max-w-none">
+                        <motion.div
+                            variants={animations.stagger}
+                            className="space-y-6 mx-auto lg:mx-0 max-w-xl lg:max-w-none"
+                        >
                             {/* Header */}
-                            <motion.div variants={animations.fadeUp} className="space-y-4 text-center lg:text-left">
+                            <motion.div
+                                variants={animations.fadeUp}
+                                className="space-y-4 text-center lg:text-left"
+                            >
                                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
                                     {t('TITLE')}
                                 </h2>
@@ -79,13 +85,6 @@ export default function StudioHomeSection() {
                                                     </p>
                                                 </div>
                                             </div>
-                                            {/* Desktop only: organic shape overlay */}
-                                            <div
-                                                className="hidden lg:block absolute inset-0 pointer-events-none -z-10 bg-card-elevated/60 backdrop-blur-sm border border-primary/20"
-                                                style={{
-                                                    borderRadius: feature.shape,
-                                                }}
-                                            />
                                         </motion.div>
                                     )
                                 })}
@@ -94,31 +93,22 @@ export default function StudioHomeSection() {
                             {/* CTA & Price - moved up, more compact */}
                             <motion.div
                                 variants={animations.fadeUp}
-                                className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pt-2 items-center lg:items-start"
+                                className="flex flex-col sm:flex-row sm:items-stretch gap-4 pt-2 items-center lg:items-start"
                             >
-                                <div className="relative">
-                                    <div className="px-6 py-4 bg-primary/10 backdrop-blur-sm border border-primary/30 rounded-xl lg:rounded-none">
-                                        <p className="text-xs sm:text-sm text-card-muted-foreground uppercase tracking-wider mb-1">
-                                            {t('PRICE_LABEL')}
-                                        </p>
-                                        <p className="text-xl sm:text-2xl font-bold text-primary">
-                                            {t('PRICE')}
-                                        </p>
-                                    </div>
-                                    {/* Desktop only: organic shape overlay for price */}
-                                    <div
-                                        className="hidden lg:block absolute inset-0 pointer-events-none -z-10 bg-primary/10 backdrop-blur-sm border border-primary/30"
-                                        style={{
-                                            borderRadius: '50% 50% 45% 55% / 55% 45% 55% 45%',
-                                        }}
-                                    />
+                                <div className="flex-1 px-6 py-4 bg-primary/10 backdrop-blur-sm border border-primary/30 rounded-xl flex flex-col justify-center">
+                                    <p className="text-xs sm:text-sm text-card-muted-foreground uppercase tracking-wider mb-1">
+                                        {t('PRICE_LABEL')}
+                                    </p>
+                                    <p className="text-xl sm:text-2xl font-bold text-primary">
+                                        {t('PRICE')}
+                                    </p>
                                 </div>
 
-                                <Link href="/studio">
+                                <Link href="/studio" className="flex-1">
                                     <Button
                                         variant="default"
                                         size="lg"
-                                        className="group font-bold text-base sm:text-lg px-8 py-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                                        className="group font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 w-full h-full min-h-[90px]"
                                     >
                                         {t('CTA')}
                                         <ArrowRight className="w-6 h-6 ml-2 group-hover:translate-x-1 transition-transform" />

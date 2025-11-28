@@ -22,14 +22,44 @@ export default function LanguageToggle() {
     const currentLocale = params?.locale as Locale
     const nextLocale: Locale = currentLocale === 'en' ? 'hu' : 'en'
 
+    // Log component initialization
+    console.log('[LanguageToggle] Component initialized', {
+        currentLocale,
+        nextLocale,
+        pathname,
+        params,
+        paramsLocale: params?.locale,
+        isPending,
+    })
+
     const handleToggle = () => {
-         startTransition(() => {
-            router.replace(
-                // @ts-expect-error safe param assumption
-                { pathname, params },
-                { locale: nextLocale }
-            )
+        console.log('[LanguageToggle] handleToggle called', {
+            currentLocale,
+            nextLocale,
+            pathname,
+            params,
+            isPending,
         })
+
+        try {
+            startTransition(() => {
+                console.log('[LanguageToggle] Inside startTransition', {
+                    pathname,
+                    params,
+                    locale: nextLocale,
+                })
+
+                router.replace(
+                    // @ts-expect-error safe param assumption
+                    { pathname, params },
+                    { locale: nextLocale }
+                )
+
+                console.log('[LanguageToggle] router.replace called successfully')
+            })
+        } catch (error) {
+            console.error('[LanguageToggle] Error in handleToggle:', error)
+        }
     }
 
     return (

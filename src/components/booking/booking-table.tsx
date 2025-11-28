@@ -37,10 +37,10 @@ export function BookingTable({
     currentUserId,
 }: BookingTableProps) {
     return (
-        <div className="overflow-x-auto">
-            <div className="inline-block min-w-full align-middle">
-                <div className="overflow-hidden border border-border rounded-xl shadow-lg relative">
-                    <table className="min-w-full divide-y divide-border">
+        <div className="w-full overflow-x-auto ">
+            <div className="min-w-full">
+                <div className="overflow-hidden border border-border rounded-none md:rounded-xl shadow-lg relative">
+                    <table className="w-full divide-y divide-border">
                         <BookingTableHeader
                             selectedDate={selectedDate}
                             onDateChange={onDateChange}
@@ -54,8 +54,9 @@ export function BookingTable({
 
                             {hours.map((time) => (
                                 <tr key={time} className="group">
-                                    <td className="px-4 py-3 text-center font-semibold whitespace-nowrap bg-card-elevated">
-                                        {time}:00 - {time + 1}:00
+                                    <td className="px-1 py-1 md:px-4 md:py-3 text-center font-semibold whitespace-nowrap bg-card-elevated text-[11px] md:text-base">
+                                        <span className="md:hidden">{time}:00</span>
+                                        <span className="hidden md:inline">{time}:00 - {time + 1}:00</span>
                                     </td>
                                     {rooms.map((room) => (
                                         <BookingCell

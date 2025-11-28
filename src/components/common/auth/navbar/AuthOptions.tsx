@@ -88,9 +88,9 @@ export function AuthOptions({ variant = 'desktop' }: AuthOptionsProps) {
         // Desktop – marad a dropdown
         return (
             <div className="flex items-center space-x-3">
-                <span className="text-sm text-muted-foreground hidden sm:block">
+                {/* <span className="text-sm text-muted-foreground hidden sm:block w-full min-[150px]">
                     {session.user.name || session.user.email}
-                </span>
+                </span> */}
 
                 <DropdownMenu>
                     <DropdownMenuTrigger className="relative flex rounded-full text-sm cursor-pointer outline-none hover:opacity-80 transition-opacity">
@@ -99,7 +99,7 @@ export function AuthOptions({ variant = 'desktop' }: AuthOptionsProps) {
                     </DropdownMenuTrigger>
 
                     <DropdownMenuContent className="w-48" align="end">
-                        <div className="px-2 py-1.5 text-sm border-b mb-1">
+                        <div className="px-2 py-1.5 text-sm border-b mb-1 ">
                             <p className="font-medium">{session.user.name}</p>
                             <p className="text-muted-foreground truncate">{session.user.email}</p>
                         </div>

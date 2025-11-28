@@ -16,19 +16,23 @@ export function BookingTableHeader({ selectedDate, onDateChange }: BookingTableH
     return (
         <thead className="bg-card-elevated">
             <tr>
-                <th className="px-4 py-4 text-center min-w-[120px]">
+                <th>
                     <DateSelector selectedDate={selectedDate} onDateChange={onDateChange} />
                 </th>
                 {rooms.map((room) => (
-                    <th key={room.id} className="px-4 py-4 text-center min-w-[180px]">
+                    <th key={room.id} className="px-1 py-1 md:px-4 md:py-4 text-center">
                         <Link
                             href={`/rooms/${room.id}`}
-                            className="hover:text-primary transition-colors"
+                            className="hover:text-primary transition-colors block"
                         >
-                            <h3 className="text-lg sm:text-xl font-bold">{tRooms(room.name)}</h3>
+                            <h3 className="text-[11px] md:text-lg lg:text-xl font-bold break-words hyphens-auto">
+                                {tRooms(room.name)}
+                            </h3>
                         </Link>
-                        <p className="text-sm text-muted-foreground mt-1">{room.size} fő</p>
-                        <p className="text-xs text-muted-foreground mt-1">
+                        <p className="text-[8px] md:text-sm text-muted-foreground mt-0.5 md:mt-1 hidden sm:block">
+                            {room.size} fő
+                        </p>
+                        <p className="text-[7px] md:text-xs text-muted-foreground mt-0.5 md:mt-1 hidden sm:block">
                             {room.price.toLocaleString()} Ft/óra
                         </p>
                     </th>
