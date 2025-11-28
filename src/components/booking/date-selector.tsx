@@ -49,34 +49,38 @@ export function DateSelector({ selectedDate, onDateChange }: DateSelectorProps) 
     }
 
     return (
-        <div className="flex items-center gap-0  justify-center rounded-lg md:rounded-xl">
+        <div className="flex items-center gap-0 md:gap-1 justify-center rounded-lg md:rounded-xl">
             <Popover>
-                <div className="flex gap-0 items-center justify-center p-0.5 md:p-1">
+                <div className="flex gap-0 md:gap-1 items-center justify-center p-0.5 md:p-1">
                     <Button
                         variant="ghost"
                         size="icon"
                         onClick={handlePreviousDay}
                         disabled={isPastDate()}
-                        className="h-6 w-5 md:h-10 md:w-10 shrink-0 border-primary/30 hover:border-primary/60 hover:bg-accent transition-colors p-0"
+                        className="h-6 w-5 md:h-12 md:w-12 shrink-0 border-primary/30 hover:border-primary/60 hover:bg-accent transition-colors p-0"
                     >
-                        <ChevronLeft className="h-3 w-3 md:h-4 md:w-4" />
+                        <ChevronLeft className="h-3 w-3 md:h-5 md:w-5" />
                     </Button>
                     <PopoverTrigger asChild>
                         <Button
                             variant="ghost"
                             className={cn(
-                                'justify-center text-left font-semibold border-primary/30 hover:border-primary/60 hover:bg-accent transition-colors px-0.5 md:px-2 py-1 md:py-2 h-7 md:h-10 text-[10px] md:text-xs min-w-0',
+                                'justify-center text-left font-semibold border-primary/30 hover:border-primary/60 hover:bg-accent transition-colors px-0.5 md:px-3 py-1 md:py-3 h-7 md:h-12 text-[10px] md:text-base min-w-0',
                                 !selectedDate && 'text-muted-foreground'
                             )}
                         >
-                            <CalendarIcon className="mr-0.5 md:mr-1 h-3 w-3 md:h-4 md:w-4 shrink-0" />
+                            <CalendarIcon className="mr-0.5 md:mr-2 h-3 w-3 md:h-5 md:w-5 shrink-0" />
                             {selectedDate ? (
-                                <span className="hidden sm:inline whitespace-nowrap">{format(selectedDate, 'MMM d', { locale: dateLocale })}</span>
+                                <>
+                                    <span className="hidden sm:inline whitespace-nowrap">
+                                        {format(selectedDate, 'yyyy MMMM d.', { locale: dateLocale })}
+                                    </span>
+                                    <span className="sm:hidden whitespace-nowrap">
+                                        {format(selectedDate, 'M/d', { locale: dateLocale })}
+                                    </span>
+                                </>
                             ) : (
                                 <span>Pick a date</span>
-                            )}
-                            {selectedDate && (
-                                <span className="sm:hidden whitespace-nowrap">{format(selectedDate, 'M/d', { locale: dateLocale })}</span>
                             )}
                         </Button>
                     </PopoverTrigger>
@@ -84,9 +88,9 @@ export function DateSelector({ selectedDate, onDateChange }: DateSelectorProps) 
                         variant="ghost"
                         size="icon"
                         onClick={handleNextDay}
-                        className="h-6 w-5 md:h-10 md:w-10 shrink-0 border-primary/30 hover:border-primary/60 hover:bg-accent transition-colors p-0"
+                        className="h-6 w-5 md:h-12 md:w-12 shrink-0 border-primary/30 hover:border-primary/60 hover:bg-accent transition-colors p-0"
                     >
-                        <ChevronRight className="h-3 w-3 md:h-4 md:w-4" />
+                        <ChevronRight className="h-3 w-3 md:h-5 md:w-5" />
                     </Button>
                 </div>
 
