@@ -16,7 +16,7 @@ export function BookingTableHeader({ selectedDate, onDateChange }: BookingTableH
     return (
         <thead className="bg-card-elevated">
             <tr>
-                <th>
+                <th className="max-w-[220px]">
                     <DateSelector selectedDate={selectedDate} onDateChange={onDateChange} />
                 </th>
                 {rooms.map((room) => (
