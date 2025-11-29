@@ -227,78 +227,56 @@ export default function ContactSection() {
                         className="grid grid-cols-1 md:grid-cols-3 gap-6"
                     >
                         {/* Phone Card */}
-                        <motion.div
-                            variants={animations.scaleIn}
-                            className="group relative flex flex-col items-center gap-4 p-8 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg rounded-2xl"
-                            style={{
-                                minHeight: '200px',
-                            }}
-                        >
-                            {/* Desktop only: oval shape overlay */}
-                            <div
-                                className="hidden md:block absolute inset-0 pointer-events-none -z-10 bg-card/80 border border-primary/20"
-                                style={{
-                                    borderRadius: '50% 50% 45% 55% / 55% 50% 50% 45%',
-                                }}
-                            />
-                            <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
-                                <Phone className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
-                            </div>
+                        <motion.div variants={animations.scaleIn}>
                             <Link
                                 href={`tel:${CONTACT.phoneRaw}`}
-                                className="text-lg font-medium text-foreground hover:text-primary transition-colors text-center"
+                                className="group relative flex flex-col items-center gap-4 p-8 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg rounded-2xl"
+                                style={{
+                                    minHeight: '200px',
+                                }}
                             >
-                                {CONTACT.phoneDisplay}
+                                <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
+                                    <Phone className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
+                                </div>
+                                <span className="text-lg font-medium text-foreground group-hover:text-primary transition-colors text-center">
+                                    {CONTACT.phoneDisplay}
+                                </span>
                             </Link>
                         </motion.div>
 
                         {/* Email Card */}
-                        <motion.div
-                            variants={animations.scaleIn}
-                            className="group relative flex flex-col items-center gap-4 p-8 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg rounded-2xl"
-                            style={{
-                                minHeight: '200px',
-                            }}
-                        >
-                            {/* Desktop only: oval shape overlay */}
-                            <div
-                                className="hidden md:block absolute inset-0 pointer-events-none -z-10 bg-card/80 border border-primary/20"
-                                style={{
-                                    borderRadius: '55% 45% 52% 48% / 48% 55% 45% 52%',
-                                }}
-                            />
-                            <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
-                                <Mail className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
-                            </div>
+                        <motion.div variants={animations.scaleIn}>
                             <Link
                                 href={`mailto:${CONTACT.email}`}
-                                className="text-lg font-medium text-foreground hover:text-primary transition-colors text-center break-all"
+                                className="group relative flex flex-col items-center gap-4 p-8 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg rounded-2xl"
+                                style={{
+                                    minHeight: '200px',
+                                }}
                             >
-                                {CONTACT.email}
+                                <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
+                                    <Mail className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
+                                </div>
+                                <span className="text-lg font-medium text-foreground group-hover:text-primary transition-colors text-center break-all">
+                                    {CONTACT.email}
+                                </span>
                             </Link>
                         </motion.div>
 
                         {/* Address Card */}
-                        <motion.div
-                            variants={animations.scaleIn}
-                            className="group relative flex flex-col items-center gap-4 p-8 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg rounded-2xl"
-                            style={{
-                                minHeight: '200px',
-                            }}
-                        >
-                            {/* Desktop only: oval shape overlay */}
+                        <motion.div variants={animations.scaleIn}>
                             <div
-                                className="hidden md:block absolute inset-0 pointer-events-none -z-10 bg-card/80 border border-primary/20"
+                                className="group relative flex flex-col items-center gap-4 p-8 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg rounded-2xl"
                                 style={{
-                                    borderRadius: '48% 52% 50% 50% / 52% 48% 52% 48%',
+                                    minHeight: '200px',
                                 }}
-                            />
-                            <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
-                                <MapPin className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
+                            >
+                                <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
+                                    <MapPin className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
+                                </div>
+                                <p className="text-lg font-medium text-foreground text-center">
+                                    {CONTACT.address}
+                                </p>
                             </div>
-                            <p className="text-lg font-medium text-foreground text-center">
-                                {CONTACT.address}
-                            </p>
                         </motion.div>
                     </motion.div>
                 </div>

@@ -4,7 +4,7 @@ import React from 'react'
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="min-h-dvh flex flex-col isolate bg-background relative">
+        <div className="min-h-dvh flex flex-col isolate relative">
             {/* Noise texture overlay */}
             <div className="fixed inset-0 z-[-2] mix-blend-overlay pointer-events-none opacity-[0.03]"
                  style={{

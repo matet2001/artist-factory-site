@@ -96,8 +96,8 @@
             "AIR_CONDITIONED": "Légkondicionált",
             "AIR_CONDITIONED_DESC": "Maradj hűvös a teljesen klimatizált termeinkben.",
             "IMAGE_ALT": "Próbaterem belső tere",
-            "IMAGE1_TITLE": "Korszerű felszereltség",
-            "IMAGE1_DESC": "Korszerű hangtechnikai eszközök",
+            "IMAGE1_TITLE": "Hangulatos környezet a kreativitáshoz",
+            "IMAGE1_DESC": "Hangulatos környezet a kreativitáshoz",
             "IMAGE2_TITLE": "Kényelmes tér",
             "IMAGE2_DESC": "Tökéletes a kreativitáshoz",
             "IMAGE2_ALT": "Stúdió környezet"
@@ -109,7 +109,7 @@
             "FEATURE_1": "Csúcskategóriás felszerelés",
             "FEATURE_1_DESC": "Prémium felvételi eszközök és szoftverek",
             "FEATURE_2": "Szakértői produkció",
-            "FEATURE_2_DESC": "Tapasztalt hangmérnökök",
+            "FEATURE_2_DESC": "Profi, tapasztalt hangmérnökünk a rendelkezésetekre áll",
             "FEATURE_3": "Rugalmas időpontok",
             "FEATURE_3_DESC": "Demótól a teljes albumig",
             "CTA": "Tudj meg többet",
@@ -436,7 +436,7 @@
         "REHEARSAL_DESC": "2-3 óra alatt 2-3 dal rögzítése. Az anyagot CD-n vagy pendrive-on viheted haza (az írható CD ára nem tartalmazza).",
         "NOTE": "Kérjük jelezd előre, ha próbaterem foglaláskor stúdió felvételt is szeretnél!",
 
-        "INSTRUMENTS_NOTE": "A próbatermekben megtalálható hangszerek bármelyike felhasználható a stúdiómunkák során (lásd Hangszerpark menüpont). Ehhez előzetes egyeztetés szükséges!",
+        "INSTRUMENTS_NOTE": "A próbatermekben megtalálható hangszerek bármelyike felhasználható a stúdiómunkák során. Ehhez előzetes egyeztetés szükséges!",
 
         "CTA_TITLE": "Készen állsz a felvételre?",
         "CTA_DESC": "Foglalj stúdió időpontot és vidd sikerre a zenédet!",

@@ -102,7 +102,7 @@ export default function StudioPage() {
             </section>
 
             {/* Hero Image Section - Organic shape */}
-            <section className="relative">
+            <section className="relative  mt-20">
                 <div className="max-w-7xl mx-auto px-4">
                     <motion.div
                         variants={animations.fadeUp}
