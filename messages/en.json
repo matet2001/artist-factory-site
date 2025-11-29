@@ -95,8 +95,8 @@
             "PREMIUM_EQUIPMENT_DESC": "Top-tier instruments and amplifiers (Orange, ENGL, Fender, Warwick, Ashdown, Ampeg, Yamaha) plus microphones (Shure Beta 57, Audio Technica) at no extra cost.",
             "AIR_CONDITIONED": "Air conditioned",
             "AIR_CONDITIONED_DESC": "Stay cool in our fully air-conditioned rooms.",
-            "IMAGE1_TITLE": "Modern Equipment",
-            "IMAGE1_DESC": "State-of-the-art equipment",
+            "IMAGE1_TITLE": "Inviting environment for creativity",
+            "IMAGE1_DESC": "Inviting environment for creativity",
             "IMAGE2_TITLE": "Comfortable Space",
             "IMAGE2_DESC": "Perfect for creativity",
             "IMAGE2_ALT": "Studio environment",
@@ -109,7 +109,7 @@
             "FEATURE_1": "Top-Tier Equipment",
             "FEATURE_1_DESC": "High-end recording gear and software",
             "FEATURE_2": "Expert Production",
-            "FEATURE_2_DESC": "Experienced sound engineers",
+            "FEATURE_2_DESC": "Our experienced sound engineer is at your service",
             "FEATURE_3": "Flexible Sessions",
             "FEATURE_3_DESC": "From demos to full albums",
             "CTA": "Learn More",
@@ -530,7 +530,7 @@
         "REHEARSAL_DESC": "Record 2-3 songs in 2-3 hours. Receive your recordings on CD or USB drive (blank CD not included in price).",
         "NOTE": "Please indicate studio recording needs when booking your rehearsal room!",
 
-        "INSTRUMENTS_NOTE": "All instruments from our rehearsal rooms are available for studio sessions (see Equipment page). Prior arrangement required!",
+        "INSTRUMENTS_NOTE": "All instruments from our rehearsal rooms are available for studio sessions. Prior arrangement required!",
 
         "CTA_TITLE": "Ready to Record?",
         "CTA_DESC": "Book your studio session and bring your music to life!",

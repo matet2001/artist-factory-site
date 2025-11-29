@@ -124,11 +124,6 @@ export default function FeaturesSection() {
                                                     defaultValue: 'Professional Setup',
                                                 })}
                                             </h4>
-                                            <p className="text-white/90 text-xs sm:text-sm drop-shadow-md">
-                                                {t('FEATURES.IMAGE1_DESC', {
-                                                    defaultValue: 'State-of-the-art equipment',
-                                                })}
-                                            </p>
                                         </div>
                                     </div>
                                 </div>

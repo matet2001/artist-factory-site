@@ -3,7 +3,7 @@
 import { CONTACT } from '@/lib/constants'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
-import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa'
+import { FaFacebook, FaTiktok, FaYoutube } from 'react-icons/fa'
 import Logo from './logo'
 
 const equipmentBrands: string[] = [
@@ -86,8 +86,35 @@ export default function Footer() {
                 <hr className="my-6 border-light-border dark:border-dark-border" />
 
                 {/* Footer bottom */}
-                <div className="sm:flex sm:items-center sm:justify-between text-sm">
-                    <div className="flex flex-wrap items-center gap-2">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-sm justify-end">
+                    <div className="flex gap-4 text-2xl flex-shrink-0">
+                        <a
+                            href="https://www.facebook.com/ArtistFactoryProbatermekesStudio?mibextid=wwXIfr&rdid=9S7CEcXQAa7szbxh&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1D8Y2taanZ%2F%3Fmibextid%3DwwXIfr#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-primary"
+                        >
+                            <FaFacebook />
+                        </a>
+                        <a
+                            href="https://www.tiktok.com/@artistfactorybudapest?_r=1&_t=ZN-91nij89JXYU"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-primary"
+                        >
+                            <FaTiktok />
+                        </a>
+                        <a
+                            href="https://www.youtube.com/@factoryartist5313"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-primary"
+                        >
+                            <FaYoutube />
+                        </a>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2 flex-1 justify-end mr-13">
                         <span>© 2025 ArtistFactory</span>
                         <span>|</span>
                         <span>{t('RIGHTS')}</span>
@@ -113,8 +140,8 @@ export default function Footer() {
                                 Pojbics Máté
                             </Link>
                         </span>
-                        <span>|</span>
-                        <span>
+                        {/* <span>|</span> */}
+                        {/* <span>
                             <a
                                 href="https://www.flaticon.com/free-icons/hungary"
                                 target="_blank"
@@ -123,42 +150,7 @@ export default function Footer() {
                             >
                                 Flag icons created by Freepik - Flaticon
                             </a>
-                        </span>
-                    </div>
-
-                    <div className="flex mt-4 sm:mt-0 gap-4 text-2xl">
-                        <a
-                            href="https://www.instagram.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:text-primary"
-                        >
-                            <FaInstagram />
-                        </a>
-                        <a
-                            href="https://www.facebook.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:text-primary"
-                        >
-                            <FaFacebook />
-                        </a>
-                        <a
-                            href="https://www.tiktok.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:text-primary"
-                        >
-                            <FaTiktok />
-                        </a>
-                        <a
-                            href="https://www.youtube.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:text-primary"
-                        >
-                            <FaYoutube />
-                        </a>
+                        </span> */}
                     </div>
                 </div>
             </div>

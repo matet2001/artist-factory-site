@@ -16,7 +16,7 @@ export function BugReportButton() {
                 onClick={() => setIsOpen(true)}
                 size="icon"
                 variant="secondary"
-                className="fixed bottom-6 right-6 z-50 h-10 w-10 rounded-full shadow-lg hover:shadow-xl transition-shadow"
+                className="fixed bottom-20 right-6 sm:bottom-8 sm:right-8 z-50 h-10 w-10 rounded-full shadow-lg hover:shadow-xl transition-shadow"
                 aria-label={t('BUTTON_TOOLTIP')}
                 title={t('BUTTON_TOOLTIP')}
             >

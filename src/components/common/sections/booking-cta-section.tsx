@@ -1,5 +1,6 @@
 'use client'
 
+import { CONTACT } from '@/lib/constants'
 import { useAnimations } from '@/hooks/use-animation'
 import { motion } from 'framer-motion'
 import { CalendarDays, Phone } from 'lucide-react'
@@ -72,7 +73,7 @@ export default function BookingCtaSection() {
                                 </motion.div>
 
                                 <motion.div variants={animations.scaleIn}>
-                                    <Link href="/contact" className="group h-full block">
+                                    <a href={`tel:${CONTACT.phoneRaw}`} className="group h-full block">
                                         <div
                                             className="h-full min-h-[120px] sm:min-h-[140px] flex flex-col items-center justify-center p-6 bg-card/60 backdrop-blur-sm border border-primary/20 hover:border-primary/40 hover:bg-card/80 transition-all duration-300 group-hover:scale-105 hover:shadow-xl"
                                             style={{
@@ -87,7 +88,7 @@ export default function BookingCtaSection() {
                                                 {t('HERO.CTA_PHONE')}
                                             </span>
                                         </div>
-                                    </Link>
+                                    </a>
                                 </motion.div>
                             </motion.div>
                         </motion.div>
