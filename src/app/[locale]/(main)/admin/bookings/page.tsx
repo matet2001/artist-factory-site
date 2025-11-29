@@ -60,6 +60,9 @@ export default function AdminBookingsPage() {
     const [plannedBookings, setPlannedBookings] = useState<BookingIntent[]>([])
     const [customerName, setCustomerName] = useState('')
     const [customerBandName, setCustomerBandName] = useState('')
+    const [bookingNote, setBookingNote] = useState('')
+    const [selectedBooking, setSelectedBooking] = useState<BookingData | null>(null)
+    const [editMode, setEditMode] = useState(false)
 
     const hours = getOpeningHoursArray(OPENING_HOURS)
     const timelinePosition = getCurrentTimePosition(OPENING_HOURS)
@@ -206,9 +209,64 @@ export default function AdminBookingsPage() {
         }
     }
 
-    const handleCustomerInfoChange = (data: { name: string; bandName?: string }) => {
+    const handleCustomerInfoChange = (data: { name: string; bandName?: string; note?: string }) => {
         setCustomerName(data.name)
         setCustomerBandName(data.bandName || '')
+        setBookingNote(data.note || '')
+    }
+
+    const handleSelectBooking = (booking: BookingData) => {
+        setSelectedBooking(booking)
+        setEditMode(true)
+        setCustomerName(booking.user?.fullName || '')
+        setCustomerBandName(booking.user?.bandName || '')
+        setBookingNote(booking.note || '')
+        setPlannedBookings([])
+    }
+
+    const handleCancelEdit = () => {
+        setSelectedBooking(null)
+        setEditMode(false)
+        setCustomerName('')
+        setCustomerBandName('')
+        setBookingNote('')
+    }
+
+    const handleUpdateBooking = async () => {
+        if (!selectedBooking || !editMode) return
+        if (!customerName.trim()) {
+            toast.error(t('ERROR_NAME_MISSING'))
+            return
+        }
+
+        setIsSubmitting(true)
+
+        try {
+            const res = await fetch('/api/admin/bookings/update', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: selectedBooking.id,
+                    name: customerName,
+                    bandName: customerBandName || undefined,
+                    note: bookingNote || undefined,
+                }),
+            })
+
+            if (!res.ok) {
+                const error = await res.json()
+                throw new Error(error.error || 'Failed to update booking')
+            }
+
+            toast.success(t('SUCCESS_UPDATED', { name: customerName }))
+            handleCancelEdit()
+            await fetchBookingsWeek(selectedDate)
+        } catch (error) {
+            console.error('Error updating booking:', error)
+            toast.error(error instanceof Error ? error.message : t('ERROR_LOAD_FAILED'))
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     const handlePhoneBooking = async () => {
@@ -237,6 +295,7 @@ export default function AdminBookingsPage() {
                 body: JSON.stringify({
                     name: customerName,
                     bandName: customerBandName || undefined,
+                    note: bookingNote || undefined,
                     bookings: bookingsData,
                 }),
             })
@@ -250,6 +309,7 @@ export default function AdminBookingsPage() {
             setPlannedBookings([])
             setCustomerName('')
             setCustomerBandName('')
+            setBookingNote('')
             await fetchBookingsWeek(selectedDate)
         } catch (error) {
             console.error('Error creating phone booking:', error)
@@ -278,15 +338,30 @@ export default function AdminBookingsPage() {
                             <PhoneBookingForm
                                 onCustomerInfoChange={handleCustomerInfoChange}
                                 onSubmit={handlePhoneBooking}
+                                onUpdate={handleUpdateBooking}
+                                onCancelEdit={handleCancelEdit}
+                                onDelete={
+                                    selectedBooking
+                                        ? () =>
+                                              handleDeleteBooking({
+                                                  roomId: selectedBooking.roomId,
+                                                  date: new Date(selectedBooking.date),
+                                                  time: selectedBooking.time,
+                                              })
+                                        : undefined
+                                }
                                 isSubmitting={isSubmitting}
                                 customerName={customerName}
                                 customerBandName={customerBandName}
+                                bookingNote={bookingNote}
                                 hasSelectedBookings={plannedBookings.length > 0}
+                                editMode={editMode}
+                                selectedBookingId={selectedBooking?.id}
                             />
                         </div>
 
                         <div>
-                            {plannedBookings.length > 0 && (
+                            {plannedBookings.length > 0 && !editMode && (
                                 <AdminBookingSummary
                                     plannedBookings={plannedBookings}
                                     onClearAll={() => setPlannedBookings([])}
@@ -334,6 +409,7 @@ export default function AdminBookingsPage() {
                                 onBook={handleBook}
                                 onDeletePlanned={handleDeletePlanned}
                                 onDeleteBooking={handleDeleteBooking}
+                                onSelectBooking={handleSelectBooking}
                             />
                         </div>
                     </div>

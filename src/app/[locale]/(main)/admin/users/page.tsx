@@ -283,7 +283,7 @@ export default function AdminUsersPage() {
                         </div>
                     </div>
 
-                    <div className="bg-card border border-border rounded-xl overflow-hidden shadow-lg text-foreground">
+                    <div className="bg-card border border-border rounded-lg overflow-hidden shadow-lg">
                         <DataTable
                             columns={columns}
                             data={users}
@@ -296,17 +296,17 @@ export default function AdminUsersPage() {
                             paginationRowsPerPageOptions={[30, 50, 100]}
                             onChangePage={handlePageChange}
                             onChangeRowsPerPage={handlePerRowsChange}
-                            // customStyles={customStyles}
-                            // noDataComponent={
-                            //     <div className="py-8 text-center text-muted-foreground bg-card">
-                            //         {t('NO_USERS_FOUND')}
-                            //     </div>
-                            // }
-                            // progressComponent={
-                            //     <div className="py-8 flex justify-center bg-card">
-                            //         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
-                            //     </div>
-                            // }
+                            customStyles={customStyles}
+                            noDataComponent={
+                                <div className="py-8 text-center text-muted-foreground bg-card">
+                                    {t('NO_USERS_FOUND')}
+                                </div>
+                            }
+                            progressComponent={
+                                <div className="py-8 flex justify-center bg-card">
+                                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+                                </div>
+                            }
                         />
                     </div>
                 </div>

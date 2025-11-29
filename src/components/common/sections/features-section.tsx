@@ -103,13 +103,13 @@ export default function FeaturesSection() {
                             initial="initial"
                             whileInView="whileInView"
                             viewport={viewportConfig}
-                            className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8"
+                            className="w-full"
                         >
-                            {/* First Image */}
-                            <motion.div variants={animations.slideIn} className="relative">
-                                <div className="relative w-full h-52 sm:h-64 lg:h-80 rounded-2xl overflow-hidden shadow-2xl">
+                            {/* Full Width Image */}
+                            <motion.div variants={animations.slideIn} className="relative w-full">
+                                <div className="relative w-full h-64 sm:h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl">
                                     <Image
-                                        src="/pictures/corridor.jpg"
+                                        src="/pictures/lobby.jpg"
                                         alt={t('FEATURES.IMAGE_ALT', {
                                             defaultValue: 'Rehearsal space interior',
                                         })}
@@ -127,35 +127,6 @@ export default function FeaturesSection() {
                                             <p className="text-white/90 text-xs sm:text-sm drop-shadow-md">
                                                 {t('FEATURES.IMAGE1_DESC', {
                                                     defaultValue: 'State-of-the-art equipment',
-                                                })}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </motion.div>
-
-                            {/* Second Image */}
-                            <motion.div variants={animations.slideInRight} className="relative">
-                                <div className="relative w-full h-52 sm:h-64 lg:h-80 rounded-2xl overflow-hidden shadow-2xl">
-                                    <Image
-                                        src="/pictures/lobby.jpg"
-                                        alt={t('FEATURES.IMAGE2_ALT', {
-                                            defaultValue: 'Studio environment',
-                                        })}
-                                        fill
-                                        className="object-cover"
-                                    />
-
-                                    <div className="absolute bottom-0 left-0">
-                                        <div className="bg-gradient-to-t from-black/70 to-black/10 backdrop-blur-sm rounded-tr-xl px-4 py-3">
-                                            <h4 className="text-white font-semibold text-base sm:text-lg mb-1 drop-shadow-md">
-                                                {t('FEATURES.IMAGE2_TITLE', {
-                                                    defaultValue: 'Comfortable Space',
-                                                })}
-                                            </h4>
-                                            <p className="text-white/90 text-xs sm:text-sm drop-shadow-md">
-                                                {t('FEATURES.IMAGE2_DESC', {
-                                                    defaultValue: 'Perfect for creativity',
                                                 })}
                                             </p>
                                         </div>

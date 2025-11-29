@@ -74,6 +74,8 @@ model Booking {
   roomId String
   room   Room   @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
+  note String? // Admin notes for the booking
+
   verificationToken String?
   verifiedAt        DateTime?
 

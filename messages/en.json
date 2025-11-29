@@ -34,6 +34,40 @@
         "AIR_CONDITIONED": "Air conditioned",
         "AIR_CONDITIONED_DESC": "Stay cool in our fully air-conditioned rooms."
     },
+    "MIGRATION_DIALOG": {
+        "TITLE": "The Artist Factory website has been redesigned!",
+        "DESCRIPTION": "Welcome to the updated interface! All the features you’re used to — including booking — are still available, now in a more modern and streamlined layout.",
+        "BUG_REPORT": "If you notice any issues or unexpected behavior, please let us know through the bug report page.",
+        "UNDERSTOOD": "Got it"
+    },
+
+    "BUG_REPORT": {
+        "BUTTON_TOOLTIP": "Report a bug",
+        "DIALOG_TITLE": "Report a Bug",
+        "DIALOG_DESCRIPTION": "Found a problem? Let us know and we'll fix it as soon as possible.",
+        "NAME_LABEL": "Your Name",
+        "NAME_PLACEHOLDER": "John Doe",
+        "EMAIL_LABEL": "Your Email",
+        "EMAIL_PLACEHOLDER": "john@example.com",
+        "DESCRIPTION_LABEL": "Bug Description",
+        "DESCRIPTION_PLACEHOLDER": "Please describe the issue you encountered...",
+        "ATTACH_IMAGES": "Attach Screenshots (optional)",
+        "ATTACH_IMAGES_DESC": "You can attach up to 3 images",
+        "SUBMIT_BUTTON": "Submit Report",
+        "SUBMITTING": "Sending...",
+        "CANCEL": "Cancel",
+        "SUCCESS_TITLE": "Report Sent!",
+        "SUCCESS_MESSAGE": "Thank you for your feedback. We'll look into this issue.",
+        "ERROR_TITLE": "Failed to Send",
+        "ERROR_MESSAGE": "Something went wrong. Please try again or contact us directly.",
+        "VALIDATION": {
+            "NAME_REQUIRED": "Name is required",
+            "EMAIL_REQUIRED": "Email is required",
+            "EMAIL_INVALID": "Please enter a valid email",
+            "DESCRIPTION_REQUIRED": "Please describe the bug",
+            "DESCRIPTION_MIN": "Description must be at least 10 characters"
+        }
+    },
 
     "HOME": {
         "HERO": {
@@ -197,13 +231,21 @@
         "LOADING": "Loading...",
         "CUSTOMER_INFO_TITLE": "1. Customer Information",
         "CUSTOMER_INFO_DESC": "Enter the customer's name, then select time slots from the table below.",
+        "EDIT_BOOKING_TITLE": "Edit Booking",
+        "EDIT_BOOKING_DESC": "Modify booking details and add notes. Ctrl+Click on a booking to edit.",
         "NAME_LABEL": "Name",
         "BAND_NAME_LABEL": "Band Name (optional)",
+        "NOTE_LABEL": "Admin Note",
         "NAME_PLACEHOLDER": "John Doe",
         "BAND_NAME_PLACEHOLDER": "The Rock Band",
+        "NOTE_PLACEHOLDER": "Add internal notes about this booking...",
         "NAME_CONFIRMED": "✓ Name entered. Now select time slots from the table below.",
         "SUBMIT_BUTTON": "Submit Booking",
         "SUBMITTING_BUTTON": "Booking...",
+        "UPDATE_BUTTON": "Update Booking",
+        "UPDATING_BUTTON": "Updating...",
+        "CANCEL_BUTTON": "Cancel",
+        "DELETE_BUTTON": "Delete",
         "SELECTED_BOOKINGS_TITLE": "Selected Time Slots ({count})",
         "CLEAR_ALL": "Clear All",
         "TABLE_TITLE": "Booking Table",
@@ -214,6 +256,7 @@
         "ERROR_NO_BOOKINGS": "Please select at least one time slot!",
         "ERROR_LOAD_FAILED": "Failed to load bookings",
         "SUCCESS_CREATED": "Booking created: {name}",
+        "SUCCESS_UPDATED": "Booking updated: {name}",
         "SUCCESS_DELETED": "Booking deleted"
     },
     "BOOKING": {

@@ -50,8 +50,8 @@ export function AuthOptions({ variant = 'desktop' }: AuthOptionsProps) {
             return (
                 <div className="flex flex-col gap-2 items-center w-full">
                     <div className="text-center text-sm">
-                        <p className="font-medium">{session.user.name}</p>
-                        <p className="text-muted-foreground truncate">{session.user.email}</p>
+                        <p className="font-medium text-foreground">{session.user.name}</p>
+                        <p className="text-foreground truncate">{session.user.email}</p>
                     </div>
 
                     {/* Admin linkek mobilon is jöhetnek külön sorban, ha szeretnéd */}
@@ -59,14 +59,14 @@ export function AuthOptions({ variant = 'desktop' }: AuthOptionsProps) {
                         <div className="flex flex-col gap-2 mt-2 items-center w-full">
                             <Button
                                 variant="outline"
-                                className="justify-center w-full max-w-[200px]"
+                                className="justify-center w-full max-w-[200px] hover:bg-card-elevated"
                                 onClick={() => router.push('/admin/users')}
                             >
                                 {tUser('ADMIN.USERS')}
                             </Button>
                             <Button
                                 variant="outline"
-                                className="justify-center w-full max-w-[200px]"
+                                className="justify-center w-full max-w-[200px] hover:bg-card-elevated"
                                 onClick={() => router.push('/admin/bookings')}
                             >
                                 {tUser('ADMIN.BOOKINGS')}
@@ -77,7 +77,7 @@ export function AuthOptions({ variant = 'desktop' }: AuthOptionsProps) {
                     <Button
                         onClick={() => signOut({ callbackUrl: '/' })}
                         variant="destructive"
-                        className="mt-3 w-full max-w-[200px]"
+                        className="mt-3 w-full max-w-[200px] hover:bg-destructive/20 "
                     >
                         {tUser('LOGOUT')}
                     </Button>
@@ -85,35 +85,36 @@ export function AuthOptions({ variant = 'desktop' }: AuthOptionsProps) {
             )
         }
 
-        // Desktop – marad a dropdown
         return (
             <div className="flex items-center space-x-3">
-                {/* <span className="text-sm text-muted-foreground hidden sm:block w-full min-[150px]">
-                    {session.user.name || session.user.email}
-                </span> */}
-
-                <DropdownMenu>
+                <DropdownMenu modal={false}>
                     <DropdownMenuTrigger className="relative flex rounded-full text-sm cursor-pointer outline-none hover:opacity-80 transition-opacity">
                         <span className="sr-only">Open user menu</span>
                         <CgProfile size={25} className="text-foreground" />
                     </DropdownMenuTrigger>
 
-                    <DropdownMenuContent className="w-48" align="end">
+                    <DropdownMenuContent className="w-48" align="start">
                         <div className="px-2 py-1.5 text-sm border-b mb-1 ">
-                            <p className="font-medium">{session.user.name}</p>
-                            <p className="text-muted-foreground truncate">{session.user.email}</p>
+                            <p className="font-medium text-foreground">{session.user.name}</p>
+                            <p className="text-foreground truncate">{session.user.email}</p>
                         </div>
 
                         {session.user?.isAdmin && (
                             <>
                                 <DropdownMenuItem asChild>
-                                    <Link href="/admin/users" className="cursor-pointer">
+                                    <Link
+                                        href="/admin/users"
+                                        className="cursor-pointer hover:bg-card-elevated focus:bg-card-elevated focus:text-foreground"
+                                    >
                                         {tUser('ADMIN.USERS')}
                                     </Link>
                                 </DropdownMenuItem>
 
                                 <DropdownMenuItem asChild>
-                                    <Link href="/admin/bookings" className="cursor-pointer">
+                                    <Link
+                                        href="/admin/bookings"
+                                        className="cursor-pointer hover:bg-card-elevated focus:bg-card-elevated focus:text-foreground"
+                                    >
                                         {tUser('ADMIN.BOOKINGS')}
                                     </Link>
                                 </DropdownMenuItem>
@@ -124,7 +125,7 @@ export function AuthOptions({ variant = 'desktop' }: AuthOptionsProps) {
 
                         <DropdownMenuItem
                             onClick={() => signOut({ callbackUrl: '/' })}
-                            className="text-destructive focus:text-destructive-foreground hover:bg-destructive/20  cursor-pointer mt-1"
+                            className="text-destructive focus:text-destructive-foreground focus:bg-destructive/20  hover:bg-destructive/20  cursor-pointer mt-1"
                         >
                             {tUser('LOGOUT')}
                         </DropdownMenuItem>

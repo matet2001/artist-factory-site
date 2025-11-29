@@ -20,6 +20,7 @@ interface AdminBookingTableProps {
     onBook: (intent: BookingIntent) => void
     onDeletePlanned: (intent: BookingIntent) => void
     onDeleteBooking: (intent: BookingIntent) => void
+    onSelectBooking?: (booking: BookingData) => void
 }
 
 export function AdminBookingTable({
@@ -36,6 +37,7 @@ export function AdminBookingTable({
     onBook,
     onDeletePlanned,
     onDeleteBooking,
+    onSelectBooking,
 }: AdminBookingTableProps) {
     return (
         <div className="overflow-x-auto">
@@ -69,6 +71,7 @@ export function AdminBookingTable({
                                             onBook={onBook}
                                             onDeletePlanned={onDeletePlanned}
                                             onDeleteBooking={onDeleteBooking}
+                                            onSelectBooking={onSelectBooking}
                                         />
                                     ))}
                                 </tr>
