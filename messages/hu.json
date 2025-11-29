@@ -34,6 +34,40 @@
         "AIR_CONDITIONED": "Légkondicionált",
         "AIR_CONDITIONED_DESC": "Maradj hűvös a teljesen klimatizált termeinkben."
     },
+    "MIGRATION_DIALOG": {
+        "TITLE": "Megújult az Artist Factory weboldala!",
+        "DESCRIPTION": "Üdvözlünk az új, frissített felületen! A megszokott funkciók — köztük a foglalás — továbbra is elérhetők, csak modernebb, letisztultabb környezetben.",
+        "BUG_REPORT": "Ha bármilyen hibát vagy rendellenességet észlelsz, kérjük, jelezd nekünk a hibabejelentő oldalon.",
+        "UNDERSTOOD": "Rendben"
+    },
+
+    "BUG_REPORT": {
+        "BUTTON_TOOLTIP": "Hiba bejelentése",
+        "DIALOG_TITLE": "Hiba Bejelentése",
+        "DIALOG_DESCRIPTION": "Találtál egy problémát? Jelezd nekünk, és a lehető leghamarabb megoldjuk.",
+        "NAME_LABEL": "Neved",
+        "NAME_PLACEHOLDER": "Kovács János",
+        "EMAIL_LABEL": "Email címed",
+        "EMAIL_PLACEHOLDER": "kovacs@example.com",
+        "DESCRIPTION_LABEL": "Hiba leírása",
+        "DESCRIPTION_PLACEHOLDER": "Kérjük, írd le a tapasztalt problémát...",
+        "ATTACH_IMAGES": "Képernyőképek csatolása (opcionális)",
+        "ATTACH_IMAGES_DESC": "Maximum 3 képet csatolhatsz",
+        "SUBMIT_BUTTON": "Bejelentés küldése",
+        "SUBMITTING": "Küldés...",
+        "CANCEL": "Mégse",
+        "SUCCESS_TITLE": "Bejelentés elküldve!",
+        "SUCCESS_MESSAGE": "Köszönjük a visszajelzést. Megvizsgáljuk a problémát.",
+        "ERROR_TITLE": "Küldés sikertelen",
+        "ERROR_MESSAGE": "Valami hiba történt. Kérjük, próbáld újra vagy vedd fel velünk a kapcsolatot.",
+        "VALIDATION": {
+            "NAME_REQUIRED": "A név megadása kötelező",
+            "EMAIL_REQUIRED": "Az email cím megadása kötelező",
+            "EMAIL_INVALID": "Kérjük, adj meg egy érvényes email címet",
+            "DESCRIPTION_REQUIRED": "Kérjük, írd le a hibát",
+            "DESCRIPTION_MIN": "A leírásnak legalább 10 karakter hosszúnak kell lennie"
+        }
+    },
 
     "HOME": {
         "HERO": {
@@ -53,7 +87,7 @@
         },
         "FEATURES": {
             "TITLE": "Amit kínálunk",
-            "ROOMS_SPACIOUS": "5 hangszigetelt próbaterem és stúdió",
+            "ROOMS_SPACIOUS": "5 hangszigetelt próbaterem és egy stúdió",
             "ROOMS_SPACIOUS_DESC": "Termeink kényelmesen befogadnak 4–5 fős zenekarokat, de rendelkezünk egy nagyobb teremmel is, ahol akár 8–10 fő is együtt próbálhat.",
             "AFFORDABLE": "Megfizethető árak",
             "AFFORDABLE_DESC": "Áraink 5500 Ft/óra-tól indulnak.",
@@ -462,13 +496,21 @@
         "LOADING": "Betöltés...",
         "CUSTOMER_INFO_TITLE": "1. Ügyfél adatai",
         "CUSTOMER_INFO_DESC": "Add meg az ügyfél nevét, majd válassz időpontokat a lenti táblázatból.",
+        "EDIT_BOOKING_TITLE": "Foglalás szerkesztése",
+        "EDIT_BOOKING_DESC": "Módosítsd a foglalás részleteit és adj hozzá jegyzeteket. Ctrl+Kattintás a foglalásra a szerkesztéshez.",
         "NAME_LABEL": "Név",
         "BAND_NAME_LABEL": "Zenekar neve (opcionális)",
+        "NOTE_LABEL": "Admin jegyzet",
         "NAME_PLACEHOLDER": "Kovács János",
         "BAND_NAME_PLACEHOLDER": "The Rock Band",
+        "NOTE_PLACEHOLDER": "Belső jegyzet hozzáadása erről a foglalásról...",
         "NAME_CONFIRMED": "✓ Név megadva. Most válassz időpontokat a lenti táblázatból.",
         "SUBMIT_BUTTON": "Foglalás leadása",
         "SUBMITTING_BUTTON": "Foglalás...",
+        "UPDATE_BUTTON": "Foglalás frissítése",
+        "UPDATING_BUTTON": "Frissítés...",
+        "CANCEL_BUTTON": "Mégse",
+        "DELETE_BUTTON": "Törlés",
         "SELECTED_BOOKINGS_TITLE": "Kiválasztott időpontok ({count})",
         "CLEAR_ALL": "Összes törlése",
         "TABLE_TITLE": "Foglalási táblázat",
@@ -479,6 +521,7 @@
         "ERROR_NO_BOOKINGS": "Válassz legalább egy időpontot!",
         "ERROR_LOAD_FAILED": "Nem sikerült betölteni a foglalásokat",
         "SUCCESS_CREATED": "Foglalás létrehozva: {name}",
+        "SUCCESS_UPDATED": "Foglalás frissítve: {name}",
         "SUCCESS_DELETED": "Foglalás törölve"
     },
     "BOOKING": {

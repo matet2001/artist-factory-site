@@ -20,6 +20,7 @@ export interface BookingData {
     status: BookingStatus
     roomId: string
     userId: string
+    note?: string | null
     user?: {
         fullName: string
         bandName?: string | null

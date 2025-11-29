@@ -466,6 +466,84 @@ export async function sendAdminBookingNotification(
     }
 }
 
+export async function sendBugReportEmail(
+    name: string,
+    email: string,
+    description: string,
+    attachments: Array<{ filename: string; content: Buffer }> = []
+) {
+    const bugReportEmail = process.env.BUG_REPORT_EMAIL || 'matet2001@gmail.com'
+
+    try {
+        await getTransporter().sendMail({
+            from: process.env.EMAIL_FROM,
+            to: bugReportEmail,
+            replyTo: email,
+            subject: `Bug Report from ${name}`,
+            html: `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body style="margin: 0; padding: 0; background-color: #242424; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #242424; padding: 40px 20px;">
+            <tr>
+              <td align="center">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #242424;">
+                  <tr>
+                    <td style="padding: 48px 40px;">
+                      <h1 style="color: #f5f5f5; font-size: 24px; font-weight: 600; margin: 0 0 16px 0;">🐛 New Bug Report</h1>
+
+                      <div style="background-color: #1a1a1a; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+                        <p style="color: #ff6b9d; font-size: 14px; font-weight: 600; margin: 0 0 8px 0;">Reporter Information</p>
+                        <p style="color: #f5f5f5; font-size: 14px; margin: 0 0 4px 0;"><strong>Name:</strong> ${name}</p>
+                        <p style="color: #f5f5f5; font-size: 14px; margin: 0;"><strong>Email:</strong> ${email}</p>
+                      </div>
+
+                      <div style="background-color: #1a1a1a; border-left: 3px solid #ff3b7f; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+                        <p style="color: #ff6b9d; font-size: 14px; font-weight: 600; margin: 0 0 12px 0;">Bug Description</p>
+                        <p style="color: #f5f5f5; font-size: 14px; line-height: 20px; margin: 0; white-space: pre-wrap;">${description}</p>
+                      </div>
+
+                      ${
+                          attachments.length > 0
+                              ? `
+                      <div style="background-color: #1a1a1a; border-radius: 8px; padding: 20px;">
+                        <p style="color: #ff6b9d; font-size: 14px; font-weight: 600; margin: 0 0 8px 0;">📎 Attachments</p>
+                        <p style="color: #919191; font-size: 13px; margin: 0;">${attachments.length} file(s) attached</p>
+                      </div>
+                      `
+                              : ''
+                      }
+
+                      <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #333333;">
+                        <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0;">ArtistFactory - Bug Report System</p>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+      </html>
+    `,
+            attachments: attachments.map((att) => ({
+                filename: att.filename,
+                content: att.content,
+            })),
+        })
+        emailStats.sent++
+        console.log(`✓ Bug report email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+    } catch (error) {
+        emailStats.failed++
+        console.error(`✗ Failed to send bug report email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        throw error
+    }
+}
+
 export async function sendMigrationWelcomeEmail(email: string, token: string, userName?: string) {
     const resetUrl = `${process.env.NEXTAUTH_URL}/migration-welcome?token=${token}`
 

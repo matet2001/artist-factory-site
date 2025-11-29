@@ -1,7 +1,7 @@
 'use client'
 
 import { BookingStatus } from '@prisma/client'
-import { Plus, Loader2, X, Trash2 } from 'lucide-react'
+import { Plus, Loader2, X, Trash2, Edit } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import {
     BookingData,
@@ -23,6 +23,7 @@ interface AdminBookingCellProps {
     onBook: (intent: BookingIntent) => void
     onDeletePlanned: (intent: BookingIntent) => void
     onDeleteBooking: (intent: BookingIntent) => void
+    onSelectBooking?: (booking: BookingData) => void
 }
 
 export function AdminBookingCell({
@@ -37,6 +38,7 @@ export function AdminBookingCell({
     onBook,
     onDeletePlanned,
     onDeleteBooking,
+    onSelectBooking,
 }: AdminBookingCellProps) {
     const isPast = isTimeInPast(date, time)
 
@@ -67,18 +69,27 @@ export function AdminBookingCell({
         return formatDisplayName(booking.user)
     }
 
+    const getUserName = () => {
+        if (!booking?.user?.fullName) return ''
+        const parts = booking.user.fullName.split(' ')
+        if (parts.length >= 2) {
+            return `${parts[0]} ${parts[1].charAt(0)}.`
+        }
+        return parts[0]
+    }
+
     const cellClasses = cn('h-16 relative transition-all duration-200 border border-border/50', {
         'bg-card/30 hover:bg-yellow-500/20 cursor-pointer':
             cellState === CellState.OPEN && !isPlanned,
-        'bg-yellow-500/60 hover:bg-red-500/60 cursor-pointer backdrop-blur-sm':
+        'bg-yellow-500/60 backdrop-blur-sm':
             cellState === CellState.PLANNED_CANCELABLE,
-        'bg-primary/50 hover:bg-red-500/60 cursor-pointer backdrop-blur-sm':
+        'bg-primary/50 backdrop-blur-sm':
             cellState === CellState.UNVERIFIED,
-        'bg-green-500/60 hover:bg-red-500/60 cursor-pointer backdrop-blur-sm':
+        'bg-green-500/60 backdrop-blur-sm':
             cellState === CellState.VERIFIED_CANCELABLE,
     })
 
-    const handleClick = () => {
+    const handleClick = (e: React.MouseEvent) => {
         if (isLoading) return
 
         const intent: BookingIntent = {
@@ -87,9 +98,29 @@ export function AdminBookingCell({
             time,
         }
 
+        // Only allow clicking on open cells to book
         if (cellState === CellState.OPEN) {
             onBook(intent)
-        } else if (cellState === CellState.PLANNED_CANCELABLE && isPlanned) {
+        }
+    }
+
+    const handleEdit = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        if (isLoading || !booking || !onSelectBooking) return
+        onSelectBooking(booking)
+    }
+
+    const handleDelete = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        if (isLoading) return
+
+        const intent: BookingIntent = {
+            roomId,
+            date,
+            time,
+        }
+
+        if (cellState === CellState.PLANNED_CANCELABLE && isPlanned) {
             onDeletePlanned(intent)
         } else if (
             cellState === CellState.UNVERIFIED ||
@@ -112,29 +143,38 @@ export function AdminBookingCell({
                         )}
                         {cellState === CellState.PLANNED_CANCELABLE && (
                             <>
-                                <X className="absolute top-1 right-1 h-4 w-4 text-white opacity-0 group-hover/cell:opacity-100 transition-opacity" />
+                                <div className="absolute top-1 right-1 flex gap-1">
+                                    <button
+                                        onClick={handleDelete}
+                                        className="p-1 rounded bg-red-500/80 hover:bg-red-500 opacity-0 group-hover/cell:opacity-100 transition-opacity cursor-pointer"
+                                        title="Delete booking"
+                                    >
+                                        <Trash2 className="h-3 w-3 text-white" />
+                                    </button>
+                                </div>
                                 <div className="flex flex-col items-center justify-center text-center">
                                     {isPlanned && !booking ? (
                                         <>
-                                            {customerBandName ? (
-                                                <>
-                                                    <div className="text-xs font-medium text-white truncate max-w-full">
-                                                        {customerBandName}
-                                                    </div>
-                                                    <div className="text-[10px] text-white/70 truncate max-w-full mt-0.5">
-                                                        {customerName}
-                                                    </div>
-                                                </>
-                                            ) : (
-                                                <div className="text-xs font-medium text-white truncate max-w-full">
-                                                    {customerName}
+                                            <div className="text-xs font-medium text-white truncate max-w-full">
+                                                {customerName}
+                                            </div>
+                                            {customerBandName && (
+                                                <div className="text-[10px] text-white/70 truncate max-w-full mt-0.5">
+                                                    {customerBandName}
                                                 </div>
                                             )}
                                         </>
                                     ) : (
-                                        <div className="text-xs font-medium text-white truncate max-w-full">
-                                            {getDisplayName()}
-                                        </div>
+                                        <>
+                                            <div className="text-xs font-medium text-white truncate max-w-full">
+                                                {getUserName()}
+                                            </div>
+                                            {booking?.user?.bandName && (
+                                                <div className="text-[10px] text-white/70 truncate max-w-full mt-0.5">
+                                                    {booking.user.bandName}
+                                                </div>
+                                            )}
+                                        </>
                                     )}
                                 </div>
                             </>
@@ -142,20 +182,29 @@ export function AdminBookingCell({
                         {(cellState === CellState.UNVERIFIED ||
                             cellState === CellState.VERIFIED_CANCELABLE) && (
                             <>
-                                <Trash2 className="absolute top-1 right-1 h-4 w-4 text-white opacity-0 group-hover/cell:opacity-100 transition-opacity" />
+                                <div className="absolute top-1 right-1 flex gap-1">
+                                    <button
+                                        onClick={handleEdit}
+                                        className="p-1 rounded bg-blue-500/80 hover:bg-blue-500 opacity-0 group-hover/cell:opacity-100 transition-opacity cursor-pointer"
+                                        title="Edit booking"
+                                    >
+                                        <Edit className="h-3 w-3 text-white" />
+                                    </button>
+                                    <button
+                                        onClick={handleDelete}
+                                        className="p-1 rounded bg-red-500/80 hover:bg-red-500 opacity-0 group-hover/cell:opacity-100 transition-opacity cursor-pointer"
+                                        title="Delete booking"
+                                    >
+                                        <Trash2 className="h-3 w-3 text-white" />
+                                    </button>
+                                </div>
                                 <div className="flex flex-col items-center justify-center text-center">
-                                    {booking?.user?.bandName ? (
-                                        <>
-                                            <div className="text-xs font-medium text-white truncate max-w-full">
-                                                {booking.user.bandName}
-                                            </div>
-                                            <div className="text-[10px] text-white/70 truncate max-w-full mt-0.5">
-                                                {getDisplayName()}
-                                            </div>
-                                        </>
-                                    ) : (
-                                        <div className="text-xs font-medium text-white truncate max-w-full">
-                                            {getDisplayName()}
+                                    <div className="text-xs font-medium text-white truncate max-w-full">
+                                        {getUserName()}
+                                    </div>
+                                    {booking?.user?.bandName && (
+                                        <div className="text-[10px] text-white/70 truncate max-w-full mt-0.5">
+                                            {booking.user.bandName}
                                         </div>
                                     )}
                                 </div>

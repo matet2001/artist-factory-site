@@ -23,7 +23,7 @@ export default function HeroSection() {
                     <div className="relative z-10 space-y-6 sm:space-y-10 lg:space-y-12">
                         <motion.div
                             variants={animations.stagger}
-                            className="mx-auto w-full max-w-7xl px-4 sm:px-6 text-center flex flex-col items-center justify-center space-y-4 sm:space-y-8"
+                            className="w-full  text-center flex flex-col items-center justify-center space-y-4 sm:space-y-8"
                         >
                             {/* Title */}
                             <motion.h1
@@ -45,7 +45,7 @@ export default function HeroSection() {
                             {/* Images Section */}
                             <motion.div variants={animations.stagger} className="mt-8 w-full">
                                 {/* Edge-to-edge on mobile, centered on larger screens */}
-                                <div className="w-full max-w-5xl mx-auto  sm:mx-0">
+                                <div className="w-full max-w-7xl mx-auto">
                                     {/* Shared pill container: rounded top+bottom, border only on Y */}
                                     <div className="group relative overflow-hidden rounded-3xl border-y-4 border-primary">
                                         <div className="grid grid-cols-1 md:grid-cols-2">
@@ -55,7 +55,7 @@ export default function HeroSection() {
                                                     src="/pictures/corridor.jpg"
                                                     alt={t('HERO.IMAGE_CORRIDOR')}
                                                     fill
-                                                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                                                    className="object-cover transition-transform duration-300 hover:scale-105"
                                                 />
                                             </div>
 
@@ -65,7 +65,7 @@ export default function HeroSection() {
                                                     src="/pictures/chill_zone.jpg"
                                                     alt={t('HERO.IMAGE_STUDIO')}
                                                     fill
-                                                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                                                    className="object-cover transition-transform duration-300 hover:scale-105"
                                                 />
                                             </div>
                                         </div>

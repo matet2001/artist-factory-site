@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
         }
 
         const body = await request.json()
-        const { name, bandName, bookings } = body
+        const { name, bandName, note, bookings } = body
 
         if (!name || !bookings || !Array.isArray(bookings) || bookings.length === 0) {
             return NextResponse.json({ error: 'Invalid request data' }, { status: 400 })
@@ -70,6 +70,7 @@ export async function POST(request: NextRequest) {
                         time: booking.time,
                         status: 'VERIFIED', // Phone bookings are immediately verified
                         verifiedAt: new Date(),
+                        note: note || null, // Add admin note if provided
                     },
                     include: {
                         user: {

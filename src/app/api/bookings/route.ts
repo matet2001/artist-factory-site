@@ -70,6 +70,7 @@ export async function GET(request: NextRequest) {
                 date: booking.date,
                 status: booking.status,
                 userId: booking.userId,
+                note: booking.note,
                 user: userData,
             }
         })
