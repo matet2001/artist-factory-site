@@ -1,31 +1,35 @@
-import Logo from '@/components/common/logo'
 import LanguageToggle from '@/components/common/language-toggle'
+import Logo from '@/components/common/logo'
 import React from 'react'
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
     return (
         <div className="min-h-dvh flex flex-col isolate relative">
-            {/* Noise texture overlay */}
-            <div className="fixed inset-0 z-[-2] mix-blend-overlay pointer-events-none opacity-[0.03]"
-                 style={{
-                     backgroundImage: 'url(/noise_texture.jpg)',
-                     backgroundRepeat: 'repeat',
-                     backgroundSize: '100%'
-                 }}
-            />
-
             {/* Language Switcher - Fixed Top Right */}
             <div className="fixed top-4 right-4 z-50">
                 <LanguageToggle />
             </div>
 
-            <main className="flex-1 flex items-center justify-center p-4 py-8 sm:py-20">
-                <div className="w-full max-w-lg space-y-6">
+            <main className="flex-1 flex items-center justify-center px-0 py-8 sm:px-4 sm:py-20">
+                <div className="w-full sm:max-w-lg sm:mx-auto space-y-6">
                     <div className="flex justify-center">
-                        <Logo size={300} />
+                        <Logo size={260} />
                     </div>
-                    {/* Card with teal background */}
-                    <div className="bg-card text-card-foreground p-6 sm:p-8 rounded-lg shadow-2xl border border-border/50">
+
+                    {/* Responsive card:
+                        - Mobile: full-width block with no radius/border/shadow
+                        - Desktop: classic card with radius/border/shadow
+                    */}
+                    <div
+                        className="
+                            bg-card text-card-foreground 
+                            px-4 py-6 
+                            sm:p-8
+                            rounded-none sm:rounded-xl
+                            border-0 sm:border sm:border-border/50
+                            shadow-none sm:shadow-2xl
+                        "
+                    >
                         {children}
                     </div>
                 </div>

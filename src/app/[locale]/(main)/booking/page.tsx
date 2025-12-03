@@ -314,11 +314,14 @@ export default function BookingPage() {
         setIsSubmitting(true)
 
         try {
+            // Send booking IDs instead of just the date
+            const bookingIds = plannedBookings.map(b => b.id)
+
             const response = await fetch('/api/bookings/confirm', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    date: formatUTCDate(selectedDate),
+                    bookingIds,
                 }),
             })
 

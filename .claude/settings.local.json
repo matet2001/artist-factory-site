@@ -17,7 +17,8 @@
       "Bash(npx tsc:*)",
       "Bash(npm install:*)",
       "Bash(head:*)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(npm run dev:*)"
     ],
     "deny": [],
     "ask": []

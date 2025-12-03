@@ -108,9 +108,9 @@
             "DESCRIPTION": "Valósítsd meg zenei ötleteidet professzionális felvételi, keverési és maszterelési szolgáltatásokkal.",
             "FEATURE_1": "Csúcskategóriás felszerelés",
             "FEATURE_1_DESC": "Prémium felvételi eszközök és szoftverek",
-            "FEATURE_2": "Szakértői produkció",
+            "FEATURE_2": "Szakértelem",
             "FEATURE_2_DESC": "Profi, tapasztalt hangmérnökünk a rendelkezésetekre áll",
-            "FEATURE_3": "Rugalmas időpontok",
+            "FEATURE_3": "Rugalmas hozzáállás",
             "FEATURE_3_DESC": "Demótól a teljes albumig",
             "CTA": "Tudj meg többet",
             "PRICE_LABEL": "Ár kezdve",
@@ -440,7 +440,12 @@
 
         "CTA_TITLE": "Készen állsz a felvételre?",
         "CTA_DESC": "Foglalj stúdió időpontot és vidd sikerre a zenédet!",
-        "CTA_BUTTON": "Stúdió Foglalás"
+        "CTA_BUTTON": "Stúdió Foglalás",
+
+        "BOOKING_DISCLAIMER_TITLE": "Stúdió Foglalás",
+        "BOOKING_DISCLAIMER_DESC": "A stúdió foglalások csak telefonon keresztül lehetségesek. Hívj minket, hogy megbeszéljük az igényeidet és időpontot egyeztessünk!",
+        "CALL_US": "Hívj minket",
+        "AVAILABLE": "Hívható 9-22 óráig"
     },
     "EMAIL": {
         "VERIFICATION": {
@@ -531,6 +536,7 @@
         "FINALIZE_ORDER": "Foglalás Véglegesítése",
         "ORDER_DISCLAIM": "Kérjük, ellenőrizd a foglalásaidat, majd kattints a küldés gombra. Email-ben kapsz egy visszaigazolást.",
         "SUBMIT": "Foglalás Küldése",
+        "PROCESSING": "Feldolgozás...",
         "BOOKING_SUCCESS_TITLE": "Foglalás Megerősítve!",
         "BOOKING_SUCCESS_DESC": "A foglalásod sikeresen megerősítésre került. Küldtünk egy visszaigazoló e-mailt minden részlettel.",
         "BOOKING_SUCCESS_EMAIL_NOTICE": "Kérjük, ellenőrizd az e-mailjeidet a visszaigazolásért és a foglalás részleteiért. Várunk szeretettel!",

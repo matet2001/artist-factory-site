@@ -268,6 +268,7 @@
         "FINALIZE_ORDER": "Finalize Booking",
         "ORDER_DISCLAIM": "Please review your bookings, then click submit. You will receive a confirmation email.",
         "SUBMIT": "Submit Booking",
+        "PROCESSING": "Processing...",
         "BOOKING_SUCCESS_TITLE": "Booking Confirmed!",
         "BOOKING_SUCCESS_DESC": "Your booking has been successfully confirmed. We've sent a confirmation email with all the details.",
         "BOOKING_SUCCESS_EMAIL_NOTICE": "Please check your email for the confirmation and booking details. We look forward to welcoming you!",
@@ -534,7 +535,12 @@
 
         "CTA_TITLE": "Ready to Record?",
         "CTA_DESC": "Book your studio session and bring your music to life!",
-        "CTA_BUTTON": "Book Studio Session"
+        "CTA_BUTTON": "Book Studio Session",
+
+        "BOOKING_DISCLAIMER_TITLE": "Studio Booking",
+        "BOOKING_DISCLAIMER_DESC": "Studio bookings can only be made via phone. Call us to discuss your needs and schedule a session!",
+        "CALL_US": "Call Us",
+        "AVAILABLE": "Available 9 AM - 10 PM"
     },
     "EMAIL": {
         "VERIFICATION": {
