@@ -159,7 +159,8 @@
             "MIXER": "Keverő",
             "SPEAKER": "Hangfal",
             "MIC": "Mikrofon",
-            "PIANO": "Zongora"
+            "PIANO": "Zongora",
+            "GUITAR-AMP": "Gitárerősítő"
         },
         "EQUIPMENT_PARTS": {
             "HEAD": "fej",
@@ -169,7 +170,8 @@
             "SNARE": "pergő",
             "UPRIGHT_PIANO": "Pianínó",
             "TUNED": "hangolva",
-            "MICROPHONES": "Mikrofonok"
+            "MICROPHONES": "Mikrofonok",
+            "COMBO": "kombó"
         },
         "SEE_DETAILS": "Részletek",
         "VIEW_DETAILS": "Részletek megtekintése",
@@ -652,6 +654,9 @@
         "YES": "Igen",
         "NO": "Nem",
         "NO_USERS_FOUND": "Nem található felhasználó",
-        "ERROR_LOAD_FAILED": "Nem sikerült betölteni a felhasználókat"
+        "ERROR_LOAD_FAILED": "Nem sikerült betölteni a felhasználókat",
+        "ROWS_PER_PAGE": "Sorok oldalanként:",
+        "PAGE_OF": "{current}. oldal / {total}",
+        "SHOWING_RESULTS": "{start}-{end} / {total}"
     }
 }

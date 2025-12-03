@@ -159,7 +159,8 @@
             "MIXER": "Mixer",
             "SPEAKER": "Speaker",
             "MIC": "Microphone",
-            "PIANO": "Piano"
+            "PIANO": "Piano",
+            "GUITAR-AMP": "Guitar Amplifier"
         },
         "EQUIPMENT_PARTS": {
             "HEAD": "head",
@@ -169,7 +170,8 @@
             "SNARE": "snare",
             "UPRIGHT_PIANO": "Upright Piano",
             "TUNED": "tuned",
-            "MICROPHONES": "Microphones"
+            "MICROPHONES": "Microphones",
+            "COMBO": "combo"
         },
         "SEE_DETAILS": "See Details",
 
@@ -647,6 +649,9 @@
         "YES": "Yes",
         "NO": "No",
         "NO_USERS_FOUND": "No users found",
-        "ERROR_LOAD_FAILED": "Failed to load users"
+        "ERROR_LOAD_FAILED": "Failed to load users",
+        "ROWS_PER_PAGE": "Rows per page:",
+        "PAGE_OF": "Page {current} of {total}",
+        "SHOWING_RESULTS": "{start}-{end} of {total}"
     }
 }
