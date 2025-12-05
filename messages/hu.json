@@ -564,6 +564,8 @@
         "ALERT": {
             "LOGIN": "Kérjük, jelentkezz be a foglaláshoz!"
         },
+        "AUTH_REQUIRED_TITLE": "Bejelentkezés Szükséges",
+        "AUTH_REQUIRED_DESC": "Kérjük, jelentkezz be a foglalás leadásához",
         "CONFIRM_MODAL": {
             "TITLE": "Foglalás Megerősítése",
             "CONTENT": "Biztosan el akarod küldeni a foglalásokat? Email-ben kapsz egy megerősítő linket."

@@ -18,7 +18,9 @@
       "Bash(npm install:*)",
       "Bash(head:*)",
       "Bash(wc:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(del \"c:\\IT\\Projects\\Personal\\artist-factory-site\\src\\components\\ui\\time-picker.tsx\" \"c:\\IT\\Projects\\Personal\\artist-factory-site\\src\\components\\ui\\select.tsx\")",
+      "Bash(test:*)"
     ],
     "deny": [],
     "ask": []
