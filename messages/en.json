@@ -296,6 +296,8 @@
         "ALERT": {
             "LOGIN": "Please sign in to make a booking!"
         },
+        "AUTH_REQUIRED_TITLE": "Authentication Required",
+        "AUTH_REQUIRED_DESC": "Please sign in to make a booking",
         "CONFIRM_MODAL": {
             "TITLE": "Confirm Booking",
             "CONTENT": "Are you sure you want to submit these bookings? You will receive a confirmation link via email."

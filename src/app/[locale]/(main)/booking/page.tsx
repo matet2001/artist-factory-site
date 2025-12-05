@@ -163,8 +163,8 @@ export default function BookingPage() {
 
     const handleBook = async (intent: BookingIntent) => {
         if (!session) {
-            toast.error('Authentication Required', {
-                description: 'Please sign in to make a booking',
+            toast.error(t('AUTH_REQUIRED_TITLE'), {
+                description: t('AUTH_REQUIRED_DESC'),
             })
             // Redirect to register page after showing the alert
             setTimeout(() => {

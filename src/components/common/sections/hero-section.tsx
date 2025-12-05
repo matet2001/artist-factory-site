@@ -31,7 +31,7 @@ export default function HeroSection() {
                             <div className="relative h-[400px] sm:h-[500px] lg:h-full lg:min-h-[600px]">
                                 <Image
                                     src="/pictures/hero.jpg"
-                                    alt="Artist Factory rehearsal rooms and studio"
+                                    alt="Próbaterem Budapest - Artist Factory hangszigetelt zenekari próbaterme légkondicionálással és prémium felszereléssel"
                                     fill
                                     priority
                                     className="object-cover"

@@ -19,11 +19,16 @@ export function MigrationDialog() {
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
-        // Check if user has already seen the dialog
-        const hasSeenDialog = localStorage.getItem(MIGRATION_DIALOG_KEY)
-        if (!hasSeenDialog) {
-            setOpen(true)
-        }
+        // Small delay to ensure dialog appears even before auth loads
+        const timer = setTimeout(() => {
+            // Check if user has already seen the dialog
+            const hasSeenDialog = localStorage.getItem(MIGRATION_DIALOG_KEY)
+            if (!hasSeenDialog) {
+                setOpen(true)
+            }
+        }, 100) // Small delay to ensure it shows
+
+        return () => clearTimeout(timer)
     }, [])
 
     const handleClose = () => {
