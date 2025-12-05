@@ -6,11 +6,12 @@ const prisma = new PrismaClient();
 async function main() {
   // Seed rooms first with explicit IDs matching the slug
   const rooms = [
-    { id: 'room1', name: 'ROOM1_NAME', slug: 'room1', size: 5, price: 5500 },
-    { id: 'room2', name: 'ROOM2_NAME', slug: 'room2', size: 5, price: 5500 },
-    { id: 'room3', name: 'ROOM3_NAME', slug: 'room3', size: 10, price: 6000 },
-    { id: 'room4', name: 'ROOM4_NAME', slug: 'room4', size: 5, price: 5500 },
-    { id: 'room5', name: 'ROOM5_NAME', slug: 'room5', size: 5, price: 5500 },
+    { id: 'room1', name: 'ROOM1_NAME', slug: 'room1', size: 16, price: 5500 },
+    { id: 'room2', name: 'ROOM2_NAME', slug: 'room2', size: 20, price: 6500 },
+    { id: 'room3', name: 'ROOM3_NAME', slug: 'room3', size: 25, price: 7500 },
+    { id: 'room4', name: 'ROOM4_NAME', slug: 'room4', size: 30, price: 8500 },
+    { id: 'room5', name: 'ROOM5_NAME', slug: 'room5', size: 20, price: 6500 },
+    { id: 'studio', name: 'STUDIO_NAME', slug: 'studio', size: 40, price: 10000 },
   ];
 
   for (const room of rooms) {
@@ -21,7 +22,7 @@ async function main() {
     });
   }
 
-  console.log('Rooms seeded.');
+  console.log('✓ Seeded 6 rooms (Room 1-5 + Studio)');
 
   // Seed admin user
   await prisma.user.upsert({
@@ -39,30 +40,9 @@ async function main() {
     },
   });
 
-  console.log('Admin user seeded.');
+  console.log('✓ Seeded admin user: artistfactory@artistfactory.hu');
 
-  // Seed regular users (only if they don't exist)
-  const testUsers = [
-    { email: 'alice@example.com', name: 'Alice' },
-    { email: 'bob@example.com', name: 'Bob' },
-    { email: 'charlie@example.com', name: 'Charlie' },
-    { email: 'diana@example.com', name: 'Diana' },
-    { email: 'edward@example.com', name: 'Edward' },
-  ];
-
-  for (const user of testUsers) {
-    await prisma.user.upsert({
-      where: { email: user.email },
-      update: {},
-      create: {
-        email: user.email,
-        name: user.name,
-        password: await bcrypt.hash('password123', 10),
-      },
-    });
-  }
-
-  console.log('Seeding completed.');
+  console.log('\n=== Seeding completed successfully! ===');
 }
 
 main()

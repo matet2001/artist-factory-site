@@ -45,7 +45,7 @@ export enum CellState {
 }
 
 export const OPENING_HOURS: OpeningHours = {
-    opening: 10,
+    opening: 9,
     closing: 22,
 }
 
