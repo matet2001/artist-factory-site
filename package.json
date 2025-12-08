@@ -9,7 +9,11 @@
         "start": "next start",
         "lint": "next lint",
         "import-users": "tsx scripts/import-users.ts",
-        "send-migration-emails": "tsx scripts/send-migration-emails.ts",
+        "import-phones": "tsx scripts/import-missing-phones.ts",
+        "import-phones:live": "tsx scripts/import-missing-phones.ts --live",
+        "migration-emails": "tsx scripts/send-migration-emails.ts",
+        "migration-emails:test": "tsx scripts/send-migration-emails.ts --test",
+        "migration-emails:live": "tsx scripts/send-migration-emails.ts --live",
         "type-check": "tsc --noEmit"
     },
     "dependencies": {

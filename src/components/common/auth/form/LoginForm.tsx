@@ -3,7 +3,7 @@
 import { signIn, useSession } from 'next-auth/react'
 import { useTranslations, useLocale } from 'next-intl'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
@@ -47,6 +47,9 @@ const LoginForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [passwordVisible, setPasswordVisible] = useState(false)
+    const [showResendVerification, setShowResendVerification] = useState(false)
+    const [isResending, setIsResending] = useState(false)
+    const [resendCooldown, setResendCooldown] = useState(0)
     const t = useTranslations('AUTH')
     const locale = useLocale()
     const router = useRouter()
@@ -59,10 +62,52 @@ const LoginForm = () => {
         },
     })
 
+    // Countdown timer for resend cooldown
+    useEffect(() => {
+        if (resendCooldown <= 0) return
+
+        const timer = setInterval(() => {
+            setResendCooldown((prev) => Math.max(0, prev - 1))
+        }, 1000)
+
+        return () => clearInterval(timer)
+    }, [resendCooldown])
+
+    const handleResendVerification = async () => {
+        try {
+            setIsResending(true)
+            const email = form.getValues('email')
+
+            const response = await fetch('/api/auth/resend-verification', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            })
+
+            const data = await response.json()
+
+            if (response.status === 429) {
+                // Rate limited - show cooldown
+                setResendCooldown(data.remainingSeconds || 60)
+                toast.error(t('ERRORS.RATE_LIMIT', { seconds: data.remainingSeconds }))
+            } else if (response.ok) {
+                toast.success(t('ALERT.VERIFICATION_EMAIL_SENT'))
+                setShowResendVerification(false)
+            } else {
+                toast.error(t(data.error || 'ERRORS.EMAIL_SEND_FAILED'))
+            }
+        } catch {
+            toast.error(t('ERRORS.EMAIL_SEND_FAILED'))
+        } finally {
+            setIsResending(false)
+        }
+    }
+
     const onSubmit = async (values: LoginFormData) => {
         try {
             setIsSubmitting(true)
             setError(null)
+            setShowResendVerification(false)
 
             const formData = new FormData()
             formData.append('email', values.email)
@@ -79,8 +124,10 @@ const LoginForm = () => {
 
                 if (response.error.includes('verify your email')) {
                     errorKey = 'ERRORS.EMAIL_NOT_VERIFIED'
+                    setShowResendVerification(true) // Show resend button
                 } else if (response.error.includes('Invalid credentials')) {
                     errorKey = 'ERRORS.INVALID_CREDENTIALS'
+                    setShowResendVerification(false)
                 }
 
                 const errorMsg = t(errorKey)
@@ -159,7 +206,27 @@ const LoginForm = () => {
                         )}
                     />
 
-                    {error && <div className="text-red-500 text-sm text-center">{error}</div>}
+                    {error && (
+                        <div className="space-y-3">
+                            <div className="text-red-500 text-sm text-center">{error}</div>
+                            {showResendVerification && (
+                                <div className="text-center">
+                                    <button
+                                        type="button"
+                                        onClick={handleResendVerification}
+                                        disabled={isResending || resendCooldown > 0}
+                                        className="text-sm text-accent hover:underline font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        {isResending
+                                            ? t('SENDING')
+                                            : resendCooldown > 0
+                                              ? t('RESEND_IN', { seconds: resendCooldown })
+                                              : t('RESEND_VERIFICATION')}
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    )}
 
                     <Button
                         variant={'secondary'}
