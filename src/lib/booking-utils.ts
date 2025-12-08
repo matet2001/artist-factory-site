@@ -70,6 +70,17 @@ export function isTimeInPast(date: Date, time: number): boolean {
     const bookingDateTime = new Date(date)
     bookingDateTime.setHours(time + 1, 0, 0, 0) // End of the hour slot
 
+    // Check if the booking date is before today (not including today)
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const bookingDay = new Date(date)
+    bookingDay.setHours(0, 0, 0, 0)
+
+    // Only mark as past if it's before today, not on today
+    if (bookingDay >= today) {
+        return false
+    }
+
     return bookingDateTime < now
 }
 

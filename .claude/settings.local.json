@@ -17,7 +17,12 @@
       "Bash(npx tsc:*)",
       "Bash(npm install:*)",
       "Bash(head:*)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(npm run dev:*)",
+      "Bash(del \"c:\\IT\\Projects\\Personal\\artist-factory-site\\src\\components\\ui\\time-picker.tsx\" \"c:\\IT\\Projects\\Personal\\artist-factory-site\\src\\components\\ui\\select.tsx\")",
+      "Bash(test:*)",
+      "Bash(npx prisma studio)",
+      "Bash(del /s /q .next)"
     ],
     "deny": [],
     "ask": []

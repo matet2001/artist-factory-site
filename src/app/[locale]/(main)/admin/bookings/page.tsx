@@ -135,13 +135,15 @@ export default function AdminBookingsPage() {
         }
     }, [selectedDate, needsToFetch, fetchBookingsWeek])
 
-    // Update timeline every minute
+    // Update timeline and refresh bookings every 10 seconds
     useEffect(() => {
         const interval = setInterval(() => {
             setSelectedDate((d) => new Date(d))
-        }, 60000)
+            // Refresh bookings to see new ones made by users
+            fetchBookingsWeek(selectedDate)
+        }, 10000)
         return () => clearInterval(interval)
-    }, [])
+    }, [selectedDate, fetchBookingsWeek])
 
     const getBooking = (roomId: string, time: number): BookingData | undefined => {
         return bookings.find((b) => b.roomId === roomId && b.time === time)

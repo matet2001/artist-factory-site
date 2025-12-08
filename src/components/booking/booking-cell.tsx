@@ -62,7 +62,7 @@ export function BookingCell({
 
     const getDisplayName = () => {
         if (!booking?.user) return ''
-        if (isPast) return '' // Hide name for past bookings
+        // Show name for all bookings (including past ones on current day)
         return formatDisplayName(booking.user)
     }
 
