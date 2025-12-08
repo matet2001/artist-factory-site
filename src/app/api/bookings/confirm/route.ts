@@ -16,20 +16,19 @@ export async function POST(request: NextRequest) {
         }
 
         const body = await request.json()
-        const { date } = body
+        const { bookingIds } = body
 
-        if (!date) {
-            return NextResponse.json({ error: 'Date is required' }, { status: 400 })
+        if (!bookingIds || !Array.isArray(bookingIds) || bookingIds.length === 0) {
+            return NextResponse.json({ error: 'Booking IDs are required' }, { status: 400 })
         }
 
-        // Parse UTC date string and create UTC date at midnight
-        const bookingDate = new Date(date + 'T00:00:00.000Z')
-
-        // Find all PLANNED bookings for this user on this date
+        // Find all PLANNED bookings for this user with the specified IDs
         const plannedBookings = await prisma.booking.findMany({
             where: {
+                id: {
+                    in: bookingIds,
+                },
                 userId: session.user.id,
-                date: bookingDate,
                 status: BookingStatus.PLANNED,
             },
             include: {
@@ -72,7 +71,7 @@ export async function POST(request: NextRequest) {
             return {
                 roomId: b.roomId,
                 roomName: b.room.name,
-                date: bookingDate.toLocaleDateString(locale === 'hu' ? 'hu-HU' : 'en-US'),
+                date: new Date(b.date).toLocaleDateString(locale === 'hu' ? 'hu-HU' : 'en-US'),
                 time: b.time,
                 price: room?.price || 0,
             }
@@ -92,8 +91,10 @@ export async function POST(request: NextRequest) {
             // Get Hungarian translations for room names
             const tRooms = await getTranslations({ locale: 'hu', namespace: 'ROOMS' })
 
-            // Combine consecutive bookings for admin notification
+            // Sort bookings by date, room, and time for combining consecutive ones
             const sortedBookings = [...plannedBookings].sort((a, b) => {
+                const dateCompare = new Date(a.date).getTime() - new Date(b.date).getTime()
+                if (dateCompare !== 0) return dateCompare
                 if (a.roomId !== b.roomId) return a.roomId.localeCompare(b.roomId)
                 return a.time - b.time
             })
@@ -113,7 +114,7 @@ export async function POST(request: NextRequest) {
                 let current: CombinedBooking = {
                     roomId: sortedBookings[0].roomId,
                     roomName: tRooms(sortedBookings[0].room.name),
-                    date: bookingDate.toLocaleDateString('hu-HU'),
+                    date: new Date(sortedBookings[0].date).toLocaleDateString('hu-HU'),
                     startTime: sortedBookings[0].time,
                     endTime: sortedBookings[0].time + 1,
                     price: rooms.find((r) => r.id === sortedBookings[0].roomId)?.price || 0,
@@ -122,15 +123,21 @@ export async function POST(request: NextRequest) {
 
                 for (let i = 1; i < sortedBookings.length; i++) {
                     const booking = sortedBookings[i]
-                    // Check if consecutive
-                    if (booking.roomId === current.roomId && booking.time === current.endTime) {
+                    const bookingDateStr = new Date(booking.date).toLocaleDateString('hu-HU')
+
+                    // Check if consecutive (same room, same date, consecutive time)
+                    if (
+                        booking.roomId === current.roomId &&
+                        bookingDateStr === current.date &&
+                        booking.time === current.endTime
+                    ) {
                         current.endTime = booking.time + 1
                     } else {
                         combinedBookings.push(current)
                         current = {
                             roomId: booking.roomId,
                             roomName: tRooms(booking.room.name),
-                            date: bookingDate.toLocaleDateString('hu-HU'),
+                            date: bookingDateStr,
                             startTime: booking.time,
                             endTime: booking.time + 1,
                             price: rooms.find((r) => r.id === booking.roomId)?.price || 0,

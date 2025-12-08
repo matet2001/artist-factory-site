@@ -412,6 +412,7 @@ export default function AdminBookingsPage() {
                                 onDeletePlanned={handleDeletePlanned}
                                 onDeleteBooking={handleDeleteBooking}
                                 onSelectBooking={handleSelectBooking}
+                                allowPastDates={true}
                             />
                         </div>
                     </div>

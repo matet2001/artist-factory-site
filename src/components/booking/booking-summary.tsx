@@ -173,7 +173,7 @@ export function BookingSummary({
                     {isSubmitting ? (
                         <>
                             <Loader2 className="mr-2 h-4 w-4 md:h-5 md:w-5 animate-spin" />
-                            <span className="text-sm md:text-base">Processing...</span>
+                            <span className="text-sm md:text-base">{t('PROCESSING')}</span>
                         </>
                     ) : (
                         <span className="text-sm md:text-base">{t('SUBMIT')}</span>

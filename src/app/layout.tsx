@@ -5,7 +5,7 @@ import './globals.css'
 
 const sora = Sora({
     variable: '--font-sora',
-    subsets: ['latin'],
+    subsets: ['latin', 'latin-ext'],
 })
 
 export const metadata: Metadata = {

@@ -8,16 +8,21 @@ import Link from 'next/link'
 interface BookingTableHeaderProps {
     selectedDate: Date
     onDateChange: (date: Date) => void
+    allowPastDates?: boolean
 }
 
-export function BookingTableHeader({ selectedDate, onDateChange }: BookingTableHeaderProps) {
+export function BookingTableHeader({ selectedDate, onDateChange, allowPastDates = false }: BookingTableHeaderProps) {
     const tRooms = useTranslations('ROOMS')
 
     return (
         <thead className="bg-card-elevated">
             <tr>
                 <th className="max-w-[220px]">
-                    <DateSelector selectedDate={selectedDate} onDateChange={onDateChange} />
+                    <DateSelector
+                        selectedDate={selectedDate}
+                        onDateChange={onDateChange}
+                        allowPastDates={allowPastDates}
+                    />
                 </th>
                 {rooms.map((room) => (
                     <th key={room.id} className="px-1 py-1 md:px-4 md:py-4 text-center">

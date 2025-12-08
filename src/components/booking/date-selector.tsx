@@ -12,9 +12,10 @@ import { useLocale } from 'next-intl'
 interface DateSelectorProps {
     selectedDate: Date
     onDateChange: (date: Date) => void
+    allowPastDates?: boolean
 }
 
-export function DateSelector({ selectedDate, onDateChange }: DateSelectorProps) {
+export function DateSelector({ selectedDate, onDateChange, allowPastDates = false }: DateSelectorProps) {
     const locale = useLocale()
 
     // Map locale to date-fns locale
@@ -24,11 +25,13 @@ export function DateSelector({ selectedDate, onDateChange }: DateSelectorProps) 
         const previousDay = new Date(selectedDate)
         previousDay.setDate(previousDay.getDate() - 1)
 
-        // Don't allow going to past dates
-        const today = new Date()
-        today.setHours(0, 0, 0, 0)
-        if (previousDay < today) {
-            return
+        // Don't allow going to past dates unless explicitly allowed (for admin)
+        if (!allowPastDates) {
+            const today = new Date()
+            today.setHours(0, 0, 0, 0)
+            if (previousDay < today) {
+                return
+            }
         }
 
         onDateChange(previousDay)
@@ -41,6 +44,11 @@ export function DateSelector({ selectedDate, onDateChange }: DateSelectorProps) 
     }
 
     const isPastDate = () => {
+        // If past dates are allowed, never disable the previous button
+        if (allowPastDates) {
+            return false
+        }
+
         const previousDay = new Date(selectedDate)
         previousDay.setDate(previousDay.getDate() - 1)
         const today = new Date()
@@ -99,7 +107,11 @@ export function DateSelector({ selectedDate, onDateChange }: DateSelectorProps) 
                         mode="single"
                         selected={selectedDate}
                         onSelect={(date) => date && onDateChange(date)}
-                        disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
+                        disabled={
+                            allowPastDates
+                                ? undefined
+                                : (date) => date < new Date(new Date().setHours(0, 0, 0, 0))
+                        }
                         locale={dateLocale}
                     />
                 </PopoverContent>

@@ -1,78 +1,113 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import { useAnimations } from '@/hooks/use-animation'
+import { CONTACT } from '@/lib/constants'
 import { motion } from 'framer-motion'
+import { CalendarDays, Phone } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function HeroSection() {
     const t = useTranslations('HOME')
+    const tGeneral = useTranslations('GENERAL')
     const animations = useAnimations()
-    const viewportConfig = { once: true, amount: 0.3 } as const
+    const viewportConfig = { once: true, amount: 0.2 } as const
 
     return (
-        <section className="relative min-h-screen -mt-[var(--header-height)] flex items-center justify-center">
-            <div className="w-full text-center relative z-10">
+        <section className="relative -mt-[var(--header-height)] py-10 md:py-16 lg:py-24">
+            <div className="w-full md:mx-auto md:px-4">
                 <motion.div
                     variants={animations.fadeUp}
                     initial="initial"
                     whileInView="whileInView"
                     viewport={viewportConfig}
-                    className="p-4 sm:p-6 lg:p-8 py-12 sm:py-16 lg:py-20 relative w-full"
+                    className="bg-card/60 backdrop-blur-lg md:rounded-3xl overflow-hidden border-0 md:border md:border-primary/20 md:shadow-2xl"
                 >
-                    <div className="relative z-10 space-y-6 sm:space-y-10 lg:space-y-12">
-                        <motion.div
-                            variants={animations.stagger}
-                            className="w-full  text-center flex flex-col items-center justify-center space-y-4 sm:space-y-8"
-                        >
-                            {/* Title */}
-                            <motion.h1
-                                variants={animations.fadeUp}
-                                className="text-5xl font-bold sm:text-5xl lg:text-6xl xl:text-7xl text-outline-primary"
-                            >
-                                {t('HERO.TITLE')}
-                            </motion.h1>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch">
+                        {/* Left: Hero image */}
+                        <div className="relative lg:order-1">
+                            <div className="relative h-[400px] sm:h-[500px] lg:h-full lg:min-h-[600px]">
+                                <Image
+                                    src="/pictures/hero.jpg"
+                                    alt="Próbaterem Budapest - Artist Factory hangszigetelt zenekari próbaterme légkondicionálással és prémium felszereléssel"
+                                    fill
+                                    priority
+                                    className="object-cover"
+                                    quality={95}
+                                />
 
-                            {/* Subtitle */}
+                                {/* Gradient overlay between image and content - desktop only */}
+                                <div className="hidden md:block absolute inset-y-0 right-0 w-3 z-10 pointer-events-none bg-gradient-to-l from-card to-card/0 backdrop-blur-md" />
+                            </div>
+                        </div>
+
+                        {/* Right: Content card */}
+                        <div className="lg:order-2 p-4 md:p-6 lg:p-8 flex flex-col justify-start space-y-6 md:space-y-8 py-8 md:py-10 lg:py-12">
+                            {/* AF outlined logo - full width */}
+                            <motion.div variants={animations.fadeUp} className="w-full">
+                                <Image
+                                    src="/decorations/AF01_outlined.png"
+                                    alt="Artist Factory"
+                                    width={1000}
+                                    height={300}
+                                    className="w-full h-auto drop-shadow-2xl"
+                                    priority
+                                />
+                            </motion.div>
+
+                            {/* Text info: próbaterem és stúdió + since 2007 */}
                             <motion.div
                                 variants={animations.fadeUp}
-                                className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground"
+                                className="space-y-2 md:space-y-3 text-center"
                             >
-                                {t('HERO.DESCRIPTION_INTRO')}
-                                <p className="mt-1 italic">{t('HERO.SINCE')}</p>
+                                <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight">
+                                    {t('HERO.DESCRIPTION_INTRO')}
+                                </h1>
+                                <p className="text-base sm:text-lg md:text-xl text-muted-foreground uppercase tracking-[0.2em] font-semibold">
+                                    {t('HERO.SINCE')}
+                                </p>
                             </motion.div>
 
-                            {/* Images Section */}
-                            <motion.div variants={animations.stagger} className="mt-8 w-full">
-                                {/* Edge-to-edge on mobile, centered on larger screens */}
-                                <div className="w-full max-w-7xl mx-auto">
-                                    {/* Shared pill container: rounded top+bottom, border only on Y */}
-                                    <div className="group relative overflow-hidden rounded-3xl border-y-4 border-primary">
-                                        <div className="grid grid-cols-1 md:grid-cols-2">
-                                            {/* Corridor Image (top on mobile, left on desktop) */}
-                                            <div className="relative aspect-[3/4] md:aspect-[4/3] overflow-hidden">
-                                                <Image
-                                                    src="/pictures/corridor.jpg"
-                                                    alt={t('HERO.IMAGE_CORRIDOR')}
-                                                    fill
-                                                    className="object-cover transition-transform duration-300 hover:scale-105"
-                                                />
-                                            </div>
+                            {/* CTA Section */}
+                            <motion.div
+                                variants={animations.fadeUp}
+                                className="space-y-4 pt-4 md:pt-6"
+                            >
+                                {/* CTA Title */}
+                                <h2 className="text-center text-lg sm:text-xl md:text-2xl font-semibold">
+                                    {tGeneral('CTA_TITLE')}
+                                </h2>
 
-                                            {/* Chill zone Image (bottom on mobile, right on desktop) */}
-                                            <div className="relative aspect-[3/4] md:aspect-[4/3] overflow-hidden">
-                                                <Image
-                                                    src="/pictures/chill_zone.jpg"
-                                                    alt={t('HERO.IMAGE_STUDIO')}
-                                                    fill
-                                                    className="object-cover transition-transform duration-300 hover:scale-105"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
+                                {/* CTA Buttons */}
+                                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mt-8">
+                                    {/* Online Booking Button */}
+                                    <Link href="/booking" className="flex-1">
+                                        <Button
+                                            variant="default"
+                                            size="lg"
+                                            className="w-full px-6 py-6 text-base md:text-lg font-bold transition-all hover:scale-105"
+                                        >
+                                            <CalendarDays className="w-5 h-5 mr-2" />
+                                            {t('HERO.CTA_BOOK')}
+                                        </Button>
+                                    </Link>
+
+                                    {/* Phone Booking Button */}
+                                    <Link href={`tel:${CONTACT.phoneRaw}`} className="flex-1">
+                                        <Button
+                                            variant="secondary"
+                                            size="lg"
+                                            className="w-full px-6 py-6 text-base md:text-lg font-bold"
+                                        >
+                                            <Phone className="w-5 h-5 mr-2" />
+                                            {CONTACT.phoneDisplay}
+                                        </Button>
+                                    </Link>
                                 </div>
                             </motion.div>
-                        </motion.div>
+                        </div>
                     </div>
                 </motion.div>
             </div>

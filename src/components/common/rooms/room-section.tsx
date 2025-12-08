@@ -1,6 +1,7 @@
 'use client'
 
-import PalmTreeSilhouette from '@/components/common/palm-tree-silhoutte'
+import { EquipmentIcon } from '@/components/common/rooms/equipment-icon'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
     Carousel,
@@ -10,22 +11,28 @@ import {
     CarouselPrevious,
 } from '@/components/ui/carousel'
 import { useAnimations } from '@/hooks/use-animation'
-import { Room } from '@/lib/rooms'
+import { rooms } from '@/lib/rooms'
 import Autoplay from 'embla-carousel-autoplay'
 import { motion } from 'framer-motion'
-import { DollarSign, Users } from 'lucide-react'
+import { ArrowRight, DollarSign, Snowflake, Users } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-type RoomSectionProps = {
-    room: Room
-}
-
-export default function RoomSection({ room }: RoomSectionProps) {
-    const t = useTranslations('ROOMS')
-    const animations = useAnimations()
+export function RoomSection({
+    room,
+    tRooms,
+    tGeneral,
+    animations,
+    isReversed,
+}: {
+    room: (typeof rooms)[0]
+    tRooms: ReturnType<typeof useTranslations<'ROOMS'>>
+    tGeneral: ReturnType<typeof useTranslations<'GENERAL'>>
+    animations: ReturnType<typeof useAnimations>
+    isReversed: boolean
+}) {
     const viewportConfig = { once: true, amount: 0.2 } as const
 
     const plugin = React.useRef(
@@ -36,142 +43,194 @@ export default function RoomSection({ room }: RoomSectionProps) {
     )
 
     return (
-        <section id={`room-${room.id}`} className="w-full py-10 scroll-mt-[var(--header-height)]">
-            <motion.div
-                variants={animations.fadeUp}
-                initial="initial"
-                whileInView="whileInView"
-                viewport={viewportConfig}
-                className="mx-auto w-full px-4 relative overflow-hidden z-10"
-            >
-                <div className="relative w-full overflow-hidden rounded-2xl shadow-xl bg-card">
-                    {/* === IMAGE SECTION === */}
-                    <div className="relative h-[500px] sm:h-[550px]">
-                        <Carousel
-                            plugins={[plugin.current]}
-                            className="w-full h-full"
-                            onMouseEnter={plugin.current.stop}
-                            onMouseLeave={plugin.current.reset}
-                            opts={{
-                                align: 'start',
-                                loop: true,
-                            }}
+        <section className="relative py-10 md:py-16 lg:py-24">
+            <div className="w-full md:max-w-7xl md:mx-auto md:px-4">
+                <motion.div
+                    variants={animations.fadeUp}
+                    initial="initial"
+                    whileInView="whileInView"
+                    viewport={viewportConfig}
+                    className="bg-card md:bg-card md:rounded-3xl overflow-hidden border-0 md:border md:border-primary/20 md:shadow-2xl rounded-sm"
+                >
+                    <div className={`grid grid-cols-1 lg:grid-cols-2 items-stretch`}>
+                        {/* Image Carousel */}
+                        <div className={`${isReversed ? 'lg:order-2' : 'lg:order-1'} relative`}>
+                            <div className="relative h-[400px] sm:h-[500px] lg:h-full lg:min-h-[600px]">
+                                <Carousel
+                                    plugins={[plugin.current]}
+                                    className="w-full h-full"
+                                    onMouseEnter={plugin.current.stop}
+                                    onMouseLeave={plugin.current.reset}
+                                    opts={{
+                                        align: 'start',
+                                        loop: true,
+                                    }}
+                                >
+                                    <CarouselContent>
+                                        {room.images.map((img, index) => (
+                                            <CarouselItem key={index}>
+                                                <div className="relative h-[400px] sm:h-[500px] lg:h-full lg:min-h-[600px] w-full">
+                                                    <Image
+                                                        src={`/rooms/${img}`}
+                                                        alt={`${tRooms(room.name)} – ${index + 1}`}
+                                                        fill
+                                                        className="object-cover"
+                                                        priority={index === 0}
+                                                    />
+                                                </div>
+                                            </CarouselItem>
+                                        ))}
+                                    </CarouselContent>
+                                    <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 shadow-md" />
+                                    <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 shadow-md" />
+                                </Carousel>
+
+                                {/* AC Badge - Bottom Center */}
+                                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20">
+                                    <Badge
+                                        variant="secondary"
+                                        className="gap-2 px-6 py-2.5 text-base backdrop-blur-sm bg-background/90 border-primary/30 shadow-lg whitespace-nowrap"
+                                    >
+                                        <Snowflake className="h-4 w-4" />
+                                        {tGeneral('AIR_CONDITIONED')}
+                                    </Badge>
+                                </div>
+
+                                {/* Gradient overlay between image and content - desktop only */}
+                                <div
+                                    className={`hidden md:block absolute inset-y-0 ${isReversed ? 'left-0' : 'right-0'} w-3 z-10 pointer-events-none ${isReversed ? 'bg-gradient-to-r' : 'bg-gradient-to-l'} from-card to-card/0 backdrop-blur-md`}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Content */}
+                        <div
+                            className={`${isReversed ? 'lg:order-1' : 'lg:order-2'} p-4 md:p-8 flex flex-col justify-start space-y-10 py-8`}
                         >
-                            <CarouselContent>
-                                {room.images.map((img, index) => (
-                                    <CarouselItem key={index}>
-                                        <div className="relative h-[500px] sm:h-[550px] w-full overflow-hidden rounded-t-2xl">
-                                            <Image
-                                                src={`/rooms/${img}`}
-                                                alt={`${t(room.name)} – ${index + 1}`}
-                                                fill
-                                                className="object-cover object-center"
-                                                priority={index === 0}
-                                            />
-                                        </div>
-                                    </CarouselItem>
-                                ))}
-                            </CarouselContent>
-
-                            {/* Position arrows outside the image carousel */}
-                            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 shadow-md" />
-                            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 shadow-md" />
-                        </Carousel>
-                    </div>
-
-                    {/* === OVERLAY CONTENT AREA === */}
-                    <div className="relative z-10 -mt-10 px-6 sm:px-10 pb-5">
-                        {/* Gradient behind content – only lower portion of image */}
-                        <div className="absolute inset-x-0 top-0 h-[60%] bg-gradient-to-t from-card/90 to-card/10 backdrop-blur-md rounded-b-2xl z-[-1]" />
-
-                        <div className="w-full text-center p-5 space-y-6">
-                            {/* --- Title --- */}
-                            <motion.h2
+                            <motion.div
                                 variants={animations.fadeUp}
-                                className="text-white text-3xl sm:text-5xl font-bold capitalize drop-shadow-lg"
+                                className="text-center lg:text-left"
                             >
-                                {t(room.name)}
-                            </motion.h2>
+                                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold capitalize">
+                                    {tRooms(room.name)}
+                                </h2>
+                            </motion.div>
 
-                            {/* --- Features (Price / Size) --- */}
+                            {/* Stats */}
                             <motion.div
                                 variants={animations.stagger}
                                 initial="initial"
                                 whileInView="whileInView"
                                 viewport={viewportConfig}
-                                className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-12"
+                                className="flex flex-wrap gap-6"
                             >
-                                <motion.div
-                                    variants={animations.fadeUp}
-                                    className="flex items-center gap-3"
-                                >
-                                    <div className="bg-white/20 backdrop-blur-sm rounded-full p-2.5">
-                                        <DollarSign className="w-6 h-6 text-white" />
+                                <div className="flex items-center gap-3">
+                                    <div className="p-3 rounded-full bg-primary/10">
+                                        <DollarSign className="h-6 w-6 text-primary" />
                                     </div>
-                                    <div className="text-left">
-                                        <p className="text-white/70 text-xs font-medium uppercase tracking-wide drop-shadow-md">
-                                            {t('BASE_PRICE')}
+                                    <div>
+                                        <p className="text-sm text-muted-foreground">
+                                            {tRooms('BASE_PRICE')}
                                         </p>
-                                        <p className="text-white text-xl sm:text-2xl font-bold drop-shadow-lg">
-                                            {room.price.toLocaleString('hu-HU')} Ft / {t('HOUR')}
+                                        <p className="text-2xl font-bold">
+                                            {room.price.toLocaleString('hu-HU')} Ft /{' '}
+                                            {tRooms('HOUR')}
                                         </p>
                                     </div>
-                                </motion.div>
+                                </div>
 
-                                <motion.div
-                                    variants={animations.fadeUp}
-                                    className="flex items-center gap-3"
-                                >
-                                    <div className="bg-white/20 backdrop-blur-sm rounded-full p-2.5">
-                                        <Users className="w-6 h-6 text-white" />
+                                <div className="flex items-center gap-3">
+                                    <div className="p-3 rounded-full bg-primary/10">
+                                        <Users className="h-6 w-6 text-primary" />
                                     </div>
-                                    <div className="text-left">
-                                        <p className="text-white/70 text-xs font-medium uppercase tracking-wide drop-shadow-md">
-                                            {t('SIZE')}
+                                    <div>
+                                        <p className="text-sm text-muted-foreground">
+                                            {tRooms('SIZE')}
                                         </p>
-                                        <p className="text-white text-xl sm:text-2xl font-bold drop-shadow-lg">
-                                            {room.size} {t('PEOPLE')}
+                                        <p className="text-2xl font-bold">
+                                            {room.size} {tRooms('PEOPLE')}
                                         </p>
                                     </div>
-                                </motion.div>
+                                </div>
                             </motion.div>
 
-                            {/* --- CTA Buttons --- */}
+                            {/* Equipment Preview - First 3 items */}
+                            {room.equipments && room.equipments.length > 0 && (
+                                <motion.div
+                                    variants={animations.stagger}
+                                    initial="initial"
+                                    whileInView="whileInView"
+                                    viewport={viewportConfig}
+                                    className="space-y-3"
+                                >
+                                    {room.equipments.slice(0, 3).map((eq, i) => {
+                                        const tFormatted = (label: string) => {
+                                            return label.replace(/\{\{(\w+)\}\}/g, (_, key) =>
+                                                tRooms(`EQUIPMENT_PARTS.${key}`)
+                                            )
+                                        }
+
+                                        return (
+                                            <motion.div
+                                                key={i}
+                                                variants={animations.fadeUp}
+                                                className="flex items-start gap-3 p-4 rounded-xl bg-card/60 border border-primary/10"
+                                            >
+                                                <div className="flex-shrink-0 p-2 rounded-full bg-primary/10">
+                                                    <EquipmentIcon
+                                                        type={eq.type}
+                                                        size={20}
+                                                        alt={eq.label}
+                                                    />
+                                                </div>
+                                                <div className="flex-1 min-w-0 pt-1">
+                                                    <div className="font-semibold text-foreground text-sm">
+                                                        {tRooms(
+                                                            `EQUIPMENT_TYPES.${eq.type.toUpperCase()}`
+                                                        )}
+                                                    </div>
+                                                    <div className="text-xs text-muted-foreground mt-0.5 truncate">
+                                                        {tFormatted(eq.label)}
+                                                    </div>
+                                                </div>
+                                            </motion.div>
+                                        )
+                                    })}
+                                </motion.div>
+                            )}
+
+                            {/* CTA Buttons */}
                             <motion.div
-                                variants={animations.fadeUpDelay}
+                                variants={animations.stagger}
                                 initial="initial"
                                 whileInView="whileInView"
                                 viewport={viewportConfig}
-                                className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-4 pt-4"
+                                className="flex flex-col sm:flex-row gap-4"
                             >
-                                <Link href={`/rooms/${room.id}`} className="w-full sm:w-auto">
+                                <Link href={`/rooms/${room.id}`} className="flex-1">
                                     <Button
                                         variant="secondary"
                                         size="lg"
-                                        className="w-full sm:w-auto px-10 py-7 text-lg font-bold shadow-2xl transition-all hover:scale-105 hover:-translate-y-0.5"
+                                        className="w-full px-8 py-6 text-lg font-bold"
                                     >
-                                        {t('SEE_DETAILS')}
+                                        {tRooms('SEE_DETAILS')}
+                                        <ArrowRight className="ml-2 h-5 w-5" />
                                     </Button>
                                 </Link>
-
-                                <Link href="/booking" className="w-full sm:w-auto">
+                                <Link href="/booking" className="flex-1">
                                     <Button
+                                        variant="default"
                                         size="lg"
-                                        className="w-full sm:w-auto px-14 py-7 text-lg uppercase font-bold transition-all hover:scale-105 hover:-translate-y-0.5"
+                                        className="w-full px-8 py-6 text-lg font-bold transition-all hover:scale-105 hover:-translate-y-1"
                                     >
-                                        {t('CTA')}
+                                        {tRooms('CTA')}
                                     </Button>
                                 </Link>
                             </motion.div>
                         </div>
-                        {/* Palm Trees in bottom corners */}
-                        <div className="absolute inset-0 pointer-events-none z-0">
-                            <PalmTreeSilhouette position="bottom-left" size="sm" />
-                            <PalmTreeSilhouette position="bottom-right" mirrored size="sm" />
-                        </div>
                     </div>
-                </div>
-            </motion.div>
+                </motion.div>
+            </div>
         </section>
     )
 }
