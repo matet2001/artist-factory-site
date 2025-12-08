@@ -78,11 +78,17 @@ export async function POST(request: Request) {
 
         // Generate new verification token
         const token = crypto.randomBytes(32).toString('hex')
+
+        // Old users get 7 days to verify, new users get 24 hours
+        const expiryTime = user.isOldUser
+            ? 7 * 24 * 60 * 60 * 1000  // 7 days for migrated users
+            : 24 * 60 * 60 * 1000      // 24 hours for new users
+
         await prisma.verificationToken.create({
             data: {
                 email: user.email,
                 token,
-                expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+                expires: new Date(Date.now() + expiryTime),
                 type: 'EMAIL_VERIFICATION',
             },
         })
@@ -93,6 +99,7 @@ export async function POST(request: Request) {
             data: {
                 lastEmailSent: now,
                 emailSentCount: newEmailSentCount,
+                lastVerificationEmailSent: now, // Track for migration resends
             },
         })
 

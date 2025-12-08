@@ -363,7 +363,8 @@
         "ALERT": {
             "REGISTRATION_SUCCESS": "Successful registration! Please log in!",
             "LOGIN_SUCCESS": "Successful login! Hi ",
-            "FAIL": "An error occurred :( Please try again later"
+            "FAIL": "An error occurred :( Please try again later",
+            "VERIFICATION_EMAIL_SENT": "Verification email resent! Check your inbox."
         },
         "ERRORS": {
             "EMAIL_IN_USE": "This email address is already taken.",
@@ -373,12 +374,13 @@
             "USER_NOT_FOUND": "User not found. Please check your email address.",
             "INVALID_CREDENTIAL": "Wrong password or email address.",
             "INVALID_CREDENTIALS": "Wrong password or email address.",
-            "EMAIL_NOT_VERIFIED": "Please verify your email before logging in.",
+            "EMAIL_NOT_VERIFIED": "Please check your email for verification or new website migration instructions. If the link expired, use the 'Forgot password' feature.",
             "EMAIL_ALREADY_VERIFIED": "Your email is already verified. You can log in now.",
             "EMAIL_SEND_FAILED": "Failed to send verification email. Please try again.",
             "REGISTRATION_FAILED": "Registration failed. Please try again.",
             "LOGIN_FAILED": "Login failed. Please try again.",
-            "DEFAULT": "Something went wrong. Please try again."
+            "DEFAULT": "Something went wrong. Please try again.",
+            "RATE_LIMIT": "Too many requests. Please try again in {seconds} seconds."
         },
         "PASSWORD_RESET": {
             "TITLE": "Forgot password",
@@ -430,6 +432,8 @@
         "CONFIRM_PASSWORD": "Confirm Password",
         "SENDING": "Sending...",
         "RESENDING_EMAIL": "Resending email...",
+        "RESEND_VERIFICATION": "Resend verification email",
+        "RESEND_IN": "Resend in {seconds}s",
         "RESETTING": "Resetting...",
         "REGISTRATION_SUCCESS_TITLE": "Check your email!",
         "REGISTRATION_SUCCESS_DESC": "We've sent a verification link to your email address.",

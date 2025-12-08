@@ -22,6 +22,10 @@ model User {
   updatedAt          DateTime            @updatedAt
   verificationTokens VerificationToken[]
 
+  // Migration tracking fields
+  isOldUser                 Boolean   @default(false) // Migrated from old system
+  lastVerificationEmailSent DateTime? // For rate limiting resends
+
   bookings Booking[]
 
   @@map("users")

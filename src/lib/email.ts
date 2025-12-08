@@ -544,6 +544,86 @@ export async function sendBugReportEmail(
     }
 }
 
+export async function sendMigrationVerificationEmail(email: string, token: string) {
+    const verificationUrl = `${process.env.NEXTAUTH_URL}/api/auth/verify-email?token=${token}`
+
+    try {
+        await getTransporter().sendMail({
+            from: process.env.EMAIL_FROM,
+            to: email,
+            subject: 'Erősítsd meg az email címed / Verify your email - Artist Factory',
+            html: `
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body style="background-color: #242424; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 40px 20px; color: #f5f5f5;">
+    <div style="max-width: 600px; margin: 0 auto; background: #242424; padding: 40px;">
+
+      <!-- HUNGARIAN VERSION -->
+      <h1 style="color: #f5f5f5; margin-bottom: 16px;">Erősítsd meg az email címed</h1>
+      <p style="color: #919191; margin-bottom: 32px; line-height: 24px;">
+        Üdvözlünk az új Artist Factory weboldalon! Kérjük, erősítsd meg az email címedet, hogy folytathasd.
+      </p>
+
+      <div style="text-align: center; margin-bottom: 32px;">
+        <a href="${verificationUrl}" style="display: inline-block; background: #ff3b7f; color: white; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 16px;">
+          Email cím megerősítése
+        </a>
+      </div>
+
+      <p style="color: #919191; font-size: 14px; margin-bottom: 8px;">Vagy másold be ezt a linket a böngésződbe:</p>
+      <p style="color: #ff6b9d; font-size: 14px; word-break: break-all; margin-bottom: 32px;">${verificationUrl}</p>
+
+      <div style="background-color: #1a1a1a; border-radius: 8px; padding: 20px; margin-bottom: 32px;">
+        <p style="color: #919191; font-size: 13px; line-height: 20px; margin: 0;">
+          ⏰ Ez a link 7 napig érvényes.<br/>
+          💌 Ha nem kértél regisztrációt, figyelmen kívül hagyhatod ezt az emailt.
+        </p>
+      </div>
+
+      <hr style="margin: 48px 0; border: none; border-top: 1px solid #333;" />
+
+      <!-- ENGLISH VERSION -->
+      <h1 style="color: #f5f5f5; margin-bottom: 16px;">Verify your email address</h1>
+      <p style="color: #919191; margin-bottom: 32px; line-height: 24px;">
+        Welcome to the new Artist Factory website! Please verify your email address to continue.
+      </p>
+
+      <div style="text-align: center; margin-bottom: 32px;">
+        <a href="${verificationUrl}" style="display: inline-block; background: #ff3b7f; color: white; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 16px;">
+          Verify Email Address
+        </a>
+      </div>
+
+      <p style="color: #919191; font-size: 14px; margin-bottom: 8px;">Or copy and paste this link into your browser:</p>
+      <p style="color: #ff6b9d; font-size: 14px; word-break: break-all; margin-bottom: 32px;">${verificationUrl}</p>
+
+      <div style="background-color: #1a1a1a; border-radius: 8px; padding: 20px; margin-bottom: 32px;">
+        <p style="color: #919191; font-size: 13px; line-height: 20px; margin: 0;">
+          ⏰ This link is valid for 7 days.<br/>
+          💌 If you didn't request this, you can safely ignore this email.
+        </p>
+      </div>
+
+      <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #333333;">
+        <p style="color: #919191; font-size: 13px; margin: 0;">Artist Factory - Próbaterem és Stúdió</p>
+      </div>
+    </div>
+  </body>
+</html>
+    `,
+        })
+        emailStats.sent++
+        console.log(`✓ Migration verification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+    } catch (error) {
+        emailStats.failed++
+        console.error(
+            `✗ Failed to send migration verification email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
+        throw error
+    }
+}
+
 export async function sendMigrationWelcomeEmail(email: string, token: string, userName?: string) {
     const resetUrl = `${process.env.NEXTAUTH_URL}/migration-welcome?token=${token}`
 
@@ -588,10 +668,14 @@ export async function sendMigrationWelcomeEmail(email: string, token: string, us
       <p style="margin-top: 24px;">Vagy másold be a böngésződbe:</p>
       <p style="color: #ff6b9d; word-break: break-all;">${resetUrl}</p>
 
-      <p style="margin-top: 32px; font-size: 13px; color: #aaa;">
-        A link 24 órán belül lejár. Ha segítségre van szükséged, írj nekünk ide:
-        <a href="mailto:${process.env.EMAIL_FROM}" style="color: #ff6b9d;">${process.env.EMAIL_FROM}</a>
-      </p>
+      <div style="margin-top: 32px; padding: 16px; background: #1a1a1a; border-radius: 8px; font-size: 13px; color: #ccc;">
+        <p style="margin: 0 0 8px;"><strong>Fontos információk:</strong></p>
+        <ul style="margin: 0; padding-left: 20px;">
+          <li>A link <strong>7 napig érvényes</strong></li>
+          <li><strong>Ha a link lejár:</strong> használd az "Elfelejtett jelszó" funkciót a bejelentkezési oldalon</li>
+          <li>Ha segítségre van szükséged, írj nekünk: <a href="mailto:${process.env.EMAIL_FROM}" style="color: #ff6b9d;">${process.env.EMAIL_FROM}</a></li>
+        </ul>
+      </div>
 
       <hr style="margin: 48px 0; border: none; border-top: 1px solid #333;" />
 
@@ -625,9 +709,13 @@ export async function sendMigrationWelcomeEmail(email: string, token: string, us
       <p style="margin-top: 24px;">Or copy and paste this URL:</p>
       <p style="color: #ff6b9d; word-break: break-all;">${resetUrl}</p>
 
-      <div style="margin-top: 32px; font-size: 13px; color: #aaa;">
-        <p>This link will expire in 24 hours.</p>
-        <p>If you need help, contact us at <a href="mailto:${process.env.EMAIL_FROM}" style="color: #ff6b9d;">${process.env.EMAIL_FROM}</a></p>
+      <div style="margin-top: 32px; padding: 16px; background: #1a1a1a; border-radius: 8px; font-size: 13px; color: #ccc;">
+        <p style="margin: 0 0 8px;"><strong>Important information:</strong></p>
+        <ul style="margin: 0; padding-left: 20px;">
+          <li>This link is <strong>valid for 7 days</strong></li>
+          <li><strong>If the link expires:</strong> use the "Forgot password" feature on the login page</li>
+          <li>If you need help, contact us: <a href="mailto:${process.env.EMAIL_FROM}" style="color: #ff6b9d;">${process.env.EMAIL_FROM}</a></li>
+        </ul>
       </div>
     </div>
   </body>
