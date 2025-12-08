@@ -86,10 +86,14 @@ export async function sendVerificationEmail(email: string, token: string, locale
     `,
         })
         emailStats.sent++
-        console.log(`✓ Verification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.log(
+            `✓ Verification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
     } catch (error) {
         emailStats.failed++
-        console.error(`✗ Failed to send verification email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.error(
+            `✗ Failed to send verification email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
         throw error
     }
 }
@@ -148,10 +152,14 @@ export async function sendPasswordResetEmail(email: string, token: string, local
     `,
         })
         emailStats.sent++
-        console.log(`✓ Password reset email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.log(
+            `✓ Password reset email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
     } catch (error) {
         emailStats.failed++
-        console.error(`✗ Failed to send password reset email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.error(
+            `✗ Failed to send password reset email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
         throw error
     }
 }
@@ -225,17 +233,27 @@ export async function sendBookingVerificationEmail(
     `,
         })
         emailStats.sent++
-        console.log(`✓ Booking verification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.log(
+            `✓ Booking verification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
     } catch (error) {
         emailStats.failed++
-        console.error(`✗ Failed to send booking verification email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.error(
+            `✗ Failed to send booking verification email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
         throw error
     }
 }
 
 export async function sendBookingConfirmationEmail(
     email: string,
-    bookings: Array<{ roomId: string; roomName: string; date: string; time: number; price: number }>,
+    bookings: Array<{
+        roomId: string
+        roomName: string
+        date: string
+        time: number
+        price: number
+    }>,
     locale: string = 'hu'
 ) {
     const t = await getTranslations({ locale, namespace: 'EMAIL.BOOKING_CONFIRMATION' })
@@ -253,7 +271,13 @@ export async function sendBookingConfirmationEmail(
     }
 
     const combineBookings = (
-        bookings: Array<{ roomId: string; roomName: string; date: string; time: number; price: number }>
+        bookings: Array<{
+            roomId: string
+            roomName: string
+            date: string
+            time: number
+            price: number
+        }>
     ): CombinedBooking[] => {
         if (bookings.length === 0) return []
 
@@ -455,7 +479,9 @@ export async function sendAdminBookingNotification(
     `,
         })
         emailStats.sent++
-        console.log(`✓ Admin notification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.log(
+            `✓ Admin notification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
     } catch (error) {
         emailStats.failed++
         console.error(
@@ -536,10 +562,14 @@ export async function sendBugReportEmail(
             })),
         })
         emailStats.sent++
-        console.log(`✓ Bug report email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.log(
+            `✓ Bug report email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
     } catch (error) {
         emailStats.failed++
-        console.error(`✗ Failed to send bug report email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.error(
+            `✗ Failed to send bug report email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
         throw error
     }
 }
@@ -614,7 +644,9 @@ export async function sendMigrationVerificationEmail(email: string, token: strin
     `,
         })
         emailStats.sent++
-        console.log(`✓ Migration verification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.log(
+            `✓ Migration verification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
     } catch (error) {
         emailStats.failed++
         console.error(
@@ -673,7 +705,7 @@ export async function sendMigrationWelcomeEmail(email: string, token: string, us
         <ul style="margin: 0; padding-left: 20px;">
           <li>A link <strong>7 napig érvényes</strong></li>
           <li><strong>Ha a link lejár:</strong> használd az "Elfelejtett jelszó" funkciót a bejelentkezési oldalon</li>
-          <li>Ha segítségre van szükséged, írj nekünk: <a href="mailto:${process.env.EMAIL_FROM}" style="color: #ff6b9d;">${process.env.EMAIL_FROM}</a></li>
+          <li>Ha segítségre van szükséged, írj nekünk: <a href="mailto:info@artistfactory.hu" style="color: #ff6b9d;">info@artistfactory.hu</a></li>
         </ul>
       </div>
 
@@ -723,10 +755,14 @@ export async function sendMigrationWelcomeEmail(email: string, token: string, us
     `,
         })
         emailStats.sent++
-        console.log(`✓ Migration email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.log(
+            `✓ Migration email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
     } catch (error) {
         emailStats.failed++
-        console.error(`✗ Failed to send migration email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.error(
+            `✗ Failed to send migration email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
         throw error
     }
 }

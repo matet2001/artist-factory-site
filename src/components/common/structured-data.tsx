@@ -122,7 +122,10 @@ export function WebSiteStructuredData() {
         name: 'Artist Factory Budapest',
         description: 'Próbaterem és Stúdió Budapest',
         publisher: {
+            '@type': 'Organization',
             '@id': 'https://www.artistfactory.hu/#organization',
+            name: 'Artist Factory',
+            url: 'https://www.artistfactory.hu',
         },
         inLanguage: ['hu-HU', 'en-US'],
         potentialAction: {
