@@ -1,5 +1,5 @@
-import { Resend } from 'resend'
 import nodemailer from 'nodemailer'
+import { Resend } from 'resend'
 
 // Get email provider configuration (evaluated at runtime, not module load time)
 function getEmailProvider() {
@@ -55,7 +55,9 @@ interface EmailOptions {
 export async function sendEmail(options: EmailOptions): Promise<void> {
     const provider = getEmailProvider()
 
-    console.log(`📧 Sending email via ${provider.toUpperCase()}: ${options.subject} to ${options.to}`)
+    console.log(
+        `📧 Sending email via ${provider.toUpperCase()}: ${options.subject} to ${options.to}`
+    )
 
     if (provider === 'resend') {
         // Use Resend
@@ -70,7 +72,7 @@ export async function sendEmail(options: EmailOptions): Promise<void> {
                 to: options.to,
                 subject: options.subject,
                 html: options.html,
-                reply_to: options.replyTo,
+                replyTo: options.replyTo,
                 // Note: Resend handles attachments differently - would need to adjust if needed
             })
 
@@ -110,6 +112,7 @@ export function getEmailProviderInfo() {
     const provider = getEmailProvider()
     return {
         provider,
-        configured: provider === 'resend' ? !!process.env.RESEND_API_KEY : !!process.env.EMAIL_SERVER_HOST,
+        configured:
+            provider === 'resend' ? !!process.env.RESEND_API_KEY : !!process.env.EMAIL_SERVER_HOST,
     }
 }
