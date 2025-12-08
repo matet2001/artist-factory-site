@@ -1,8 +1,5 @@
 'use client'
 
-import { BookingStatus } from '@prisma/client'
-import { Plus, Loader2, X, Trash2, Edit } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import {
     BookingData,
     BookingIntent,
@@ -10,6 +7,9 @@ import {
     formatDisplayName,
     isTimeInPast,
 } from '@/lib/booking-utils'
+import { cn } from '@/lib/utils'
+import { BookingStatus } from '@prisma/client'
+import { Edit, Loader2, Plus, Trash2 } from 'lucide-react'
 
 interface AdminBookingCellProps {
     booking?: BookingData
@@ -81,12 +81,9 @@ export function AdminBookingCell({
     const cellClasses = cn('h-16 relative transition-all duration-200 border border-border/50', {
         'bg-card/30 hover:bg-yellow-500/20 cursor-pointer':
             cellState === CellState.OPEN && !isPlanned,
-        'bg-yellow-500/60 backdrop-blur-sm':
-            cellState === CellState.PLANNED_CANCELABLE,
-        'bg-primary/50 backdrop-blur-sm':
-            cellState === CellState.UNVERIFIED,
-        'bg-green-500/60 backdrop-blur-sm':
-            cellState === CellState.VERIFIED_CANCELABLE,
+        'bg-yellow-500/60 backdrop-blur-sm': cellState === CellState.PLANNED_CANCELABLE,
+        'bg-primary/50 backdrop-blur-sm': cellState === CellState.UNVERIFIED,
+        'bg-green-500/60 backdrop-blur-sm': cellState === CellState.VERIFIED_CANCELABLE,
     })
 
     const handleClick = (e: React.MouseEvent) => {
@@ -209,11 +206,6 @@ export function AdminBookingCell({
                                     )}
                                 </div>
                             </>
-                        )}
-                        {isPast && booking && (
-                            <div className="text-xs font-medium text-muted-foreground truncate max-w-full">
-                                {getDisplayName()}
-                            </div>
                         )}
                     </>
                 )}

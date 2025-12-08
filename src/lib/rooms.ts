@@ -1,10 +1,8 @@
 export type EquipmentType =
     | 'drum'
     | 'cymbal'
-    | 'amp'
-    | 'guitar'
+    | 'guitar-amp'
     | 'bass'
-    | 'pedal'
     | 'mixer'
     | 'speaker'
     | 'mic'
@@ -35,12 +33,11 @@ export const rooms: Room[] = [
         size: '4-5',
         equipments: [
             { type: 'drum', label: 'Yamaha Stage Custom fusion 10"–12"–14"–20"' },
-            { type: 'amp', label: 'Orange Rocker 32 (black)' },
+            { type: 'guitar-amp', label: 'Orange Rocker 32 (black) {{COMBO}}' },
             { type: 'mic', label: 'Shure Beta 57A + Audio-Technica AT PRO31' },
             { type: 'cymbal', label: 'Paiste 14" {{HIHAT}} + Paiste 201 20" {{RIDE}}' },
             { type: 'bass', label: 'Ampeg Micro VR {{HEAD}} + Ampeg SVT-212AV {{CABINET}}' },
-            { type: 'pedal', label: 'Joyo Mjolnir' },
-            { type: 'guitar', label: 'Vox 4×10" {{CABINET}}' },
+            { type: 'guitar-amp', label: 'Joyo Mjolnir {{HEAD}} + Vox 4×10" {{CABINET}}' },
             { type: 'mixer', label: 'Yamaha EMX 512SC' },
             { type: 'speaker', label: '2× Yamaha S115V 500W' },
             { type: 'piano', label: '{{UPRIGHT_PIANO}}' },
@@ -59,8 +56,8 @@ export const rooms: Room[] = [
                 label: 'Natal Originals Maple 10"–12"–16"–22" + Natal brass {{SNARE}}',
             },
             {
-                type: 'amp',
-                label: 'Marshall 1923 C Limited Edition 85th + Orange TH30 {{HEAD}} + Orange PPC 212-OB {{CABINET}}',
+                type: 'guitar-amp',
+                label: 'Marshall 1923 C Limited Edition 85th {{COMBO}} + Orange TH30 {{HEAD}} + Orange PPC 212-OB {{CABINET}}',
             },
             { type: 'mic', label: 'Shure Beta 57A + Audio-Technica AT PRO31' },
             {
@@ -91,14 +88,14 @@ export const rooms: Room[] = [
         size: '8-10',
         equipments: [
             { type: 'drum', label: 'Yamaha Tour Custom 10"–12"–14"–22"' },
-            { type: 'amp', label: 'Peavey Classic 30 {{HEAD}} + Vox 4×12 {{CABINET}}' },
+            { type: 'guitar-amp', label: 'Peavey Classic 30 {{HEAD}} + Vox 4×12 {{CABINET}}' },
             { type: 'mic', label: 'Shure Beta 57A + Shure SM58' },
             {
                 type: 'cymbal',
                 label: 'Meinl Classics Custom 14" {{HIHAT}} + Paiste Sound Creation 20" {{RIDE}}',
             },
             { type: 'bass', label: 'Ampeg SVT-3PRO {{HEAD}} + Ashdown 8×10 (1200W) {{CABINET}}' },
-            { type: 'amp', label: 'Peavey EVH 5150 III 50W EL34 + Peavey 412 {{CABINET}}' },
+            { type: 'guitar-amp', label: 'Peavey EVH 5150 III 50W EL34 {{HEAD}} + Peavey 412 {{CABINET}}' },
             { type: 'mixer', label: 'Yamaha EMX 512SC' },
             { type: 'speaker', label: '2× Yamaha S115V 500W' },
             { type: 'piano', label: '{{UPRIGHT_PIANO}}' },
@@ -113,14 +110,14 @@ export const rooms: Room[] = [
         size: '4-5',
         equipments: [
             { type: 'drum', label: 'DW Design 10"–12"–14"–16"–22" + DW Collectors {{SNARE}}' },
-            { type: 'amp', label: 'ENGL Screamer {{HEAD}} + 4×12 {{CABINET}}' },
+            { type: 'guitar-amp', label: 'ENGL Screamer {{HEAD}} + 4×12 {{CABINET}}' },
             { type: 'mic', label: 'Shure Beta 57A + Audio-Technica AT PRO31' },
             { type: 'cymbal', label: 'Zildjian, Anatolian' },
             {
                 type: 'bass',
                 label: 'Orange OB-1 300 {{HEAD}} + Imperator 4×12 (1300W) {{CABINET}}',
             },
-            { type: 'amp', label: 'Orange Dual Terror {{HEAD}} + 4×10 {{CABINET}}' },
+            { type: 'guitar-amp', label: 'Orange Dual Terror {{HEAD}} + 4×10 {{CABINET}}' },
             { type: 'mixer', label: 'Yamaha EMX 512SC' },
             { type: 'speaker', label: 'Yamaha S115V' },
         ],
@@ -137,14 +134,14 @@ export const rooms: Room[] = [
                 type: 'drum',
                 label: 'Gretsch Renown Maple 10"–12"–16"–22" + Ludwig Supraphonic {{SNARE}}',
             },
-            { type: 'amp', label: 'Hughes & Kettner TubeMeister Deluxe 40' },
+            { type: 'guitar-amp', label: 'Hughes & Kettner TubeMeister Deluxe 40 {{COMBO}}' },
             { type: 'mic', label: 'Shure Beta 57A + Audio-Technica AT PRO31' },
             { type: 'cymbal', label: 'Agean 14" {{HIHAT}} + Zildjian S Family 22" {{RIDE}}' },
             {
                 type: 'bass',
                 label: 'Ashdown Mark King 500W {{HEAD}} + Warwick 6×10" 900W WCA 211 PRO {{CABINET}}',
             },
-            { type: 'amp', label: 'Orange Dual Terror {{HEAD}} + Vox 412 BK {{CABINET}}' },
+            { type: 'guitar-amp', label: 'Orange Dual Terror {{HEAD}} + Vox 412 BK {{CABINET}}' },
             { type: 'mixer', label: 'Yamaha EMX 512SC' },
             { type: 'speaker', label: '2× Yamaha S115V 500W' },
         ],

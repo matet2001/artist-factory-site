@@ -65,7 +65,7 @@ enum BookingStatus {
 model Booking {
   id     String        @id @default(cuid())
   date   DateTime      @db.Date
-  time   Int // hour (10-22)
+  time   Int // hour (9-22)
   status BookingStatus @default(UNVERIFIED)
 
   userId String

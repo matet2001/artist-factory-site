@@ -63,7 +63,6 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
                 return
             }
 
-            // Call the registration API
             const response = await fetch('/api/auth/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -79,7 +78,6 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
             const data = await response.json()
 
             if (!response.ok) {
-                // Handle error with translation key
                 const errorKey = data.error || 'ERRORS.REGISTRATION_FAILED'
                 const errorMsg = t(errorKey)
                 setError(errorMsg)
@@ -87,7 +85,6 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
                 return
             }
 
-            // Registration successful
             setUserEmail(values.email)
             setRegistrationSuccess(true)
             onSuccessChange?.(true)
@@ -115,7 +112,6 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
             const data = await response.json()
 
             if (!response.ok) {
-                // Handle rate limit error with remaining seconds
                 if (data.error === 'RESEND_EMAIL_RATE_LIMIT' && data.remainingSeconds) {
                     const errorMsg = t('RESEND_EMAIL_RATE_LIMIT', {
                         seconds: data.remainingSeconds,
@@ -123,7 +119,6 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
                     setError(errorMsg)
                     toast.error(errorMsg)
                 } else {
-                    // Handle other errors
                     const errorKey = data.error || 'RESEND_EMAIL_ERROR'
                     const errorMsg = t(errorKey)
                     setError(errorMsg)
@@ -132,7 +127,6 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
                 return
             }
 
-            // Success
             const successMsg = t('RESEND_EMAIL_SUCCESS')
             toast.success(successMsg)
             setError(null)
@@ -145,7 +139,6 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
         }
     }
 
-    // Success state UI
     if (registrationSuccess) {
         return (
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -175,7 +168,6 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
                         </p>
                     </div>
 
-                    {/* Email display card */}
                     <div className="flex items-center gap-2 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 px-4 py-3 rounded-lg border border-green-200 dark:border-green-800">
                         <Mail className="h-5 w-5 text-green-600 dark:text-green-400" />
                         <span className="text-sm font-medium text-green-900 dark:text-green-100">
@@ -188,7 +180,6 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
 
                 {error && <div className="text-red-500 text-sm text-center">{error}</div>}
 
-                {/* Action buttons */}
                 <div className="space-y-3">
                     <Button
                         variant="secondary"
@@ -203,7 +194,6 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
                     </Button>
                 </div>
 
-                {/* Resend email button */}
                 <div className="flex w-full justify-center">
                     <button
                         onClick={handleResendEmail}
@@ -217,20 +207,24 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
         )
     }
 
-    // Regular form UI
     return (
         <div className="space-y-8">
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 w-full">
+                    {/* EmailInput: ideally add a red * in its label inside that component */}
                     <EmailInput {...form} />
 
-                    <div className="grid grid-cols-2 gap-4">
+                    {/* FULL NAME + PHONE 
+                       - Mobile: 1 column
+                       - sm+: 2 columns
+                    */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <FormField
                             control={form.control}
                             name="fullName"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>{t('FULL_NAME')}</FormLabel>
+                                    <FormLabel className="text-sm">{t('FULL_NAME')}</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder={t('PLACEHOLDER.FULL_NAME')}
@@ -247,7 +241,7 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
                             name="phone"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>{t('PHONE')}</FormLabel>
+                                    <FormLabel className="text-sm">{t('PHONE')}</FormLabel>
                                     <FormControl>
                                         <Input
                                             type="tel"
@@ -261,15 +255,19 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
                         />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    {/* BAND NAME + PASSWORD 
+                       - Also 1 column on mobile, 2 on sm+
+                    */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <FormField
                             control={form.control}
                             name="bandName"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>
-                                        {t('BAND_NAME')}{' '}
-                                        <span className="text-muted-foreground text-sm">
+                                    <FormLabel className="text-sm flex items-center gap-1">
+                                        {t('BAND_NAME')}
+                                        {/* Hide "(optional)" on mobile to save space */}
+                                        <span className="text-muted-foreground text-xs ">
                                             ({t('OPTIONAL')})
                                         </span>
                                     </FormLabel>
@@ -284,6 +282,7 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
                             )}
                         />
 
+                        {/* PasswordInput: add a red * inside its label implementation */}
                         <PasswordInput {...form} />
                     </div>
 
@@ -306,7 +305,10 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
                                         htmlFor="privacy-consent"
                                         className="text-sm font-normal leading-relaxed cursor-pointer flex-1"
                                     >
-                                        {t('PRIVACY_CONSENT')}{' '}
+                                        <span>
+                                            {t('PRIVACY_CONSENT')}{' '}
+                                            <span className="text-destructive ml-0.5">*</span>
+                                        </span>{' '}
                                         <Link
                                             href="/privacy-policy"
                                             className="text-primary hover:underline font-medium"
@@ -326,7 +328,7 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
                     {error && <div className="text-red-500 text-sm text-center">{error}</div>}
 
                     <Button
-                        variant={'secondary'}
+                        variant="secondary"
                         type="submit"
                         className="w-full mt-5"
                         disabled={isSubmitting}

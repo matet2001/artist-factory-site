@@ -4,10 +4,12 @@
 import { EquipmentIcon } from '@/components/common/rooms/equipment-icon'
 import CtaSection from '@/components/common/sections/cta-section'
 import { useAnimations } from '@/hooks/use-animation'
+import { CONTACT } from '@/lib/constants'
 import { motion } from 'framer-motion'
-import { Disc3, DollarSign, Headphones, Mic2, Music, Radio } from 'lucide-react'
+import { Disc3, DollarSign, Headphones, Mic2, Music, Phone, Radio } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const services = [
     { key: 'FULL_ALBUM', icon: Disc3 },
@@ -31,7 +33,7 @@ const equipmentDetails = [
     },
     {
         titleKey: 'EQUIPMENT.PREAMPS.TITLE',
-        type: 'amp' as const,
+        type: 'mixer' as const,
         itemKeys: ['EQUIPMENT.PREAMPS.ITEM_1', 'EQUIPMENT.PREAMPS.ITEM_2'],
     },
     {
@@ -342,6 +344,57 @@ export default function StudioPage() {
                         className="text-center p-6 rounded-xl bg-card/80 border border-primary/20"
                     >
                         <p className="text-sm text-foreground/80 italic">{t('INSTRUMENTS_NOTE')}</p>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Booking Disclaimer Section */}
+            <section className="relative py-16 md:py-24">
+                <div className="max-w-4xl mx-auto px-4">
+                    <motion.div
+                        variants={animations.fadeUp}
+                        initial="initial"
+                        whileInView="whileInView"
+                        viewport={viewportConfig}
+                        className="bg-card/80 backdrop-blur-xl rounded-3xl border border-primary/20 shadow-2xl p-8 sm:p-12"
+                    >
+                        <div className="space-y-8">
+                            {/* Title */}
+                            <div className="text-center space-y-3">
+                                <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+                                    {t('BOOKING_DISCLAIMER_TITLE')}
+                                </h2>
+                                <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+                                    {t('BOOKING_DISCLAIMER_DESC')}
+                                </p>
+                            </div>
+
+                            {/* Phone Card */}
+                            <motion.div
+                                variants={animations.scaleIn}
+                                initial="initial"
+                                whileInView="whileInView"
+                                viewport={viewportConfig}
+                                className="max-w-md mx-auto"
+                            >
+                                <Link
+                                    href={`tel:${CONTACT.phoneRaw}`}
+                                    className="group relative flex flex-col items-center gap-4 p-8 bg-card-elevated border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg rounded-2xl"
+                                >
+                                    <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
+                                        <Phone className="h-10 w-10 text-primary transition-transform group-hover:scale-110" />
+                                    </div>
+                                    <div className="text-center space-y-2">
+                                        <span className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
+                                            {CONTACT.phoneDisplay}
+                                        </span>
+                                        <p className="text-sm text-muted-foreground">
+                                            {t('AVAILABLE')}
+                                        </p>
+                                    </div>
+                                </Link>
+                            </motion.div>
+                        </div>
                     </motion.div>
                 </div>
             </section>

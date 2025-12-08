@@ -5,7 +5,6 @@ import cymbalIcon from '@/assets/icons/cymbal.png'
 import drumIcon from '@/assets/icons/drum.png'
 import micIcon from '@/assets/icons/mic.png'
 import mixerIcon from '@/assets/icons/mixer.png'
-import pedalIcon from '@/assets/icons/pedal.png'
 import pianoIcon from '@/assets/icons/piano.png'
 import speakerIcon from '@/assets/icons/speaker.png'
 import { EquipmentType } from '@/lib/rooms'
@@ -13,10 +12,8 @@ import { EquipmentType } from '@/lib/rooms'
 const ICONS: Record<EquipmentType, StaticImageData> = {
     drum: drumIcon,
     cymbal: cymbalIcon,
-    amp: ampIcon,
-    guitar: ampIcon,
+    'guitar-amp': ampIcon,
     bass: ampIcon,
-    pedal: pedalIcon,
     mixer: mixerIcon,
     speaker: speakerIcon,
     mic: micIcon,

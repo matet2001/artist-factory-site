@@ -4,6 +4,7 @@ import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { Toaster } from 'sonner'
 import Providers from './providers'
+import { LocalBusinessStructuredData, WebSiteStructuredData } from '@/components/common/structured-data'
 
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }))
@@ -29,6 +30,8 @@ export default async function LocaleLayout({
     return (
         <NextIntlClientProvider locale={locale} messages={messages}>
             <Providers>
+                <LocalBusinessStructuredData />
+                <WebSiteStructuredData />
                 {children}
                 <Toaster position="top-center" richColors closeButton />
             </Providers>
