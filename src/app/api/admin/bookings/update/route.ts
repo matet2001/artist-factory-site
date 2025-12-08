@@ -34,17 +34,30 @@ export async function PUT(req: NextRequest) {
             )
         }
 
-        // Update the booking
+        // First, verify the booking exists and get userId
+        const existingBooking = await prisma.booking.findUnique({
+            where: { id },
+            select: { userId: true },
+        })
+
+        if (!existingBooking) {
+            return NextResponse.json({ error: 'Booking not found' }, { status: 404 })
+        }
+
+        // Update user and booking separately to avoid nested update issues
+        await prisma.user.update({
+            where: { id: existingBooking.userId },
+            data: {
+                name: name,
+                bandName: bandName || null,
+            },
+        })
+
+        // Update the booking note
         const updatedBooking = await prisma.booking.update({
             where: { id },
             data: {
                 note: note || null,
-                user: {
-                    update: {
-                        name: name,
-                        bandName: bandName || null,
-                    },
-                },
             },
             include: {
                 user: {
