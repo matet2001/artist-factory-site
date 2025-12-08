@@ -646,6 +646,16 @@
         "YES": "Igen",
         "NO": "Nem",
         "NO_USERS_FOUND": "Nem található felhasználó",
-        "ERROR_LOAD_FAILED": "Nem sikerült betölteni a felhasználókat"
+        "ERROR_LOAD_FAILED": "Nem sikerült betölteni a felhasználókat",
+        "ROWS_PER_PAGE": "Sorok oldalanként:",
+        "PAGE_OF": "{current}. oldal / {total}",
+        "SHOWING_RESULTS": "{start}-{end} / {total}"
+    },
+    "NOT_FOUND": {
+        "TITLE": "Az oldal nem található",
+        "DESCRIPTION": "A keresett oldal nem létezik vagy át lett helyezve.",
+        "GO_HOME": "Vissza a főoldalra",
+        "GO_BOOKING": "Foglalás leadása",
+        "REDIRECT_MESSAGE": "Átirányítás a főoldalra {seconds} másodperc múlva..."
     }
 }

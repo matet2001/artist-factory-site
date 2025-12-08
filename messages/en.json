@@ -641,6 +641,16 @@
         "YES": "Yes",
         "NO": "No",
         "NO_USERS_FOUND": "No users found",
-        "ERROR_LOAD_FAILED": "Failed to load users"
+        "ERROR_LOAD_FAILED": "Failed to load users",
+        "ROWS_PER_PAGE": "Rows per page:",
+        "PAGE_OF": "Page {current} of {total}",
+        "SHOWING_RESULTS": "{start}-{end} of {total}"
+    },
+    "NOT_FOUND": {
+        "TITLE": "Page Not Found",
+        "DESCRIPTION": "The page you're looking for doesn't exist or has been moved.",
+        "GO_HOME": "Go to Home",
+        "GO_BOOKING": "Make a Booking",
+        "REDIRECT_MESSAGE": "Redirecting to home page in {seconds} seconds..."
     }
 }

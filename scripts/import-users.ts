@@ -20,7 +20,7 @@ interface OldUser {
 }
 
 async function importUsers() {
-    const csvFile = fs.readFileSync('./data/old-users.csv', 'utf8')
+    const csvFile = fs.readFileSync('./data/ArtistFactory users.csv', 'utf8')
 
     const { data } = Papa.parse<OldUser>(csvFile, {
         header: true,
@@ -33,16 +33,32 @@ async function importUsers() {
     let imported = 0
     let skipped = 0
     let failed = 0
+    const seenEmails = new Set<string>() // Track emails we've seen in the CSV
 
     for (const row of data) {
         try {
-            // Check if user already exists
+            // Skip if no email or if it's the admin user
+            if (!row.email || row.email === 'info@artistfactory.hu') {
+                console.log(`Skipped: ${row.email || 'no email'} (admin or invalid)`)
+                skipped++
+                continue
+            }
+
+            // Skip if we've already seen this email in the CSV (duplicate in CSV)
+            if (seenEmails.has(row.email)) {
+                console.log(`Skipped: ${row.email} (duplicate in CSV)`)
+                skipped++
+                continue
+            }
+            seenEmails.add(row.email)
+
+            // Check if user already exists in database
             const existingUser = await prisma.user.findUnique({
                 where: { email: row.email },
             })
 
             if (existingUser) {
-                console.log(`Skipped: ${row.email} (already exists)`)
+                console.log(`Skipped: ${row.email} (already exists in DB)`)
                 skipped++
                 continue
             }
@@ -50,13 +66,24 @@ async function importUsers() {
             // Create user with a temporary random password (they won't know it)
             const tempPassword = crypto.randomBytes(32).toString('hex')
 
+            // Accept ANY phone number as-is (convert to string if needed)
+            let phoneValue = null
+            if (row.phone !== null && row.phone !== undefined && row.phone !== '') {
+                phoneValue = String(row.phone).trim()
+                // Only set if there's actually a value after trimming
+                if (phoneValue.length === 0) {
+                    phoneValue = null
+                }
+            }
+
             await prisma.user.create({
                 data: {
                     email: row.email,
                     name: row.name || row.email,
+                    phone: phoneValue,
+                    bandName: row.bandName || null,
                     password: tempPassword, // They'll reset this via email
                     emailVerified: null, // Not verified yet
-                    // Add other fields as needed
                 },
             })
 
@@ -73,8 +100,9 @@ async function importUsers() {
 
             console.log(`✓ Imported: ${row.email}`)
             imported++
-        } catch (error) {
-            console.error(`✗ Failed: ${row.email}`, error)
+        } catch (error: any) {
+            const errorMsg = error?.message || String(error)
+            console.error(`✗ Failed: ${row.email} - ${errorMsg}`)
             failed++
         }
     }

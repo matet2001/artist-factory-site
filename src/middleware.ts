@@ -8,6 +8,31 @@ const intlMiddleware = createIntlMiddleware(routing)
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl
 
+    // Redirect old URLs (without locale) to new URLs (with /hu locale)
+    // This handles URLs from Google's old index like /áraink, /booking, etc.
+    const oldRoutes = [
+        '/áraink',
+        '/prices',
+        '/booking',
+        '/contact',
+        '/studio',
+        '/rooms',
+        '/privacy-policy',
+        '/terms-of-booking',
+        '/login',
+        '/register',
+    ]
+
+    // Check if pathname matches old routes (no locale prefix)
+    const isOldRoute = oldRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`))
+    const hasLocalePrefix = routing.locales.some((locale) => pathname.startsWith(`/${locale}`))
+
+    if (isOldRoute && !hasLocalePrefix) {
+        // Redirect to the same path with /hu prefix (default locale)
+        const redirectUrl = new URL(`/${routing.defaultLocale}${pathname}`, request.url)
+        return NextResponse.redirect(redirectUrl, 301) // 301 = Permanent redirect
+    }
+
     // Check if the request is for an admin route
     const isAdminRoute = pathname.includes('/admin')
 
@@ -24,7 +49,14 @@ export async function middleware(request: NextRequest) {
     }
 
     // Run the intl middleware
-    return intlMiddleware(request)
+    const response = intlMiddleware(request)
+
+    // Add pathname header for not-found page locale detection
+    if (response) {
+        response.headers.set('x-pathname', pathname)
+    }
+
+    return response
 }
 
 export const config = {
