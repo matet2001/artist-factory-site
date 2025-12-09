@@ -257,6 +257,7 @@
         "ERROR_NAME_MISSING": "Please enter the customer's name!",
         "ERROR_NO_BOOKINGS": "Please select at least one time slot!",
         "ERROR_LOAD_FAILED": "Failed to load bookings",
+        "ERROR_BOOKING_NOT_FOUND": "Booking not found",
         "SUCCESS_CREATED": "Booking created: {name}",
         "SUCCESS_UPDATED": "Booking updated: {name}",
         "SUCCESS_DELETED": "Booking deleted"
