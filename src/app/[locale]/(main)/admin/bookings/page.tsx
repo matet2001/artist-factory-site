@@ -150,7 +150,11 @@ export default function AdminBookingsPage() {
     }
 
     const isPlannedByUser = (roomId: string, time: number): boolean => {
-        return plannedBookings.some((b) => b.roomId === roomId && b.time === time)
+        const selectedDateStr = formatLocalDate(selectedDate)
+        return plannedBookings.some((b) => {
+            const bookingDateStr = formatLocalDate(b.date)
+            return b.roomId === roomId && b.time === time && bookingDateStr === selectedDateStr
+        })
     }
 
     const handleBook = (intent: BookingIntent) => {
@@ -159,10 +163,16 @@ export default function AdminBookingsPage() {
             return
         }
 
-        // Check if this slot is already planned
-        const alreadyPlanned = plannedBookings.some(
-            (b) => b.roomId === intent.roomId && b.time === intent.time
-        )
+        // Check if this slot is already planned (including date check)
+        const alreadyPlanned = plannedBookings.some((b) => {
+            const existingDateStr = formatLocalDate(b.date)
+            const intentDateStr = formatLocalDate(intent.date)
+            return (
+                b.roomId === intent.roomId &&
+                b.time === intent.time &&
+                existingDateStr === intentDateStr
+            )
+        })
 
         if (alreadyPlanned) {
             return // Don't add duplicate
@@ -173,11 +183,22 @@ export default function AdminBookingsPage() {
 
     const handleDeletePlanned = (intent: BookingIntent) => {
         setPlannedBookings((prev) =>
-            prev.filter((b) => !(b.roomId === intent.roomId && b.time === intent.time))
+            prev.filter((b) => {
+                const existingDateStr = formatLocalDate(b.date)
+                const intentDateStr = formatLocalDate(intent.date)
+                return !(
+                    b.roomId === intent.roomId &&
+                    b.time === intent.time &&
+                    existingDateStr === intentDateStr
+                )
+            })
         )
     }
 
     const handleDeleteBooking = async (intent: BookingIntent) => {
+        // Clear planned bookings to prevent issues
+        setPlannedBookings([])
+
         const cellKey = `${intent.roomId}-${intent.time}`
         setLoadingCells((prev) => new Set(prev).add(cellKey))
 
@@ -198,6 +219,12 @@ export default function AdminBookingsPage() {
             }
 
             toast.success(t('SUCCESS_DELETED'))
+
+            // If we're deleting a booking that's currently in edit mode, clear the form
+            if (editMode && selectedBooking) {
+                handleCancelEdit()
+            }
+
             await fetchBookingsWeek(selectedDate)
         } catch (error) {
             console.error('Error deleting booking:', error)
@@ -257,7 +284,11 @@ export default function AdminBookingsPage() {
 
             if (!res.ok) {
                 const error = await res.json()
-                throw new Error(error.error || 'Failed to update booking')
+                // Handle specific error cases
+                if (error.error === 'Booking not found') {
+                    throw new Error(t('ERROR_BOOKING_NOT_FOUND'))
+                }
+                throw new Error(error.error || t('ERROR_LOAD_FAILED'))
             }
 
             toast.success(t('SUCCESS_UPDATED', { name: customerName }))
