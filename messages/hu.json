@@ -531,6 +531,7 @@
         "ERROR_NAME_MISSING": "Add meg az ügyfél nevét!",
         "ERROR_NO_BOOKINGS": "Válassz legalább egy időpontot!",
         "ERROR_LOAD_FAILED": "Nem sikerült betölteni a foglalásokat",
+        "ERROR_BOOKING_NOT_FOUND": "Foglalás nem található",
         "SUCCESS_CREATED": "Foglalás létrehozva: {name}",
         "SUCCESS_UPDATED": "Foglalás frissítve: {name}",
         "SUCCESS_DELETED": "Foglalás törölve"

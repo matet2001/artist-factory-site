@@ -19,11 +19,29 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: 'Invalid request data' }, { status: 400 })
         }
 
+        // Parse UTC date string (YYYY-MM-DD) to prevent timezone conversion issues
+        const bookingDate = new Date(date + 'T00:00:00.000Z')
+
+        // First check if booking exists
+        const existing = await prisma.booking.findUnique({
+            where: {
+                date_time_roomId: {
+                    date: bookingDate,
+                    time,
+                    roomId,
+                },
+            },
+        })
+
+        if (!existing) {
+            return NextResponse.json({ error: 'Booking not found' }, { status: 404 })
+        }
+
         // Delete the booking
         const deleted = await prisma.booking.delete({
             where: {
                 date_time_roomId: {
-                    date: new Date(date),
+                    date: bookingDate,
                     time,
                     roomId,
                 },
