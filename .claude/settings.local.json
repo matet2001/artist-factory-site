@@ -24,7 +24,8 @@
       "Bash(del /s /q .next)",
       "Bash(if exist .next rd /s /q .next)",
       "Bash(echo \"\n# TEMPORARY: Using Resend onboarding email for testing\n# After verifying artistfactory.hu domain in Resend, change back to:\n# EMAIL_FROM=artistfactory@artistfactory.hu\nEMAIL_FROM=onboarding@resend.dev\")",
-      "Bash(env)"
+      "Bash(env)",
+      "Bash(nslookup:*)"
     ],
     "deny": [],
     "ask": []

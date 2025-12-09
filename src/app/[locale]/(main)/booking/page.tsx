@@ -158,7 +158,11 @@ export default function BookingPage() {
     }, [allBookings, session])
 
     const isPlannedByUser = (roomId: string, time: number): boolean => {
-        return plannedBookings.some((b) => b.roomId === roomId && b.time === time)
+        const selectedDateStr = formatLocalDate(selectedDate)
+        return plannedBookings.some((b) => {
+            const bookingDateStr = formatLocalDate(new Date(b.date))
+            return b.roomId === roomId && b.time === time && bookingDateStr === selectedDateStr
+        })
     }
 
     const handleBook = async (intent: BookingIntent) => {

@@ -38,11 +38,15 @@ export async function POST(request: NextRequest) {
         // Create bookings sequentially to avoid race conditions
         const createdBookings = []
         for (const booking of bookings as { roomId: string; date: string; time: number }[]) {
+            // Parse UTC date string (YYYY-MM-DD) and create UTC date at midnight
+            // This prevents timezone conversion issues
+            const bookingDate = new Date(booking.date + 'T00:00:00.000Z')
+
             // Check if slot is available
             const existing = await prisma.booking.findUnique({
                 where: {
                     date_time_roomId: {
-                        date: new Date(booking.date),
+                        date: bookingDate,
                         time: booking.time,
                         roomId: booking.roomId,
                     },
@@ -67,7 +71,7 @@ export async function POST(request: NextRequest) {
                 data: {
                     userId: user.id,
                     roomId: booking.roomId,
-                    date: new Date(booking.date),
+                    date: bookingDate,
                     time: booking.time,
                     status: 'VERIFIED', // Phone bookings are immediately verified
                     verifiedAt: new Date(),
