@@ -1,7 +1,7 @@
 export function LocalBusinessStructuredData() {
     const structuredData = {
         '@context': 'https://schema.org',
-        '@type': 'MusicVenue',
+        '@type': 'LocalBusiness',
         '@id': 'https://www.artistfactory.hu/#organization',
         name: 'Artist Factory',
         alternateName: 'Artist Factory Próbaterem',

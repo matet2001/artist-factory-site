@@ -25,7 +25,11 @@
       "Bash(if exist .next rd /s /q .next)",
       "Bash(echo \"\n# TEMPORARY: Using Resend onboarding email for testing\n# After verifying artistfactory.hu domain in Resend, change back to:\n# EMAIL_FROM=artistfactory@artistfactory.hu\nEMAIL_FROM=onboarding@resend.dev\")",
       "Bash(env)",
-      "Bash(nslookup:*)"
+      "Bash(nslookup:*)",
+      "Bash(claude --usage)",
+      "Bash(timeout 60 npx tsc:*)",
+      "Bash(if exist page.tsx.backup del page.tsx.backup)",
+      "Bash(ren:*)"
     ],
     "deny": [],
     "ask": []
