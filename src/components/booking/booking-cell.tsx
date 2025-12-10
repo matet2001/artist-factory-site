@@ -4,6 +4,7 @@ import { BookingStatus } from '@prisma/client'
 import { Plus, Loader2, X, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { BookingData, BookingIntent, CellState, formatDisplayName, isTimeInPast, isWithin24Hours, isWithin48Hours } from '@/lib/booking-utils'
+import { useTranslations } from 'next-intl'
 
 interface BookingCellProps {
     booking?: BookingData
@@ -34,6 +35,7 @@ export function BookingCell({
     isSelectedForDeletion = false,
     currentUserId,
 }: BookingCellProps) {
+    const t = useTranslations('BOOKING')
     const isPast = isTimeInPast(date, time)
     const isTooSoon = isWithin24Hours(date, time)
     const isVerifiedByUser = booking?.status === BookingStatus.VERIFIED && booking?.userId === currentUserId
@@ -124,7 +126,7 @@ export function BookingCell({
                             <Check className="h-3 w-3 md:h-5 md:w-5 text-white font-bold" />
                         ) : (
                             <span className="text-[8px] md:text-xs text-foreground/70">
-                                Click to select
+                                {t('CLICK_TO_SELECT')}
                             </span>
                         )}
                     </div>

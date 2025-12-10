@@ -596,6 +596,13 @@
         "CANCEL_BOOKING": "Foglalás Lemondása",
         "CANCEL_CONFIRM": "Biztosan le akarod mondani ezt a foglalást?",
         "BOOKING_CANCELLED": "Foglalás sikeresen lemondva",
+        "BOOKINGS_CANCELLED": "Foglalások sikeresen lemondva",
+        "CLICK_TO_SELECT": "Kattints a kiválasztáshoz",
+        "CANCEL_SELECTED_TITLE": "Kiválasztott Foglalások Lemondása",
+        "CANCEL_SELECTED_DESC": "{count} foglalást választottál ki lemondásra. Ez a művelet megerősítő emaileket küld.",
+        "CANCEL_BUTTON": "{count} Foglalás Lemondása",
+        "CANCELLING": "Lemondás...",
+        "CLEAR_SELECTION": "Kiválasztás Törlése",
         "RULES": {
             "TITLE": "Fontos Foglalási Szabályok",
             "ADVANCE_24H": "📅 Online foglalást legalább 24 órával a kezdés előtt lehet leadni.",
