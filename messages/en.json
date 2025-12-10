@@ -322,6 +322,13 @@
         "CANCEL_BOOKING": "Cancel Booking",
         "CANCEL_CONFIRM": "Are you sure you want to cancel this booking?",
         "BOOKING_CANCELLED": "Booking cancelled successfully",
+        "BOOKINGS_CANCELLED": "Bookings cancelled successfully",
+        "CLICK_TO_SELECT": "Click to select",
+        "CANCEL_SELECTED_TITLE": "Cancel Selected Bookings",
+        "CANCEL_SELECTED_DESC": "You have selected {count} booking(s) to cancel. This action will send confirmation emails.",
+        "CANCEL_BUTTON": "Cancel {count} Booking(s)",
+        "CANCELLING": "Cancelling...",
+        "CLEAR_SELECTION": "Clear Selection",
         "RULES": {
             "TITLE": "Important Booking Rules",
             "ADVANCE_24H": "📅 Online bookings must be made at least 24 hours in advance",
@@ -595,6 +602,24 @@
             "CONTACT_INFO": "For cancellations or changes, please contact us:",
             "PHONE": "Phone",
             "EMAIL": "Email"
+        },
+        "BOOKING_CANCELLATION": {
+            "SUBJECT": "Booking Cancelled - ArtistFactory",
+            "TITLE": "Your Booking Has Been Cancelled",
+            "CANCELLED_BOOKINGS": "Cancelled Bookings:",
+            "CONFIRMATION": "Your booking has been successfully cancelled.",
+            "REFUND_INFO": "If you paid in advance, the refund will be processed according to our cancellation policy.",
+            "CLOSING": "We hope to see you again soon!",
+            "CONTACT_INFO": "For questions, please contact us:",
+            "PHONE": "Phone",
+            "EMAIL": "Email"
+        },
+        "ADMIN_CANCELLATION": {
+            "SUBJECT": "Booking Cancellation - {userName}",
+            "TITLE": "Booking Cancelled by User",
+            "USER": "User",
+            "CANCELLED_BOOKINGS": "Cancelled Bookings:",
+            "ACTION_REQUIRED": "No action required - this is for your information only."
         },
         "FOOTER": "ArtistFactory - Rehearsal Rooms and Studio"
     },

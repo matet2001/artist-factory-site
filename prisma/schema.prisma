@@ -67,10 +67,12 @@ enum BookingStatus {
 }
 
 model Booking {
-  id     String        @id @default(cuid())
-  date   DateTime      @db.Date
-  time   Int // hour (9-22)
-  status BookingStatus @default(UNVERIFIED)
+  id          String        @id @default(cuid())
+  date        DateTime      @db.Date
+  time        Int // hour (9-22)
+  startMinute Int           @default(0) // 0 or 30 for half-hour slots
+  endMinute   Int           @default(0) // 0 or 30 for half-hour slots
+  status      BookingStatus @default(UNVERIFIED)
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
