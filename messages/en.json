@@ -322,6 +322,13 @@
         "CANCEL_BOOKING": "Cancel Booking",
         "CANCEL_CONFIRM": "Are you sure you want to cancel this booking?",
         "BOOKING_CANCELLED": "Booking cancelled successfully",
+        "BOOKINGS_CANCELLED": "Bookings cancelled successfully",
+        "CLICK_TO_SELECT": "Click to select",
+        "CANCEL_SELECTED_TITLE": "Cancel Selected Bookings",
+        "CANCEL_SELECTED_DESC": "You have selected {count} booking(s) to cancel. This action will send confirmation emails.",
+        "CANCEL_BUTTON": "Cancel {count} Booking(s)",
+        "CANCELLING": "Cancelling...",
+        "CLEAR_SELECTION": "Clear Selection",
         "RULES": {
             "TITLE": "Important Booking Rules",
             "ADVANCE_24H": "📅 Online bookings must be made at least 24 hours in advance",
