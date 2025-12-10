@@ -1,5 +1,6 @@
 import { authOptions } from '@/../auth'
 import prisma from '@/lib/prisma'
+import { sendAdminCancellationNotification, sendBookingCancellationEmail } from '@/lib/email'
 import { getServerSession } from 'next-auth'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -97,10 +98,93 @@ export async function POST(request: NextRequest) {
             },
         })
 
-        // TODO: Send cancellation email to user
-        // This is where you would send ONE email with all the cancelled bookings
-        // For now, we'll just log it
-        console.log(`Cancelled ${bookings.length} bookings for user ${user.email}`)
+        // Get locale from request headers or default to 'hu'
+        const locale = request.headers.get('accept-language')?.split(',')[0]?.split('-')[0] || 'hu'
+
+        // Send cancellation email to user
+        try {
+            await sendBookingCancellationEmail(
+                user.email,
+                bookings.map((b) => ({
+                    roomId: b.room.name,
+                    roomName: b.room.name,
+                    date: b.date.toISOString().split('T')[0],
+                    time: b.time,
+                })),
+                locale
+            )
+        } catch (error) {
+            console.error('Failed to send user cancellation email:', error)
+            // Don't fail the request if email fails
+        }
+
+        // Prepare bookings for admin notification (combine consecutive bookings)
+        interface CombinedBooking {
+            roomId: string
+            roomName: string
+            date: string
+            startTime: number
+            endTime: number
+            bookingId: string
+        }
+
+        const combineBookingsForAdmin = (): CombinedBooking[] => {
+            // Sort bookings by room and time
+            const sorted = [...bookings].sort((a, b) => {
+                if (a.room.name !== b.room.name) return a.room.name.localeCompare(b.room.name)
+                return a.time - b.time
+            })
+
+            const combined: CombinedBooking[] = []
+            let current: CombinedBooking = {
+                roomId: sorted[0].room.name,
+                roomName: sorted[0].room.name,
+                date: sorted[0].date.toISOString().split('T')[0],
+                startTime: sorted[0].time,
+                endTime: sorted[0].time + 1,
+                bookingId: sorted[0].id,
+            }
+
+            for (let i = 1; i < sorted.length; i++) {
+                const booking = sorted[i]
+
+                // Check if this booking is consecutive to the current one
+                if (booking.room.name === current.roomName && booking.time === current.endTime) {
+                    // Extend the current combined booking
+                    current.endTime = booking.time + 1
+                } else {
+                    // Save the current combined booking and start a new one
+                    combined.push(current)
+                    current = {
+                        roomId: booking.room.name,
+                        roomName: booking.room.name,
+                        date: booking.date.toISOString().split('T')[0],
+                        startTime: booking.time,
+                        endTime: booking.time + 1,
+                        bookingId: booking.id,
+                    }
+                }
+            }
+
+            // Add the last combined booking
+            combined.push(current)
+            return combined
+        }
+
+        // Send cancellation notification to admin
+        try {
+            await sendAdminCancellationNotification(
+                user.name || user.email,
+                user.email,
+                combineBookingsForAdmin(),
+                locale
+            )
+        } catch (error) {
+            console.error('Failed to send admin cancellation notification:', error)
+            // Don't fail the request if admin email fails
+        }
+
+        console.log(`✓ Cancelled ${bookings.length} bookings for user ${user.email}`)
 
         return NextResponse.json(
             {

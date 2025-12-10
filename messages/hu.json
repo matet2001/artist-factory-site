@@ -498,6 +498,24 @@
             "PHONE": "Telefon",
             "EMAIL": "E-mail"
         },
+        "BOOKING_CANCELLATION": {
+            "SUBJECT": "Foglalás Lemondva - ArtistFactory",
+            "TITLE": "A Foglalásod Lemondásra Került",
+            "CANCELLED_BOOKINGS": "Lemondott Foglalások:",
+            "CONFIRMATION": "A foglalásod sikeresen lemondásra került.",
+            "REFUND_INFO": "Ha előre fizettél, a visszatérítés a lemondási feltételeink szerint történik.",
+            "CLOSING": "Reméljük hamarosan újra viszont látunk!",
+            "CONTACT_INFO": "Kérdés esetén vedd fel velünk a kapcsolatot:",
+            "PHONE": "Telefon",
+            "EMAIL": "E-mail"
+        },
+        "ADMIN_CANCELLATION": {
+            "SUBJECT": "Foglalás Lemondás - {userName}",
+            "TITLE": "Felhasználó által Lemondott Foglalás",
+            "USER": "Felhasználó",
+            "CANCELLED_BOOKINGS": "Lemondott Foglalások:",
+            "ACTION_REQUIRED": "Nincs teendő - ez csak tájékoztatás."
+        },
         "FOOTER": "ArtistFactory - Próbaterem és Stúdió"
     },
 
