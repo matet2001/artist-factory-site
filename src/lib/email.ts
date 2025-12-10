@@ -548,6 +548,234 @@ export async function sendBugReportEmail(
     }
 }
 
+export async function sendBookingCancellationEmail(
+    email: string,
+    bookings: Array<{ roomId: string; roomName: string; date: string; time: number }>,
+    locale: string = 'hu'
+) {
+    const t = await getTranslations({ locale, namespace: 'EMAIL.BOOKING_CANCELLATION' })
+    const tRooms = await getTranslations({ locale, namespace: 'ROOMS' })
+    const tFooter = await getTranslations({ locale, namespace: 'EMAIL' })
+
+    // Combine consecutive bookings for the same room
+    interface CombinedBooking {
+        roomId: string
+        roomName: string
+        date: string
+        startTime: number
+        endTime: number
+    }
+
+    const combineBookings = (
+        bookings: Array<{ roomId: string; roomName: string; date: string; time: number }>
+    ): CombinedBooking[] => {
+        if (bookings.length === 0) return []
+
+        // Sort bookings by room and time
+        const sorted = [...bookings].sort((a, b) => {
+            if (a.roomId !== b.roomId) return a.roomId.localeCompare(b.roomId)
+            return a.time - b.time
+        })
+
+        const combined: CombinedBooking[] = []
+        let current: CombinedBooking = {
+            roomId: sorted[0].roomId,
+            roomName: sorted[0].roomName,
+            date: sorted[0].date,
+            startTime: sorted[0].time,
+            endTime: sorted[0].time + 1,
+        }
+
+        for (let i = 1; i < sorted.length; i++) {
+            const booking = sorted[i]
+
+            // Check if this booking is consecutive to the current one
+            if (booking.roomId === current.roomId && booking.time === current.endTime) {
+                // Extend the current combined booking
+                current.endTime = booking.time + 1
+            } else {
+                // Save the current combined booking and start a new one
+                combined.push(current)
+                current = {
+                    roomId: booking.roomId,
+                    roomName: booking.roomName,
+                    date: booking.date,
+                    startTime: booking.time,
+                    endTime: booking.time + 1,
+                }
+            }
+        }
+
+        // Add the last combined booking
+        combined.push(current)
+        return combined
+    }
+
+    const combinedBookings = combineBookings(bookings)
+
+    const bookingsList = combinedBookings
+        .map(
+            (b) =>
+                `<li style="margin-bottom: 12px;">
+          <strong style="color: #f5f5f5;">${tRooms(b.roomName)}</strong><br/>
+          <span style="color: #919191;">${b.date} ${b.startTime}:00 - ${b.endTime}:00</span>
+        </li>`
+        )
+        .join('')
+
+    try {
+        await sendEmail({
+            from: process.env.EMAIL_FROM!,
+            to: email,
+            subject: t('SUBJECT'),
+            html: `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body style="margin: 0; padding: 0; background-color: #242424; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #242424; padding: 40px 20px;">
+            <tr>
+              <td align="center">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #242424;">
+                  <tr>
+                    <td style="padding: 48px 40px; text-align: center;">
+                      <h1 style="color: #f5f5f5; font-size: 28px; font-weight: 600; margin: 0 0 16px 0;">${t('TITLE')}</h1>
+                      <p style="color: #919191; font-size: 16px; line-height: 24px; margin: 0 0 32px 0;">${t('DESCRIPTION')}</p>
+
+                      <div style="background-color: #1a1a1a; border-radius: 8px; padding: 24px; margin-bottom: 32px; text-align: left;">
+                        <h2 style="color: #f5f5f5; font-size: 18px; margin: 0 0 16px 0;">${t('CANCELLED_BOOKINGS')}</h2>
+                        <ul style="color: #919191; font-size: 14px; line-height: 24px; margin: 0; padding-left: 20px; list-style: none;">
+                          ${bookingsList}
+                        </ul>
+                      </div>
+
+                      <div style="background-color: #1a1a1a; border-left: 3px solid #ff3b7f; border-radius: 8px; padding: 20px; margin-bottom: 32px; text-align: left;">
+                        <p style="color: #f5f5f5; font-size: 18px; font-weight: 600; margin: 0 0 16px 0;">${t('CONTACT_US')}</p>
+                        <p style="color: #919191; font-size: 14px; line-height: 20px; margin: 0;">
+                          <strong style="color: #f5f5f5;">${t('PHONE')}:</strong> +36 20 258 9449<br/>
+                          <strong style="color: #f5f5f5;">${t('EMAIL')}:</strong> ${process.env.EMAIL_FROM}
+                        </p>
+                      </div>
+
+                      <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #333333;">
+                        <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0;">${tFooter('FOOTER')}</p>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+      </html>
+    `,
+        })
+        emailStats.sent++
+        console.log(
+            `✓ Booking cancellation email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
+    } catch (error) {
+        emailStats.failed++
+        console.error(
+            `✗ Failed to send booking cancellation email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
+        throw error
+    }
+}
+
+export async function sendAdminCancellationNotification(
+    userName: string,
+    userEmail: string,
+    bookings: Array<{
+        roomId: string
+        roomName: string
+        date: string
+        startTime: number
+        endTime: number
+        bookingId: string
+    }>,
+    locale: string = 'hu'
+) {
+    const adminEmail = process.env.ADMIN_EMAIL || 'artistfactory@artistfactory.hu'
+    const t = await getTranslations({ locale, namespace: 'EMAIL.ADMIN_CANCELLATION' })
+
+    const bookingsList = bookings
+        .map(
+            (b) => `
+        <div style="background-color: #1a1a1a; border-radius: 8px; padding: 20px; margin-bottom: 16px;">
+          <p style="color: #f5f5f5; font-size: 16px; font-weight: 600; margin: 0 0 8px 0;">
+            ${t('ROOM')}: ${b.roomName}
+          </p>
+          <p style="color: #919191; font-size: 14px; margin: 0 0 4px 0;">
+            ${t('DATE')}: ${b.date} - ${b.startTime}:00 - ${b.endTime}:00
+          </p>
+          <p style="color: #919191; font-size: 14px; margin: 0 0 4px 0;">
+            ${t('DURATION')}: ${(b.endTime - b.startTime) * 60} ${t('MINUTES')}
+          </p>
+          <p style="color: #ff6b9d; font-size: 14px; margin: 0;">
+            ${t('BOOKING_ID')}: ${b.bookingId}
+          </p>
+        </div>
+      `
+        )
+        .join('')
+
+    try {
+        await sendEmail({
+            from: process.env.EMAIL_FROM!,
+            to: adminEmail,
+            subject: t('SUBJECT', { userName }),
+            html: `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body style="margin: 0; padding: 0; background-color: #242424; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #242424; padding: 40px 20px;">
+            <tr>
+              <td align="center">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #242424;">
+                  <tr>
+                    <td style="padding: 48px 40px;">
+                      <h1 style="color: #f5f5f5; font-size: 24px; font-weight: 600; margin: 0 0 16px 0;">${t('TITLE')}</h1>
+                      <p style="color: #919191; font-size: 16px; line-height: 24px; margin: 0 0 32px 0;">
+                        ${t('DESCRIPTION', { userName, userEmail })}
+                      </p>
+
+                      ${bookingsList}
+
+                      <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #333333;">
+                        <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0;">ArtistFactory - Próbaterem és Stúdió</p>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+      </html>
+    `,
+        })
+        emailStats.sent++
+        console.log(
+            `✓ Admin cancellation notification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
+    } catch (error) {
+        emailStats.failed++
+        console.error(
+            `✗ Failed to send admin cancellation notification email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
+        // Don't throw - we don't want to fail the cancellation if admin email fails
+        console.error('Admin cancellation notification error:', error)
+    }
+}
+
 export async function sendMigrationVerificationEmail(email: string, token: string) {
     const verificationUrl = `${process.env.NEXTAUTH_URL}/api/auth/verify-email?token=${token}`
 

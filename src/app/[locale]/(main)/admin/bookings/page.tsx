@@ -61,6 +61,7 @@ export default function AdminBookingsPage() {
     const [customerName, setCustomerName] = useState('')
     const [customerBandName, setCustomerBandName] = useState('')
     const [bookingNote, setBookingNote] = useState('')
+    const [selectedUserId, setSelectedUserId] = useState<string | undefined>(undefined)
     const [selectedBooking, setSelectedBooking] = useState<BookingData | null>(null)
     const [editMode, setEditMode] = useState(false)
 
@@ -238,10 +239,16 @@ export default function AdminBookingsPage() {
         }
     }
 
-    const handleCustomerInfoChange = (data: { name: string; bandName?: string; note?: string }) => {
+    const handleCustomerInfoChange = (data: {
+        name: string
+        bandName?: string
+        note?: string
+        userId?: string
+    }) => {
         setCustomerName(data.name)
         setCustomerBandName(data.bandName || '')
         setBookingNote(data.note || '')
+        setSelectedUserId(data.userId)
     }
 
     const handleSelectBooking = (booking: BookingData) => {
@@ -259,9 +266,10 @@ export default function AdminBookingsPage() {
         setCustomerName('')
         setCustomerBandName('')
         setBookingNote('')
+        setSelectedUserId(undefined)
     }
 
-    const handleUpdateBooking = async () => {
+    const handleUpdateBooking = async (startMinute?: number, endMinute?: number) => {
         if (!selectedBooking || !editMode) return
         if (!customerName.trim()) {
             toast.error(t('ERROR_NAME_MISSING'))
@@ -279,6 +287,8 @@ export default function AdminBookingsPage() {
                     name: customerName,
                     bandName: customerBandName || undefined,
                     note: bookingNote || undefined,
+                    startMinute,
+                    endMinute,
                 }),
             })
 
@@ -329,6 +339,7 @@ export default function AdminBookingsPage() {
                     name: customerName,
                     bandName: customerBandName || undefined,
                     note: bookingNote || undefined,
+                    userId: selectedUserId,
                     bookings: bookingsData,
                 }),
             })
@@ -343,6 +354,7 @@ export default function AdminBookingsPage() {
             setCustomerName('')
             setCustomerBandName('')
             setBookingNote('')
+            setSelectedUserId(undefined)
             await fetchBookingsWeek(selectedDate)
         } catch (error) {
             console.error('Error creating phone booking:', error)
@@ -390,6 +402,9 @@ export default function AdminBookingsPage() {
                                 hasSelectedBookings={plannedBookings.length > 0}
                                 editMode={editMode}
                                 selectedBookingId={selectedBooking?.id}
+                                selectedUserId={selectedUserId}
+                                bookingStartMinute={selectedBooking?.startMinute}
+                                bookingEndMinute={selectedBooking?.endMinute}
                             />
                         </div>
 

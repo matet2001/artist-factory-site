@@ -17,6 +17,8 @@ export interface BookingData {
     id: string
     date: Date
     time: number
+    startMinute?: number
+    endMinute?: number
     status: BookingStatus
     roomId: string
     userId: string

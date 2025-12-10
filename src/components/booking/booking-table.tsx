@@ -19,6 +19,8 @@ interface BookingTableProps {
     onBook: (intent: BookingIntent) => void
     onDeletePlanned: (intent: BookingIntent) => void
     onCancelVerified?: (intent: BookingIntent) => void
+    onToggleDeleteSelection?: (bookingId: string) => void
+    bookingsToDelete?: Set<string>
     currentUserId?: string
 }
 
@@ -34,6 +36,8 @@ export function BookingTable({
     onBook,
     onDeletePlanned,
     onCancelVerified,
+    onToggleDeleteSelection,
+    bookingsToDelete,
     currentUserId,
 }: BookingTableProps) {
     return (
@@ -58,21 +62,28 @@ export function BookingTable({
                                         <span className="md:hidden">{time}:00</span>
                                         <span className="hidden md:inline">{time}:00 - {time + 1}:00</span>
                                     </td>
-                                    {rooms.map((room) => (
-                                        <BookingCell
-                                            key={`${room.id}-${time}`}
-                                            booking={getBooking(room.id, time)}
-                                            roomId={room.id}
-                                            time={time}
-                                            date={selectedDate}
-                                            isPlannedByUser={isPlannedByUser(room.id, time)}
-                                            isLoading={loadingCells.has(`${room.id}-${time}`)}
-                                            onBook={onBook}
-                                            onDeletePlanned={onDeletePlanned}
-                                            onCancelVerified={onCancelVerified}
-                                            currentUserId={currentUserId}
-                                        />
-                                    ))}
+                                    {rooms.map((room) => {
+                                        const booking = getBooking(room.id, time)
+                                        return (
+                                            <BookingCell
+                                                key={`${room.id}-${time}`}
+                                                booking={booking}
+                                                roomId={room.id}
+                                                time={time}
+                                                date={selectedDate}
+                                                isPlannedByUser={isPlannedByUser(room.id, time)}
+                                                isLoading={loadingCells.has(`${room.id}-${time}`)}
+                                                onBook={onBook}
+                                                onDeletePlanned={onDeletePlanned}
+                                                onCancelVerified={onCancelVerified}
+                                                onToggleDeleteSelection={onToggleDeleteSelection}
+                                                isSelectedForDeletion={
+                                                    booking ? bookingsToDelete?.has(booking.id) : false
+                                                }
+                                                currentUserId={currentUserId}
+                                            />
+                                        )
+                                    })}
                                 </tr>
                             ))}
                         </tbody>

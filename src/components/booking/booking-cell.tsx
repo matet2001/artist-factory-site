@@ -1,9 +1,10 @@
 'use client'
 
 import { BookingStatus } from '@prisma/client'
-import { Plus, Loader2, X } from 'lucide-react'
+import { Plus, Loader2, X, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { BookingData, BookingIntent, CellState, formatDisplayName, isTimeInPast, isWithin24Hours, isWithin48Hours } from '@/lib/booking-utils'
+import { useTranslations } from 'next-intl'
 
 interface BookingCellProps {
     booking?: BookingData
@@ -15,6 +16,8 @@ interface BookingCellProps {
     onBook: (intent: BookingIntent) => void
     onDeletePlanned: (intent: BookingIntent) => void
     onCancelVerified?: (intent: BookingIntent) => void
+    onToggleDeleteSelection?: (bookingId: string) => void
+    isSelectedForDeletion?: boolean
     currentUserId?: string
 }
 
@@ -28,8 +31,11 @@ export function BookingCell({
     onBook,
     onDeletePlanned,
     onCancelVerified,
+    onToggleDeleteSelection,
+    isSelectedForDeletion = false,
     currentUserId,
 }: BookingCellProps) {
+    const t = useTranslations('BOOKING')
     const isPast = isTimeInPast(date, time)
     const isTooSoon = isWithin24Hours(date, time)
     const isVerifiedByUser = booking?.status === BookingStatus.VERIFIED && booking?.userId === currentUserId
@@ -75,8 +81,9 @@ export function BookingCell({
             cellState === CellState.PLANNED_CANCELABLE,
         'bg-primary/50 backdrop-blur-sm': cellState === CellState.UNVERIFIED,
         'bg-green-500/60 backdrop-blur-sm': cellState === CellState.VERIFIED,
-        'bg-green-500/60 hover:bg-red-500/60 cursor-pointer backdrop-blur-sm':
+        'bg-green-500/60 hover:bg-blue-500/60 cursor-pointer backdrop-blur-sm':
             cellState === CellState.VERIFIED_CANCELABLE,
+        'bg-blue-500/80 backdrop-blur-sm ring-2 ring-blue-400': isSelectedForDeletion,
         'bg-card/10 opacity-50': cellState === CellState.PAST,
     })
 
@@ -89,12 +96,13 @@ export function BookingCell({
             date,
         }
 
-        if (cellState === CellState.OPEN) {
+        // If it's verified and cancelable, toggle selection instead of immediate cancel
+        if (cellState === CellState.VERIFIED_CANCELABLE && onToggleDeleteSelection && booking) {
+            onToggleDeleteSelection(booking.id)
+        } else if (cellState === CellState.OPEN) {
             onBook(intent)
         } else if (cellState === CellState.PLANNED_CANCELABLE) {
             onDeletePlanned(intent)
-        } else if (cellState === CellState.VERIFIED_CANCELABLE && onCancelVerified) {
-            onCancelVerified(intent)
         }
     }
 
@@ -114,7 +122,13 @@ export function BookingCell({
                                 {displayName}
                             </span>
                         )}
-                        <X className="h-3 w-3 md:h-4 md:w-4 text-foreground/70" />
+                        {isSelectedForDeletion ? (
+                            <Check className="h-3 w-3 md:h-5 md:w-5 text-white font-bold" />
+                        ) : (
+                            <span className="text-[8px] md:text-xs text-foreground/70">
+                                {t('CLICK_TO_SELECT')}
+                            </span>
+                        )}
                     </div>
                 ) : displayName ? (
                     <span className="text-[9px] md:text-sm font-medium text-foreground px-1 md:px-2 text-center">
