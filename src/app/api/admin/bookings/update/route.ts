@@ -25,7 +25,7 @@ export async function PUT(req: NextRequest) {
         }
 
         const body = await req.json()
-        const { id, name, bandName, note } = body
+        const { id, name, bandName, note, startMinute, endMinute } = body
 
         if (!id || !name) {
             return NextResponse.json(
@@ -34,11 +34,21 @@ export async function PUT(req: NextRequest) {
             )
         }
 
+        // Validate minutes if provided
+        if (startMinute !== undefined && ![0, 30].includes(startMinute)) {
+            return NextResponse.json({ error: 'startMinute must be 0 or 30' }, { status: 400 })
+        }
+        if (endMinute !== undefined && ![0, 30].includes(endMinute)) {
+            return NextResponse.json({ error: 'endMinute must be 0 or 30' }, { status: 400 })
+        }
+
         // Update the booking
         const updatedBooking = await prisma.booking.update({
             where: { id },
             data: {
                 note: note || null,
+                ...(startMinute !== undefined && { startMinute }),
+                ...(endMinute !== undefined && { endMinute }),
                 user: {
                     update: {
                         name: name,

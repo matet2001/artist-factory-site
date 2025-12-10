@@ -56,6 +56,7 @@ export default function BookingPage() {
     const [hasError, setHasError] = useState(false)
     const [error, setError] = useState<Error | null>(null)
     const [showSuccessDialog, setShowSuccessDialog] = useState(false)
+    const [bookingsToDelete, setBookingsToDelete] = useState<Set<string>>(new Set()) // Track bookings selected for deletion
 
     const hours = getOpeningHoursArray(OPENING_HOURS)
     const timelinePosition = getCurrentTimePosition(OPENING_HOURS)
@@ -235,6 +236,18 @@ export default function BookingPage() {
         }
     }
 
+    const handleToggleDeleteSelection = (bookingId: string) => {
+        setBookingsToDelete((prev) => {
+            const newSet = new Set(prev)
+            if (newSet.has(bookingId)) {
+                newSet.delete(bookingId)
+            } else {
+                newSet.add(bookingId)
+            }
+            return newSet
+        })
+    }
+
     const handleDeletePlanned = async (intent: BookingIntent) => {
         const booking = getBooking(intent.roomId, intent.time)
         if (!booking) return
@@ -265,6 +278,43 @@ export default function BookingPage() {
                 newSet.delete(cellKey)
                 return newSet
             })
+        }
+    }
+
+    const handleBatchDeleteVerified = async () => {
+        if (bookingsToDelete.size === 0) return
+
+        setIsSubmitting(true)
+
+        try {
+            const response = await fetch('/api/bookings/delete-batch', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    bookingIds: Array.from(bookingsToDelete),
+                }),
+            })
+
+            if (!response.ok) {
+                const error = await response.json()
+                throw new Error(error.error || 'Failed to cancel bookings')
+            }
+
+            const data = await response.json()
+
+            // Optimistic update - remove bookings from state immediately
+            setAllBookings((prev) => prev.filter((b) => !bookingsToDelete.has(b.id)))
+            setBookingsToDelete(new Set())
+
+            toast.success(t('BOOKINGS_CANCELLED'), {
+                description: `${data.deletedCount} booking(s) cancelled successfully`,
+            })
+        } catch (error: any) {
+            toast.error('Error', {
+                description: error.message,
+            })
+        } finally {
+            setIsSubmitting(false)
         }
     }
 
@@ -411,6 +461,8 @@ export default function BookingPage() {
                                         onBook={handleBook}
                                         onDeletePlanned={handleDeletePlanned}
                                         onCancelVerified={handleCancelVerified}
+                                        onToggleDeleteSelection={handleToggleDeleteSelection}
+                                        bookingsToDelete={bookingsToDelete}
                                         currentUserId={session?.user?.id}
                                     />
                                 </div>
@@ -422,6 +474,37 @@ export default function BookingPage() {
                                         onConfirm={handleConfirmBookings}
                                         animations={animations}
                                     />
+
+                                    {/* Batch Delete Section */}
+                                    {bookingsToDelete.size > 0 && (
+                                        <div className="mt-6 p-6 bg-destructive/10 border-2 border-destructive/30 rounded-xl">
+                                            <h3 className="text-lg font-semibold text-destructive mb-2">
+                                                Cancel Selected Bookings
+                                            </h3>
+                                            <p className="text-sm text-muted-foreground mb-4">
+                                                You have selected {bookingsToDelete.size} booking(s) to cancel.
+                                                This action will send one confirmation email.
+                                            </p>
+                                            <div className="flex gap-3">
+                                                <button
+                                                    onClick={handleBatchDeleteVerified}
+                                                    disabled={isSubmitting}
+                                                    className="px-6 py-2 bg-destructive hover:bg-destructive/90 text-destructive-foreground rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                                >
+                                                    {isSubmitting
+                                                        ? 'Cancelling...'
+                                                        : `Cancel ${bookingsToDelete.size} Booking(s)`}
+                                                </button>
+                                                <button
+                                                    onClick={() => setBookingsToDelete(new Set())}
+                                                    disabled={isSubmitting}
+                                                    className="px-6 py-2 bg-muted hover:bg-muted/80 text-foreground rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                                >
+                                                    Clear Selection
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
