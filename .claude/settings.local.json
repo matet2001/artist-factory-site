@@ -29,7 +29,12 @@
       "Bash(claude --usage)",
       "Bash(timeout 60 npx tsc:*)",
       "Bash(if exist page.tsx.backup del page.tsx.backup)",
-      "Bash(ren:*)"
+      "Bash(ren:*)",
+      "Bash(find:*)",
+      "Bash(set:*)",
+      "Bash(findstr:*)",
+      "Bash($env:DATABASE_URL=\"postgresql://neondb_owner:npg_NBQynfHP3Cv5@ep-steep-rice-aghn36c1-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require\")",
+      "Bash(export DATABASE_URL:*)"
     ],
     "deny": [],
     "ask": []

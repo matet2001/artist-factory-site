@@ -13,27 +13,40 @@ export async function POST(request: NextRequest) {
         }
 
         const body = await request.json()
-        const { name, bandName, note, bookings } = body
+        const { name, bandName, note, bookings, userId } = body
 
         if (!name || !bookings || !Array.isArray(bookings) || bookings.length === 0) {
             return NextResponse.json({ error: 'Invalid request data' }, { status: 400 })
         }
 
-        // Create user if doesn't exist, or find existing
-        const user = await prisma.user.upsert({
-            where: { email: `phone_${name.toLowerCase().replace(/\s+/g, '_')}@artistfactory.local` },
-            update: {
-                name,
-                bandName: bandName || null,
-            },
-            create: {
-                email: `phone_${name.toLowerCase().replace(/\s+/g, '_')}@artistfactory.local`,
-                name,
-                bandName: bandName || null,
-                password: '', // Phone bookings don't need passwords
-                emailVerified: new Date(), // Auto-verify phone bookings
-            },
-        })
+        let user
+
+        // If userId is provided, use existing user
+        if (userId) {
+            user = await prisma.user.findUnique({
+                where: { id: userId },
+            })
+
+            if (!user) {
+                return NextResponse.json({ error: 'User not found' }, { status: 404 })
+            }
+        } else {
+            // Create new user with placeholder email
+            user = await prisma.user.upsert({
+                where: { email: `${name.toLowerCase().replace(/\s+/g, '_')}@place.holder.com` },
+                update: {
+                    name,
+                    bandName: bandName || null,
+                },
+                create: {
+                    email: `${name.toLowerCase().replace(/\s+/g, '_')}@place.holder.com`,
+                    name,
+                    bandName: bandName || null,
+                    password: '', // Phone bookings don't need passwords
+                    emailVerified: new Date(), // Auto-verify phone bookings
+                },
+            })
+        }
 
         // Create bookings sequentially to avoid race conditions
         const createdBookings = []
