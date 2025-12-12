@@ -16,12 +16,8 @@ import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
 
-// Helper to format date as YYYY-MM-DD in UTC for backend
-function formatUTCDate(date: Date): string {
-    return date.toISOString().split('T')[0]
-}
-
-// Helper to format date as YYYY-MM-DD in local timezone for comparison
+// Helper to format date as YYYY-MM-DD in local timezone
+// We use local timezone to preserve the calendar date as-is (no UTC conversion)
 function formatLocalDate(date: Date): string {
     const year = date.getFullYear()
     const month = String(date.getMonth() + 1).padStart(2, '0')
@@ -73,8 +69,12 @@ export default function AdminBookingsPage() {
     const bookings = useMemo(() => {
         const selectedDateStr = formatLocalDate(selectedDate)
         return allBookings.filter((b) => {
-            const bookingDate = new Date(b.date)
-            const bookingDateStr = formatLocalDate(bookingDate)
+            // Extract date string from booking data (comes from API as ISO string)
+            // b.date is like "2026-02-01T00:00:00.000Z" or "2026-02-01"
+            const dateStr = b.date.toString()
+            const bookingDateStr = dateStr.includes('T')
+                ? dateStr.split('T')[0]  // Extract YYYY-MM-DD from ISO string
+                : dateStr  // Already in YYYY-MM-DD format
             return bookingDateStr === selectedDateStr
         })
     }, [allBookings, selectedDate])
@@ -110,8 +110,8 @@ export default function AdminBookingsPage() {
 
                 // Single API call with date range
                 const params = new URLSearchParams({
-                    startDate: formatUTCDate(startDate),
-                    endDate: formatUTCDate(endDate),
+                    startDate: formatLocalDate(startDate),
+                    endDate: formatLocalDate(endDate),
                 })
 
                 const res = await fetch(`/api/bookings?${params}`)
@@ -209,7 +209,7 @@ export default function AdminBookingsPage() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     roomId: intent.roomId,
-                    date: formatUTCDate(intent.date),
+                    date: formatLocalDate(intent.date),
                     time: intent.time,
                 }),
             })
@@ -328,7 +328,7 @@ export default function AdminBookingsPage() {
         try {
             const bookingsData = plannedBookings.map((b) => ({
                 roomId: b.roomId,
-                date: formatUTCDate(b.date),
+                date: formatLocalDate(b.date),
                 time: b.time,
             }))
 
@@ -405,6 +405,8 @@ export default function AdminBookingsPage() {
                                 selectedUserId={selectedUserId}
                                 bookingStartMinute={selectedBooking?.startMinute}
                                 bookingEndMinute={selectedBooking?.endMinute}
+                                selectedBookingTime={selectedBooking?.time}
+                                selectedBookingDate={selectedBooking ? new Date(selectedBooking.date) : undefined}
                             />
                         </div>
 

@@ -4,8 +4,6 @@ import {
     BookingData,
     BookingIntent,
     CellState,
-    formatDisplayName,
-    isTimeInPast,
 } from '@/lib/booking-utils'
 import { cn } from '@/lib/utils'
 import { BookingStatus } from '@prisma/client'
@@ -40,8 +38,6 @@ export function AdminBookingCell({
     onDeleteBooking,
     onSelectBooking,
 }: AdminBookingCellProps) {
-    const isPast = isTimeInPast(date, time)
-
     const getCellState = (): CellState => {
         // Check if this slot is planned by admin (not yet saved to database)
         if (isPlanned && !booking) {
@@ -64,11 +60,6 @@ export function AdminBookingCell({
 
     const cellState = getCellState()
 
-    const getDisplayName = () => {
-        if (!booking?.user) return ''
-        return formatDisplayName(booking.user)
-    }
-
     const getUserName = () => {
         if (!booking?.user?.fullName) return ''
         const parts = booking.user.fullName.split(' ')
@@ -78,15 +69,22 @@ export function AdminBookingCell({
         return parts[0]
     }
 
-    const cellClasses = cn('h-16 relative transition-all duration-200 border border-border/50', {
+    // Check if this is a half-hour booking (doesn't start at :00 or doesn't end at :00)
+    const isHalfHourStart = booking?.startMinute === 30
+    const isHalfHourEnd = booking?.endMinute === 30
+
+    // Check if this booking has any half-hour settings
+    const hasHalfHourSettings = isHalfHourStart || isHalfHourEnd
+
+    const cellClasses = cn('h-16 relative transition-all duration-200 border border-border/50 overflow-hidden', {
         'bg-card/30 hover:bg-yellow-500/20 cursor-pointer':
             cellState === CellState.OPEN && !isPlanned,
-        'bg-yellow-500/60 backdrop-blur-sm': cellState === CellState.PLANNED_CANCELABLE,
-        'bg-primary/50 backdrop-blur-sm': cellState === CellState.UNVERIFIED,
-        'bg-green-500/60 backdrop-blur-sm': cellState === CellState.VERIFIED_CANCELABLE,
+        'bg-yellow-500/60 backdrop-blur-sm': cellState === CellState.PLANNED_CANCELABLE && !hasHalfHourSettings,
+        'bg-primary/50 backdrop-blur-sm': cellState === CellState.UNVERIFIED && !hasHalfHourSettings,
+        'bg-green-500/60 backdrop-blur-sm': cellState === CellState.VERIFIED_CANCELABLE && !hasHalfHourSettings,
     })
 
-    const handleClick = (e: React.MouseEvent) => {
+    const handleClick = () => {
         if (isLoading) return
 
         const intent: BookingIntent = {
@@ -128,9 +126,53 @@ export function AdminBookingCell({
         }
     }
 
+    // Get background color and positioning for half-hour bookings
+    const getHalfHourBackgroundProps = () => {
+        if (!hasHalfHourSettings) return null
+
+        let bgColor = ''
+        if (cellState === CellState.PLANNED_CANCELABLE) {
+            bgColor = 'bg-yellow-500/60'
+        } else if (cellState === CellState.UNVERIFIED) {
+            bgColor = 'bg-primary/50'
+        } else if (cellState === CellState.VERIFIED_CANCELABLE) {
+            bgColor = 'bg-green-500/60'
+        }
+
+        let positionClass = ''
+        if (isHalfHourStart && isHalfHourEnd) {
+            // Middle 50% (25% from top, 25% from bottom)
+            positionClass = 'top-1/4 bottom-1/4'
+        } else if (isHalfHourStart) {
+            // Bottom 50%
+            positionClass = 'top-1/2 bottom-0'
+        } else if (isHalfHourEnd) {
+            // Top 50%
+            positionClass = 'top-0 bottom-1/2'
+        }
+
+        return { bgColor, positionClass }
+    }
+
+    const halfHourBg = getHalfHourBackgroundProps()
+
     return (
-        <td className={cn(cellClasses, 'group/cell')} onClick={handleClick}>
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-2">
+        <td
+            className={cn(cellClasses, 'group/cell')}
+            onClick={handleClick}
+        >
+            {/* Background div for half-hour bookings */}
+            {halfHourBg && (
+                <div
+                    className={cn(
+                        'absolute left-0 right-0 backdrop-blur-sm',
+                        halfHourBg.bgColor,
+                        halfHourBg.positionClass
+                    )}
+                />
+            )}
+
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-2 z-10">
                 {isLoading ? (
                     <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
                 ) : (

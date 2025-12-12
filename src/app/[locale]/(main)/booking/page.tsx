@@ -21,12 +21,8 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
 
-// Helper to format date as YYYY-MM-DD in UTC for backend
-function formatUTCDate(date: Date): string {
-    return date.toISOString().split('T')[0]
-}
-
-// Helper to format date as YYYY-MM-DD in local timezone for comparison
+// Helper to format date as YYYY-MM-DD in local timezone
+// We use local timezone to preserve the calendar date as-is
 function formatLocalDate(date: Date): string {
     const year = date.getFullYear()
     const month = String(date.getMonth() + 1).padStart(2, '0')
@@ -41,12 +37,11 @@ export default function BookingPage() {
     const router = useRouter()
     const animations = useAnimations()
 
-    // Default to tomorrow since bookings must be made 24 hours in advance
+    // Default to today
     const [selectedDate, setSelectedDate] = useState<Date>(() => {
-        const tomorrow = new Date()
-        tomorrow.setDate(tomorrow.getDate() + 1)
-        tomorrow.setHours(12, 0, 0, 0)
-        return tomorrow
+        const today = new Date()
+        today.setHours(12, 0, 0, 0)
+        return today
     })
     const [allBookings, setAllBookings] = useState<BookingData[]>([]) // Cache all bookings
     const [fetchedDateRange, setFetchedDateRange] = useState<{ start: Date; end: Date } | null>(null)
@@ -119,7 +114,7 @@ export default function BookingPage() {
             const currentDate = new Date(startDate)
 
             while (currentDate <= endDate) {
-                const dateStr = formatUTCDate(currentDate)
+                const dateStr = formatLocalDate(currentDate)
                 promises.push(
                     fetch(`/api/bookings?date=${dateStr}`)
                         .then(res => res.ok ? res.json() : { bookings: [] })
@@ -192,7 +187,7 @@ export default function BookingPage() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    date: formatUTCDate(selectedDate),
+                    date: formatLocalDate(selectedDate),
                     time: intent.time,
                     roomId: intent.roomId,
                 }),

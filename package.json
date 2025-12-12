@@ -14,6 +14,9 @@
         "migration-emails": "tsx scripts/send-migration-emails.ts",
         "migration-emails:test": "tsx scripts/send-migration-emails.ts --test",
         "migration-emails:live": "tsx scripts/send-migration-emails.ts --live",
+        "cleanup:bookings": "tsx scripts/cleanup-orphaned-bookings.ts",
+        "check:slot": "tsx scripts/check-specific-slot.ts",
+        "check:migrated-users": "tsx scripts/check-migrated-users.ts",
         "type-check": "tsc --noEmit"
     },
     "dependencies": {
@@ -32,6 +35,7 @@
         "bcryptjs": "^3.0.2",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
+        "cmdk": "^1.1.1",
         "date-fns": "^4.1.0",
         "dotenv": "^17.2.3",
         "embla-carousel-autoplay": "^8.6.0",
@@ -51,7 +55,7 @@
         "react-dom": "19.1.0",
         "react-hook-form": "^7.63.0",
         "react-icons": "^5.5.0",
-        "resend": "^6.5.2",
+        "resend": "^6.6.0",
         "sonner": "^2.0.7",
         "tailwind-merge": "^3.3.1",
         "zod": "^4.1.11",
