@@ -1,9 +1,17 @@
 'use client'
 
-import { BookingStatus } from '@prisma/client'
-import { Plus, Loader2, X, Check } from 'lucide-react'
+import {
+    BookingData,
+    BookingIntent,
+    CellState,
+    formatDisplayName,
+    isTimeInPast,
+    isWithin24Hours,
+    isWithin48Hours,
+} from '@/lib/booking-utils'
 import { cn } from '@/lib/utils'
-import { BookingData, BookingIntent, CellState, formatDisplayName, isTimeInPast, isWithin24Hours, isWithin48Hours } from '@/lib/booking-utils'
+import { BookingStatus } from '@prisma/client'
+import { Check, Loader2, Plus } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 interface BookingCellProps {
@@ -38,7 +46,8 @@ export function BookingCell({
     const t = useTranslations('BOOKING')
     const isPast = isTimeInPast(date, time)
     const isTooSoon = isWithin24Hours(date, time)
-    const isVerifiedByUser = booking?.status === BookingStatus.VERIFIED && booking?.userId === currentUserId
+    const isVerifiedByUser =
+        booking?.status === BookingStatus.VERIFIED && booking?.userId === currentUserId
 
     const getCellState = (): CellState => {
         if (isPast && booking) {
@@ -72,20 +81,23 @@ export function BookingCell({
         return formatDisplayName(booking.user)
     }
 
-    const cellClasses = cn('h-10 md:h-16 relative transition-all duration-200 border border-border/50', {
-        'bg-card/30 hover:bg-yellow-500/20 cursor-pointer': cellState === CellState.OPEN,
-        'bg-card/20': cellState === CellState.CLOSED,
-        'bg-card/20 opacity-60': cellState === CellState.TOO_SOON,
-        'bg-yellow-500/60 backdrop-blur-sm': cellState === CellState.PLANNED,
-        'bg-yellow-500/60 hover:bg-red-500/60 cursor-pointer backdrop-blur-sm':
-            cellState === CellState.PLANNED_CANCELABLE,
-        'bg-primary/50 backdrop-blur-sm': cellState === CellState.UNVERIFIED,
-        'bg-green-500/60 backdrop-blur-sm': cellState === CellState.VERIFIED,
-        'bg-green-500/60 hover:bg-blue-500/60 cursor-pointer backdrop-blur-sm':
-            cellState === CellState.VERIFIED_CANCELABLE,
-        'bg-blue-500/80 backdrop-blur-sm ring-2 ring-blue-400': isSelectedForDeletion,
-        'bg-card/10 opacity-50': cellState === CellState.PAST,
-    })
+    const cellClasses = cn(
+        'h-10 md:h-16 relative transition-all duration-200 border border-border/50',
+        {
+            'bg-card/30 hover:bg-yellow-500/20 cursor-pointer': cellState === CellState.OPEN,
+            'bg-card/20': cellState === CellState.CLOSED,
+            'bg-card/20 opacity-60': cellState === CellState.TOO_SOON,
+            'bg-yellow-500/60 backdrop-blur-sm': cellState === CellState.PLANNED,
+            'bg-yellow-500/60 hover:bg-red-500/60 cursor-pointer backdrop-blur-sm':
+                cellState === CellState.PLANNED_CANCELABLE,
+            'bg-primary/50 backdrop-blur-sm': cellState === CellState.UNVERIFIED,
+            'bg-green-500/60 backdrop-blur-sm': cellState === CellState.VERIFIED,
+            'bg-green-500/60 hover:bg-blue-500/60 cursor-pointer backdrop-blur-sm':
+                cellState === CellState.VERIFIED_CANCELABLE,
+            'bg-blue-500/80 backdrop-blur-sm ring-2 ring-blue-400': isSelectedForDeletion,
+            'bg-card/10 opacity-50': cellState === CellState.PAST,
+        }
+    )
 
     const handleClick = () => {
         if (isLoading) return

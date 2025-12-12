@@ -26,6 +26,11 @@ export const authOptions = {
                     throw new Error('Invalid credentials')
                 }
 
+                // Check if this is a migrated user who hasn't set their password yet
+                if (user.isOldUser && (!user.password || user.password === '')) {
+                    throw new Error('MIGRATED_USER_NEEDS_PASSWORD_RESET')
+                }
+
                 // Check if user's email is verified
                 if (!user.emailVerified) {
                     throw new Error('Please verify your email before logging in')

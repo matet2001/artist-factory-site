@@ -37,7 +37,9 @@
       "Bash(export DATABASE_URL:*)",
       "Bash(del:*)",
       "Bash(rm:*)",
-      "Bash(timeout 60 npx next build:*)"
+      "Bash(timeout 60 npx next build:*)",
+      "Bash(npm run cleanup:bookings:*)",
+      "Bash(npm run check:slot:*)"
     ],
     "deny": [],
     "ask": []

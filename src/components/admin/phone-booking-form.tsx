@@ -1,9 +1,9 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { Combobox, ComboboxOption } from '@/components/ui/combobox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
 import {
     Select,
     SelectContent,
@@ -11,7 +11,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
-import { Combobox, ComboboxOption } from '@/components/ui/combobox'
+import { Textarea } from '@/components/ui/textarea'
 import { useTranslations } from 'next-intl'
 import { useEffect, useMemo, useState } from 'react'
 
@@ -101,8 +101,8 @@ export function PhoneBookingForm({
     useEffect(() => {
         if (editMode) {
             // In edit mode, use the booking's minutes and set initial values
-            setStartMinute(bookingStartMinute)
-            setEndMinute(bookingEndMinute)
+            setStartMinute(bookingStartMinute ?? 0)
+            setEndMinute(bookingEndMinute ?? 0)
             setInitialValues({
                 name: customerName,
                 bandName: customerBandName,
@@ -115,7 +115,14 @@ export function PhoneBookingForm({
             setStartMinute(0)
             setEndMinute(0)
         }
-    }, [bookingStartMinute, bookingEndMinute, editMode, customerName, customerBandName, bookingNote])
+    }, [
+        bookingStartMinute,
+        bookingEndMinute,
+        editMode,
+        customerName,
+        customerBandName,
+        bookingNote,
+    ])
 
     // Convert users to combobox options
     const userOptions: ComboboxOption[] = useMemo(() => {
@@ -209,7 +216,15 @@ export function PhoneBookingForm({
             startMinute !== initialValues.startMinute ||
             endMinute !== initialValues.endMinute
         )
-    }, [editMode, customerName, customerBandName, bookingNote, startMinute, endMinute, initialValues])
+    }, [
+        editMode,
+        customerName,
+        customerBandName,
+        bookingNote,
+        startMinute,
+        endMinute,
+        initialValues,
+    ])
 
     // Calculate booking time range for edit mode
     const bookingRangeInfo = useMemo(() => {
@@ -352,6 +367,7 @@ export function PhoneBookingForm({
                                     )}
                                 </Label>
                                 <Select
+                                    key={`start-${selectedBookingTime}-${startMinute}`}
                                     value={startMinute.toString()}
                                     onValueChange={(val) => setStartMinute(Number(val))}
                                 >
@@ -374,6 +390,7 @@ export function PhoneBookingForm({
                                     )}
                                 </Label>
                                 <Select
+                                    key={`end-${selectedBookingTime}-${endMinute}`}
                                     value={endMinute.toString()}
                                     onValueChange={(val) => setEndMinute(Number(val))}
                                 >

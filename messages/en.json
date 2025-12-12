@@ -395,6 +395,7 @@
             "USER_NOT_FOUND": "User not found. Please check your email address.",
             "INVALID_CREDENTIAL": "Wrong password or email address.",
             "INVALID_CREDENTIALS": "Wrong password or email address.",
+            "MIGRATED_USER_NEEDS_PASSWORD_RESET": "This account was migrated from the old system. Please use the 'Forgot password' feature to set a new password.",
             "EMAIL_NOT_VERIFIED": "Please check your email for verification or new website migration instructions. If the link expired, use the 'Forgot password' feature.",
             "EMAIL_ALREADY_VERIFIED": "Your email is already verified. You can log in now.",
             "EMAIL_SEND_FAILED": "Failed to send verification email. Please try again.",
@@ -642,7 +643,7 @@
             "CANCELLED_BOOKINGS": "Cancelled Bookings:",
             "ACTION_REQUIRED": "No action required - this is for your information only."
         },
-        "FOOTER": "ArtistFactory - Rehearsal Rooms and Studio | Questions? Contact us: info@artistfactory.hu"
+        "FOOTER": "ArtistFactory - Rehearsal Rooms and Studio"
     },
     "PRIVACY": {
         "TITLE": "Privacy Policy",

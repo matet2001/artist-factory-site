@@ -277,6 +277,7 @@
             "USER_NOT_FOUND": "Felhasználó nem található. Ellenőrizze az e-mail címét.",
             "INVALID_CREDENTIAL": "Hibás jelszó, vagy email cím.",
             "INVALID_CREDENTIALS": "Hibás jelszó, vagy email cím.",
+            "MIGRATED_USER_NEEDS_PASSWORD_RESET": "Ez a fiók a régi rendszerből került át. Kérjük, használd az 'Elfelejtett jelszó' funkciót egy új jelszó beállításához.",
             "EMAIL_NOT_VERIFIED": "Kérjük, nézd meg az email fiókodat a megerősítéshez vagy az új weboldal migrációs utasításokért. Ha a link lejárt, használd az 'Elfelejtett jelszó' funkciót.",
             "EMAIL_ALREADY_VERIFIED": "Az email címed már meg van erősítve. Most már bejelentkezhetsz.",
             "EMAIL_SEND_FAILED": "Nem sikerült elküldeni a megerősítő emailt. Kérjük próbáld újra.",
@@ -524,7 +525,7 @@
             "CANCELLED_BOOKINGS": "Lemondott Foglalások:",
             "ACTION_REQUIRED": "Nincs teendő - ez csak tájékoztatás."
         },
-        "FOOTER": "ArtistFactory - Próbaterem és Stúdió | Kérdésed van? Írj nekünk: info@artistfactory.hu"
+        "FOOTER": "ArtistFactory - Próbaterem és Stúdió"
     },
 
     "ADMIN_BOOKINGS": {
