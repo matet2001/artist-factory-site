@@ -698,13 +698,14 @@ export async function sendAdminCancellationNotification(
 ) {
     const adminEmail = process.env.ADMIN_EMAIL || 'artistfactory@artistfactory.hu'
     const t = await getTranslations({ locale, namespace: 'EMAIL.ADMIN_CANCELLATION' })
+    const tRooms = await getTranslations({ locale, namespace: 'ROOMS' })
 
     const bookingsList = bookings
         .map(
             (b) => `
         <div style="background-color: #1a1a1a; border-radius: 8px; padding: 20px; margin-bottom: 16px;">
           <p style="color: #f5f5f5; font-size: 16px; font-weight: 600; margin: 0 0 8px 0;">
-            ${t('ROOM')}: ${b.roomName}
+            ${t('ROOM')}: ${tRooms(b.roomName)}
           </p>
           <p style="color: #919191; font-size: 14px; margin: 0 0 4px 0;">
             ${t('DATE')}: ${b.date} - ${b.startTime}:00 - ${b.endTime}:00

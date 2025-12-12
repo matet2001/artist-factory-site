@@ -136,27 +136,27 @@ export function AdminBookingCell({
             if (isHalfHourStart && isHalfHourEnd) {
                 gradient = `linear-gradient(to bottom, transparent 0%, transparent 25%, ${color} 25%, ${color} 75%, transparent 75%, transparent 100%)`
             } else if (isHalfHourStart) {
-                gradient = `linear-gradient(to bottom, transparent 0%, transparent 50%, ${color} 50%, ${color} 100%)`
+                gradient = `linear-gradient(to bottom, transparent 0%, transparent 49.9%, ${color} 50%, ${color} 100%)`
             } else if (isHalfHourEnd) {
-                gradient = `linear-gradient(to bottom, ${color} 0%, ${color} 50%, transparent 50%, transparent 100%)`
+                gradient = `linear-gradient(to bottom, ${color} 0%, ${color} 50%, transparent 50.1%, transparent 100%)`
             }
         } else if (cellState === CellState.UNVERIFIED) {
             const color = 'rgba(var(--primary) / 0.5)'
             if (isHalfHourStart && isHalfHourEnd) {
                 gradient = `linear-gradient(to bottom, transparent 0%, transparent 25%, ${color} 25%, ${color} 75%, transparent 75%, transparent 100%)`
             } else if (isHalfHourStart) {
-                gradient = `linear-gradient(to bottom, transparent 0%, transparent 50%, ${color} 50%, ${color} 100%)`
+                gradient = `linear-gradient(to bottom, transparent 0%, transparent 49.9%, ${color} 50%, ${color} 100%)`
             } else if (isHalfHourEnd) {
-                gradient = `linear-gradient(to bottom, ${color} 0%, ${color} 50%, transparent 50%, transparent 100%)`
+                gradient = `linear-gradient(to bottom, ${color} 0%, ${color} 50%, transparent 50.1%, transparent 100%)`
             }
         } else if (cellState === CellState.VERIFIED_CANCELABLE) {
             const color = 'rgba(34, 197, 94, 0.6)' // green-500/60
             if (isHalfHourStart && isHalfHourEnd) {
                 gradient = `linear-gradient(to bottom, transparent 0%, transparent 25%, ${color} 25%, ${color} 75%, transparent 75%, transparent 100%)`
             } else if (isHalfHourStart) {
-                gradient = `linear-gradient(to bottom, transparent 0%, transparent 50%, ${color} 50%, ${color} 100%)`
+                gradient = `linear-gradient(to bottom, transparent 0%, transparent 49.9%, ${color} 50%, ${color} 100%)`
             } else if (isHalfHourEnd) {
-                gradient = `linear-gradient(to bottom, ${color} 0%, ${color} 50%, transparent 50%, transparent 100%)`
+                gradient = `linear-gradient(to bottom, ${color} 0%, ${color} 50%, transparent 50.1%, transparent 100%)`
             }
         }
 
