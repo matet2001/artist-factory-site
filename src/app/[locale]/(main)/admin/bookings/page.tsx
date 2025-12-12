@@ -405,6 +405,8 @@ export default function AdminBookingsPage() {
                                 selectedUserId={selectedUserId}
                                 bookingStartMinute={selectedBooking?.startMinute}
                                 bookingEndMinute={selectedBooking?.endMinute}
+                                selectedBookingTime={selectedBooking?.time}
+                                selectedBookingDate={selectedBooking ? new Date(selectedBooking.date) : undefined}
                             />
                         </div>
 

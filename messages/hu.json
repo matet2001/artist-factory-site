@@ -484,7 +484,7 @@
             "BUTTON": "Jelszó Beállítása",
             "OR_COPY": "Vagy másold be ezt a linket:",
             "EXPIRES": "Ez a link 30 napig érvényes marad.",
-            "SUPPORT": "Ha kérdésed van vagy segítségre van szükséged, kérjük, vedd fel a kapcsolatot támogatási csapatunkkal."
+            "SUPPORT": "Ha kérdésed van vagy segítségre van szükséged, írj nekünk: info@artistfactory.hu"
         },
         "BOOKING_CONFIRMATION": {
             "SUBJECT": "Foglalás Megerősítve - ArtistFactory",
@@ -501,10 +501,12 @@
         "BOOKING_CANCELLATION": {
             "SUBJECT": "Foglalás Lemondva - ArtistFactory",
             "TITLE": "A Foglalásod Lemondásra Került",
+            "DESCRIPTION": "A foglalásod sikeresen lemondásra került. Reméljük hamarosan újra viszont látunk!",
             "CANCELLED_BOOKINGS": "Lemondott Foglalások:",
             "CONFIRMATION": "A foglalásod sikeresen lemondásra került.",
             "REFUND_INFO": "Ha előre fizettél, a visszatérítés a lemondási feltételeink szerint történik.",
             "CLOSING": "Reméljük hamarosan újra viszont látunk!",
+            "CONTACT_US": "Kapcsolat",
             "CONTACT_INFO": "Kérdés esetén vedd fel velünk a kapcsolatot:",
             "PHONE": "Telefon",
             "EMAIL": "E-mail"
@@ -512,11 +514,17 @@
         "ADMIN_CANCELLATION": {
             "SUBJECT": "Foglalás Lemondás - {userName}",
             "TITLE": "Felhasználó által Lemondott Foglalás",
+            "DESCRIPTION": "Egy felhasználó lemondta a foglalását. Részletek alább:",
             "USER": "Felhasználó",
+            "ROOM": "Terem",
+            "DATE": "Dátum",
+            "DURATION": "Időtartam",
+            "MINUTES": "perc",
+            "BOOKING_ID": "Foglalás azonosító",
             "CANCELLED_BOOKINGS": "Lemondott Foglalások:",
             "ACTION_REQUIRED": "Nincs teendő - ez csak tájékoztatás."
         },
-        "FOOTER": "ArtistFactory - Próbaterem és Stúdió"
+        "FOOTER": "ArtistFactory - Próbaterem és Stúdió | Kérdésed van? Írj nekünk: info@artistfactory.hu"
     },
 
     "ADMIN_BOOKINGS": {
@@ -552,7 +560,20 @@
         "ERROR_BOOKING_NOT_FOUND": "Foglalás nem található",
         "SUCCESS_CREATED": "Foglalás létrehozva: {name}",
         "SUCCESS_UPDATED": "Foglalás frissítve: {name}",
-        "SUCCESS_DELETED": "Foglalás törölve"
+        "SUCCESS_DELETED": "Foglalás törölve",
+        "CUSTOMER_SELECTION_LABEL": "Ügyfél kiválasztása",
+        "NEW_CUSTOMER": "Új Ügyfél",
+        "EXISTING_CUSTOMER": "Meglévő Ügyfél",
+        "SELECT_USER_LABEL": "Felhasználó kiválasztása",
+        "SELECT_USER_PLACEHOLDER": "Válassz egy meglévő ügyfelet...",
+        "USER_SEARCH_PLACEHOLDER": "Keresés név, email vagy zenekar név szerint...",
+        "USER_EXISTS_WARNING": "⚠️ Figyelem: Egy felhasználó ezzel az email címmel már létezik. Biztosan új ügyfelet akarsz létrehozni?",
+        "NO_USERS_FOUND": "Nem található felhasználó",
+        "BOOKING_TIME_DETAILS": "Foglalás Időpont Részletek",
+        "BOOKING_TIME_DESC": "Állítsd be az egyedi kezdő és befejező perceket fél órás foglalásokhoz",
+        "BOOKING_RANGE_INFO": "Szerkesztett foglalás: {date} {startHour}:{startMinute} - {endHour}:{endMinute}",
+        "START_MINUTE_LABEL": "Kezdő perc",
+        "END_MINUTE_LABEL": "Befejező perc"
     },
     "BOOKING": {
         "PRE_TITLE": "Foglald le a helyed",
@@ -575,13 +596,13 @@
         "TERMS": {
             "TITLE": "Foglalási Feltételek",
             "ADVANCE_BOOKING_TITLE": "Online Foglalás Időbeli Követelménye",
-            "ADVANCE_BOOKING": "Az online foglalás legalább 24 órával a próba előtt lehetséges. 24 órán belüli foglaláshoz kérjük, vedd fel velünk a kapcsolatot telefonon vagy e-mailben.",
+            "ADVANCE_BOOKING": "Az online foglalás legalább 24 órával a próba előtt lehetséges. 24 órán belüli foglaláshoz hívj minket: 06 30 536-7500 vagy írj: info@artistfactory.hu",
             "CANCELLATION_TITLE": "Lemondási Feltételek",
             "CANCELLATION": "48 órán belül lemondott próba teljes összegét ki kell fizetni. Másik napra átfoglalni ilyenkor már nem lehet, mert az egy másik foglalásnak minősül.",
             "SAME_DAY_CHANGES_TITLE": "Napon Belüli Változtatás",
             "SAME_DAY_CHANGES": "Napon belül van lehetőség változtatni a próba időpontján, a szabad helyek függvényében.",
             "CONTACT_TITLE": "Kapcsolatfelvétel",
-            "CONTACT": "Lemondáshoz vagy változtatáshoz kérjük, vedd fel velünk a kapcsolatot e-mailben vagy telefonon.",
+            "CONTACT": "Lemondáshoz vagy változtatáshoz hívj minket: 06 30 536-7500 vagy írj: info@artistfactory.hu",
             "CLOSE": "Bezárás"
         },
         "ALERT": {
@@ -609,8 +630,8 @@
             "ALTERNATIVE": "Addig is telefonon tudsz foglalni:",
             "AVAILABILITY": "9–22 óráig hívható"
         },
-        "BOOKING_TOO_SOON": "A foglalásokat legalább 24 órával előre kell leadni. Kérjük, vedd fel velünk a kapcsolatot telefonon vagy emailben az utolsó pillanatos foglalásokhoz.",
-        "CANCEL_TOO_LATE": "Ez a foglalás nem mondható le online, mivel kevesebb mint 48 óra van hátra. Kérjük, vedd fel velünk a kapcsolatot telefonon vagy emailben. Figyelem: 48 órán belüli lemondás esetén a teljes árat ki kell fizetni.",
+        "BOOKING_TOO_SOON": "A foglalásokat legalább 24 órával előre kell leadni. Utolsó pillanatos foglalásokhoz hívj minket: 06 30 536-7500 vagy írj: info@artistfactory.hu",
+        "CANCEL_TOO_LATE": "Ez a foglalás nem mondható le online, mivel kevesebb mint 48 óra van hátra. Hívj minket: 06 30 536-7500 vagy írj: info@artistfactory.hu. Figyelem: 48 órán belüli lemondás esetén a teljes árat ki kell fizetni.",
         "CANCEL_BOOKING": "Foglalás Lemondása",
         "CANCEL_CONFIRM": "Biztosan le akarod mondani ezt a foglalást?",
         "BOOKING_CANCELLED": "Foglalás sikeresen lemondva",

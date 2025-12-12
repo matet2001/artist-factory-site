@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server'
+import { CONTACT } from './constants'
 import nodemailer from 'nodemailer'
 
 // Email statistics tracking
@@ -349,8 +350,8 @@ export async function sendBookingConfirmationEmail(
                         <p style="color: #f5f5f5; font-size: 18px; font-weight: 600; margin: 0 0 16px 0;">${t('CLOSING')}</p>
                         <p style="color: #919191; font-size: 14px; line-height: 20px; margin: 0 0 12px 0;">${t('CONTACT_INFO')}</p>
                         <p style="color: #919191; font-size: 14px; line-height: 20px; margin: 0;">
-                          <strong style="color: #f5f5f5;">${t('PHONE')}:</strong> +36 20 258 9449<br/>
-                          <strong style="color: #f5f5f5;">${t('EMAIL')}:</strong> ${process.env.EMAIL_FROM}
+                          <strong style="color: #f5f5f5;">${t('PHONE')}:</strong> ${CONTACT.phoneDisplay}<br/>
+                          <strong style="color: #f5f5f5;">${t('EMAIL')}:</strong> ${CONTACT.email}
                         </p>
                       </div>
 
@@ -651,8 +652,8 @@ export async function sendBookingCancellationEmail(
                       <div style="background-color: #1a1a1a; border-left: 3px solid #ff3b7f; border-radius: 8px; padding: 20px; margin-bottom: 32px; text-align: left;">
                         <p style="color: #f5f5f5; font-size: 18px; font-weight: 600; margin: 0 0 16px 0;">${t('CONTACT_US')}</p>
                         <p style="color: #919191; font-size: 14px; line-height: 20px; margin: 0;">
-                          <strong style="color: #f5f5f5;">${t('PHONE')}:</strong> +36 20 258 9449<br/>
-                          <strong style="color: #f5f5f5;">${t('EMAIL')}:</strong> ${process.env.EMAIL_FROM}
+                          <strong style="color: #f5f5f5;">${t('PHONE')}:</strong> ${CONTACT.phoneDisplay}<br/>
+                          <strong style="color: #f5f5f5;">${t('EMAIL')}:</strong> ${CONTACT.email}
                         </p>
                       </div>
 

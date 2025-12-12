@@ -34,7 +34,10 @@
       "Bash(set:*)",
       "Bash(findstr:*)",
       "Bash($env:DATABASE_URL=\"postgresql://neondb_owner:npg_NBQynfHP3Cv5@ep-steep-rice-aghn36c1-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require\")",
-      "Bash(export DATABASE_URL:*)"
+      "Bash(export DATABASE_URL:*)",
+      "Bash(del:*)",
+      "Bash(rm:*)",
+      "Bash(timeout 60 npx next build:*)"
     ],
     "deny": [],
     "ask": []

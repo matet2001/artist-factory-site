@@ -4,8 +4,6 @@ import {
     BookingData,
     BookingIntent,
     CellState,
-    formatDisplayName,
-    isTimeInPast,
 } from '@/lib/booking-utils'
 import { cn } from '@/lib/utils'
 import { BookingStatus } from '@prisma/client'
@@ -40,8 +38,6 @@ export function AdminBookingCell({
     onDeleteBooking,
     onSelectBooking,
 }: AdminBookingCellProps) {
-    const isPast = isTimeInPast(date, time)
-
     const getCellState = (): CellState => {
         // Check if this slot is planned by admin (not yet saved to database)
         if (isPlanned && !booking) {
@@ -64,11 +60,6 @@ export function AdminBookingCell({
 
     const cellState = getCellState()
 
-    const getDisplayName = () => {
-        if (!booking?.user) return ''
-        return formatDisplayName(booking.user)
-    }
-
     const getUserName = () => {
         if (!booking?.user?.fullName) return ''
         const parts = booking.user.fullName.split(' ')
@@ -78,15 +69,22 @@ export function AdminBookingCell({
         return parts[0]
     }
 
-    const cellClasses = cn('h-16 relative transition-all duration-200 border border-border/50', {
+    // Check if this is a half-hour booking (doesn't start at :00 or doesn't end at :00)
+    const isHalfHourStart = booking?.startMinute === 30
+    const isHalfHourEnd = booking?.endMinute === 30
+
+    // Check if this booking has any half-hour settings
+    const hasHalfHourSettings = isHalfHourStart || isHalfHourEnd
+
+    const cellClasses = cn('h-16 relative transition-all duration-200 border border-border/50 overflow-hidden', {
         'bg-card/30 hover:bg-yellow-500/20 cursor-pointer':
             cellState === CellState.OPEN && !isPlanned,
-        'bg-yellow-500/60 backdrop-blur-sm': cellState === CellState.PLANNED_CANCELABLE,
-        'bg-primary/50 backdrop-blur-sm': cellState === CellState.UNVERIFIED,
-        'bg-green-500/60 backdrop-blur-sm': cellState === CellState.VERIFIED_CANCELABLE,
+        'bg-yellow-500/60 backdrop-blur-sm': cellState === CellState.PLANNED_CANCELABLE && !hasHalfHourSettings,
+        'bg-primary/50 backdrop-blur-sm': cellState === CellState.UNVERIFIED && !hasHalfHourSettings,
+        'bg-green-500/60 backdrop-blur-sm': cellState === CellState.VERIFIED_CANCELABLE && !hasHalfHourSettings,
     })
 
-    const handleClick = (e: React.MouseEvent) => {
+    const handleClick = () => {
         if (isLoading) return
 
         const intent: BookingIntent = {
@@ -128,8 +126,51 @@ export function AdminBookingCell({
         }
     }
 
+    // Get background style for half-hour bookings
+    const getBackgroundStyle = () => {
+        if (!isHalfHourStart && !isHalfHourEnd) return {}
+
+        let gradient = ''
+        if (cellState === CellState.PLANNED_CANCELABLE) {
+            const color = 'rgba(234, 179, 8, 0.6)' // yellow-500/60
+            if (isHalfHourStart && isHalfHourEnd) {
+                gradient = `linear-gradient(to bottom, transparent 0%, transparent 25%, ${color} 25%, ${color} 75%, transparent 75%, transparent 100%)`
+            } else if (isHalfHourStart) {
+                gradient = `linear-gradient(to bottom, transparent 0%, transparent 50%, ${color} 50%, ${color} 100%)`
+            } else if (isHalfHourEnd) {
+                gradient = `linear-gradient(to bottom, ${color} 0%, ${color} 50%, transparent 50%, transparent 100%)`
+            }
+        } else if (cellState === CellState.UNVERIFIED) {
+            const color = 'rgba(var(--primary) / 0.5)'
+            if (isHalfHourStart && isHalfHourEnd) {
+                gradient = `linear-gradient(to bottom, transparent 0%, transparent 25%, ${color} 25%, ${color} 75%, transparent 75%, transparent 100%)`
+            } else if (isHalfHourStart) {
+                gradient = `linear-gradient(to bottom, transparent 0%, transparent 50%, ${color} 50%, ${color} 100%)`
+            } else if (isHalfHourEnd) {
+                gradient = `linear-gradient(to bottom, ${color} 0%, ${color} 50%, transparent 50%, transparent 100%)`
+            }
+        } else if (cellState === CellState.VERIFIED_CANCELABLE) {
+            const color = 'rgba(34, 197, 94, 0.6)' // green-500/60
+            if (isHalfHourStart && isHalfHourEnd) {
+                gradient = `linear-gradient(to bottom, transparent 0%, transparent 25%, ${color} 25%, ${color} 75%, transparent 75%, transparent 100%)`
+            } else if (isHalfHourStart) {
+                gradient = `linear-gradient(to bottom, transparent 0%, transparent 50%, ${color} 50%, ${color} 100%)`
+            } else if (isHalfHourEnd) {
+                gradient = `linear-gradient(to bottom, ${color} 0%, ${color} 50%, transparent 50%, transparent 100%)`
+            }
+        }
+
+        return gradient ? { backgroundImage: gradient } : {}
+    }
+
     return (
-        <td className={cn(cellClasses, 'group/cell')} onClick={handleClick}>
+        <td
+            className={cn(cellClasses, 'group/cell', {
+                'backdrop-blur-sm': hasHalfHourSettings
+            })}
+            onClick={handleClick}
+            style={getBackgroundStyle()}
+        >
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-2">
                 {isLoading ? (
                     <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
