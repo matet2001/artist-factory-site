@@ -126,52 +126,53 @@ export function AdminBookingCell({
         }
     }
 
-    // Get background style for half-hour bookings
-    const getBackgroundStyle = () => {
-        if (!isHalfHourStart && !isHalfHourEnd) return {}
+    // Get background color and positioning for half-hour bookings
+    const getHalfHourBackgroundProps = () => {
+        if (!hasHalfHourSettings) return null
 
-        let gradient = ''
+        let bgColor = ''
         if (cellState === CellState.PLANNED_CANCELABLE) {
-            const color = 'rgba(234, 179, 8, 0.6)' // yellow-500/60
-            if (isHalfHourStart && isHalfHourEnd) {
-                gradient = `linear-gradient(to bottom, transparent 0%, transparent 25%, ${color} 25%, ${color} 75%, transparent 75%, transparent 100%)`
-            } else if (isHalfHourStart) {
-                gradient = `linear-gradient(to bottom, transparent 0%, transparent 49.9%, ${color} 50%, ${color} 100%)`
-            } else if (isHalfHourEnd) {
-                gradient = `linear-gradient(to bottom, ${color} 0%, ${color} 50%, transparent 50.1%, transparent 100%)`
-            }
+            bgColor = 'bg-yellow-500/60'
         } else if (cellState === CellState.UNVERIFIED) {
-            const color = 'rgba(var(--primary) / 0.5)'
-            if (isHalfHourStart && isHalfHourEnd) {
-                gradient = `linear-gradient(to bottom, transparent 0%, transparent 25%, ${color} 25%, ${color} 75%, transparent 75%, transparent 100%)`
-            } else if (isHalfHourStart) {
-                gradient = `linear-gradient(to bottom, transparent 0%, transparent 49.9%, ${color} 50%, ${color} 100%)`
-            } else if (isHalfHourEnd) {
-                gradient = `linear-gradient(to bottom, ${color} 0%, ${color} 50%, transparent 50.1%, transparent 100%)`
-            }
+            bgColor = 'bg-primary/50'
         } else if (cellState === CellState.VERIFIED_CANCELABLE) {
-            const color = 'rgba(34, 197, 94, 0.6)' // green-500/60
-            if (isHalfHourStart && isHalfHourEnd) {
-                gradient = `linear-gradient(to bottom, transparent 0%, transparent 25%, ${color} 25%, ${color} 75%, transparent 75%, transparent 100%)`
-            } else if (isHalfHourStart) {
-                gradient = `linear-gradient(to bottom, transparent 0%, transparent 49.9%, ${color} 50%, ${color} 100%)`
-            } else if (isHalfHourEnd) {
-                gradient = `linear-gradient(to bottom, ${color} 0%, ${color} 50%, transparent 50.1%, transparent 100%)`
-            }
+            bgColor = 'bg-green-500/60'
         }
 
-        return gradient ? { backgroundImage: gradient } : {}
+        let positionClass = ''
+        if (isHalfHourStart && isHalfHourEnd) {
+            // Middle 50% (25% from top, 25% from bottom)
+            positionClass = 'top-1/4 bottom-1/4'
+        } else if (isHalfHourStart) {
+            // Bottom 50%
+            positionClass = 'top-1/2 bottom-0'
+        } else if (isHalfHourEnd) {
+            // Top 50%
+            positionClass = 'top-0 bottom-1/2'
+        }
+
+        return { bgColor, positionClass }
     }
+
+    const halfHourBg = getHalfHourBackgroundProps()
 
     return (
         <td
-            className={cn(cellClasses, 'group/cell', {
-                'backdrop-blur-sm': hasHalfHourSettings
-            })}
+            className={cn(cellClasses, 'group/cell')}
             onClick={handleClick}
-            style={getBackgroundStyle()}
         >
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-2">
+            {/* Background div for half-hour bookings */}
+            {halfHourBg && (
+                <div
+                    className={cn(
+                        'absolute left-0 right-0 backdrop-blur-sm',
+                        halfHourBg.bgColor,
+                        halfHourBg.positionClass
+                    )}
+                />
+            )}
+
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-2 z-10">
                 {isLoading ? (
                     <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
                 ) : (

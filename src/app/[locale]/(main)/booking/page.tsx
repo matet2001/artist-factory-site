@@ -37,12 +37,11 @@ export default function BookingPage() {
     const router = useRouter()
     const animations = useAnimations()
 
-    // Default to tomorrow since bookings must be made 24 hours in advance
+    // Default to today
     const [selectedDate, setSelectedDate] = useState<Date>(() => {
-        const tomorrow = new Date()
-        tomorrow.setDate(tomorrow.getDate() + 1)
-        tomorrow.setHours(12, 0, 0, 0)
-        return tomorrow
+        const today = new Date()
+        today.setHours(12, 0, 0, 0)
+        return today
     })
     const [allBookings, setAllBookings] = useState<BookingData[]>([]) // Cache all bookings
     const [fetchedDateRange, setFetchedDateRange] = useState<{ start: Date; end: Date } | null>(null)
