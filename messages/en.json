@@ -260,7 +260,20 @@
         "ERROR_BOOKING_NOT_FOUND": "Booking not found",
         "SUCCESS_CREATED": "Booking created: {name}",
         "SUCCESS_UPDATED": "Booking updated: {name}",
-        "SUCCESS_DELETED": "Booking deleted"
+        "SUCCESS_DELETED": "Booking deleted",
+        "CUSTOMER_SELECTION_LABEL": "Customer Selection",
+        "NEW_CUSTOMER": "New Customer",
+        "EXISTING_CUSTOMER": "Existing Customer",
+        "SELECT_USER_LABEL": "Select User",
+        "SELECT_USER_PLACEHOLDER": "Choose an existing customer...",
+        "USER_SEARCH_PLACEHOLDER": "Search by name, email, or band name...",
+        "USER_EXISTS_WARNING": "⚠️ Warning: A user with this email already exists. Are you sure you want to create a new customer?",
+        "NO_USERS_FOUND": "No users found",
+        "BOOKING_TIME_DETAILS": "Booking Time Details",
+        "BOOKING_TIME_DESC": "Set custom start and end minutes for half-hour bookings",
+        "BOOKING_RANGE_INFO": "Editing booking: {date} {startHour}:{startMinute} - {endHour}:{endMinute}",
+        "START_MINUTE_LABEL": "Start Minute",
+        "END_MINUTE_LABEL": "End Minute"
     },
     "BOOKING": {
         "SUCCESS_CONTENT": "We welcome you with love",
@@ -285,13 +298,13 @@
         "TERMS": {
             "TITLE": "Terms of Booking",
             "ADVANCE_BOOKING_TITLE": "Online Booking Time Requirement",
-            "ADVANCE_BOOKING": "Online bookings must be made at least 24 hours in advance. For bookings within 24 hours, please contact us by phone or email.",
+            "ADVANCE_BOOKING": "Online bookings must be made at least 24 hours in advance. For bookings within 24 hours, please contact us: +36 30 536-7500 or info@artistfactory.hu",
             "CANCELLATION_TITLE": "Cancellation Policy",
             "CANCELLATION": "Cancellations made within 48 hours of the scheduled rehearsal require full payment. Rescheduling to another day is not possible in this case, as it would count as a new booking.",
             "SAME_DAY_CHANGES_TITLE": "Same-Day Changes",
             "SAME_DAY_CHANGES": "Changes to the rehearsal time on the same day are possible, subject to availability.",
             "CONTACT_TITLE": "Contact Information",
-            "CONTACT": "For cancellations or changes, please reach out via email or phone.",
+            "CONTACT": "For cancellations or changes, contact us: +36 30 536-7500 or info@artistfactory.hu",
             "CLOSE": "Close"
         },
         "ALERT": {
@@ -317,8 +330,8 @@
             "ALTERNATIVE": "In the meantime, you can book by phone:",
             "AVAILABILITY": "Available 9 AM – 10 PM"
         },
-        "BOOKING_TOO_SOON": "Bookings must be made at least 24 hours in advance. Please contact us by phone or email for last-minute bookings.",
-        "CANCEL_TOO_LATE": "This booking cannot be cancelled online as it's less than 48 hours away. Please contact us by phone or email. Note: Full payment is required for cancellations within 48 hours.",
+        "BOOKING_TOO_SOON": "Bookings must be made at least 24 hours in advance. Please contact us for last-minute bookings: +36 30 536-7500 or info@artistfactory.hu",
+        "CANCEL_TOO_LATE": "This booking cannot be cancelled online as it's less than 48 hours away. Please contact us: +36 30 536-7500 or info@artistfactory.hu. Note: Full payment is required for cancellations within 48 hours.",
         "CANCEL_BOOKING": "Cancel Booking",
         "CANCEL_CONFIRM": "Are you sure you want to cancel this booking?",
         "BOOKING_CANCELLED": "Booking cancelled successfully",
@@ -382,7 +395,8 @@
             "USER_NOT_FOUND": "User not found. Please check your email address.",
             "INVALID_CREDENTIAL": "Wrong password or email address.",
             "INVALID_CREDENTIALS": "Wrong password or email address.",
-            "EMAIL_NOT_VERIFIED": "Please check your email for verification or new website migration instructions. If the link expired, use the 'Forgot password' feature.",
+            "MIGRATED_USER_NEEDS_PASSWORD_RESET": "If you had an account on the previous website, please use the 'Forgot password' feature to set a new password.",
+            "EMAIL_NOT_VERIFIED": "Please check your email for verification. If you had an account on the previous website, use the 'Forgot password' feature.",
             "EMAIL_ALREADY_VERIFIED": "Your email is already verified. You can log in now.",
             "EMAIL_SEND_FAILED": "Failed to send verification email. Please try again.",
             "REGISTRATION_FAILED": "Registration failed. Please try again.",
@@ -589,7 +603,7 @@
             "BUTTON": "Set Up My Password",
             "OR_COPY": "Or copy this link:",
             "EXPIRES": "This link will remain valid for 30 days.",
-            "SUPPORT": "If you have any questions or need assistance, please contact our support team."
+            "SUPPORT": "If you have any questions or need assistance, contact us: info@artistfactory.hu"
         },
         "BOOKING_CONFIRMATION": {
             "SUBJECT": "Booking Confirmed - ArtistFactory",
@@ -606,10 +620,12 @@
         "BOOKING_CANCELLATION": {
             "SUBJECT": "Booking Cancelled - ArtistFactory",
             "TITLE": "Your Booking Has Been Cancelled",
+            "DESCRIPTION": "Your booking has been successfully cancelled. We hope to see you again soon!",
             "CANCELLED_BOOKINGS": "Cancelled Bookings:",
             "CONFIRMATION": "Your booking has been successfully cancelled.",
             "REFUND_INFO": "If you paid in advance, the refund will be processed according to our cancellation policy.",
             "CLOSING": "We hope to see you again soon!",
+            "CONTACT_US": "Contact Us",
             "CONTACT_INFO": "For questions, please contact us:",
             "PHONE": "Phone",
             "EMAIL": "Email"
@@ -617,7 +633,13 @@
         "ADMIN_CANCELLATION": {
             "SUBJECT": "Booking Cancellation - {userName}",
             "TITLE": "Booking Cancelled by User",
+            "DESCRIPTION": "A user has cancelled their booking. Details below:",
             "USER": "User",
+            "ROOM": "Room",
+            "DATE": "Date",
+            "DURATION": "Duration",
+            "MINUTES": "minutes",
+            "BOOKING_ID": "Booking ID",
             "CANCELLED_BOOKINGS": "Cancelled Bookings:",
             "ACTION_REQUIRED": "No action required - this is for your information only."
         },

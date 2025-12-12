@@ -1,9 +1,9 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { Combobox, ComboboxOption } from '@/components/ui/combobox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
 import {
     Select,
     SelectContent,
@@ -11,8 +11,9 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 import { useTranslations } from 'next-intl'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 interface PhoneBookingFormProps {
     onCustomerInfoChange: (data: {
@@ -35,6 +36,8 @@ interface PhoneBookingFormProps {
     selectedUserId?: string
     bookingStartMinute?: number
     bookingEndMinute?: number
+    selectedBookingTime?: number
+    selectedBookingDate?: Date
 }
 
 interface User {
@@ -59,12 +62,24 @@ export function PhoneBookingForm({
     selectedUserId,
     bookingStartMinute = 0,
     bookingEndMinute = 0,
+    selectedBookingTime,
+    selectedBookingDate,
 }: PhoneBookingFormProps) {
     const t = useTranslations('ADMIN_BOOKINGS')
     const [users, setUsers] = useState<User[]>([])
     const [userSelectionMode, setUserSelectionMode] = useState<'existing' | 'new'>('new')
-    const [startMinute, setStartMinute] = useState<number>(bookingStartMinute)
-    const [endMinute, setEndMinute] = useState<number>(bookingEndMinute)
+    const [startMinute, setStartMinute] = useState<number>(bookingStartMinute ?? 0)
+    const [endMinute, setEndMinute] = useState<number>(bookingEndMinute ?? 0)
+    const [userExistsWarning, setUserExistsWarning] = useState<boolean>(false)
+
+    // Track initial values for edit mode to detect changes
+    const [initialValues, setInitialValues] = useState({
+        name: customerName,
+        bandName: customerBandName,
+        note: bookingNote,
+        startMinute: bookingStartMinute ?? 0,
+        endMinute: bookingEndMinute ?? 0,
+    })
 
     // Fetch users when component mounts
     useEffect(() => {
@@ -82,11 +97,55 @@ export function PhoneBookingForm({
         fetchUsers()
     }, [])
 
-    // Update minutes when booking changes
+    // Update minutes and initial values when booking changes or when entering/exiting edit mode
     useEffect(() => {
-        setStartMinute(bookingStartMinute)
-        setEndMinute(bookingEndMinute)
-    }, [bookingStartMinute, bookingEndMinute])
+        if (editMode) {
+            // In edit mode, use the booking's minutes and set initial values
+            setStartMinute(bookingStartMinute ?? 0)
+            setEndMinute(bookingEndMinute ?? 0)
+            setInitialValues({
+                name: customerName,
+                bandName: customerBandName,
+                note: bookingNote,
+                startMinute: bookingStartMinute ?? 0,
+                endMinute: bookingEndMinute ?? 0,
+            })
+        } else {
+            // Not in edit mode, reset to defaults
+            setStartMinute(0)
+            setEndMinute(0)
+        }
+    }, [
+        bookingStartMinute,
+        bookingEndMinute,
+        editMode,
+        customerName,
+        customerBandName,
+        bookingNote,
+    ])
+
+    // Convert users to combobox options
+    const userOptions: ComboboxOption[] = useMemo(() => {
+        return users.map((user) => ({
+            value: user.id,
+            label: user.name || user.email,
+            subtitle: user.bandName || user.email,
+        }))
+    }, [users])
+
+    // Check if user already exists when in "new customer" mode (not in edit mode)
+    useEffect(() => {
+        if (!editMode && userSelectionMode === 'new' && customerName.trim()) {
+            const exists = users.some(
+                (u) =>
+                    u.name?.toLowerCase() === customerName.toLowerCase() ||
+                    u.email.toLowerCase() === customerName.toLowerCase()
+            )
+            setUserExistsWarning(exists)
+        } else {
+            setUserExistsWarning(false)
+        }
+    }, [customerName, userSelectionMode, users, editMode])
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         onCustomerInfoChange({
@@ -146,6 +205,44 @@ export function PhoneBookingForm({
         }
     }
 
+    // Check if any values have changed in edit mode
+    const hasChanges = useMemo(() => {
+        if (!editMode) return true // Always allow submit in create mode
+
+        return (
+            customerName !== initialValues.name ||
+            customerBandName !== initialValues.bandName ||
+            bookingNote !== initialValues.note ||
+            startMinute !== initialValues.startMinute ||
+            endMinute !== initialValues.endMinute
+        )
+    }, [
+        editMode,
+        customerName,
+        customerBandName,
+        bookingNote,
+        startMinute,
+        endMinute,
+        initialValues,
+    ])
+
+    // Calculate booking time range for edit mode
+    const bookingRangeInfo = useMemo(() => {
+        if (!editMode || !selectedBookingTime || !selectedBookingDate) return null
+
+        const startHour = selectedBookingTime
+        const endHour = selectedBookingTime + 1
+        const date = selectedBookingDate.toISOString().split('T')[0]
+
+        return t('BOOKING_RANGE_INFO', {
+            date,
+            startHour,
+            startMinute: startMinute.toString().padStart(2, '0'),
+            endHour,
+            endMinute: endMinute.toString().padStart(2, '0'),
+        })
+    }, [editMode, selectedBookingTime, selectedBookingDate, startMinute, endMinute, t])
+
     return (
         <form onSubmit={handleSubmit} className="bg-card p-6 rounded-lg border space-y-4">
             <div>
@@ -159,7 +256,7 @@ export function PhoneBookingForm({
 
             {!editMode && (
                 <div className="space-y-2">
-                    <Label>Customer Selection</Label>
+                    <Label>{t('CUSTOMER_SELECTION_LABEL')}</Label>
                     <div className="flex gap-2">
                         <Button
                             type="button"
@@ -168,7 +265,7 @@ export function PhoneBookingForm({
                             disabled={isSubmitting}
                             className="flex-1"
                         >
-                            New Customer
+                            {t('NEW_CUSTOMER')}
                         </Button>
                         <Button
                             type="button"
@@ -177,7 +274,7 @@ export function PhoneBookingForm({
                             disabled={isSubmitting}
                             className="flex-1"
                         >
-                            Existing Customer
+                            {t('EXISTING_CUSTOMER')}
                         </Button>
                     </div>
                 </div>
@@ -185,20 +282,24 @@ export function PhoneBookingForm({
 
             {!editMode && userSelectionMode === 'existing' && (
                 <div className="space-y-2">
-                    <Label htmlFor="user-select">Select User</Label>
-                    <Select onValueChange={handleUserSelect} value={selectedUserId}>
-                        <SelectTrigger id="user-select" disabled={isSubmitting}>
-                            <SelectValue placeholder="Choose an existing customer..." />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {users.map((user) => (
-                                <SelectItem key={user.id} value={user.id}>
-                                    {user.name || user.email}
-                                    {user.bandName && ` (${user.bandName})`}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
+                    <Label htmlFor="user-select">{t('SELECT_USER_LABEL')}</Label>
+                    <Combobox
+                        options={userOptions}
+                        value={selectedUserId}
+                        onValueChange={handleUserSelect}
+                        placeholder={t('SELECT_USER_PLACEHOLDER')}
+                        searchPlaceholder={t('USER_SEARCH_PLACEHOLDER')}
+                        emptyText={t('NO_USERS_FOUND')}
+                        disabled={isSubmitting}
+                    />
+                </div>
+            )}
+
+            {userExistsWarning && (
+                <div className="bg-yellow-500/10 border border-yellow-500/50 rounded-lg p-3">
+                    <p className="text-sm text-yellow-600 dark:text-yellow-500">
+                        {t('USER_EXISTS_WARNING')}
+                    </p>
                 </div>
             )}
 
@@ -244,15 +345,29 @@ export function PhoneBookingForm({
             {editMode && (
                 <div className="space-y-4">
                     <div className="border-t pt-4">
-                        <h3 className="text-sm font-semibold mb-3">Booking Time Details</h3>
+                        <h3 className="text-sm font-semibold mb-2">{t('BOOKING_TIME_DETAILS')}</h3>
+                        {bookingRangeInfo && (
+                            <div className="bg-muted px-3 py-2 rounded-lg mb-3">
+                                <p className="text-sm font-medium text-muted-foreground">
+                                    {bookingRangeInfo}
+                                </p>
+                            </div>
+                        )}
                         <p className="text-xs text-muted-foreground mb-3">
-                            Set custom start and end minutes for half-hour bookings (e.g., 9:00-9:30
-                            or 9:30-10:00)
+                            {t('BOOKING_TIME_DESC')}
                         </p>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
-                                <Label htmlFor="start-minute">Start Minute</Label>
+                                <Label htmlFor="start-minute">
+                                    {t('START_MINUTE_LABEL')}
+                                    {selectedBookingTime !== undefined && (
+                                        <span className="text-muted-foreground ml-2">
+                                            ({selectedBookingTime}:xx)
+                                        </span>
+                                    )}
+                                </Label>
                                 <Select
+                                    key={`start-${selectedBookingTime}-${startMinute}`}
                                     value={startMinute.toString()}
                                     onValueChange={(val) => setStartMinute(Number(val))}
                                 >
@@ -266,8 +381,16 @@ export function PhoneBookingForm({
                                 </Select>
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="end-minute">End Minute</Label>
+                                <Label htmlFor="end-minute">
+                                    {t('END_MINUTE_LABEL')}
+                                    {selectedBookingTime !== undefined && (
+                                        <span className="text-muted-foreground ml-2">
+                                            ({selectedBookingTime + 1}:xx)
+                                        </span>
+                                    )}
+                                </Label>
                                 <Select
+                                    key={`end-${selectedBookingTime}-${endMinute}`}
                                     value={endMinute.toString()}
                                     onValueChange={(val) => setEndMinute(Number(val))}
                                 >
@@ -296,7 +419,7 @@ export function PhoneBookingForm({
                     <>
                         <Button
                             type="submit"
-                            disabled={!customerName.trim() || isSubmitting}
+                            disabled={!customerName.trim() || isSubmitting || !hasChanges}
                             className="flex-1"
                         >
                             {isSubmitting ? t('UPDATING_BUTTON') : t('UPDATE_BUTTON')}

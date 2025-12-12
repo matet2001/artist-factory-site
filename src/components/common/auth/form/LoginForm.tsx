@@ -122,7 +122,10 @@ const LoginForm = () => {
                 // Map error messages to translation keys
                 let errorKey = 'ERRORS.INVALID_CREDENTIALS'
 
-                if (response.error.includes('verify your email')) {
+                if (response.error.includes('MIGRATED_USER_NEEDS_PASSWORD_RESET')) {
+                    errorKey = 'ERRORS.MIGRATED_USER_NEEDS_PASSWORD_RESET'
+                    setShowResendVerification(false)
+                } else if (response.error.includes('verify your email')) {
                     errorKey = 'ERRORS.EMAIL_NOT_VERIFIED'
                     setShowResendVerification(true) // Show resend button
                 } else if (response.error.includes('Invalid credentials')) {
