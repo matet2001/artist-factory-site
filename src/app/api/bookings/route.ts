@@ -67,6 +67,8 @@ export async function GET(request: NextRequest) {
                 id: booking.id,
                 roomId: booking.roomId,
                 time: booking.time,
+                startMinute: booking.startMinute,
+                endMinute: booking.endMinute,
                 date: booking.date,
                 status: booking.status,
                 userId: booking.userId,
