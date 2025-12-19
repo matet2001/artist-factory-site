@@ -650,6 +650,10 @@
             "ADVANCE_24H": "📅 Online foglalást legalább 24 órával a kezdés előtt lehet leadni.",
             "CANCEL_48H": "⏰ 48 órán belüli lemondás esetén a teljes ár felszámításra kerül, és a lemondás csak telefonon lehetséges.",
             "VIEW_FULL_TERMS": "Teljes Feltételek Megtekintése"
+        },
+        "DISCLAIMERS": {
+            "SPECIAL_REQUIREMENTS": "Amennyiben speciális igényetek van a próbával kapcsolatban, azt kérjük telefonon jelezzétek. Köszönjük!",
+            "ADMIN_BOOKING_NOTICE": "💡 Fontos: Telefonon vagy emailen leadott foglalásokat csak telefonon vagy emailen keresztül lehet lemondani, a fiókodban nem fog megjelenni."
         }
     },
     "PRIVACY": {

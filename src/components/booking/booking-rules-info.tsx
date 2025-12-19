@@ -25,6 +25,13 @@ export function BookingRulesInfo() {
                             <p>{t('RULES.ADVANCE_24H')}</p>
                             <p>{t('RULES.CANCEL_48H')}</p>
                         </div>
+
+                        {/* Disclaimers */}
+                        <div className="space-y-1 md:space-y-2 text-[10px] md:text-sm lg:text-base text-muted-foreground pt-2 border-t border-primary/10">
+                            <p className="italic">{t('DISCLAIMERS.SPECIAL_REQUIREMENTS')}</p>
+                            <p className="italic">{t('DISCLAIMERS.ADMIN_BOOKING_NOTICE')}</p>
+                        </div>
+
                         <Button
                             variant="link"
                             onClick={() => setShowTermsDialog(true)}

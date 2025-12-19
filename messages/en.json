@@ -349,6 +349,10 @@
             "ADVANCE_24H": "📅 Online bookings must be made at least 24 hours in advance",
             "CANCEL_48H": "⏰ Cancellations within 48 hours will be charged the full price, and can only be made by phone.",
             "VIEW_FULL_TERMS": "View Full Terms"
+        },
+        "DISCLAIMERS": {
+            "SPECIAL_REQUIREMENTS": "If you have any special requirements for your rehearsal, please let us know by phone. Thank you!",
+            "ADMIN_BOOKING_NOTICE": "💡 Important: Bookings made via phone or email can only be cancelled by phone or email and will not appear in your account."
         }
     },
 
