@@ -223,6 +223,8 @@
         "PUBLIC_TRANSPORT": "Tömegközlekedéssel egyszerűen megközelíthető: a 2-es és 2A villamos, a 70-es és 78-as trolibusz, a 15-ös és 115-ös busz, valamint az M3 metró mind 5 percre vannak a próbatermünktől.",
         "GOOGLE_MAPS": "Megnyitás Google Térképen",
         "BKK_FUTAR": "Útvonaltervezés BKK Futárral",
+        "PHONE_MOBILE": "Mobil",
+        "PHONE_LANDLINE": "Vezetékes",
         "ACCESS": {
             "TITLE": "Megközelíthetőség",
             "TRAM": "Villamossal: A 4-es 6-ossal vagy a 2-es villamossal gyertek a Jászai Mari térig /Margit híd pesti hídfő/, onnan gyalog a Pozsonyi úton /Mc Donald's utcája/ 2 perc alatt nálunk lehettek.",
