@@ -22,15 +22,8 @@ export async function POST(request: NextRequest) {
             )
         }
 
-        const user = await prisma.user.findUnique({
-            where: { email: session.user.email },
-        })
-
-        if (!user) {
-            return NextResponse.json({ error: 'User not found' }, { status: 404 })
-        }
-
         // Verify all bookings belong to the user and are VERIFIED
+        // Fetch bookings with user data in one query to avoid duplicate user fetch
         const bookings = await prisma.booking.findMany({
             where: {
                 id: { in: bookingIds },
@@ -38,6 +31,7 @@ export async function POST(request: NextRequest) {
             include: {
                 user: {
                     select: {
+                        id: true,
                         email: true,
                         name: true,
                         bandName: true,
@@ -56,8 +50,14 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Some bookings not found' }, { status: 404 })
         }
 
-        // Check if all bookings belong to the user
-        const allBelongToUser = bookings.every((b) => b.userId === user.id)
+        // Get user from first booking (all bookings should belong to same user)
+        const user = bookings[0]?.user
+        if (!user) {
+            return NextResponse.json({ error: 'User not found' }, { status: 404 })
+        }
+
+        // Check if all bookings belong to the same user
+        const allBelongToUser = bookings.every((b) => b.userId === user.id && b.user.email === session.user.email)
         if (!allBelongToUser) {
             return NextResponse.json(
                 { error: 'You can only delete your own bookings' },

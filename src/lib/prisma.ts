@@ -1,9 +1,24 @@
 import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient()
+// Configure Prisma for optimal Neon.tech usage
+const prismaClientSingleton = () => {
+    return new PrismaClient({
+        log: process.env.NODE_ENV === 'development' ? ['warn', 'error'] : ['error'],
+        // Optimize connection pool for Neon
+        datasources: {
+            db: {
+                url: process.env.DATABASE_URL,
+            },
+        },
+    })
+}
 
-const globalForPrisma = global as unknown as { prisma: typeof prisma }
+declare global {
+    var prisma: undefined | ReturnType<typeof prismaClientSingleton>
+}
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+const prisma = globalThis.prisma ?? prismaClientSingleton()
+
+if (process.env.NODE_ENV !== 'production') globalThis.prisma = prisma
 
 export default prisma

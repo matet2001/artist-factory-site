@@ -23,6 +23,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Find all PLANNED bookings for this user with the specified IDs
+        // Include user in the same query to avoid extra database call
         const plannedBookings = await prisma.booking.findMany({
             where: {
                 id: {
@@ -33,6 +34,11 @@ export async function POST(request: NextRequest) {
             },
             include: {
                 room: true,
+                user: {
+                    select: {
+                        email: true,
+                    },
+                },
             },
         })
 
@@ -52,15 +58,8 @@ export async function POST(request: NextRequest) {
             },
         })
 
-        // Get user email and locale
-        const user = await prisma.user.findUnique({
-            where: { id: session.user.id },
-            select: { email: true },
-        })
-
-        if (!user) {
-            return NextResponse.json({ error: 'User not found' }, { status: 404 })
-        }
+        // Get user email from the first booking (all bookings belong to the same user)
+        const userEmail = plannedBookings[0].user.email
 
         // Get user's locale from headers or default to 'hu'
         const locale = request.headers.get('accept-language')?.split(',')[0]?.split('-')[0] || 'hu'
@@ -79,7 +78,7 @@ export async function POST(request: NextRequest) {
 
         // Send confirmation email to customer
         try {
-            await sendBookingConfirmationEmail(user.email, formattedBookings, locale)
+            await sendBookingConfirmationEmail(userEmail, formattedBookings, locale)
         } catch (emailError) {
             console.error('Failed to send booking confirmation email:', emailError)
             // Note: We don't rollback since the booking is already confirmed

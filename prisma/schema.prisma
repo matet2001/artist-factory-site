@@ -88,9 +88,10 @@ model Booking {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([date, time, roomId])
+  @@unique([date, time, roomId], name: "date_time_roomId")
   @@index([date, roomId])
-  @@index([userId])
+  @@index([userId, status]) // Composite index for user's bookings by status
+  @@index([date, status]) // For date range queries filtered by status
   @@index([verificationToken])
   @@map("bookings")
 }
