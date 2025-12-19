@@ -77,11 +77,19 @@ export async function GET(request: NextRequest) {
             }
         })
 
-        return NextResponse.json({
-            success: true,
-            bookings: transformedBookings,
-            date: dateParam,
-        })
+        return NextResponse.json(
+            {
+                success: true,
+                bookings: transformedBookings,
+                date: dateParam,
+            },
+            {
+                headers: {
+                    // Cache for 30 seconds on CDN, revalidate in background for up to 2 minutes
+                    'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=120',
+                },
+            }
+        )
     } catch (error) {
         console.error('Error fetching bookings:', error)
         return NextResponse.json({ error: 'Failed to fetch bookings' }, { status: 500 })

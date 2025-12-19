@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { useAnimations } from '@/hooks/use-animation'
 import { CONTACT } from '@/lib/constants'
 import { motion } from 'framer-motion'
-import { Bus, Car, ExternalLink, Mail, MapPin, Phone, TramFront } from 'lucide-react'
+import { Bus, Car, ExternalLink, Mail, MapPin, Phone, PhoneCall, TramFront } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -224,7 +224,7 @@ export default function ContactSection() {
                         initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
                     >
                         {/* Phone Card */}
                         <motion.div variants={animations.scaleIn}>
@@ -238,9 +238,33 @@ export default function ContactSection() {
                                 <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
                                     <Phone className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
                                 </div>
-                                <span className="text-lg font-medium text-foreground group-hover:text-primary transition-colors text-center">
-                                    {CONTACT.phoneDisplay}
-                                </span>
+                                <div className="flex flex-col items-center gap-1">
+                                    <span className="text-lg font-medium text-foreground group-hover:text-primary transition-colors text-center">
+                                        {CONTACT.phoneDisplay}
+                                    </span>
+                                    <span className="text-xs text-muted-foreground">{t('PHONE_MOBILE')}</span>
+                                </div>
+                            </Link>
+                        </motion.div>
+
+                        {/* Landline Card */}
+                        <motion.div variants={animations.scaleIn}>
+                            <Link
+                                href={`tel:${CONTACT.landlineRaw}`}
+                                className="group relative flex flex-col items-center gap-4 p-8 bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg rounded-2xl"
+                                style={{
+                                    minHeight: '200px',
+                                }}
+                            >
+                                <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
+                                    <PhoneCall className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
+                                </div>
+                                <div className="flex flex-col items-center gap-1">
+                                    <span className="text-lg font-medium text-foreground group-hover:text-primary transition-colors text-center">
+                                        {CONTACT.landlineDisplay}
+                                    </span>
+                                    <span className="text-xs text-muted-foreground">{t('PHONE_LANDLINE')}</span>
+                                </div>
                             </Link>
                         </motion.div>
 

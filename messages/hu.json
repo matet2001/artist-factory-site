@@ -223,6 +223,8 @@
         "PUBLIC_TRANSPORT": "Tömegközlekedéssel egyszerűen megközelíthető: a 2-es és 2A villamos, a 70-es és 78-as trolibusz, a 15-ös és 115-ös busz, valamint az M3 metró mind 5 percre vannak a próbatermünktől.",
         "GOOGLE_MAPS": "Megnyitás Google Térképen",
         "BKK_FUTAR": "Útvonaltervezés BKK Futárral",
+        "PHONE_MOBILE": "Mobil",
+        "PHONE_LANDLINE": "Vezetékes",
         "ACCESS": {
             "TITLE": "Megközelíthetőség",
             "TRAM": "Villamossal: A 4-es 6-ossal vagy a 2-es villamossal gyertek a Jászai Mari térig /Margit híd pesti hídfő/, onnan gyalog a Pozsonyi úton /Mc Donald's utcája/ 2 perc alatt nálunk lehettek.",
@@ -648,6 +650,10 @@
             "ADVANCE_24H": "📅 Online foglalást legalább 24 órával a kezdés előtt lehet leadni.",
             "CANCEL_48H": "⏰ 48 órán belüli lemondás esetén a teljes ár felszámításra kerül, és a lemondás csak telefonon lehetséges.",
             "VIEW_FULL_TERMS": "Teljes Feltételek Megtekintése"
+        },
+        "DISCLAIMERS": {
+            "SPECIAL_REQUIREMENTS": "Amennyiben speciális igényetek van a próbával kapcsolatban, azt kérjük telefonon jelezzétek. Köszönjük!",
+            "ADMIN_BOOKING_NOTICE": "💡 Fontos: Telefonon vagy emailen leadott foglalásokat csak telefonon vagy emailen keresztül lehet lemondani, a fiókodban nem fog megjelenni."
         }
     },
     "PRIVACY": {
