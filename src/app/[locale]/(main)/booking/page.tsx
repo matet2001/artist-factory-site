@@ -109,22 +109,18 @@ export default function BookingPage() {
             endDate.setDate(endDate.getDate() + 6)
             endDate.setHours(23, 59, 59, 999)
 
-            // Fetch all dates in range
-            const promises = []
-            const currentDate = new Date(startDate)
+            // Single API call with date range instead of 7 separate calls
+            const startDateStr = formatLocalDate(startDate)
+            const endDateStr = formatLocalDate(endDate)
 
-            while (currentDate <= endDate) {
-                const dateStr = formatLocalDate(currentDate)
-                promises.push(
-                    fetch(`/api/bookings?date=${dateStr}`)
-                        .then(res => res.ok ? res.json() : { bookings: [] })
-                        .then(data => data.bookings || [])
-                )
-                currentDate.setDate(currentDate.getDate() + 1)
+            const response = await fetch(`/api/bookings?startDate=${startDateStr}&endDate=${endDateStr}`)
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch bookings')
             }
 
-            const results = await Promise.all(promises)
-            const combinedBookings = results.flat()
+            const data = await response.json()
+            const combinedBookings = data.bookings || []
 
             setAllBookings(combinedBookings)
             setFetchedDateRange({ start: startDate, end: endDate })
