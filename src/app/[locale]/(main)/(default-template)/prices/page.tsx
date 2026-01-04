@@ -217,7 +217,7 @@ export default function PricesPage() {
                                                 </h3>
                                                 <div className="space-y-2">
                                                     <div className="text-3xl font-bold text-foreground">
-                                                        3,000 Ft
+                                                        3,500 Ft
                                                     </div>
                                                     <p className="text-sm text-muted-foreground">
                                                         / {t('HOUR')}
