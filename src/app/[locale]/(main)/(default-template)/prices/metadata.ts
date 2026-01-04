@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 export const metadata: Metadata = {
     title: 'Árak - Próbaterem Bérlés | Artist Factory Budapest',
     description:
-        'Próbaterem árak Budapest belvárosában 5500 Ft/óra-tól. Zenekari próba, egyéni gyakorlás, last minute akciók. Légkondicionált termek prémium felszereléssel.',
+        'Próbaterem árak Budapest belvárosában 6000 Ft/óra-tól. Zenekari próba, egyéni gyakorlás, last minute akciók. Légkondicionált termek prémium felszereléssel.',
     keywords: [
         'próbaterem árak',
         'próbaterem bérlés ár',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Árak - Próbaterem Bérlés | Artist Factory Budapest',
         description:
-            'Próbaterem árak Budapest belvárosában 5500 Ft/óra-tól. Zenekari próba, egyéni gyakorlás, last minute akciók.',
+            'Próbaterem árak Budapest belvárosában 6000 Ft/óra-tól. Zenekari próba, egyéni gyakorlás, last minute akciók.',
         images: ['/rooms/room1/Room1.jpg'],
     },
 }
