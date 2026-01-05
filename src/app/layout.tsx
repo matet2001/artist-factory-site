@@ -16,9 +16,25 @@ export const metadata: Metadata = {
     },
     description: 'Próbaterem Budapest belvárosában! 5 hangszigetelt próbaterem és professzionális stúdió 2007 óta. Légkondicionált termek, prémium felszerelés, megfizethető árak. Foglalj online most!',
     icons: {
-        icon: '/favicon.ico',
+        icon: [
+            { url: '/favicon.ico', sizes: 'any' },
+            { url: '/icon.svg', type: 'image/svg+xml' },
+        ],
         shortcut: '/favicon.ico',
-        apple: '/favicon.ico',
+        apple: '/apple-icon.png',
+        other: [
+            {
+                rel: 'icon',
+                type: 'image/png',
+                sizes: '32x32',
+                url: '/icon1.png',
+            },
+        ],
+    },
+    manifest: '/manifest.json',
+    appleWebApp: {
+        title: 'ArtistFactory',
+        statusBarStyle: 'default',
     },
     keywords: [
         'próbaterem',
