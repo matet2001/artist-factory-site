@@ -39,7 +39,9 @@
       "Bash(rm:*)",
       "Bash(timeout 60 npx next build:*)",
       "Bash(npm run cleanup:bookings:*)",
-      "Bash(npm run check:slot:*)"
+      "Bash(npm run check:slot:*)",
+      "Bash(node scripts/generate-favicons.js:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []

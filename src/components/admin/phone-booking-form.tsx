@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { useTranslations } from 'next-intl'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 interface PhoneBookingFormProps {
     onCustomerInfoChange: (data: {
@@ -59,6 +59,7 @@ export function PhoneBookingForm({
     bookingNote = '',
     hasSelectedBookings,
     editMode = false,
+    selectedBookingId,
     selectedUserId,
     bookingStartMinute = 0,
     bookingEndMinute = 0,
@@ -74,12 +75,15 @@ export function PhoneBookingForm({
 
     // Track initial values for edit mode to detect changes
     const [initialValues, setInitialValues] = useState({
-        name: customerName,
-        bandName: customerBandName,
-        note: bookingNote,
-        startMinute: bookingStartMinute ?? 0,
-        endMinute: bookingEndMinute ?? 0,
+        name: '',
+        bandName: '',
+        note: '',
+        startMinute: 0,
+        endMinute: 0,
     })
+
+    // Track the current booking ID to detect when we switch to a different booking
+    const previousBookingIdRef = useRef<string | undefined>(undefined)
 
     // Fetch users when component mounts
     useEffect(() => {
@@ -97,28 +101,37 @@ export function PhoneBookingForm({
         fetchUsers()
     }, [])
 
-    // Update minutes and initial values when booking changes or when entering/exiting edit mode
+    // Update minutes and initial values when entering edit mode or switching bookings
     useEffect(() => {
         if (editMode) {
-            // In edit mode, use the booking's minutes and set initial values
-            setStartMinute(bookingStartMinute ?? 0)
-            setEndMinute(bookingEndMinute ?? 0)
-            setInitialValues({
-                name: customerName,
-                bandName: customerBandName,
-                note: bookingNote,
-                startMinute: bookingStartMinute ?? 0,
-                endMinute: bookingEndMinute ?? 0,
-            })
+            // Check if this is a new booking being edited (compare with ref, which doesn't cause re-renders)
+            const currentId = selectedBookingId
+            const isNewBooking = previousBookingIdRef.current !== currentId
+
+            if (isNewBooking) {
+                // Set initial values for the new booking
+                setStartMinute(bookingStartMinute ?? 0)
+                setEndMinute(bookingEndMinute ?? 0)
+                setInitialValues({
+                    name: customerName,
+                    bandName: customerBandName,
+                    note: bookingNote || '',
+                    startMinute: bookingStartMinute ?? 0,
+                    endMinute: bookingEndMinute ?? 0,
+                })
+                previousBookingIdRef.current = currentId
+            }
         } else {
-            // Not in edit mode, reset to defaults
+            // Not in edit mode, reset everything
             setStartMinute(0)
             setEndMinute(0)
+            previousBookingIdRef.current = undefined
         }
     }, [
+        editMode,
+        selectedBookingId,
         bookingStartMinute,
         bookingEndMinute,
-        editMode,
         customerName,
         customerBandName,
         bookingNote,
@@ -209,13 +222,13 @@ export function PhoneBookingForm({
     const hasChanges = useMemo(() => {
         if (!editMode) return true // Always allow submit in create mode
 
-        return (
-            customerName !== initialValues.name ||
-            customerBandName !== initialValues.bandName ||
-            bookingNote !== initialValues.note ||
-            startMinute !== initialValues.startMinute ||
-            endMinute !== initialValues.endMinute
-        )
+        const nameChanged = customerName !== initialValues.name
+        const bandNameChanged = customerBandName !== initialValues.bandName
+        const noteChanged = (bookingNote || '') !== (initialValues.note || '')
+        const startMinuteChanged = startMinute !== initialValues.startMinute
+        const endMinuteChanged = endMinute !== initialValues.endMinute
+
+        return nameChanged || bandNameChanged || noteChanged || startMinuteChanged || endMinuteChanged
     }, [
         editMode,
         customerName,

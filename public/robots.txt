@@ -1,0 +1,26 @@
+# Artist Factory Budapest - Robots.txt
+# Updated: 2026-01-05
+
+User-agent: *
+Allow: /
+Allow: /hu/
+Allow: /en/
+
+# Block old/invalid URLs
+Disallow: /kapcsolat
+Disallow: /araink
+Disallow: /probatermek
+Disallow: /hirek
+Disallow: /http---artistfactory-foglalasom-hu-
+Disallow: /0630-536-7500
+Disallow: /*?date=*
+
+# Block old PHP pages
+Disallow: /index.php
+Disallow: /*.php$
+
+# Block old booking subdomain pages
+Disallow: /NAPTAR/
+
+# Sitemap location
+Sitemap: https://www.artistfactory.hu/sitemap.xml
