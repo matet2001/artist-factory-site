@@ -275,7 +275,8 @@
         "BOOKING_TIME_DESC": "Set custom start and end minutes for half-hour bookings",
         "BOOKING_RANGE_INFO": "Editing booking: {date} {startHour}:{startMinute} - {endHour}:{endMinute}",
         "START_MINUTE_LABEL": "Start Minute",
-        "END_MINUTE_LABEL": "End Minute"
+        "END_MINUTE_LABEL": "End Minute",
+        "REFRESH": "Refresh"
     },
     "BOOKING": {
         "SUCCESS_CONTENT": "We welcome you with love",

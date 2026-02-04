@@ -60,6 +60,8 @@ export default function AdminBookingsPage() {
     const [selectedUserId, setSelectedUserId] = useState<string | undefined>(undefined)
     const [selectedBooking, setSelectedBooking] = useState<BookingData | null>(null)
     const [editMode, setEditMode] = useState(false)
+    const [isTabVisible, setIsTabVisible] = useState(true)
+    const [isRefreshing, setIsRefreshing] = useState(false)
 
     const hours = getOpeningHoursArray(OPENING_HOURS)
     const timelinePosition = getCurrentTimePosition(OPENING_HOURS)
@@ -136,15 +138,36 @@ export default function AdminBookingsPage() {
         }
     }, [selectedDate, needsToFetch, fetchBookingsWeek])
 
-    // Update timeline and refresh bookings every 10 seconds
+    // Track tab visibility to pause polling when tab is hidden
     useEffect(() => {
+        const handleVisibilityChange = () => {
+            setIsTabVisible(document.visibilityState === 'visible')
+        }
+        document.addEventListener('visibilitychange', handleVisibilityChange)
+        return () => document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }, [])
+
+    // Update timeline and refresh bookings every 60 seconds (only when tab is visible)
+    useEffect(() => {
+        if (!isTabVisible) return // Don't poll when tab is hidden
+
         const interval = setInterval(() => {
             setSelectedDate((d) => new Date(d))
             // Refresh bookings to see new ones made by users
             fetchBookingsWeek(selectedDate)
-        }, 10000)
+        }, 60000) // Changed from 10s to 60s
         return () => clearInterval(interval)
-    }, [selectedDate, fetchBookingsWeek])
+    }, [selectedDate, fetchBookingsWeek, isTabVisible])
+
+    // Manual refresh function
+    const handleManualRefresh = async () => {
+        setIsRefreshing(true)
+        try {
+            await fetchBookingsWeek(selectedDate)
+        } finally {
+            setIsRefreshing(false)
+        }
+    }
 
     const getBooking = (roomId: string, time: number): BookingData | undefined => {
         return bookings.find((b) => b.roomId === roomId && b.time === time)
@@ -461,6 +484,8 @@ export default function AdminBookingsPage() {
                                 onDeleteBooking={handleDeleteBooking}
                                 onSelectBooking={handleSelectBooking}
                                 allowPastDates={true}
+                                onRefresh={handleManualRefresh}
+                                isRefreshing={isRefreshing}
                             />
                         </div>
                     </div>
