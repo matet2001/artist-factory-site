@@ -576,7 +576,8 @@
         "BOOKING_TIME_DESC": "Állítsd be az egyedi kezdő és befejező perceket fél órás foglalásokhoz",
         "BOOKING_RANGE_INFO": "Szerkesztett foglalás: {date} {startHour}:{startMinute} - {endHour}:{endMinute}",
         "START_MINUTE_LABEL": "Kezdő perc",
-        "END_MINUTE_LABEL": "Befejező perc"
+        "END_MINUTE_LABEL": "Befejező perc",
+        "REFRESH": "Frissítés"
     },
     "BOOKING": {
         "PRE_TITLE": "Foglald le a helyed",

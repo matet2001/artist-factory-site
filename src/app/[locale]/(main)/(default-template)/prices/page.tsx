@@ -180,7 +180,7 @@ export default function PricesPage() {
                                                     </h3>
                                                     <div className="flex items-baseline gap-2 mb-2">
                                                         <span className="text-2xl font-bold text-foreground">
-                                                            3,000 Ft
+                                                            3,500 Ft
                                                         </span>
                                                         <span className="text-sm text-muted-foreground">
                                                             / {t('HOUR')}
