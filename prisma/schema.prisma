@@ -80,6 +80,9 @@ model Booking {
   roomId String
   room   Room   @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
+  name     String? // Booking-specific name (independent of user record)
+  bandName String? // Booking-specific band name (independent of user record)
+
   note String? // Admin notes for the booking
 
   verificationToken String?
