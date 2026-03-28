@@ -99,6 +99,8 @@ export async function POST(request: NextRequest) {
                         status: 'VERIFIED', // Phone bookings are immediately verified
                         verifiedAt: new Date(),
                         note: note || null, // Add admin note if provided
+                        name: name, // Store name on the booking itself
+                        bandName: bandName || null,
                     },
                     include: {
                         user: {
