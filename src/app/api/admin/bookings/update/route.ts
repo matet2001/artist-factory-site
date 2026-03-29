@@ -42,31 +42,24 @@ export async function PUT(req: NextRequest) {
             return NextResponse.json({ error: 'endMinute must be 0 or 30' }, { status: 400 })
         }
 
-        // Update the booking
+        // Update the booking (name/bandName stored on booking, not shared user record)
         const updatedBooking = await prisma.booking.update({
             where: { id },
             data: {
+                name: name,
+                bandName: bandName || null,
                 note: note || null,
                 ...(startMinute !== undefined && { startMinute }),
                 ...(endMinute !== undefined && { endMinute }),
-                user: {
-                    update: {
-                        name: name,
-                        bandName: bandName || null,
-                    },
-                },
-            },
-            include: {
-                user: {
-                    select: {
-                        name: true,
-                        bandName: true,
-                    },
-                },
             },
         })
 
-        return NextResponse.json({ booking: updatedBooking }, { status: 200 })
+        return NextResponse.json({
+            booking: {
+                ...updatedBooking,
+                user: { name: updatedBooking.name, bandName: updatedBooking.bandName },
+            },
+        }, { status: 200 })
     } catch (error) {
         console.error('Error updating booking:', error)
         return NextResponse.json(

@@ -58,8 +58,8 @@ export async function GET(request: NextRequest) {
             const bookingWithUser = booking as any
             const userData = bookingWithUser.user
                 ? {
-                      fullName: bookingWithUser.user.name || '',
-                      bandName: bookingWithUser.user.bandName || null,
+                      fullName: booking.name || bookingWithUser.user.name || '',
+                      bandName: booking.bandName || bookingWithUser.user.bandName || null,
                   }
                 : undefined
 
