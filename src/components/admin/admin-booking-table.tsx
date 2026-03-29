@@ -22,6 +22,8 @@ interface AdminBookingTableProps {
     onDeleteBooking: (intent: BookingIntent) => void
     onSelectBooking?: (booking: BookingData) => void
     allowPastDates?: boolean
+    onRefresh?: () => void
+    isRefreshing?: boolean
 }
 
 export function AdminBookingTable({
@@ -40,6 +42,8 @@ export function AdminBookingTable({
     onDeleteBooking,
     onSelectBooking,
     allowPastDates = false,
+    onRefresh,
+    isRefreshing = false,
 }: AdminBookingTableProps) {
     return (
         <div className="overflow-x-auto">
@@ -50,6 +54,8 @@ export function AdminBookingTable({
                             selectedDate={selectedDate}
                             onDateChange={onDateChange}
                             allowPastDates={allowPastDates}
+                            onRefresh={onRefresh}
+                            isRefreshing={isRefreshing}
                         />
 
                         <tbody className="divide-y divide-border bg-card/50 relative">

@@ -83,7 +83,7 @@ export const pageMetadata = {
         prices: {
             title: 'Árak - Próbaterem Bérlés | Artist Factory Budapest',
             description:
-                'Próbaterem árak Budapest belvárosában 5500 Ft/óra-tól. Zenekari próba, egyéni gyakorlás, last minute akciók. Légkondicionált termek prémium felszereléssel.',
+                'Próbaterem árak Budapest belvárosában 6000 Ft/óra-tól. Zenekari próba, egyéni gyakorlás, last minute akciók. Légkondicionált termek prémium felszereléssel.',
             keywords: [
                 'próbaterem árak',
                 'próbaterem bérlés ár',
@@ -160,7 +160,7 @@ export const pageMetadata = {
         prices: {
             title: 'Prices - Rehearsal Room Rental | Artist Factory Budapest',
             description:
-                'Rehearsal room prices in downtown Budapest from 5500 HUF/hour. Band rehearsals, individual practice, last-minute deals. Air-conditioned rooms with premium equipment.',
+                'Rehearsal room prices in downtown Budapest from 6000 HUF/hour. Band rehearsals, individual practice, last-minute deals. Air-conditioned rooms with premium equipment.',
             keywords: [
                 'rehearsal room prices',
                 'rehearsal rental rates',

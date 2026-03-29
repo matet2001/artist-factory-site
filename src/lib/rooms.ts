@@ -29,7 +29,7 @@ export const rooms: Room[] = [
         name: 'ROOM1_NAME',
         heroImage: 'room1/Room1.jpg',
         images: ['room1/Room1.jpg', 'room1/Room1_2.jpg', 'room1/Room1_3.jpg', 'room1/Room1_4.jpg', 'room1/Room1_5.jpg'],
-        price: 5500,
+        price: 6000,
         size: '4-5',
         equipments: [
             { type: 'drum', label: 'Yamaha Stage Custom fusion 10"–12"–14"–20"' },
@@ -48,7 +48,7 @@ export const rooms: Room[] = [
         name: 'ROOM2_NAME',
         heroImage: 'room2/Room2.jpg',
         images: ['room2/Room2.jpg', 'room2/Room2_2.jpg', 'room2/Room2_3.jpg'],
-        price: 5500,
+        price: 6000,
         size: '4-5',
         equipments: [
             {
@@ -84,7 +84,7 @@ export const rooms: Room[] = [
             'room3/Room3_5.jpg',
             'room3/Room3_6.jpg',
         ],
-        price: 6000,
+        price: 6500,
         size: '8-10',
         equipments: [
             { type: 'drum', label: 'Yamaha Tour Custom 10"–12"–14"–22"' },
@@ -106,7 +106,7 @@ export const rooms: Room[] = [
         name: 'ROOM4_NAME',
         heroImage: 'room4/Room4.jpg',
         images: ['room4/Room4.jpg', 'room4/Room4_2.jpg', 'room4/Room4_3.jpg', 'room4/Room4_4.jpg'],
-        price: 5500,
+        price: 6000,
         size: '4-5',
         equipments: [
             { type: 'drum', label: 'DW Design 10"–12"–14"–16"–22" + DW Collectors {{SNARE}}' },
@@ -127,7 +127,7 @@ export const rooms: Room[] = [
         name: 'ROOM5_NAME',
         heroImage: 'room5/Room5.jpg',
         images: ['room5/Room5.jpg', 'room5/Room5_2.jpg', 'room5/Room5_3.jpg', 'room5/Room5_4.jpg'],
-        price: 5500,
+        price: 6000,
         size: '4-5',
         equipments: [
             {
