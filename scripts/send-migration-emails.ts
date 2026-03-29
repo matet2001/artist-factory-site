@@ -112,8 +112,13 @@ async function sendMigrationEmails() {
             console.log(`✅ Sent to: ${user.email} (${user.name || 'No name'})`)
             sent++
 
-            // Rate limit: wait 200ms between emails to avoid spam filters
-            await new Promise((resolve) => setTimeout(resolve, 200))
+            // Rate limit: wait 1 second between emails to avoid rate limits
+            // After every 50 emails, wait 5 minutes
+            await new Promise((resolve) => setTimeout(resolve, 1000))
+            if (sent % 50 === 0) {
+                console.log(`\n⏸️  Sent ${sent} emails. Waiting 5 minutes before continuing...\n`)
+                await new Promise((resolve) => setTimeout(resolve, 5 * 60 * 1000))
+            }
         } catch (error) {
             console.error(`❌ Failed to send to ${user.email}:`, error)
             failed++

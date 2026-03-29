@@ -41,7 +41,8 @@
       "Bash(npm run cleanup:bookings:*)",
       "Bash(npm run check:slot:*)",
       "Bash(node scripts/generate-favicons.js:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(dir \"c:\\\\IT\\\\Projects\\\\Personal\\\\artist-factory-site\\\\public\")"
     ],
     "deny": [],
     "ask": []

@@ -90,7 +90,7 @@
             "ROOMS_SPACIOUS": "5 hangszigetelt próbaterem és egy stúdió",
             "ROOMS_SPACIOUS_DESC": "Termeink kényelmesen befogadnak 4–5 fős zenekarokat, de rendelkezünk egy nagyobb teremmel is, ahol akár 8–10 fő is együtt próbálhat.",
             "AFFORDABLE": "Megfizethető árak",
-            "AFFORDABLE_DESC": "Áraink 5500 Ft/óra-tól indulnak.",
+            "AFFORDABLE_DESC": "Áraink 6000 Ft/óra-tól indulnak.",
             "PREMIUM_EQUIPMENT": "Prémium felszerelés",
             "PREMIUM_EQUIPMENT_DESC": "Felső kategóriás hangszerek és erősítők (Orange, ENGL, Fender, Warwick, Ashdown, Ampeg, Yamaha) plusz mikrofonok (Shure Beta 57, Audio Technica) felár nélkül.",
             "AIR_CONDITIONED": "Légkondicionált",
@@ -193,7 +193,7 @@
         "INDIVIDUAL_TITLE": "Egyéni gyakorlás",
         "INDIVIDUAL_DESC": "1-1 oktatásra is alkalmas",
         "INDIVIDUAL_LABEL": "Óradíj",
-        "INDIVIDUAL_PRICE": "3000",
+        "INDIVIDUAL_PRICE": "3500",
 
         "STUDIO_TITLE": "Stúdió",
         "STUDIO_RECORDING": "Felvétel, utómunka és keverés",
@@ -576,7 +576,8 @@
         "BOOKING_TIME_DESC": "Állítsd be az egyedi kezdő és befejező perceket fél órás foglalásokhoz",
         "BOOKING_RANGE_INFO": "Szerkesztett foglalás: {date} {startHour}:{startMinute} - {endHour}:{endMinute}",
         "START_MINUTE_LABEL": "Kezdő perc",
-        "END_MINUTE_LABEL": "Befejező perc"
+        "END_MINUTE_LABEL": "Befejező perc",
+        "REFRESH": "Frissítés"
     },
     "BOOKING": {
         "PRE_TITLE": "Foglald le a helyed",

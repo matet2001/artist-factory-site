@@ -3,7 +3,7 @@
 import { CONTACT } from '@/lib/constants'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
-import { FaFacebook, FaTiktok, FaYoutube } from 'react-icons/fa'
+import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa'
 import Logo from './logo'
 
 const equipmentBrands: string[] = [
@@ -95,6 +95,14 @@ export default function Footer() {
                             className="hover:text-primary"
                         >
                             <FaFacebook />
+                        </a>
+                        <a
+                            href="https://www.instagram.com/artistfactoryprobatermek"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-primary"
+                        >
+                            <FaInstagram />
                         </a>
                         <a
                             href="https://www.tiktok.com/@artistfactorybudapest?_r=1&_t=ZN-91nij89JXYU"

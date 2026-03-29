@@ -1,37 +1,11 @@
 import { getTranslations } from 'next-intl/server'
 import { CONTACT } from './constants'
-import nodemailer from 'nodemailer'
+import { sendEmail } from './email-provider'
 
 // Email statistics tracking
 const emailStats = {
     sent: 0,
     failed: 0,
-}
-
-// Don't create transporter immediately - create it when needed
-let transporter: ReturnType<typeof nodemailer.createTransport> | null = null
-
-function getTransporter() {
-    if (!transporter) {
-        transporter = nodemailer.createTransport({
-            host: process.env.EMAIL_SERVER_HOST,
-            port: Number(process.env.EMAIL_SERVER_PORT),
-            secure: true,
-            auth: {
-                user: process.env.EMAIL_SERVER_USER,
-                pass: process.env.EMAIL_SERVER_PASSWORD,
-            },
-            tls: {
-                rejectUnauthorized: false,
-            },
-            connectionTimeout: 10000,
-            greetingTimeout: 10000,
-            socketTimeout: 10000,
-            logger: false, // Disable verbose logging
-            debug: false, // Disable debug output
-        })
-    }
-    return transporter
 }
 
 export async function sendVerificationEmail(email: string, token: string, locale: string = 'hu') {
@@ -40,8 +14,8 @@ export async function sendVerificationEmail(email: string, token: string, locale
     const verificationUrl = `${process.env.NEXTAUTH_URL}/api/auth/verify-email?token=${token}`
 
     try {
-        await getTransporter().sendMail({
-            from: process.env.EMAIL_FROM,
+        await sendEmail({
+            from: process.env.EMAIL_FROM!,
             to: email,
             subject: t('SUBJECT'),
             html: `
@@ -87,10 +61,14 @@ export async function sendVerificationEmail(email: string, token: string, locale
     `,
         })
         emailStats.sent++
-        console.log(`✓ Verification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.log(
+            `✓ Verification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
     } catch (error) {
         emailStats.failed++
-        console.error(`✗ Failed to send verification email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.error(
+            `✗ Failed to send verification email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
         throw error
     }
 }
@@ -101,8 +79,8 @@ export async function sendPasswordResetEmail(email: string, token: string, local
     const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password?token=${token}`
 
     try {
-        await getTransporter().sendMail({
-            from: process.env.EMAIL_FROM,
+        await sendEmail({
+            from: process.env.EMAIL_FROM!,
             to: email,
             subject: t('SUBJECT'),
             html: `
@@ -149,10 +127,14 @@ export async function sendPasswordResetEmail(email: string, token: string, local
     `,
         })
         emailStats.sent++
-        console.log(`✓ Password reset email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.log(
+            `✓ Password reset email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
     } catch (error) {
         emailStats.failed++
-        console.error(`✗ Failed to send password reset email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.error(
+            `✗ Failed to send password reset email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
         throw error
     }
 }
@@ -172,8 +154,8 @@ export async function sendBookingVerificationEmail(
         .join('')
 
     try {
-        await getTransporter().sendMail({
-            from: process.env.EMAIL_FROM,
+        await sendEmail({
+            from: process.env.EMAIL_FROM!,
             to: email,
             subject: t('SUBJECT'),
             html: `
@@ -226,17 +208,27 @@ export async function sendBookingVerificationEmail(
     `,
         })
         emailStats.sent++
-        console.log(`✓ Booking verification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.log(
+            `✓ Booking verification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
     } catch (error) {
         emailStats.failed++
-        console.error(`✗ Failed to send booking verification email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.error(
+            `✗ Failed to send booking verification email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
         throw error
     }
 }
 
 export async function sendBookingConfirmationEmail(
     email: string,
-    bookings: Array<{ roomId: string; roomName: string; date: string; time: number; price: number }>,
+    bookings: Array<{
+        roomId: string
+        roomName: string
+        date: string
+        time: number
+        price: number
+    }>,
     locale: string = 'hu'
 ) {
     const t = await getTranslations({ locale, namespace: 'EMAIL.BOOKING_CONFIRMATION' })
@@ -254,7 +246,13 @@ export async function sendBookingConfirmationEmail(
     }
 
     const combineBookings = (
-        bookings: Array<{ roomId: string; roomName: string; date: string; time: number; price: number }>
+        bookings: Array<{
+            roomId: string
+            roomName: string
+            date: string
+            time: number
+            price: number
+        }>
     ): CombinedBooking[] => {
         if (bookings.length === 0) return []
 
@@ -314,8 +312,8 @@ export async function sendBookingConfirmationEmail(
         .join('')
 
     try {
-        await getTransporter().sendMail({
-            from: process.env.EMAIL_FROM,
+        await sendEmail({
+            from: process.env.EMAIL_FROM!,
             to: email,
             subject: t('SUBJECT'),
             html: `
@@ -417,8 +415,8 @@ export async function sendAdminBookingNotification(
         .join('')
 
     try {
-        await getTransporter().sendMail({
-            from: process.env.EMAIL_FROM,
+        await sendEmail({
+            from: process.env.EMAIL_FROM!,
             to: adminEmail,
             subject: 'Új foglalás érkezett - ArtistFactory',
             html: `
@@ -456,7 +454,9 @@ export async function sendAdminBookingNotification(
     `,
         })
         emailStats.sent++
-        console.log(`✓ Admin notification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.log(
+            `✓ Admin notification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
     } catch (error) {
         emailStats.failed++
         console.error(
@@ -476,8 +476,8 @@ export async function sendBugReportEmail(
     const bugReportEmail = process.env.BUG_REPORT_EMAIL || 'matet2001@gmail.com'
 
     try {
-        await getTransporter().sendMail({
-            from: process.env.EMAIL_FROM,
+        await sendEmail({
+            from: process.env.EMAIL_FROM!,
             to: bugReportEmail,
             replyTo: email,
             subject: `Bug Report from ${name}`,
@@ -537,10 +537,14 @@ export async function sendBugReportEmail(
             })),
         })
         emailStats.sent++
-        console.log(`✓ Bug report email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.log(
+            `✓ Bug report email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
     } catch (error) {
         emailStats.failed++
-        console.error(`✗ Failed to send bug report email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.error(
+            `✗ Failed to send bug report email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
         throw error
     }
 }
@@ -621,8 +625,8 @@ export async function sendBookingCancellationEmail(
         .join('')
 
     try {
-        await getTransporter().sendMail({
-            from: process.env.EMAIL_FROM,
+        await sendEmail({
+            from: process.env.EMAIL_FROM!,
             to: email,
             subject: t('SUBJECT'),
             html: `
@@ -722,8 +726,8 @@ export async function sendAdminCancellationNotification(
         .join('')
 
     try {
-        await getTransporter().sendMail({
-            from: process.env.EMAIL_FROM,
+        await sendEmail({
+            from: process.env.EMAIL_FROM!,
             to: adminEmail,
             subject: t('SUBJECT', { userName }),
             html: `
@@ -778,8 +782,8 @@ export async function sendMigrationVerificationEmail(email: string, token: strin
     const verificationUrl = `${process.env.NEXTAUTH_URL}/api/auth/verify-email?token=${token}`
 
     try {
-        await getTransporter().sendMail({
-            from: process.env.EMAIL_FROM,
+        await sendEmail({
+            from: process.env.EMAIL_FROM!,
             to: email,
             subject: 'Erősítsd meg az email címed / Verify your email - Artist Factory',
             html: `
@@ -844,7 +848,9 @@ export async function sendMigrationVerificationEmail(email: string, token: strin
     `,
         })
         emailStats.sent++
-        console.log(`✓ Migration verification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.log(
+            `✓ Migration verification email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
     } catch (error) {
         emailStats.failed++
         console.error(
@@ -858,8 +864,8 @@ export async function sendMigrationWelcomeEmail(email: string, token: string, us
     const resetUrl = `${process.env.NEXTAUTH_URL}/migration-welcome?token=${token}`
 
     try {
-        await getTransporter().sendMail({
-            from: process.env.EMAIL_FROM,
+        await sendEmail({
+            from: process.env.EMAIL_FROM!,
             to: email,
             subject: 'Megújult az ArtistFactory oldala! / ArtistFactory has a new look!',
             html: `
@@ -876,11 +882,19 @@ export async function sendMigrationWelcomeEmail(email: string, token: string, us
       </p>
 
       <p style="margin-bottom: 12px;"><strong>Mit jelent ez számodra?</strong></p>
-      <ul style="color: #ccc; margin-bottom: 32px; padding-left: 20px;">
-        <li>Modern, intuitív felület a jobb felhasználói élményért</li>
-        <li>Fokozott biztonság az adataid védelméért</li>
-        <li>Mobilbarát design valós idejű foglalásokkal</li>
-      </ul>
+<ul style="color: #ccc; margin-bottom: 32px; padding-left: 20px;">
+  <li>Modern, intuitív felület a jobb felhasználói élményért</li>
+  <li>Fokozott biztonság az adataid védelméért</li>
+  <li>Mobilbarát design valós idejű foglalásokkal</li>
+</ul>
+
+<!-- NEW BLOCK (Hungarian) -->
+<p style="color: #ff6b9d; margin-bottom: 32px;">
+  Várunk benneteket továbbra is sok szeretettel — digitális felületünk mostantól még átláthatóbb 
+  és kényelmesebb, és nagy örömmel jelezzük, hogy 
+  <strong>januártól a próbatermeink is felfrissülve és megújulva fogad majd benneteket</strong>.
+</p>
+
 
       <div style="border-left: 3px solid #ff3b7f; background: #2d2d2d; padding: 16px; border-radius: 8px; margin-bottom: 32px;">
         <p style="margin: 0 0 8px;"><strong>Teendő:</strong></p>
@@ -903,7 +917,7 @@ export async function sendMigrationWelcomeEmail(email: string, token: string, us
         <ul style="margin: 0; padding-left: 20px;">
           <li>A link <strong>7 napig érvényes</strong></li>
           <li><strong>Ha a link lejár:</strong> használd az "Elfelejtett jelszó" funkciót a bejelentkezési oldalon</li>
-          <li>Ha segítségre van szükséged, írj nekünk: <a href="mailto:${process.env.EMAIL_FROM}" style="color: #ff6b9d;">${process.env.EMAIL_FROM}</a></li>
+          <li>Ha segítségre van szükséged, írj nekünk: <a href="mailto:info@artistfactory.hu" style="color: #ff6b9d;">info@artistfactory.hu</a></li>
         </ul>
       </div>
 
@@ -917,11 +931,20 @@ export async function sendMigrationWelcomeEmail(email: string, token: string, us
       </p>
 
       <p style="margin-bottom: 12px;"><strong>What does this mean for you?</strong></p>
-      <ul style="color: #ccc; margin-bottom: 32px; padding-left: 20px;">
-        <li>Modern, intuitive interface for better user experience</li>
-        <li>Enhanced security to protect your data</li>
-        <li>Mobile-friendly design with real-time bookings</li>
-      </ul>
+<ul style="color: #ccc; margin-bottom: 32px; padding-left: 20px;">
+  <li>Modern, intuitive interface for better user experience</li>
+  <li>Enhanced security to protect your data</li>
+  <li>Mobile-friendly design with real-time bookings</li>
+</ul>
+
+<!-- NEW BLOCK (English) -->
+<p style="color: #ff6b9d; margin-bottom: 32px;">
+  We look forward to welcoming you both online and offline — our digital platform is now smoother 
+  and more user-friendly than ever, and we’re excited to share that 
+  <strong>starting this January, our physical studio spaces will also welcome you in a refreshed environment</strong>.
+</p>
+
+
 
       <div style="border-left: 3px solid #ff3b7f; background: #2d2d2d; padding: 16px; border-radius: 8px; margin-bottom: 32px;">
         <p style="margin: 0 0 8px;"><strong>Action required:</strong></p>
@@ -953,10 +976,14 @@ export async function sendMigrationWelcomeEmail(email: string, token: string, us
     `,
         })
         emailStats.sent++
-        console.log(`✓ Migration email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.log(
+            `✓ Migration email sent | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
     } catch (error) {
         emailStats.failed++
-        console.error(`✗ Failed to send migration email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`)
+        console.error(
+            `✗ Failed to send migration email | Total: ${emailStats.sent} sent, ${emailStats.failed} failed`
+        )
         throw error
     }
 }

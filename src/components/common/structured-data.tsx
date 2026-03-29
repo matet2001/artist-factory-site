@@ -10,7 +10,7 @@ export function LocalBusinessStructuredData() {
         url: 'https://www.artistfactory.hu',
         telephone: '+36-30-655-8488',
         email: 'info@artistfactory.hu',
-        priceRange: '5500 Ft - 10000 Ft',
+        priceRange: '6000 Ft - 10000 Ft',
         image: [
             'https://www.artistfactory.hu/pictures/hero.jpg',
             'https://www.artistfactory.hu/pictures/studio.jpg',
@@ -122,7 +122,10 @@ export function WebSiteStructuredData() {
         name: 'Artist Factory Budapest',
         description: 'Próbaterem és Stúdió Budapest',
         publisher: {
+            '@type': 'Organization',
             '@id': 'https://www.artistfactory.hu/#organization',
+            name: 'Artist Factory',
+            url: 'https://www.artistfactory.hu',
         },
         inLanguage: ['hu-HU', 'en-US'],
         potentialAction: {
