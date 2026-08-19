@@ -31,7 +31,7 @@ export default function Footer() {
 
     return (
         <footer className="bg-primary-light dark:bg-primary-dark text-light-foreground dark:text-dark-foreground">
-            <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+            <div className="mx-auto w-full max-w-7xl p-4 py-6 lg:py-8">
                 {/* CONTENT GRID: natural flow, no absolute */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-y-8 items-stretch">
                     {/* LEFT: Logo (top) + Contact (below) */}
@@ -87,7 +87,7 @@ export default function Footer() {
 
                 {/* Footer bottom */}
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-sm justify-end">
-                    <div className="flex gap-4 text-2xl flex-shrink-0">
+                    <div className="flex gap-4 text-2xl shrink-0">
                         <a
                             href="https://www.facebook.com/ArtistFactoryProbatermekesStudio?mibextid=wwXIfr&rdid=9S7CEcXQAa7szbxh&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1D8Y2taanZ%2F%3Fmibextid%3DwwXIfr#"
                             target="_blank"

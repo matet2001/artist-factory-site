@@ -31,7 +31,7 @@ export default function RoomCard({ room }: Props) {
             </div>
 
             {/* Dark Gradient Overlay */}
-            <div className="absolute rounded-t-3xl inset-x-0 bottom-0 h-1/2 z-10 bg-gradient-to-t from-background to-background/10 backdrop-blur-md " />
+            <div className="absolute rounded-t-3xl inset-x-0 bottom-0 h-1/2 z-10 bg-linear-to-t from-background to-background/10 backdrop-blur-md " />
 
             {/* Content Container */}
             <div className="absolute inset-0 z-20 flex flex-col justify-end p-6">

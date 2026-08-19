@@ -27,7 +27,7 @@ export function BookingTableHeader({
     return (
         <thead className="bg-card-elevated">
             <tr>
-                <th className="max-w-[220px]">
+                <th className="max-w-55">
                     <div className={`flex items-center ${onRefresh ? 'justify-between gap-2 px-2' : 'justify-center'}`}>
                         {onRefresh && (
                             <Button

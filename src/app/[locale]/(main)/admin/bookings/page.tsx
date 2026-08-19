@@ -458,7 +458,7 @@ export default function AdminBookingsPage() {
                         <div className="relative">
                             {/* Loading overlay */}
                             {isInitialLoading && (
-                                <div className="absolute inset-0 bg-background/50 backdrop-blur-md z-50 flex items-center justify-center rounded-xl min-h-[400px]">
+                                <div className="absolute inset-0 bg-background/50 backdrop-blur-md z-50 flex items-center justify-center rounded-xl min-h-100">
                                     <div className="text-center space-y-4">
                                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto" />
                                         <p className="text-muted-foreground font-medium">

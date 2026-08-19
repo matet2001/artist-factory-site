@@ -30,12 +30,12 @@ function StudioSection({
                     initial="initial"
                     whileInView="whileInView"
                     viewport={viewportConfig}
-                    className="bg-transparent md:bg-gradient-to-br md:from-card md:to-card-elevated rounded-none md:rounded-3xl p-0 md:p-8 lg:p-12 border-0 md:border md:border-primary/20 md:shadow-2xl"
+                    className="bg-transparent md:bg-linear-to-br md:from-card md:to-card-elevated rounded-none md:rounded-3xl p-0 md:p-8 lg:p-12 border-0 md:border md:border-primary/20 md:shadow-2xl"
                 >
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                         {/* Image */}
                         <div className="lg:order-1">
-                            <div className="relative h-[400px] sm:h-[500px] overflow-hidden rounded-3xl border border-primary/20 shadow-xl">
+                            <div className="relative h-100 sm:h-125 overflow-hidden rounded-3xl border border-primary/20 shadow-xl">
                                 <Image
                                     src="/studio/hero.jpg"
                                     alt={tStudio('TITLE')}

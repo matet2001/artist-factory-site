@@ -181,7 +181,7 @@ function MigrationWelcomeContent() {
             />
 
             {/* Info Card */}
-            <div className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20 border border-purple-200 dark:border-purple-800 rounded-xl p-6 space-y-4">
+            <div className="bg-linear-to-br from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20 border border-purple-200 dark:border-purple-800 rounded-xl p-6 space-y-4">
                 <h3 className="font-semibold text-purple-900 dark:text-purple-100">
                     {t('MIGRATION.WHATS_NEW')}
                 </h3>

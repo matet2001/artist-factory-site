@@ -37,7 +37,7 @@ export default function LanguageToggle() {
             onClick={handleToggle}
             variant="ghost"
             size="icon"
-            className="relative w-[40px] h-[40px] p-1 overflow-hidden"
+            className="relative w-10 h-10 p-1 overflow-hidden"
             disabled={isPending}
         >
             <AnimatePresence mode="wait">

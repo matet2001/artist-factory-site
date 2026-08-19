@@ -1,5 +1,6 @@
 'use client'
 
+import { EditUserDialog, type EditableUser } from '@/components/admin/edit-user-dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -10,7 +11,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Pencil } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
@@ -44,6 +45,8 @@ export default function AdminUsersPage() {
     const [currentPage, setCurrentPage] = useState(1)
     const [searchTerm, setSearchTerm] = useState('')
     const [searchDebounce, setSearchDebounce] = useState('')
+    const [editingUser, setEditingUser] = useState<EditableUser | null>(null)
+    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
 
     // Redirect non-admin users
     useEffect(() => {
@@ -117,7 +120,7 @@ export default function AdminUsersPage() {
 
     return (
         <div className="container mx-auto px-4">
-            <div className="max-w-[1600px] mx-auto space-y-8">
+            <div className="max-w-400 mx-auto space-y-8">
                 <div>
                     <h1 className="text-4xl font-bold mb-2">{t('PAGE_TITLE')}</h1>
                     <p className="text-muted-foreground">{t('PAGE_SUBTITLE')}</p>
@@ -142,16 +145,16 @@ export default function AdminUsersPage() {
                             <Table>
                                 <TableHeader>
                                     <TableRow className="hover:bg-transparent">
-                                        <TableHead className="font-bold uppercase text-xs tracking-wider min-w-[120px]">
+                                        <TableHead className="font-bold uppercase text-xs tracking-wider min-w-30">
                                             {t('COLUMN_NAME')}
                                         </TableHead>
-                                        <TableHead className="font-bold uppercase text-xs tracking-wider min-w-[140px]">
+                                        <TableHead className="font-bold uppercase text-xs tracking-wider min-w-35">
                                             {t('COLUMN_BAND_NAME')}
                                         </TableHead>
-                                        <TableHead className="font-bold uppercase text-xs tracking-wider min-w-[120px]">
+                                        <TableHead className="font-bold uppercase text-xs tracking-wider min-w-30">
                                             {t('COLUMN_PHONE')}
                                         </TableHead>
-                                        <TableHead className="font-bold uppercase text-xs tracking-wider min-w-[180px]">
+                                        <TableHead className="font-bold uppercase text-xs tracking-wider min-w-45">
                                             {t('COLUMN_EMAIL')}
                                         </TableHead>
                                         <TableHead className="font-bold uppercase text-xs tracking-wider text-center min-w-[90px]">
@@ -160,18 +163,21 @@ export default function AdminUsersPage() {
                                         <TableHead className="font-bold uppercase text-xs tracking-wider text-center min-w-[90px]">
                                             {t('COLUMN_EMAIL_VERIFIED')}
                                         </TableHead>
-                                        <TableHead className="font-bold uppercase text-xs tracking-wider text-center min-w-[80px]">
+                                        <TableHead className="font-bold uppercase text-xs tracking-wider text-center min-w-20">
                                             {t('COLUMN_ADMIN')}
                                         </TableHead>
                                         <TableHead className="font-bold uppercase text-xs tracking-wider min-w-[150px]">
                                             {t('COLUMN_CREATED_AT')}
+                                        </TableHead>
+                                        <TableHead className="font-bold uppercase text-xs tracking-wider text-center min-w-20">
+                                            {t('COLUMN_ACTIONS')}
                                         </TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {loading ? (
                                         <TableRow className="hover:bg-transparent">
-                                            <TableCell colSpan={8} className="h-32 text-center">
+                                            <TableCell colSpan={9} className="h-32 text-center">
                                                 <div className="flex justify-center">
                                                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
                                                 </div>
@@ -180,7 +186,7 @@ export default function AdminUsersPage() {
                                     ) : users.length === 0 ? (
                                         <TableRow className="hover:bg-transparent">
                                             <TableCell
-                                                colSpan={8}
+                                                colSpan={9}
                                                 className="h-32 text-center text-muted-foreground"
                                             >
                                                 {t('NO_USERS_FOUND')}
@@ -210,6 +216,21 @@ export default function AdminUsersPage() {
                                                 </TableCell>
                                                 <TableCell className="text-sm">
                                                     {formatDate(user.createdAt)}
+                                                </TableCell>
+                                                <TableCell className="text-center">
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        onClick={() => {
+                                                            setEditingUser(user)
+                                                            setIsEditDialogOpen(true)
+                                                        }}
+                                                    >
+                                                        <Pencil className="h-4 w-4" />
+                                                        <span className="sr-only">
+                                                            {t('EDIT')}
+                                                        </span>
+                                                    </Button>
                                                 </TableCell>
                                             </TableRow>
                                         ))
@@ -280,6 +301,19 @@ export default function AdminUsersPage() {
                     </div>
                 </div>
             </div>
+
+            <EditUserDialog
+                user={editingUser}
+                open={isEditDialogOpen}
+                onOpenChange={setIsEditDialogOpen}
+                onUpdated={(updatedUser) => {
+                    setUsers((prev) =>
+                        prev.map((u) =>
+                            u.id === updatedUser.id ? { ...u, ...updatedUser } : u
+                        )
+                    )
+                }}
+            />
         </div>
     )
 }

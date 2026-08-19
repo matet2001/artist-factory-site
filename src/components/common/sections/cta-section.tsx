@@ -22,7 +22,7 @@ export default function CtaSection({ title, description }: CtaSectionProps) {
                     initial="initial"
                     whileInView="whileInView"
                     viewport={viewportConfig}
-                    className="relative bg-gradient-to-br from-card to-card-elevated rounded-3xl p-10 py-12 sm:p-12 lg:p-16 overflow-hidden border border-primary/20 shadow-2xl min-h-[320px] sm:min-h-[280px] flex items-center justify-center"
+                    className="relative bg-linear-to-br from-card to-card-elevated rounded-3xl p-10 py-12 sm:p-12 lg:p-16 overflow-hidden border border-primary/20 shadow-2xl min-h-80 sm:min-h-70 flex items-center justify-center"
                 >
                     {/* Palm Trees in corners */}
                     <div className="absolute inset-0 pointer-events-none z-0">

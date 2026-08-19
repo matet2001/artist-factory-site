@@ -168,7 +168,7 @@ export default function RegisterForm({ onSuccessChange }: RegisterFormProps) {
                         </p>
                     </div>
 
-                    <div className="flex items-center gap-2 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 px-4 py-3 rounded-lg border border-green-200 dark:border-green-800">
+                    <div className="flex items-center gap-2 bg-linear-to-br from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 px-4 py-3 rounded-lg border border-green-200 dark:border-green-800">
                         <Mail className="h-5 w-5 text-green-600 dark:text-green-400" />
                         <span className="text-sm font-medium text-green-900 dark:text-green-100">
                             {userEmail}

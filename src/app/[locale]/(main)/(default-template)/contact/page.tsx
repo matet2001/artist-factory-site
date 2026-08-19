@@ -95,7 +95,7 @@ export default function ContactSection() {
                         {/* Google Map */}
                         <motion.div
                             variants={animations.scaleIn}
-                            className="relative h-[400px] sm:h-[500px] overflow-hidden rounded-3xl border border-primary/20 shadow-2xl"
+                            className="relative h-100 sm:h-125 overflow-hidden rounded-3xl border border-primary/20 shadow-2xl"
                         >
                             <iframe
                                 title="Google Map — ArtistFactory"
@@ -110,7 +110,7 @@ export default function ContactSection() {
                         {/* Location Image */}
                         <motion.div
                             variants={animations.scaleIn}
-                            className="relative h-[400px] sm:h-[500px] overflow-hidden rounded-3xl border border-primary/20 shadow-2xl"
+                            className="relative h-100 sm:h-125 overflow-hidden rounded-3xl border border-primary/20 shadow-2xl"
                         >
                             <Image
                                 src="/terkepzoom.jpg"
@@ -119,7 +119,7 @@ export default function ContactSection() {
                                 className="object-cover"
                                 sizes="(min-width: 1024px) 50vw, 100vw"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
+                            <div className="absolute inset-0 bg-linear-to-t from-background/40 to-transparent" />
                         </motion.div>
                     </motion.div>
                 </div>
@@ -235,7 +235,7 @@ export default function ContactSection() {
                                     minHeight: '200px',
                                 }}
                             >
-                                <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
+                                <div className="shrink-0 p-4 rounded-full bg-primary/10">
                                     <Phone className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
                                 </div>
                                 <div className="flex flex-col items-center gap-1">
@@ -256,7 +256,7 @@ export default function ContactSection() {
                                     minHeight: '200px',
                                 }}
                             >
-                                <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
+                                <div className="shrink-0 p-4 rounded-full bg-primary/10">
                                     <PhoneCall className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
                                 </div>
                                 <div className="flex flex-col items-center gap-1">
@@ -277,7 +277,7 @@ export default function ContactSection() {
                                     minHeight: '200px',
                                 }}
                             >
-                                <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
+                                <div className="shrink-0 p-4 rounded-full bg-primary/10">
                                     <Mail className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
                                 </div>
                                 <span className="text-lg font-medium text-foreground group-hover:text-primary transition-colors text-center break-all">
@@ -294,7 +294,7 @@ export default function ContactSection() {
                                     minHeight: '200px',
                                 }}
                             >
-                                <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
+                                <div className="shrink-0 p-4 rounded-full bg-primary/10">
                                     <MapPin className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
                                 </div>
                                 <p className="text-lg font-medium text-foreground text-center">
