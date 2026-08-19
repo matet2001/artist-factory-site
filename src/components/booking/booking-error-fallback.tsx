@@ -12,7 +12,7 @@ export function BookingErrorFallback({ error }: BookingErrorFallbackProps) {
     const t = useTranslations('BOOKING.ERROR_FALLBACK')
 
     return (
-        <div className="relative bg-gradient-to-br from-card to-card-elevated rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden border border-destructive/20 shadow-2xl">
+        <div className="relative bg-linear-to-br from-card to-card-elevated rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden border border-destructive/20 shadow-2xl">
             <div className="relative z-10">
                 <div className="space-y-8 text-center max-w-2xl mx-auto">
                     {/* Icon */}

@@ -353,7 +353,7 @@ export default function PricesPage() {
                                                 <span className="font-medium text-foreground text-left">
                                                     {t(item.translationKey)}
                                                 </span>
-                                                <div className="text-right flex-shrink-0">
+                                                <div className="text-right shrink-0">
                                                     <div className="text-muted-foreground text-sm">
                                                         {item.price.toLocaleString('hu-HU')} Ft /{' '}
                                                         {t('HOUR')}

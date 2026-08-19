@@ -8,7 +8,7 @@ interface LogoProps {
 
 export default function Logo({ size = 170 }: LogoProps) {
     return (
-        <Link href="/" className="flex-shrink-0">
+        <Link href="/" className="shrink-0">
             <Image
                 src={logo}
                 alt="Artist Factory Logo"

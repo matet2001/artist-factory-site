@@ -74,7 +74,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                         initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="relative h-[400px] sm:h-[500px] lg:h-[600px] overflow-hidden rounded-3xl border border-primary/20 shadow-2xl"
+                        className="relative h-100 sm:h-125 lg:h-150 overflow-hidden rounded-3xl border border-primary/20 shadow-2xl"
                     >
                         <Carousel
                             plugins={[plugin.current]}
@@ -89,7 +89,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                             <CarouselContent>
                                 {room.images.map((img, index) => (
                                     <CarouselItem key={index}>
-                                        <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] w-full">
+                                        <div className="relative h-100 sm:h-125 lg:h-150 w-full">
                                             <Image
                                                 src={`/rooms/${img}`}
                                                 alt={`${t(room.name)} – ${index + 1}`}
@@ -105,7 +105,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                             <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 shadow-md" />
                             <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 shadow-md" />
                         </Carousel>
-                        <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
+                        <div className="absolute inset-0 bg-linear-to-t from-background/40 to-transparent" />
                     </motion.div>
                 </div>
             </section>
@@ -137,7 +137,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                                     variants={animations.scaleIn}
                                     className="flex items-start gap-4 p-6 rounded-xl bg-card/80 border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg"
                                 >
-                                    <div className="flex-shrink-0 p-3 rounded-full bg-primary/10">
+                                    <div className="shrink-0 p-3 rounded-full bg-primary/10">
                                         <EquipmentIcon type={eq.type} size={24} alt={eq.label} />
                                     </div>
                                     <div className="flex-1 min-w-0">

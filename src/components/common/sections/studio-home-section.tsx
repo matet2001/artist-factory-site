@@ -120,7 +120,7 @@ export default function StudioHomeSection() {
                         {/* Right Column - Studio Image */}
                         <motion.div
                             variants={animations.scaleIn}
-                            className="relative h-[400px] lg:h-[600px] overflow-hidden mx-auto lg:mx-0 max-w-xl lg:max-w-none w-full"
+                            className="relative h-100 lg:h-150 overflow-hidden mx-auto lg:mx-0 max-w-xl lg:max-w-none w-full"
                         >
                             <div className="relative h-full border border-primary/30 shadow-xl overflow-hidden rounded-2xl lg:rounded-none">
                                 <Image
@@ -129,7 +129,7 @@ export default function StudioHomeSection() {
                                     fill
                                     className="object-cover"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
+                                <div className="absolute inset-0 bg-linear-to-t from-background/40 to-transparent" />
                             </div>
                             {/* Desktop only: organic shape overlay for image */}
                             <div

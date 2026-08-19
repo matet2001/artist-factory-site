@@ -28,7 +28,7 @@ export default function HeroSection() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch">
                         {/* Left: Hero image */}
                         <div className="relative lg:order-1">
-                            <div className="relative h-[400px] sm:h-[500px] lg:h-full lg:min-h-[600px]">
+                            <div className="relative h-100 sm:h-125 lg:h-full lg:min-h-150">
                                 <Image
                                     src="/pictures/hero.jpg"
                                     alt="Próbaterem Budapest - Artist Factory hangszigetelt zenekari próbaterme légkondicionálással és prémium felszereléssel"
@@ -39,7 +39,7 @@ export default function HeroSection() {
                                 />
 
                                 {/* Gradient overlay between image and content - desktop only */}
-                                <div className="hidden md:block absolute inset-y-0 right-0 w-3 z-10 pointer-events-none bg-gradient-to-l from-card to-card/0 backdrop-blur-md" />
+                                <div className="hidden md:block absolute inset-y-0 right-0 w-3 z-10 pointer-events-none bg-linear-to-l from-card to-card/0 backdrop-blur-md" />
                             </div>
                         </div>
 

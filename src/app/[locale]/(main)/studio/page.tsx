@@ -111,7 +111,7 @@ export default function StudioPage() {
                         initial="initial"
                         whileInView="whileInView"
                         viewport={viewportConfig}
-                        className="relative h-[400px] sm:h-[500px] lg:h-[600px] overflow-hidden"
+                        className="relative h-100 sm:h-125 lg:h-150 overflow-hidden"
                         style={{
                             borderRadius: '65% 35% 70% 30% / 60% 40% 60% 40%',
                         }}
@@ -130,7 +130,7 @@ export default function StudioPage() {
                                 priority
                             />
                             {/* Subtle gradient overlay for depth */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
+                            <div className="absolute inset-0 bg-linear-to-t from-background/40 to-transparent" />
                         </div>
                     </motion.div>
                 </div>
@@ -173,7 +173,7 @@ export default function StudioPage() {
                                                 variants={animations.scaleIn}
                                                 className="group flex items-center gap-4 p-6 rounded-xl bg-card-elevated/60 border border-primary/20 hover:border-primary/50 transition-all hover:bg-card-elevated hover:shadow-lg"
                                             >
-                                                <div className="flex-shrink-0">
+                                                <div className="shrink-0">
                                                     <Icon className="h-6 w-6 text-primary transition-transform group-hover:scale-110" />
                                                 </div>
                                                 <p className="text-base font-medium text-foreground">
@@ -232,7 +232,7 @@ export default function StudioPage() {
                                     <ul className="space-y-2 text-sm text-foreground/80 flex-1">
                                         {equipment.itemKeys.map((itemKey, itemIdx) => (
                                             <li key={itemIdx} className="flex items-start gap-2">
-                                                <span className="text-primary mt-1 flex-shrink-0">
+                                                <span className="text-primary mt-1 shrink-0">
                                                     •
                                                 </span>
                                                 <span className="leading-relaxed">
@@ -381,7 +381,7 @@ export default function StudioPage() {
                                     href={`tel:${CONTACT.phoneRaw}`}
                                     className="group relative flex flex-col items-center gap-4 p-8 bg-card-elevated border border-primary/20 hover:border-primary/40 transition-all hover:shadow-lg rounded-2xl"
                                 >
-                                    <div className="flex-shrink-0 p-4 rounded-full bg-primary/10">
+                                    <div className="shrink-0 p-4 rounded-full bg-primary/10">
                                         <Phone className="h-10 w-10 text-primary transition-transform group-hover:scale-110" />
                                     </div>
                                     <div className="text-center space-y-2">

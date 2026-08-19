@@ -28,7 +28,7 @@ export default function BookingCtaSection() {
                         className="
                             hidden md:block
                             absolute inset-0
-                            bg-gradient-to-br from-primary/10 via-primary/5 to-transparent
+                            bg-linear-to-br from-primary/10 via-primary/5 to-transparent
                             border border-primary/20
                             shadow-2xl
                         "
@@ -56,7 +56,7 @@ export default function BookingCtaSection() {
                                 <motion.div variants={animations.scaleIn}>
                                     <Link href="/booking" className="group h-full block">
                                         <div
-                                            className="h-full min-h-[120px] sm:min-h-[140px] flex flex-col items-center justify-center p-6 bg-card/60 backdrop-blur-sm border border-primary/20 hover:border-primary/40 hover:bg-card/80 transition-all duration-300 group-hover:scale-105 hover:shadow-xl"
+                                            className="h-full min-h-30 sm:min-h-35 flex flex-col items-center justify-center p-6 bg-card/60 backdrop-blur-sm border border-primary/20 hover:border-primary/40 hover:bg-card/80 transition-all duration-300 group-hover:scale-105 hover:shadow-xl"
                                             style={{
                                                 borderRadius: '55% 45% 50% 50% / 50% 55% 45% 50%',
                                             }}
@@ -75,7 +75,7 @@ export default function BookingCtaSection() {
                                 <motion.div variants={animations.scaleIn}>
                                     <a href={`tel:${CONTACT.phoneRaw}`} className="group h-full block">
                                         <div
-                                            className="h-full min-h-[120px] sm:min-h-[140px] flex flex-col items-center justify-center p-6 bg-card/60 backdrop-blur-sm border border-primary/20 hover:border-primary/40 hover:bg-card/80 transition-all duration-300 group-hover:scale-105 hover:shadow-xl"
+                                            className="h-full min-h-30 sm:min-h-35 flex flex-col items-center justify-center p-6 bg-card/60 backdrop-blur-sm border border-primary/20 hover:border-primary/40 hover:bg-card/80 transition-all duration-300 group-hover:scale-105 hover:shadow-xl"
                                             style={{
                                                 borderRadius: '45% 55% 48% 52% / 52% 45% 55% 48%',
                                             }}

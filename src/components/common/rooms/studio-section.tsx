@@ -44,7 +44,7 @@ export default function StudioSection() {
             >
                 <div className="relative w-full overflow-hidden rounded-2xl shadow-xl bg-card">
                     {/* === IMAGE SECTION === */}
-                    <div className="relative h-[420px] sm:h-[480px] lg:h-[520px]">
+                    <div className="relative h-105 sm:h-120 lg:h-130">
                         <Carousel
                             plugins={[plugin.current]}
                             className="w-full h-full"
@@ -58,7 +58,7 @@ export default function StudioSection() {
                             <CarouselContent>
                                 {studioImages.map((img, index) => (
                                     <CarouselItem key={index}>
-                                        <div className="relative h-[420px] sm:h-[480px] lg:h-[520px] w-full overflow-hidden">
+                                        <div className="relative h-105 sm:h-120 lg:h-130 w-full overflow-hidden">
                                             <Image
                                                 src={`/studio/${img}`}
                                                 alt={`${t('TITLE')} – ${index + 1}`}
@@ -67,7 +67,7 @@ export default function StudioSection() {
                                                 priority={index === 0}
                                             />
                                             {/* Subtle gradient for better legibility near the bottom */}
-                                            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-card/80 via-card/40 to-transparent" />
+                                            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-card/80 via-card/40 to-transparent" />
                                         </div>
                                     </CarouselItem>
                                 ))}
@@ -109,7 +109,7 @@ export default function StudioSection() {
                                         variants={animations.fadeUp}
                                         className="flex items-center md:items-start gap-3 sm:gap-4"
                                     >
-                                        <div className="flex-shrink-0 rounded-full bg-primary/10 p-2.5">
+                                        <div className="shrink-0 rounded-full bg-primary/10 p-2.5">
                                             <DollarSign className="w-6 h-6 text-primary" />
                                         </div>
                                         <div className="flex flex-col">
@@ -130,7 +130,7 @@ export default function StudioSection() {
                                         variants={animations.fadeUp}
                                         className="flex items-center md:items-start gap-3 sm:gap-4"
                                     >
-                                        <div className="flex-shrink-0 rounded-full bg-primary/10 p-2.5">
+                                        <div className="shrink-0 rounded-full bg-primary/10 p-2.5">
                                             <Mic2 className="w-6 h-6 text-primary" />
                                         </div>
                                         <div className="flex flex-col">

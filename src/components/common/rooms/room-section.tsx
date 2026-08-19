@@ -55,7 +55,7 @@ export function RoomSection({
                     <div className={`grid grid-cols-1 lg:grid-cols-2 items-stretch`}>
                         {/* Image Carousel */}
                         <div className={`${isReversed ? 'lg:order-2' : 'lg:order-1'} relative`}>
-                            <div className="relative h-[400px] sm:h-[500px] lg:h-full lg:min-h-[600px]">
+                            <div className="relative h-100 sm:h-125 lg:h-full lg:min-h-150">
                                 <Carousel
                                     plugins={[plugin.current]}
                                     className="w-full h-full"
@@ -69,7 +69,7 @@ export function RoomSection({
                                     <CarouselContent>
                                         {room.images.map((img, index) => (
                                             <CarouselItem key={index}>
-                                                <div className="relative h-[400px] sm:h-[500px] lg:h-full lg:min-h-[600px] w-full">
+                                                <div className="relative h-100 sm:h-125 lg:h-full lg:min-h-150 w-full">
                                                     <Image
                                                         src={`/rooms/${img}`}
                                                         alt={`${tRooms(room.name)} – ${index + 1}`}
@@ -98,7 +98,7 @@ export function RoomSection({
 
                                 {/* Gradient overlay between image and content - desktop only */}
                                 <div
-                                    className={`hidden md:block absolute inset-y-0 ${isReversed ? 'left-0' : 'right-0'} w-3 z-10 pointer-events-none ${isReversed ? 'bg-gradient-to-r' : 'bg-gradient-to-l'} from-card to-card/0 backdrop-blur-md`}
+                                    className={`hidden md:block absolute inset-y-0 ${isReversed ? 'left-0' : 'right-0'} w-3 z-10 pointer-events-none ${isReversed ? 'bg-linear-to-r' : 'bg-linear-to-l'} from-card to-card/0 backdrop-blur-md`}
                                 />
                             </div>
                         </div>
@@ -176,7 +176,7 @@ export function RoomSection({
                                                 variants={animations.fadeUp}
                                                 className="flex items-start gap-3 p-4 rounded-xl bg-card/60 border border-primary/10"
                                             >
-                                                <div className="flex-shrink-0 p-2 rounded-full bg-primary/10">
+                                                <div className="shrink-0 p-2 rounded-full bg-primary/10">
                                                     <EquipmentIcon
                                                         type={eq.type}
                                                         size={20}
