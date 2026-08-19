@@ -34,12 +34,6 @@
         "AIR_CONDITIONED": "Légkondicionált",
         "AIR_CONDITIONED_DESC": "Maradj hűvös a teljesen klimatizált termeinkben."
     },
-    "MIGRATION_DIALOG": {
-        "TITLE": "Megújult az Artist Factory weboldala!",
-        "DESCRIPTION": "Üdvözlünk az új, frissített felületen! A megszokott funkciók — köztük a foglalás — továbbra is elérhetők, csak modernebb, letisztultabb környezetben.",
-        "BUG_REPORT": "Ha bármilyen hibát vagy rendellenességet észlelsz, kérjük, jelezd nekünk a hibabejelentő oldalon.",
-        "UNDERSTOOD": "Rendben"
-    },
 
     "BUG_REPORT": {
         "BUTTON_TOOLTIP": "Hiba bejelentése",
@@ -386,6 +380,9 @@
         "PRE_TITLE": "Felhasználói beállítások",
         "TITLE": "Profilod kezelése",
         "SAVE_CHANGES": "Változtatások mentése",
+        "SAVING": "Mentés...",
+        "LOAD_ERROR": "Nem sikerült betölteni a profilod.",
+        "EMAIL_NOT_EDITABLE": "Az email címed itt nem módosítható.",
         "ALERT": {
             "UPDATE_SUCCESS": "Profilod sikeresen frissítve.",
             "UPDATE_FAIL": "Nem sikerült frissíteni a profilt."
@@ -711,6 +708,7 @@
         "COLUMN_EMAIL_VERIFIED": "Megerősítve",
         "COLUMN_BOOKINGS_COUNT": "Foglalások",
         "COLUMN_CREATED_AT": "Létrehozva",
+        "COLUMN_ACTIONS": "Műveletek",
         "NOT_SET": "Nincs megadva",
         "YES": "Igen",
         "NO": "Nem",
@@ -718,6 +716,15 @@
         "ERROR_LOAD_FAILED": "Nem sikerült betölteni a felhasználókat",
         "ROWS_PER_PAGE": "Sorok oldalanként:",
         "PAGE_OF": "{current}. oldal / {total}",
-        "SHOWING_RESULTS": "{start}-{end} / {total}"
+        "SHOWING_RESULTS": "{start}-{end} / {total}",
+        "EDIT": "Szerkesztés",
+        "EDIT_USER_TITLE": "Felhasználó szerkesztése",
+        "EDIT_USER_DESC": "Frissítsd a felhasználó adatait. Az email címe itt nem módosítható.",
+        "SAVE_CHANGES": "Változtatások mentése",
+        "SAVING": "Mentés...",
+        "CANCEL": "Mégse",
+        "NAME_REQUIRED": "A név megadása kötelező",
+        "UPDATE_SUCCESS": "Felhasználó sikeresen frissítve.",
+        "UPDATE_ERROR": "Nem sikerült frissíteni a felhasználót."
     }
 }

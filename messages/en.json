@@ -34,12 +34,6 @@
         "AIR_CONDITIONED": "Air conditioned",
         "AIR_CONDITIONED_DESC": "Stay cool in our fully air-conditioned rooms."
     },
-    "MIGRATION_DIALOG": {
-        "TITLE": "The Artist Factory website has been redesigned!",
-        "DESCRIPTION": "Welcome to the updated interface! All the features you’re used to — including booking — are still available, now in a more modern and streamlined layout.",
-        "BUG_REPORT": "If you notice any issues or unexpected behavior, please let us know through the bug report page.",
-        "UNDERSTOOD": "Got it"
-    },
 
     "BUG_REPORT": {
         "BUTTON_TOOLTIP": "Report a bug",
@@ -509,6 +503,9 @@
         "PRE_TITLE": "User settings",
         "TITLE": "Manage your profile",
         "SAVE_CHANGES": "Save changes",
+        "SAVING": "Saving...",
+        "LOAD_ERROR": "Failed to load your profile.",
+        "EMAIL_NOT_EDITABLE": "Your email address can't be changed here.",
         "ALERT": {
             "UPDATE_SUCCESS": "Your profile has been successfully updated.",
             "UPDATE_FAIL": "Failed to update profile."
@@ -706,6 +703,7 @@
         "COLUMN_EMAIL_VERIFIED": "Verified",
         "COLUMN_BOOKINGS_COUNT": "Bookings",
         "COLUMN_CREATED_AT": "Created At",
+        "COLUMN_ACTIONS": "Actions",
         "NOT_SET": "Not set",
         "YES": "Yes",
         "NO": "No",
@@ -713,6 +711,15 @@
         "ERROR_LOAD_FAILED": "Failed to load users",
         "ROWS_PER_PAGE": "Rows per page:",
         "PAGE_OF": "Page {current} of {total}",
-        "SHOWING_RESULTS": "{start}-{end} of {total}"
+        "SHOWING_RESULTS": "{start}-{end} of {total}",
+        "EDIT": "Edit",
+        "EDIT_USER_TITLE": "Edit user",
+        "EDIT_USER_DESC": "Update this user's contact details. Their email address can't be changed here.",
+        "SAVE_CHANGES": "Save changes",
+        "SAVING": "Saving...",
+        "CANCEL": "Cancel",
+        "NAME_REQUIRED": "Name is required",
+        "UPDATE_SUCCESS": "User updated successfully.",
+        "UPDATE_ERROR": "Failed to update user."
     }
 }

@@ -1,7 +1,6 @@
 import Footer from '@/components/common/footer'
 import Header from '@/components/common/header'
 import { BugReportButton } from '@/components/common/bug-report-button'
-import { MigrationDialog } from '@/components/common/migration-dialog'
 import React from 'react'
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
@@ -14,7 +13,6 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
             </main>
 
             <Footer />
-            <MigrationDialog />
             <BugReportButton />
         </div>
     )

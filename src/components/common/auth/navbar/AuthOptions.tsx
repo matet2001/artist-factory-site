@@ -54,19 +54,27 @@ export function AuthOptions({ variant = 'desktop' }: AuthOptionsProps) {
                         <p className="text-foreground truncate">{session.user.email}</p>
                     </div>
 
+                    <Button
+                        variant="outline"
+                        className="justify-center w-full max-w-50 hover:bg-card-elevated"
+                        onClick={() => router.push('/profile')}
+                    >
+                        {tUser('PROFILE')}
+                    </Button>
+
                     {/* Admin linkek mobilon is jöhetnek külön sorban, ha szeretnéd */}
                     {session.user?.isAdmin && (
                         <div className="flex flex-col gap-2 mt-2 items-center w-full">
                             <Button
                                 variant="outline"
-                                className="justify-center w-full max-w-[200px] hover:bg-card-elevated"
+                                className="justify-center w-full max-w-50 hover:bg-card-elevated"
                                 onClick={() => router.push('/admin/users')}
                             >
                                 {tUser('ADMIN.USERS')}
                             </Button>
                             <Button
                                 variant="outline"
-                                className="justify-center w-full max-w-[200px] hover:bg-card-elevated"
+                                className="justify-center w-full max-w-50 hover:bg-card-elevated"
                                 onClick={() => router.push('/admin/bookings')}
                             >
                                 {tUser('ADMIN.BOOKINGS')}
@@ -77,7 +85,7 @@ export function AuthOptions({ variant = 'desktop' }: AuthOptionsProps) {
                     <Button
                         onClick={() => signOut({ callbackUrl: '/' })}
                         variant="destructive"
-                        className="mt-3 w-full max-w-[200px] hover:bg-destructive/20 "
+                        className="mt-3 w-full max-w-50 hover:bg-destructive/20 "
                     >
                         {tUser('LOGOUT')}
                     </Button>
@@ -98,6 +106,15 @@ export function AuthOptions({ variant = 'desktop' }: AuthOptionsProps) {
                             <p className="font-medium text-foreground">{session.user.name}</p>
                             <p className="text-foreground truncate">{session.user.email}</p>
                         </div>
+
+                        <DropdownMenuItem asChild>
+                            <Link
+                                href="/profile"
+                                className="cursor-pointer hover:bg-card-elevated focus:bg-card-elevated focus:text-foreground"
+                            >
+                                {tUser('PROFILE')}
+                            </Link>
+                        </DropdownMenuItem>
 
                         {session.user?.isAdmin && (
                             <>
@@ -147,7 +164,7 @@ export function AuthOptions({ variant = 'desktop' }: AuthOptionsProps) {
             <Button
                 onClick={() => router.push('/login')}
                 variant={isMobile ? 'outline' : 'ghost'}
-                className={cn(isMobile && 'py-3 text-base w-full max-w-[200px]')}
+                className={cn(isMobile && 'py-3 text-base w-full max-w-50')}
             >
                 {t('SIGN_IN')}
             </Button>
@@ -156,7 +173,7 @@ export function AuthOptions({ variant = 'desktop' }: AuthOptionsProps) {
             <Button
                 onClick={() => router.push('/register')}
                 variant="default"
-                className={cn(isMobile && 'py-3 text-base w-full max-w-[200px]')}
+                className={cn(isMobile && 'py-3 text-base w-full max-w-50')}
             >
                 {t('SIGN_UP')}
             </Button>

@@ -53,7 +53,7 @@ export function MigrationDialog() {
                         </p>
 
                         <div className="bg-muted/50 border border-border rounded-lg p-4 flex items-start gap-3">
-                            <div className="flex-shrink-0 mt-0.5">
+                            <div className="shrink-0 mt-0.5">
                                 <div className="h-10 w-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center">
                                     <Bug className="h-6 w-6" />
                                 </div>
