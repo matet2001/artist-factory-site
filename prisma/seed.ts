@@ -24,23 +24,28 @@ async function main() {
 
   console.log('✓ Seeded 6 rooms (Room 1-5 + Studio)');
 
-  // Seed admin user
-  await prisma.user.upsert({
-    where: { email: 'artistfactory@artistfactory.hu' },
-    update: {
-      password: await bcrypt.hash('artistfactory99', 10),
-      isAdmin: true,
-    },
-    create: {
-      email: 'artistfactory@artistfactory.hu',
-      name: 'ArtistFactory Admin',
-      password: await bcrypt.hash('artistfactory99', 10),
-      isAdmin: true,
-      emailVerified: new Date(),
-    },
-  });
+  // Seed admin user — credentials come from the environment, never from source control.
+  const adminEmail = process.env.SEED_ADMIN_EMAIL;
+  const adminPassword = process.env.SEED_ADMIN_PASSWORD;
 
-  console.log('✓ Seeded admin user: artistfactory@artistfactory.hu');
+  if (!adminEmail || !adminPassword) {
+    console.log('• Skipped admin seeding (set SEED_ADMIN_EMAIL and SEED_ADMIN_PASSWORD to create one)');
+  } else {
+    const hashed = await bcrypt.hash(adminPassword, 10);
+    await prisma.user.upsert({
+      where: { email: adminEmail },
+      update: { isAdmin: true },
+      create: {
+        email: adminEmail,
+        name: 'ArtistFactory Admin',
+        password: hashed,
+        isAdmin: true,
+        emailVerified: new Date(),
+      },
+    });
+
+    console.log(`✓ Seeded admin user: ${adminEmail}`);
+  }
 
   console.log('\n=== Seeding completed successfully! ===');
 }

@@ -8,15 +8,7 @@
         "postinstall": "prisma generate",
         "start": "next start",
         "lint": "next lint",
-        "import-users": "tsx scripts/import-users.ts",
-        "import-phones": "tsx scripts/import-missing-phones.ts",
-        "import-phones:live": "tsx scripts/import-missing-phones.ts --live",
-        "migration-emails": "tsx scripts/send-migration-emails.ts",
-        "migration-emails:test": "tsx scripts/send-migration-emails.ts --test",
-        "migration-emails:live": "tsx scripts/send-migration-emails.ts --live",
         "cleanup:bookings": "tsx scripts/cleanup-orphaned-bookings.ts",
-        "check:slot": "tsx scripts/check-specific-slot.ts",
-        "check:migrated-users": "tsx scripts/check-migrated-users.ts",
         "type-check": "tsc --noEmit"
     },
     "dependencies": {

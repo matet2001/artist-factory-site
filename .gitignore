@@ -42,3 +42,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local editor / agent state
+/.idea/
+.claude/settings.local.json
+
+# database dumps — never commit, these contain personal data
+/backups/
+*.dump
+*.sql.gz
+database-backup-*.json
