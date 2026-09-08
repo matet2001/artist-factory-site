@@ -19,7 +19,7 @@ interface AdminBookingTableProps {
     isPlannedByUser: (roomId: string, time: number) => boolean
     onBook: (intent: BookingIntent) => void
     onDeletePlanned: (intent: BookingIntent) => void
-    onDeleteBooking: (intent: BookingIntent) => void
+    onDeleteBooking: (booking: BookingData) => void
     onSelectBooking?: (booking: BookingData) => void
     allowPastDates?: boolean
     onRefresh?: () => void

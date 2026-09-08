@@ -1,4 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "npm install --legacy-peer-deps --include=optional"
+  "installCommand": "npm install --legacy-peer-deps --include=optional",
+  "crons": [
+    {
+      "path": "/api/cron/cleanup-planned",
+      "schedule": "0 4 * * *"
+    }
+  ]
 }

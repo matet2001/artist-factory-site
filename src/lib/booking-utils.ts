@@ -15,7 +15,8 @@ export interface OpeningHours {
 
 export interface BookingData {
     id: string
-    date: Date
+    /** UTC-midnight ISO string over the wire, a Date when read straight from Prisma. */
+    date: Date | string
     time: number
     startMinute?: number
     endMinute?: number
@@ -23,6 +24,9 @@ export interface BookingData {
     roomId: string
     userId: string
     note?: string | null
+    createdAt?: string
+    /** Only set on PLANNED bookings: when the slot hold lapses. */
+    expiresAt?: string
     user?: {
         fullName: string
         bandName?: string | null
@@ -39,11 +43,69 @@ export enum CellState {
     CLOSED = 'CLOSED',
     PLANNED = 'PLANNED',
     PLANNED_CANCELABLE = 'PLANNED_CANCELABLE',
+    /** A cart hold that lives in the database but is not a confirmed booking yet. */
+    PLANNED_HOLD = 'PLANNED_HOLD',
     UNVERIFIED = 'UNVERIFIED',
     VERIFIED = 'VERIFIED',
     VERIFIED_CANCELABLE = 'VERIFIED_CANCELABLE',
     PAST = 'PAST',
     TOO_SOON = 'TOO_SOON',
+}
+
+/**
+ * How long a PLANNED (cart) booking keeps other customers out of the slot.
+ * A PLANNED row is a real database row created the moment a cell is clicked, so
+ * without this it would block the slot forever if the visitor never confirms.
+ */
+export const PLANNED_HOLD_MINUTES = 30
+
+/**
+ * How long a lapsed PLANNED row is kept before the cleanup job deletes it.
+ * The gap between the two gives support a window to see what happened.
+ */
+export const PLANNED_DELETE_AFTER_MINUTES = 24 * 60
+
+/** Oldest `createdAt` a PLANNED booking may have and still hold its slot. */
+export function plannedHoldCutoff(now: Date = new Date()): Date {
+    return new Date(now.getTime() - PLANNED_HOLD_MINUTES * 60 * 1000)
+}
+
+/** Rows created before this are safe to delete outright. */
+export function plannedDeleteCutoff(now: Date = new Date()): Date {
+    return new Date(now.getTime() - PLANNED_DELETE_AFTER_MINUTES * 60 * 1000)
+}
+
+export function plannedHoldExpiresAt(createdAt: Date | string): Date {
+    return new Date(new Date(createdAt).getTime() + PLANNED_HOLD_MINUTES * 60 * 1000)
+}
+
+export function isPlannedHoldExpired(createdAt: Date | string, now: Date = new Date()): boolean {
+    return plannedHoldExpiresAt(createdAt).getTime() <= now.getTime()
+}
+
+/**
+ * Calendar-day key (YYYY-MM-DD) for a booking date coming from the API.
+ *
+ * Booking dates are stored as `@db.Date` and serialised as UTC midnight, so they
+ * have to be read back in UTC. Running them through the browser's local timezone
+ * shifts the whole grid by a day for anyone on a negative UTC offset.
+ */
+export function toDateKey(value: Date | string): string {
+    if (typeof value === 'string') {
+        return value.includes('T') ? value.split('T')[0] : value
+    }
+    return value.toISOString().split('T')[0]
+}
+
+/**
+ * Calendar-day key for a date the visitor picked in the calendar UI. That Date
+ * is local wall-clock time, so it must be read back in local time.
+ */
+export function toLocalDateKey(date: Date): string {
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const day = String(date.getDate()).padStart(2, '0')
+    return `${year}-${month}-${day}`
 }
 
 export const OPENING_HOURS: OpeningHours = {

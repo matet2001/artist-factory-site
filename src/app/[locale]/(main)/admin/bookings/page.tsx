@@ -2,28 +2,32 @@
 
 import { AdminBookingSummary } from '@/components/admin/admin-booking-summary'
 import { AdminBookingTable } from '@/components/admin/admin-booking-table'
+import { BookingLegend } from '@/components/booking/booking-legend'
 import { PhoneBookingForm } from '@/components/admin/phone-booking-form'
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
 import {
     BookingData,
     BookingIntent,
     getCurrentTimePosition,
     getOpeningHoursArray,
     OPENING_HOURS,
+    toDateKey,
+    toLocalDateKey,
 } from '@/lib/booking-utils'
+import { BookingStatus } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
-
-// Helper to format date as YYYY-MM-DD in local timezone
-// We use local timezone to preserve the calendar date as-is (no UTC conversion)
-function formatLocalDate(date: Date): string {
-    const year = date.getFullYear()
-    const month = String(date.getMonth() + 1).padStart(2, '0')
-    const day = String(date.getDate()).padStart(2, '0')
-    return `${year}-${month}-${day}`
-}
 
 export default function AdminBookingsPage() {
     const t = useTranslations('ADMIN_BOOKINGS')
@@ -62,6 +66,10 @@ export default function AdminBookingsPage() {
     const [editMode, setEditMode] = useState(false)
     const [isTabVisible, setIsTabVisible] = useState(true)
     const [isRefreshing, setIsRefreshing] = useState(false)
+    // Deleting a booking is irreversible and the table refreshes underneath you,
+    // so it goes through a confirmation that names exactly what is about to go.
+    const [pendingDelete, setPendingDelete] = useState<BookingData | null>(null)
+    const [isDeleting, setIsDeleting] = useState(false)
 
     const hours = getOpeningHoursArray(OPENING_HOURS)
     const timelinePosition = getCurrentTimePosition(OPENING_HOURS)
@@ -69,16 +77,8 @@ export default function AdminBookingsPage() {
 
     // Filter bookings for the selected date
     const bookings = useMemo(() => {
-        const selectedDateStr = formatLocalDate(selectedDate)
-        return allBookings.filter((b) => {
-            // Extract date string from booking data (comes from API as ISO string)
-            // b.date is like "2026-02-01T00:00:00.000Z" or "2026-02-01"
-            const dateStr = b.date.toString()
-            const bookingDateStr = dateStr.includes('T')
-                ? dateStr.split('T')[0]  // Extract YYYY-MM-DD from ISO string
-                : dateStr  // Already in YYYY-MM-DD format
-            return bookingDateStr === selectedDateStr
-        })
+        const selectedDateStr = toLocalDateKey(selectedDate)
+        return allBookings.filter((b) => toDateKey(b.date) === selectedDateStr)
     }, [allBookings, selectedDate])
 
     // Check if we need to fetch data for the selected date
@@ -112,8 +112,8 @@ export default function AdminBookingsPage() {
 
                 // Single API call with date range
                 const params = new URLSearchParams({
-                    startDate: formatLocalDate(startDate),
-                    endDate: formatLocalDate(endDate),
+                    startDate: toLocalDateKey(startDate),
+                    endDate: toLocalDateKey(endDate),
                 })
 
                 const res = await fetch(`/api/bookings?${params}`)
@@ -174,11 +174,13 @@ export default function AdminBookingsPage() {
     }
 
     const isPlannedByUser = (roomId: string, time: number): boolean => {
-        const selectedDateStr = formatLocalDate(selectedDate)
-        return plannedBookings.some((b) => {
-            const bookingDateStr = formatLocalDate(b.date)
-            return b.roomId === roomId && b.time === time && bookingDateStr === selectedDateStr
-        })
+        const selectedDateStr = toLocalDateKey(selectedDate)
+        return plannedBookings.some(
+            (b) =>
+                b.roomId === roomId &&
+                b.time === time &&
+                toLocalDateKey(b.date) === selectedDateStr
+        )
     }
 
     const handleBook = (intent: BookingIntent) => {
@@ -189,8 +191,8 @@ export default function AdminBookingsPage() {
 
         // Check if this slot is already planned (including date check)
         const alreadyPlanned = plannedBookings.some((b) => {
-            const existingDateStr = formatLocalDate(b.date)
-            const intentDateStr = formatLocalDate(intent.date)
+            const existingDateStr = toLocalDateKey(b.date)
+            const intentDateStr = toLocalDateKey(intent.date)
             return (
                 b.roomId === intent.roomId &&
                 b.time === intent.time &&
@@ -208,8 +210,8 @@ export default function AdminBookingsPage() {
     const handleDeletePlanned = (intent: BookingIntent) => {
         setPlannedBookings((prev) =>
             prev.filter((b) => {
-                const existingDateStr = formatLocalDate(b.date)
-                const intentDateStr = formatLocalDate(intent.date)
+                const existingDateStr = toLocalDateKey(b.date)
+                const intentDateStr = toLocalDateKey(intent.date)
                 return !(
                     b.roomId === intent.roomId &&
                     b.time === intent.time &&
@@ -219,33 +221,45 @@ export default function AdminBookingsPage() {
         )
     }
 
-    const handleDeleteBooking = async (intent: BookingIntent) => {
+    const handleDeleteBooking = (booking: BookingData) => {
+        setPendingDelete(booking)
+    }
+
+    const confirmDeleteBooking = async () => {
+        const booking = pendingDelete
+        if (!booking) return
+
         // Clear planned bookings to prevent issues
         setPlannedBookings([])
 
-        const cellKey = `${intent.roomId}-${intent.time}`
+        const cellKey = `${booking.roomId}-${booking.time}`
         setLoadingCells((prev) => new Set(prev).add(cellKey))
+        setIsDeleting(true)
 
         try {
             const res = await fetch('/api/admin/bookings/delete', {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    roomId: intent.roomId,
-                    date: formatLocalDate(intent.date),
-                    time: intent.time,
+                    id: booking.id,
+                    // Guards against the row having changed since it was rendered.
+                    expectedStatus: booking.status,
                 }),
             })
 
             if (!res.ok) {
                 const error = await res.json()
+                if (error.error === 'BOOKING_CHANGED') {
+                    throw new Error(t('ERROR_BOOKING_CHANGED'))
+                }
                 throw new Error(error.error || 'Failed to delete booking')
             }
 
             toast.success(t('SUCCESS_DELETED'))
+            setPendingDelete(null)
 
             // If we're deleting a booking that's currently in edit mode, clear the form
-            if (editMode && selectedBooking) {
+            if (editMode && selectedBooking?.id === booking.id) {
                 handleCancelEdit()
             }
 
@@ -253,7 +267,9 @@ export default function AdminBookingsPage() {
         } catch (error) {
             console.error('Error deleting booking:', error)
             toast.error(error instanceof Error ? error.message : t('ERROR_LOAD_FAILED'))
+            await fetchBookingsWeek(selectedDate)
         } finally {
+            setIsDeleting(false)
             setLoadingCells((prev) => {
                 const next = new Set(prev)
                 next.delete(cellKey)
@@ -351,7 +367,7 @@ export default function AdminBookingsPage() {
         try {
             const bookingsData = plannedBookings.map((b) => ({
                 roomId: b.roomId,
-                date: formatLocalDate(b.date),
+                date: toLocalDateKey(b.date),
                 time: b.time,
             }))
 
@@ -410,12 +426,7 @@ export default function AdminBookingsPage() {
                                 onCancelEdit={handleCancelEdit}
                                 onDelete={
                                     selectedBooking
-                                        ? () =>
-                                              handleDeleteBooking({
-                                                  roomId: selectedBooking.roomId,
-                                                  date: new Date(selectedBooking.date),
-                                                  time: selectedBooking.time,
-                                              })
+                                        ? () => handleDeleteBooking(selectedBooking)
                                         : undefined
                                 }
                                 isSubmitting={isSubmitting}
@@ -488,9 +499,64 @@ export default function AdminBookingsPage() {
                                 isRefreshing={isRefreshing}
                             />
                         </div>
+
+                        <BookingLegend variant="admin" className="mt-4" />
                     </div>
                 </div>
             </div>
+
+            <Dialog
+                open={pendingDelete !== null}
+                onOpenChange={(open) => {
+                    if (!open && !isDeleting) setPendingDelete(null)
+                }}
+            >
+                <DialogContent className="max-w-md">
+                    <DialogHeader>
+                        <DialogTitle>{t('DELETE_CONFIRM_TITLE')}</DialogTitle>
+                        <DialogDescription>
+                            {pendingDelete?.status === BookingStatus.PLANNED
+                                ? t('DELETE_CONFIRM_HOLD')
+                                : t('DELETE_CONFIRM_BOOKING')}
+                        </DialogDescription>
+                    </DialogHeader>
+
+                    {pendingDelete && (
+                        <div className="rounded-lg bg-card-elevated p-4 text-sm space-y-1">
+                            <p className="font-semibold">
+                                {pendingDelete.user?.fullName || '—'}
+                                {pendingDelete.user?.bandName
+                                    ? ` (${pendingDelete.user.bandName})`
+                                    : ''}
+                            </p>
+                            <p className="text-muted-foreground">
+                                {toDateKey(pendingDelete.date)} · {pendingDelete.time}:00 -{' '}
+                                {pendingDelete.time + 1}:00 · {pendingDelete.roomId}
+                            </p>
+                            <p className="text-muted-foreground">
+                                {t('DELETE_CONFIRM_STATUS', { status: pendingDelete.status })}
+                            </p>
+                        </div>
+                    )}
+
+                    <DialogFooter className="gap-2 sm:gap-2">
+                        <Button
+                            variant="ghost"
+                            onClick={() => setPendingDelete(null)}
+                            disabled={isDeleting}
+                        >
+                            {t('CANCEL_BUTTON')}
+                        </Button>
+                        <Button
+                            variant="destructive"
+                            onClick={confirmDeleteBooking}
+                            disabled={isDeleting}
+                        >
+                            {isDeleting ? t('DELETING_BUTTON') : t('DELETE_BUTTON')}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     )
 }

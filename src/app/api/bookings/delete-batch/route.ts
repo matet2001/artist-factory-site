@@ -1,4 +1,5 @@
 import { authOptions } from '@/../auth'
+import { revalidateBookings } from '@/lib/booking-cache'
 import prisma from '@/lib/prisma'
 import { sendAdminCancellationNotification, sendBookingCancellationEmail } from '@/lib/email'
 import { getServerSession } from 'next-auth'
@@ -97,6 +98,9 @@ export async function POST(request: NextRequest) {
                 id: { in: bookingIds },
             },
         })
+
+        // Invalidate before the emails: a failed send must not leave the grid stale.
+        revalidateBookings()
 
         // Get locale from request headers or default to 'hu'
         const locale = request.headers.get('accept-language')?.split(',')[0]?.split('-')[0] || 'hu'

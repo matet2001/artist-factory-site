@@ -1,4 +1,5 @@
 import { authOptions } from '@/../auth'
+import { revalidateBookings } from '@/lib/booking-cache'
 import prisma from '@/lib/prisma'
 import { getServerSession } from 'next-auth'
 import { NextRequest, NextResponse } from 'next/server'
@@ -13,40 +14,44 @@ export async function DELETE(request: NextRequest) {
         }
 
         const body = await request.json()
-        const { roomId, date, time } = body
+        const { id, expectedStatus } = body
 
-        if (!roomId || !date || time === undefined) {
-            return NextResponse.json({ error: 'Invalid request data' }, { status: 400 })
+        if (!id || typeof id !== 'string') {
+            return NextResponse.json({ error: 'Booking id is required' }, { status: 400 })
         }
 
-        // Parse UTC date string (YYYY-MM-DD) to prevent timezone conversion issues
-        const bookingDate = new Date(date + 'T00:00:00.000Z')
-
-        // First check if booking exists
         const existing = await prisma.booking.findUnique({
-            where: {
-                date_time_roomId: {
-                    date: bookingDate,
-                    time,
-                    roomId,
-                },
-            },
+            where: { id },
+            include: { user: { select: { email: true, name: true } } },
         })
 
         if (!existing) {
             return NextResponse.json({ error: 'Booking not found' }, { status: 404 })
         }
 
-        // Delete the booking
-        const deleted = await prisma.booking.delete({
-            where: {
-                date_time_roomId: {
-                    date: bookingDate,
-                    time,
-                    roomId,
+        // The table refreshes on a timer, so what the admin clicked may not be what
+        // is in the row any more — a cart hold can turn into a confirmed booking
+        // between the render and the click. Refuse rather than delete the wrong thing.
+        if (expectedStatus && existing.status !== expectedStatus) {
+            return NextResponse.json(
+                {
+                    error: 'BOOKING_CHANGED',
+                    actualStatus: existing.status,
                 },
-            },
-        })
+                { status: 409 }
+            )
+        }
+
+        const deleted = await prisma.booking.delete({ where: { id } })
+        // The availability grid is served from cache — let it see this.
+        revalidateBookings()
+
+
+        console.log(
+            `✓ Admin ${session.user.email} deleted ${existing.status} booking ${id} ` +
+                `(${existing.roomId} ${existing.date.toISOString().split('T')[0]} ${existing.time}:00, ` +
+                `customer: ${existing.name || existing.user.name || existing.user.email})`
+        )
 
         return NextResponse.json({ success: true, booking: deleted }, { status: 200 })
     } catch (error) {

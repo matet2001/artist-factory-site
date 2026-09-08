@@ -1,8 +1,17 @@
+import { revalidateBookings } from '@/lib/booking-cache'
 import prisma from '@/lib/prisma'
-import { BookingStatus } from '@prisma/client'
+import { plannedHoldCutoff, plannedHoldExpiresAt } from '@/lib/booking-utils'
+import { BookingStatus, Prisma } from '@prisma/client'
 import { getServerSession } from 'next-auth'
 import { NextRequest, NextResponse } from 'next/server'
 import { authOptions } from '../../../../../auth'
+
+class SlotTakenError extends Error {
+    constructor() {
+        super('This time slot is already booked')
+        this.name = 'SlotTakenError'
+    }
+}
 
 export async function POST(request: NextRequest) {
     try {
@@ -24,43 +33,57 @@ export async function POST(request: NextRequest) {
 
         // Parse UTC date string (YYYY-MM-DD) and create UTC date at midnight
         const bookingDate = new Date(date + 'T00:00:00.000Z')
+        const holdCutoff = plannedHoldCutoff()
 
-        // Check if the time slot is already booked
-        const existingBooking = await prisma.booking.findUnique({
-            where: {
-                date_time_roomId: {
+        const booking = await prisma.$transaction(async (tx) => {
+            const existingBooking = await tx.booking.findUnique({
+                where: {
+                    date_time_roomId: {
+                        date: bookingDate,
+                        time: time,
+                        roomId: roomId,
+                    },
+                },
+            })
+
+            if (existingBooking) {
+                const isLapsedHold =
+                    existingBooking.status === BookingStatus.PLANNED &&
+                    existingBooking.createdAt <= holdCutoff
+
+                // A lapsed cart hold no longer owns the slot — reclaim it. Anything
+                // else (a confirmed booking, or someone else's live hold) blocks.
+                if (!isLapsedHold) {
+                    throw new SlotTakenError()
+                }
+
+                await tx.booking.delete({ where: { id: existingBooking.id } })
+            }
+
+            return tx.booking.create({
+                data: {
                     date: bookingDate,
                     time: time,
                     roomId: roomId,
+                    userId: session.user.id,
+                    status: BookingStatus.PLANNED,
                 },
-            },
-        })
-
-        if (existingBooking) {
-            return NextResponse.json({ error: 'This time slot is already booked' }, { status: 409 })
-        }
-
-        // Create a PLANNED booking
-        const booking = await prisma.booking.create({
-            data: {
-                date: bookingDate,
-                time: time,
-                roomId: roomId,
-                userId: session.user.id,
-                status: BookingStatus.PLANNED,
-            },
-            include: {
-                user: {
-                    select: {
-                        id: true,
-                        name: true,
-                        email: true,
-                        bandName: true,
+                include: {
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true,
+                            bandName: true,
+                        },
                     },
+                    room: true,
                 },
-                room: true,
-            },
+            })
         })
+
+        // The availability grid is served from cache — let it see this.
+        revalidateBookings()
 
         return NextResponse.json({
             success: true,
@@ -71,6 +94,8 @@ export async function POST(request: NextRequest) {
                 date: booking.date,
                 status: booking.status,
                 userId: booking.userId,
+                createdAt: booking.createdAt.toISOString(),
+                expiresAt: plannedHoldExpiresAt(booking.createdAt).toISOString(),
                 user: {
                     fullName: booking.user.name || booking.user.email,
                     bandName: booking.user.bandName,
@@ -78,6 +103,15 @@ export async function POST(request: NextRequest) {
             },
         })
     } catch (error) {
+        // Either we saw a live booking, or another request won the race to create
+        // one between our check and our insert. Both mean the same thing.
+        if (
+            error instanceof SlotTakenError ||
+            (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002')
+        ) {
+            return NextResponse.json({ error: 'This time slot is already booked' }, { status: 409 })
+        }
+
         console.error('Error creating booking:', error)
         return NextResponse.json({ error: 'Failed to create booking' }, { status: 500 })
     }
@@ -125,6 +159,9 @@ export async function DELETE(request: NextRequest) {
         await prisma.booking.delete({
             where: { id: bookingId },
         })
+
+        // The availability grid is served from cache — let it see this.
+        revalidateBookings()
 
         return NextResponse.json({
             success: true,

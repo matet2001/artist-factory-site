@@ -1,4 +1,6 @@
-import prisma from '@/lib/prisma'
+import { getBookingsInRange } from '@/lib/booking-cache'
+import { plannedHoldExpiresAt } from '@/lib/booking-utils'
+import { BookingStatus } from '@prisma/client'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest) {
@@ -24,44 +26,20 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ error: 'Date parameter is required' }, { status: 400 })
         }
 
-        // Fetch all bookings for the date range
-        const bookings = await prisma.booking.findMany({
-            where: {
-                date: {
-                    gte: startOfRange,
-                    lte: endOfRange,
-                },
-            },
-            include: {
-                user: {
-                    select: {
-                        id: true,
-                        name: true,
-                        email: true,
-                        bandName: true,
-                    },
-                },
-                room: {
-                    select: {
-                        id: true,
-                        name: true,
-                        slug: true,
-                    },
-                },
-            },
-            orderBy: [{ time: 'asc' }, { roomId: 'asc' }],
-        })
+        // Read is cached and invalidated by writes, so the 60-second poll from the
+        // admin grid no longer wakes the database. Lapsed cart holds are dropped
+        // inside this call, against the current time rather than the cached copy.
+        const bookings = await getBookingsInRange(
+            startOfRange.toISOString(),
+            endOfRange.toISOString()
+        )
 
         // Transform the data to match the BookingData interface
         const transformedBookings = bookings.map((booking) => {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const bookingWithUser = booking as any
-            const userData = bookingWithUser.user
-                ? {
-                      fullName: booking.name || bookingWithUser.user.name || '',
-                      bandName: booking.bandName || bookingWithUser.user.bandName || null,
-                  }
-                : undefined
+            const userData = {
+                fullName: booking.name || booking.user.name || '',
+                bandName: booking.bandName || booking.user.bandName || null,
+            }
 
             return {
                 id: booking.id,
@@ -73,6 +51,11 @@ export async function GET(request: NextRequest) {
                 status: booking.status,
                 userId: booking.userId,
                 note: booking.note,
+                createdAt: booking.createdAt,
+                expiresAt:
+                    booking.status === BookingStatus.PLANNED
+                        ? plannedHoldExpiresAt(booking.createdAt).toISOString()
+                        : undefined,
                 user: userData,
             }
         })

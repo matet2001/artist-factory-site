@@ -34,7 +34,6 @@
         "AIR_CONDITIONED": "Légkondicionált",
         "AIR_CONDITIONED_DESC": "Maradj hűvös a teljesen klimatizált termeinkben."
     },
-
     "BUG_REPORT": {
         "BUTTON_TOOLTIP": "Hiba bejelentése",
         "DIALOG_TITLE": "Hiba Bejelentése",
@@ -62,7 +61,6 @@
             "DESCRIPTION_MIN": "A leírásnak legalább 10 karakter hosszúnak kell lennie"
         }
     },
-
     "HOME": {
         "HERO": {
             "TITLE": "Artist Factory",
@@ -111,7 +109,6 @@
             "PRICE": "10 000 Ft / óra"
         }
     },
-
     "ROOMS": {
         "PRE_TITLE": "Belvárosi És Modern",
         "TITLE": "Próbatermeink",
@@ -172,7 +169,6 @@
         "EQUIPMENT_TITLE": "Felszereltség",
         "DETAILS_TITLE": "Részletek"
     },
-
     "PRICES": {
         "PRE_TITLE": "Hogyan számolhattok",
         "TITLE": "Áraink",
@@ -183,31 +179,26 @@
         "SIZE_LABEL": "Férőhely",
         "PEOPLE": "fő",
         "HOUR": "óra",
-
         "INDIVIDUAL_TITLE": "Egyéni gyakorlás",
         "INDIVIDUAL_DESC": "1-1 oktatásra is alkalmas",
         "INDIVIDUAL_LABEL": "Óradíj",
         "INDIVIDUAL_PRICE": "3500",
-
         "STUDIO_TITLE": "Stúdió",
         "STUDIO_RECORDING": "Felvétel, utómunka és keverés",
         "STUDIO_LIVE": "Egybe feljátszott számok",
         "STUDIO_VAT_NOTE": "A szolgáltatás 0% ÁFA-s.",
-
         "RENTABLE_TITLE": "Bérelhető cuccok",
         "RENTABLE_BOOM_STAND": "Gémes cintányér állvány",
         "RENTABLE_STRAIGHT_STAND": "Egyenes cintányér állvány",
         "RENTABLE_CYMBAL": "Cintányér (Paiste PST7/PST8, 16\"-17\"-18\" Crash)",
         "RENTABLE_DOUBLE_PEDAL": "Duplázó",
         "RENTABLE_DESC": "Kiegészítő eszközök óradíjas alapon",
-
         "DRINKS_TITLE": "Italok",
         "DRINK_BEER": "Sör 0,5 l",
         "DRINK_WATER": "Ásványvíz 0,5 l",
         "DRINK_SODA": "Cola – Fanta – Traubi 0,5 l",
         "DRINK_COFFEE": "Kávéautomata",
         "DRINKS_DESC": "Frissítők mindig kéznél",
-
         "EXTRAS_TITLE": "Extra szolgáltatások és frissítők"
     },
     "CONTACT": {
@@ -227,7 +218,6 @@
             "ENTRANCE": "A bejáratot a háztömb mögötti parkoló-udvar felől találjátok. A tömb körbejárható, szóval bármerről jöhettek."
         }
     },
-
     "AUTH": {
         "LOGIN": "Bejelentkezés",
         "REGISTER": "Regisztráció",
@@ -375,7 +365,6 @@
         "PRIVACY_POLICY": "Adatvédelmi tájékoztatót",
         "PRIVACY_REQUIRED": "Az adatvédelmi tájékoztató elfogadása kötelező a regisztrációhoz"
     },
-
     "PROFILE": {
         "PRE_TITLE": "Felhasználói beállítások",
         "TITLE": "Profilod kezelése",
@@ -392,14 +381,12 @@
         "PRE_TITLE": "Felvétel",
         "TITLE": "Stúdió",
         "SUBTITLE": "Felvétel és Produkciós Szolgáltatások",
-
         "SERVICES_TITLE": "Szolgáltatásaink",
         "FULL_ALBUM": "Felvétel",
         "EDITING": "Editálás, keverés és maszterelés",
         "AUDIOBOOKS": "Hangoskönyvek és szöveges felvételek készítése",
         "COMMERCIAL": "Reklámzene készítés",
         "REHEARSAL_RECORDING": "Zenekari próbák rögzítése",
-
         "EQUIPMENT_TITLE": "Stúdió Felszerelés",
         "EQUIPMENT": {
             "COMPUTER": {
@@ -433,7 +420,6 @@
             "ITEM_4": "Telefonos ügyfélszolgálati hangok",
             "ITEM_5": "Advil Ultra forte 24 reklámszöveg"
         },
-
         "PRICING_TITLE": "Stúdió Árak",
         "STUDIO_RATE": "Stúdió Óradíj",
         "REHEARSAL_RATE": "Próba Felvétel",
@@ -441,13 +427,10 @@
         "VAT_FREE": "A szolgáltatás ÁFA mentes",
         "REHEARSAL_DESC": "2-3 óra alatt 2-3 dal rögzítése. Az anyagot CD-n vagy pendrive-on viheted haza (az írható CD ára nem tartalmazza).",
         "NOTE": "Kérjük jelezd előre, ha próbaterem foglaláskor stúdió felvételt is szeretnél!",
-
         "INSTRUMENTS_NOTE": "A próbatermekben megtalálható hangszerek bármelyike felhasználható a stúdiómunkák során. Ehhez előzetes egyeztetés szükséges!",
-
         "CTA_TITLE": "Készen állsz a felvételre?",
         "CTA_DESC": "Foglalj stúdió időpontot és vidd sikerre a zenédet!",
         "CTA_BUTTON": "Stúdió Foglalás",
-
         "BOOKING_DISCLAIMER_TITLE": "Stúdió Foglalás",
         "BOOKING_DISCLAIMER_DESC": "A stúdió foglalások csak telefonon keresztül lehetségesek. Hívj minket, hogy megbeszéljük az igényeidet és időpontot egyeztessünk!",
         "CALL_US": "Hívj minket",
@@ -526,7 +509,6 @@
         },
         "FOOTER": "ArtistFactory - Próbaterem és Stúdió"
     },
-
     "ADMIN_BOOKINGS": {
         "PAGE_TITLE": "Admin - Foglalások",
         "PAGE_SUBTITLE": "Telefonos foglalások kezelése és összes foglalás megtekintése",
@@ -574,7 +556,15 @@
         "BOOKING_RANGE_INFO": "Szerkesztett foglalás: {date} {startHour}:{startMinute} - {endHour}:{endMinute}",
         "START_MINUTE_LABEL": "Kezdő perc",
         "END_MINUTE_LABEL": "Befejező perc",
-        "REFRESH": "Frissítés"
+        "REFRESH": "Frissítés",
+        "HOLD_BADGE": "kosárban",
+        "HOLD_TOOLTIP": "Ez nem foglalás: egy vendég éppen kiválasztotta ezt az időpontot, de még nem véglegesítette. Ha nem véglegesíti, magától felszabadul.",
+        "DELETING_BUTTON": "Törlés...",
+        "DELETE_CONFIRM_TITLE": "Biztosan törlöd?",
+        "DELETE_CONFIRM_BOOKING": "Ez egy végleges foglalás. A törlés nem vonható vissza, és a vendég nem kap róla értesítést.",
+        "DELETE_CONFIRM_HOLD": "Ez még nem véglegesített kiválasztás. Ha nem véglegesítik, magától felszabadul – csak akkor töröld, ha biztos vagy benne, hogy nem valódi foglalás.",
+        "DELETE_CONFIRM_STATUS": "Állapot: {status}",
+        "ERROR_BOOKING_CHANGED": "A foglalás időközben megváltozott, ezért nem töröltük. Frissítsd a táblázatot, és nézd meg újra."
     },
     "BOOKING": {
         "PRE_TITLE": "Foglald le a helyed",
@@ -589,7 +579,7 @@
         "BOOKING_SUCCESS_EMAIL_NOTICE": "Kérjük, ellenőrizd az e-mailjeidet a visszaigazolásért és a foglalás részleteiért. Várunk szeretettel!",
         "BACK_TO_HOME": "Vissza a Főoldalra",
         "SELECTED_BOOKINGS": "Kiválasztott Foglalások ({count})",
-        "BOOKING_PLANNED": "Foglalás betervezve",
+        "BOOKING_PLANNED": "Időpont kiválasztva",
         "BOOKING_REMOVED": "Foglalás törölve",
         "TERMS_CONSENT": "Elolvastam és elfogadom a",
         "TERMS_OF_BOOKING": "Foglalási Feltételeket",
@@ -647,12 +637,31 @@
             "TITLE": "Fontos Foglalási Szabályok",
             "ADVANCE_24H": "📅 Online foglalást legalább 24 órával a kezdés előtt lehet leadni.",
             "CANCEL_48H": "⏰ 48 órán belüli lemondás esetén a teljes ár felszámításra kerül, és a lemondás csak telefonon lehetséges.",
+            "MUST_CONFIRM": "Figyelem: az időpontra kattintás még nem foglalás! A foglalás csak a „Foglalás véglegesítése\" gomb megnyomása után válik véglegessé — addig bárki más elviheti.",
             "VIEW_FULL_TERMS": "Teljes Feltételek Megtekintése"
         },
         "DISCLAIMERS": {
             "SPECIAL_REQUIREMENTS": "Amennyiben speciális igényetek van a próbával kapcsolatban, azt kérjük telefonon jelezzétek. Köszönjük!",
             "ADMIN_BOOKING_NOTICE": "💡 Fontos: Telefonon vagy emailen leadott foglalásokat csak telefonon vagy emailen keresztül lehet lemondani, a fiókodban nem fog megjelenni."
-        }
+        },
+        "HOLD_YOURS": "kiválasztva",
+        "HOLD_OTHER": "foglalás alatt",
+        "HOLD_TOOLTIP": "Ez még nem foglalás — valaki éppen most választotta ki. Ha nem véglegesíti, az időpont hamarosan újra szabad lesz.",
+        "SOME_SLOTS_LOST_TITLE": "Néhány időpont közben elkelt",
+        "SOME_SLOTS_LOST_DESC": "{count} kiválasztott időpontot időközben más lefoglalt, ezért nem került be a rendelésbe. A visszaigazoló e-mail csak a ténylegesen lefoglalt időpontokat tartalmazza.",
+        "ALL_SLOTS_LOST": "Egyik kiválasztott időpont sem elérhető már — időközben mind elkelt. Kérjük, válassz új időpontokat.",
+        "LEGEND": {
+            "FREE": "Szabad",
+            "HOLD": "Kiválasztva (még nem foglalás)",
+            "HOLD_ADMIN": "Vendég kiválasztása – még nem foglalás",
+            "DRAFT_ADMIN": "Most rögzítendő foglalás",
+            "BOOKED": "Végleges foglalás"
+        },
+        "BOOKING_PLANNED_DESC": "Ez még NEM foglalás! Görgess le és nyomd meg a véglegesítés gombot.",
+        "HOLD_WARNING_TITLE": "A foglalásod még nincs véglegesítve",
+        "HOLD_WARNING_DESC": "A kiválasztott időpontokat {minutes} percig tartjuk fenn neked. Ha nem véglegesíted, felszabadulnak, és bárki más lefoglalhatja őket. Foglalásod csak az alábbi gomb megnyomása után él, és csak akkor kapsz visszaigazoló e-mailt.",
+        "HOLD_EXPIRES_IN": "Az első időpont felszabadul: {time} múlva",
+        "HOLD_EXPIRED": "A fenntartás lejárt — véglegesítsd most, amíg még szabad!"
     },
     "PRIVACY": {
         "TITLE": "Adatkezelési Tájékoztató",

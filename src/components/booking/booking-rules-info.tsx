@@ -24,6 +24,7 @@ export function BookingRulesInfo() {
                         <div className="space-y-1 md:space-y-2 text-[10px] md:text-sm lg:text-base text-muted-foreground">
                             <p>{t('RULES.ADVANCE_24H')}</p>
                             <p>{t('RULES.CANCEL_48H')}</p>
+                            <p className="font-medium text-amber-200">{t('RULES.MUST_CONFIRM')}</p>
                         </div>
 
                         {/* Disclaimers */}

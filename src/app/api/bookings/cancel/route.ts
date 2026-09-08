@@ -1,3 +1,4 @@
+import { revalidateBookings } from '@/lib/booking-cache'
 import prisma from '@/lib/prisma'
 import { BookingStatus } from '@prisma/client'
 import { getServerSession } from 'next-auth'
@@ -61,6 +62,9 @@ export async function POST(request: NextRequest) {
         await prisma.booking.delete({
             where: { id: bookingId },
         })
+
+        // The availability grid is served from cache — let it see this.
+        revalidateBookings()
 
         return NextResponse.json({
             success: true,

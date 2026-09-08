@@ -1,4 +1,5 @@
 import { authOptions } from '@/../auth'
+import { revalidateBookings } from '@/lib/booking-cache'
 import prisma from '@/lib/prisma'
 import { getServerSession } from 'next-auth'
 import { NextRequest, NextResponse } from 'next/server'
@@ -118,6 +119,9 @@ export async function POST(request: NextRequest) {
 
             return results
         })
+
+        // The availability grid is served from cache — let it see this.
+        revalidateBookings()
 
         return NextResponse.json({ bookings: createdBookings }, { status: 201 })
     } catch (error) {

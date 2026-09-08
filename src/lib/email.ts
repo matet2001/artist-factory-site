@@ -388,9 +388,15 @@ export async function sendAdminBookingNotification(
         endTime: number
         price: number
         bookingId: string
-    }>
+    }>,
+    customerName?: string,
+    customerEmail?: string
 ) {
     const adminEmail = process.env.ADMIN_EMAIL || 'artistfactory@artistfactory.hu'
+    const totalPrice = bookings.reduce(
+        (sum, b) => sum + b.price * (b.endTime - b.startTime),
+        0
+    )
 
     // Combine consecutive bookings for display
     const bookingsList = bookings
@@ -434,11 +440,24 @@ export async function sendAdminBookingNotification(
                   <tr>
                     <td style="padding: 48px 40px;">
                       <h1 style="color: #f5f5f5; font-size: 24px; font-weight: 600; margin: 0 0 16px 0;">Tisztelt Admin,</h1>
-                      <p style="color: #919191; font-size: 16px; line-height: 24px; margin: 0 0 32px 0;">
+                      <p style="color: #919191; font-size: 16px; line-height: 24px; margin: 0 0 24px 0;">
                         A rendszerben új foglalás érkezett. A foglalás részletes adatait az adminban megtekintheti.
                       </p>
 
+                      <div style="background-color: #1a1a1a; border-left: 3px solid #ff6b9d; border-radius: 4px; padding: 16px 20px; margin-bottom: 24px;">
+                        <p style="color: #f5f5f5; font-size: 15px; font-weight: 600; margin: 0 0 4px 0;">
+                          Foglaló: ${customerName || 'ismeretlen'}
+                        </p>
+                        <p style="color: #919191; font-size: 14px; margin: 0;">
+                          E-mail: ${customerEmail || 'ismeretlen'}
+                        </p>
+                      </div>
+
                       ${bookingsList}
+
+                      <p style="color: #f5f5f5; font-size: 15px; font-weight: 600; margin: 0;">
+                        Összesen: ${totalPrice.toLocaleString()} Ft
+                      </p>
 
                       <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #333333;">
                         <p style="color: #919191; font-size: 13px; line-height: 18px; margin: 0;">ArtistFactory - Próbaterem és Stúdió</p>

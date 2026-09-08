@@ -1,13 +1,10 @@
 'use client'
 
-import {
-    BookingData,
-    BookingIntent,
-    CellState,
-} from '@/lib/booking-utils'
+import { BookingData, BookingIntent, CellState } from '@/lib/booking-utils'
 import { cn } from '@/lib/utils'
 import { BookingStatus } from '@prisma/client'
-import { Edit, Loader2, Plus, Trash2 } from 'lucide-react'
+import { Clock, Edit, Loader2, Plus, Trash2 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 interface AdminBookingCellProps {
     booking?: BookingData
@@ -20,7 +17,7 @@ interface AdminBookingCellProps {
     customerBandName?: string
     onBook: (intent: BookingIntent) => void
     onDeletePlanned: (intent: BookingIntent) => void
-    onDeleteBooking: (intent: BookingIntent) => void
+    onDeleteBooking: (booking: BookingData) => void
     onSelectBooking?: (booking: BookingData) => void
 }
 
@@ -38,6 +35,8 @@ export function AdminBookingCell({
     onDeleteBooking,
     onSelectBooking,
 }: AdminBookingCellProps) {
+    const t = useTranslations('ADMIN_BOOKINGS')
+
     const getCellState = (): CellState => {
         // Check if this slot is planned by admin (not yet saved to database)
         if (isPlanned && !booking) {
@@ -47,7 +46,10 @@ export function AdminBookingCell({
         if (booking) {
             switch (booking.status) {
                 case BookingStatus.PLANNED:
-                    return CellState.PLANNED_CANCELABLE
+                    // A visitor's cart hold, not a booking. This used to render
+                    // identically to the admin's own draft selection, so abandoned
+                    // carts looked like confirmed bookings and vice versa.
+                    return CellState.PLANNED_HOLD
                 case BookingStatus.UNVERIFIED:
                     return CellState.UNVERIFIED
                 case BookingStatus.VERIFIED:
@@ -76,13 +78,21 @@ export function AdminBookingCell({
     // Check if this booking has any half-hour settings
     const hasHalfHourSettings = isHalfHourStart || isHalfHourEnd
 
-    const cellClasses = cn('h-16 relative transition-all duration-200 border border-border/50 overflow-hidden', {
-        'bg-card/30 hover:bg-yellow-500/20 cursor-pointer':
-            cellState === CellState.OPEN && !isPlanned,
-        'bg-yellow-500/60 backdrop-blur-sm': cellState === CellState.PLANNED_CANCELABLE && !hasHalfHourSettings,
-        'bg-primary/50 backdrop-blur-sm': cellState === CellState.UNVERIFIED && !hasHalfHourSettings,
-        'bg-green-500/60 backdrop-blur-sm': cellState === CellState.VERIFIED_CANCELABLE && !hasHalfHourSettings,
-    })
+    const cellClasses = cn(
+        'h-16 relative transition-all duration-200 border border-border/50 overflow-hidden',
+        {
+            'bg-card/30 hover:bg-yellow-500/20 cursor-pointer':
+                cellState === CellState.OPEN && !isPlanned,
+            'bg-yellow-500/60 backdrop-blur-sm':
+                cellState === CellState.PLANNED_CANCELABLE && !hasHalfHourSettings,
+            'bg-muted/50 booking-hold-stripes border-dashed border-muted-foreground/40 backdrop-blur-sm':
+                cellState === CellState.PLANNED_HOLD && !hasHalfHourSettings,
+            'bg-primary/50 backdrop-blur-sm':
+                cellState === CellState.UNVERIFIED && !hasHalfHourSettings,
+            'bg-green-500/60 backdrop-blur-sm':
+                cellState === CellState.VERIFIED_CANCELABLE && !hasHalfHourSettings,
+        }
+    )
 
     const handleClick = () => {
         if (isLoading) return
@@ -109,20 +119,15 @@ export function AdminBookingCell({
         e.stopPropagation()
         if (isLoading) return
 
-        const intent: BookingIntent = {
-            roomId,
-            date,
-            time,
+        // The admin's own unsaved selection just comes off the list.
+        if (cellState === CellState.PLANNED_CANCELABLE && isPlanned && !booking) {
+            onDeletePlanned({ roomId, date, time })
+            return
         }
 
-        if (cellState === CellState.PLANNED_CANCELABLE && isPlanned) {
-            onDeletePlanned(intent)
-        } else if (
-            cellState === CellState.UNVERIFIED ||
-            cellState === CellState.VERIFIED_CANCELABLE ||
-            cellState === CellState.PLANNED_CANCELABLE
-        ) {
-            onDeleteBooking(intent)
+        // Everything else is a database row — deleted by id, behind a confirmation.
+        if (booking) {
+            onDeleteBooking(booking)
         }
     }
 
@@ -133,6 +138,8 @@ export function AdminBookingCell({
         let bgColor = ''
         if (cellState === CellState.PLANNED_CANCELABLE) {
             bgColor = 'bg-yellow-500/60'
+        } else if (cellState === CellState.PLANNED_HOLD) {
+            bgColor = 'bg-muted/50 booking-hold-stripes'
         } else if (cellState === CellState.UNVERIFIED) {
             bgColor = 'bg-primary/50'
         } else if (cellState === CellState.VERIFIED_CANCELABLE) {
@@ -156,10 +163,24 @@ export function AdminBookingCell({
 
     const halfHourBg = getHalfHourBackgroundProps()
 
+    const nameBlock = (
+        <div className="flex flex-col items-center justify-center text-center">
+            <div className="text-xs font-medium text-white truncate max-w-full">
+                {getUserName()}
+            </div>
+            {booking?.user?.bandName && (
+                <div className="text-[10px] text-white/70 truncate max-w-full mt-0.5">
+                    {booking.user.bandName}
+                </div>
+            )}
+        </div>
+    )
+
     return (
         <td
             className={cn(cellClasses, 'group/cell')}
             onClick={handleClick}
+            title={cellState === CellState.PLANNED_HOLD ? t('HOLD_TOOLTIP') : undefined}
         >
             {/* Background div for half-hour bookings */}
             {halfHourBg && (
@@ -186,35 +207,42 @@ export function AdminBookingCell({
                                     <button
                                         onClick={handleDelete}
                                         className="p-1 rounded bg-red-500/80 hover:bg-red-500 opacity-0 group-hover/cell:opacity-100 transition-opacity cursor-pointer"
-                                        title="Delete booking"
+                                        title={t('DELETE_BUTTON')}
                                     >
                                         <Trash2 className="h-3 w-3 text-white" />
                                     </button>
                                 </div>
                                 <div className="flex flex-col items-center justify-center text-center">
-                                    {isPlanned && !booking ? (
-                                        <>
-                                            <div className="text-xs font-medium text-white truncate max-w-full">
-                                                {customerName}
-                                            </div>
-                                            {customerBandName && (
-                                                <div className="text-[10px] text-white/70 truncate max-w-full mt-0.5">
-                                                    {customerBandName}
-                                                </div>
-                                            )}
-                                        </>
-                                    ) : (
-                                        <>
-                                            <div className="text-xs font-medium text-white truncate max-w-full">
-                                                {getUserName()}
-                                            </div>
-                                            {booking?.user?.bandName && (
-                                                <div className="text-[10px] text-white/70 truncate max-w-full mt-0.5">
-                                                    {booking.user.bandName}
-                                                </div>
-                                            )}
-                                        </>
+                                    <div className="text-xs font-medium text-white truncate max-w-full">
+                                        {customerName}
+                                    </div>
+                                    {customerBandName && (
+                                        <div className="text-[10px] text-white/70 truncate max-w-full mt-0.5">
+                                            {customerBandName}
+                                        </div>
                                     )}
+                                </div>
+                            </>
+                        )}
+                        {cellState === CellState.PLANNED_HOLD && (
+                            <>
+                                <div className="absolute top-1 right-1 flex gap-1">
+                                    <button
+                                        onClick={handleDelete}
+                                        className="p-1 rounded bg-red-500/80 hover:bg-red-500 opacity-0 group-hover/cell:opacity-100 transition-opacity cursor-pointer"
+                                        title={t('DELETE_BUTTON')}
+                                    >
+                                        <Trash2 className="h-3 w-3 text-white" />
+                                    </button>
+                                </div>
+                                <div className="flex flex-col items-center justify-center text-center gap-0.5">
+                                    <div className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-foreground/70">
+                                        <Clock className="h-3 w-3" />
+                                        {t('HOLD_BADGE')}
+                                    </div>
+                                    <div className="text-xs font-medium text-foreground/90 truncate max-w-full">
+                                        {getUserName()}
+                                    </div>
                                 </div>
                             </>
                         )}
@@ -232,21 +260,12 @@ export function AdminBookingCell({
                                     <button
                                         onClick={handleDelete}
                                         className="p-1 rounded bg-red-500/80 hover:bg-red-500 opacity-0 group-hover/cell:opacity-100 transition-opacity cursor-pointer"
-                                        title="Delete booking"
+                                        title={t('DELETE_BUTTON')}
                                     >
                                         <Trash2 className="h-3 w-3 text-white" />
                                     </button>
                                 </div>
-                                <div className="flex flex-col items-center justify-center text-center">
-                                    <div className="text-xs font-medium text-white truncate max-w-full">
-                                        {getUserName()}
-                                    </div>
-                                    {booking?.user?.bandName && (
-                                        <div className="text-[10px] text-white/70 truncate max-w-full mt-0.5">
-                                            {booking.user.bandName}
-                                        </div>
-                                    )}
-                                </div>
+                                {nameBlock}
                             </>
                         )}
                     </>

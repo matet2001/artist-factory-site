@@ -11,7 +11,7 @@ import {
 } from '@/lib/booking-utils'
 import { cn } from '@/lib/utils'
 import { BookingStatus } from '@prisma/client'
-import { Check, Loader2, Plus } from 'lucide-react'
+import { Check, Clock, Loader2, Plus } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 interface BookingCellProps {
@@ -87,8 +87,11 @@ export function BookingCell({
             'bg-card/30 hover:bg-yellow-500/20 cursor-pointer': cellState === CellState.OPEN,
             'bg-card/20': cellState === CellState.CLOSED,
             'bg-card/20 opacity-60': cellState === CellState.TOO_SOON,
-            'bg-yellow-500/60 backdrop-blur-sm': cellState === CellState.PLANNED,
-            'bg-yellow-500/60 hover:bg-red-500/60 cursor-pointer backdrop-blur-sm':
+            // Someone else is mid-order here. Held, not booked — hatched and dashed
+            // so it never reads as a confirmed booking.
+            'bg-muted/50 booking-hold-stripes border-dashed border-muted-foreground/40 backdrop-blur-sm':
+                cellState === CellState.PLANNED,
+            'bg-amber-500/25 booking-hold-stripes border-dashed border-amber-400/70 hover:bg-red-500/40 cursor-pointer backdrop-blur-sm':
                 cellState === CellState.PLANNED_CANCELABLE,
             'bg-primary/50 backdrop-blur-sm': cellState === CellState.UNVERIFIED,
             'bg-green-500/60 backdrop-blur-sm': cellState === CellState.VERIFIED,
@@ -98,6 +101,9 @@ export function BookingCell({
             'bg-card/10 opacity-50': cellState === CellState.PAST,
         }
     )
+
+    const isHold =
+        cellState === CellState.PLANNED || cellState === CellState.PLANNED_CANCELABLE
 
     const handleClick = () => {
         if (isLoading) return
@@ -121,7 +127,11 @@ export function BookingCell({
     const displayName = getDisplayName()
 
     return (
-        <td className={cellClasses} onClick={handleClick}>
+        <td
+            className={cellClasses}
+            onClick={handleClick}
+            title={isHold ? t('HOLD_TOOLTIP') : undefined}
+        >
             <div className="absolute inset-0 flex items-center justify-center">
                 {isLoading ? (
                     <Loader2 className="h-3 w-3 md:h-5 md:w-5 animate-spin text-foreground/70" />
@@ -141,6 +151,15 @@ export function BookingCell({
                                 {t('CLICK_TO_SELECT')}
                             </span>
                         )}
+                    </div>
+                ) : isHold ? (
+                    <div className="flex flex-col items-center justify-center gap-0.5">
+                        <Clock className="h-3 w-3 md:h-4 md:w-4 text-foreground/70" />
+                        <span className="text-[8px] md:text-[11px] font-medium text-foreground/80 px-1 text-center leading-tight">
+                            {cellState === CellState.PLANNED_CANCELABLE
+                                ? t('HOLD_YOURS')
+                                : t('HOLD_OTHER')}
+                        </span>
                     </div>
                 ) : displayName ? (
                     <span className="text-[9px] md:text-sm font-medium text-foreground px-1 md:px-2 text-center">

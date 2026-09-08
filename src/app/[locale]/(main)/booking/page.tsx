@@ -1,6 +1,7 @@
 'use client'
 
 import { BookingErrorFallback } from '@/components/booking/booking-error-fallback'
+import { BookingLegend } from '@/components/booking/booking-legend'
 import { BookingRulesInfo } from '@/components/booking/booking-rules-info'
 import { BookingSuccessDialog } from '@/components/booking/booking-success-dialog'
 import { BookingSummary } from '@/components/booking/booking-summary'
@@ -10,25 +11,19 @@ import {
     BookingData,
     BookingIntent,
     OPENING_HOURS,
+    PLANNED_HOLD_MINUTES,
     getCurrentTimePosition,
     getOpeningHoursArray,
     isWithin24Hours,
     isWithin48Hours,
+    toDateKey,
+    toLocalDateKey,
 } from '@/lib/booking-utils'
 import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
-
-// Helper to format date as YYYY-MM-DD in local timezone
-// We use local timezone to preserve the calendar date as-is
-function formatLocalDate(date: Date): string {
-    const year = date.getFullYear()
-    const month = String(date.getMonth() + 1).padStart(2, '0')
-    const day = String(date.getDate()).padStart(2, '0')
-    return `${year}-${month}-${day}`
-}
 
 export default function BookingPage() {
     const t = useTranslations('BOOKING')
@@ -52,6 +47,12 @@ export default function BookingPage() {
     const [error, setError] = useState<Error | null>(null)
     const [showSuccessDialog, setShowSuccessDialog] = useState(false)
     const [bookingsToDelete, setBookingsToDelete] = useState<Set<string>>(new Set()) // Track bookings selected for deletion
+    // The cart is whatever the server says this user is holding, on every date.
+    // Deriving it from `allBookings` tied it to the 7-day window on screen, so
+    // picks made on other weeks quietly fell out of the order.
+    const [rawPlannedBookings, setRawPlannedBookings] = useState<BookingData[]>([])
+    // Coarse clock, only so lapsed holds drop out of the cart on their own.
+    const [clockTick, setClockTick] = useState<number>(() => Date.now())
 
     const hours = getOpeningHoursArray(OPENING_HOURS)
     const timelinePosition = getCurrentTimePosition(OPENING_HOURS)
@@ -59,13 +60,44 @@ export default function BookingPage() {
 
     // Filter bookings for the selected date
     const bookings = useMemo(() => {
-        const selectedDateStr = formatLocalDate(selectedDate)
-        return allBookings.filter((b) => {
-            const bookingDate = new Date(b.date)
-            const bookingDateStr = formatLocalDate(bookingDate)
-            return bookingDateStr === selectedDateStr
-        })
+        const selectedDateStr = toLocalDateKey(selectedDate)
+        return allBookings.filter((b) => toDateKey(b.date) === selectedDateStr)
     }, [allBookings, selectedDate])
+
+    // Expiry is derived from the `expiresAt` the server already sent, rather than
+    // re-asked every minute. Polling this per signed-in visitor would keep the
+    // database awake continuously — the availability grid is cached precisely so
+    // that idle tabs cost nothing.
+    const plannedBookings = useMemo(
+        () =>
+            rawPlannedBookings.filter(
+                (b) => !b.expiresAt || new Date(b.expiresAt).getTime() > clockTick
+            ),
+        [rawPlannedBookings, clockTick]
+    )
+
+    const fetchPlannedBookings = useCallback(async () => {
+        if (!session?.user?.id) {
+            setRawPlannedBookings([])
+            return
+        }
+
+        try {
+            const response = await fetch('/api/bookings/planned')
+            if (!response.ok) throw new Error('Failed to load planned bookings')
+
+            const data = await response.json()
+            setRawPlannedBookings(data.bookings || [])
+        } catch (error) {
+            // Keep the previous cart rather than silently emptying it — an empty
+            // cart here is exactly the failure mode this endpoint exists to fix.
+            console.error('Error fetching planned bookings:', error)
+        }
+    }, [session?.user?.id])
+
+    useEffect(() => {
+        fetchPlannedBookings()
+    }, [fetchPlannedBookings])
 
     // Check if we need to fetch data for the selected date
     const needsToFetch = useMemo(() => {
@@ -88,10 +120,27 @@ export default function BookingPage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedDate, needsToFetch])
 
-    // Update timeline every minute
+    // Leaving with slots picked but not confirmed is exactly how holds got
+    // abandoned in the table, so make it a deliberate choice rather than a slip.
+    useEffect(() => {
+        if (plannedBookings.length === 0) return
+
+        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+            event.preventDefault()
+            // Browsers show their own wording; returning a value is what triggers it.
+            event.returnValue = ''
+        }
+
+        window.addEventListener('beforeunload', handleBeforeUnload)
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload)
+    }, [plannedBookings.length])
+
+    // Update the timeline every minute, and advance the clock the cart uses to
+    // drop lapsed holds. No request goes out: both are derived from data we hold.
     useEffect(() => {
         const interval = setInterval(() => {
             setSelectedDate((d) => new Date(d))
+            setClockTick(Date.now())
         }, 60000)
         return () => clearInterval(interval)
     }, [])
@@ -110,8 +159,8 @@ export default function BookingPage() {
             endDate.setHours(23, 59, 59, 999)
 
             // Single API call with date range instead of 7 separate calls
-            const startDateStr = formatLocalDate(startDate)
-            const endDateStr = formatLocalDate(endDate)
+            const startDateStr = toLocalDateKey(startDate)
+            const endDateStr = toLocalDateKey(endDate)
 
             const response = await fetch(`/api/bookings?startDate=${startDateStr}&endDate=${endDateStr}`)
 
@@ -144,17 +193,14 @@ export default function BookingPage() {
         return bookings.find((b) => b.roomId === roomId && b.time === time)
     }
 
-    const plannedBookings = useMemo(() => {
-        if (!session?.user?.id) return []
-        return allBookings.filter((b) => b.userId === session.user.id && b.status === 'PLANNED')
-    }, [allBookings, session])
-
     const isPlannedByUser = (roomId: string, time: number): boolean => {
-        const selectedDateStr = formatLocalDate(selectedDate)
-        return plannedBookings.some((b) => {
-            const bookingDateStr = formatLocalDate(new Date(b.date))
-            return b.roomId === roomId && b.time === time && bookingDateStr === selectedDateStr
-        })
+        const selectedDateStr = toLocalDateKey(selectedDate)
+        return plannedBookings.some(
+            (b) =>
+                b.roomId === roomId &&
+                b.time === time &&
+                toDateKey(b.date) === selectedDateStr
+        )
     }
 
     const handleBook = async (intent: BookingIntent) => {
@@ -183,7 +229,7 @@ export default function BookingPage() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    date: formatLocalDate(selectedDate),
+                    date: toLocalDateKey(selectedDate),
                     time: intent.time,
                     roomId: intent.roomId,
                 }),
@@ -196,24 +242,27 @@ export default function BookingPage() {
 
             const data = await response.json()
 
-            // Optimistic update - add booking to state immediately with user info
-            setAllBookings((prev) => [
-                ...prev,
-                {
-                    id: data.booking.id,
-                    roomId: intent.roomId,
-                    time: intent.time,
-                    date: selectedDate,
-                    status: 'PLANNED' as const,
-                    userId: session.user.id,
-                    user: {
-                        fullName: session.user.name || '',
-                        bandName: ('bandName' in session.user ? session.user.bandName : null) as string | null,
-                    },
+            const planned: BookingData = {
+                id: data.booking.id,
+                roomId: intent.roomId,
+                time: intent.time,
+                date: toLocalDateKey(selectedDate),
+                status: 'PLANNED' as const,
+                userId: session.user.id,
+                expiresAt: data.booking.expiresAt,
+                user: {
+                    fullName: session.user.name || '',
+                    bandName: ('bandName' in session.user ? session.user.bandName : null) as string | null,
                 },
-            ])
+            }
 
-            toast.success(t('BOOKING_PLANNED'))
+            // Optimistic update - add booking to state immediately with user info
+            setAllBookings((prev) => [...prev, planned])
+            setRawPlannedBookings((prev) => [...prev, planned])
+
+            toast.success(t('BOOKING_PLANNED'), {
+                description: t('BOOKING_PLANNED_DESC'),
+            })
         } catch (error: any) {
             toast.error('Error', {
                 description: error.message,
@@ -257,6 +306,7 @@ export default function BookingPage() {
 
             // Optimistic update - remove booking from state immediately
             setAllBookings((prev) => prev.filter((b) => b.id !== booking.id))
+            setRawPlannedBookings((prev) => prev.filter((b) => b.id !== booking.id))
 
             toast.success(t('BOOKING_REMOVED'))
         } catch (error: any) {
@@ -359,8 +409,9 @@ export default function BookingPage() {
         setIsSubmitting(true)
 
         try {
-            // Send booking IDs instead of just the date
-            const bookingIds = plannedBookings.map(b => b.id)
+            // The cart comes from the server, so this covers every date the visitor
+            // picked — not just the week currently rendered in the grid.
+            const bookingIds = plannedBookings.map((b) => b.id)
 
             const response = await fetch('/api/bookings/confirm', {
                 method: 'POST',
@@ -370,19 +421,38 @@ export default function BookingPage() {
                 }),
             })
 
+            const data = await response.json()
+
             if (!response.ok) {
-                const error = await response.json()
-                throw new Error(error.error || 'Failed to confirm bookings')
+                // 404 here means every hold in the cart had already been taken.
+                if (response.status === 404) {
+                    await fetchPlannedBookings()
+                    throw new Error(t('ALL_SLOTS_LOST'))
+                }
+                throw new Error(data.error || 'Failed to confirm bookings')
             }
 
-            // Optimistic update - update booking statuses to VERIFIED
+            const confirmedIds = new Set(
+                bookingIds.filter((id) => !(data.missingIds || []).includes(id))
+            )
+
+            // Optimistic update - only the slots the server actually confirmed
             setAllBookings((prev) =>
                 prev.map((b) =>
-                    b.status === 'PLANNED' && b.userId === session?.user?.id
-                        ? { ...b, status: 'VERIFIED' as const }
-                        : b
+                    confirmedIds.has(b.id) ? { ...b, status: 'VERIFIED' as const } : b
                 )
             )
+            setRawPlannedBookings([])
+            await fetchPlannedBookings()
+
+            // Never claim more than was booked: a slot whose hold lapsed before the
+            // order went in may have been taken by someone else in the meantime.
+            if (data.missingIds?.length) {
+                toast.warning(t('SOME_SLOTS_LOST_TITLE'), {
+                    description: t('SOME_SLOTS_LOST_DESC', { count: data.missingIds.length }),
+                    duration: 12000,
+                })
+            }
 
             // Show success dialog instead of redirecting
             setShowSuccessDialog(true)
@@ -390,6 +460,8 @@ export default function BookingPage() {
             toast.error('Error', {
                 description: error.message,
             })
+            // Re-sync: the failure may have been partial or the cart may have lapsed.
+            await fetchPlannedBookings()
         } finally {
             setIsSubmitting(false)
         }
@@ -458,12 +530,17 @@ export default function BookingPage() {
                                     />
                                 </div>
 
+                                <div className="px-2 md:px-4 lg:px-12 pt-3 md:pt-4">
+                                    <BookingLegend />
+                                </div>
+
                                 <div className="p-4 sm:p-8 lg:p-12">
                                     <BookingSummary
                                         plannedBookings={plannedBookings}
                                         isSubmitting={isSubmitting}
                                         onConfirm={handleConfirmBookings}
                                         animations={animations}
+                                        holdMinutes={PLANNED_HOLD_MINUTES}
                                     />
 
                                     {/* Batch Delete Section */}

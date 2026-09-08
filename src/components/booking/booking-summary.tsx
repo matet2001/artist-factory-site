@@ -2,12 +2,12 @@
 
 import { Button } from '@/components/ui/button'
 
-import { BookingData } from '@/lib/booking-utils'
+import { BookingData, toDateKey } from '@/lib/booking-utils'
 import { rooms } from '@/lib/rooms'
 import { motion } from 'framer-motion'
-import { Loader2 } from 'lucide-react'
+import { AlertTriangle, Clock, Loader2 } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
 import BookingTermsConsent from './booking-terms-consent'
 
@@ -16,6 +16,8 @@ interface BookingSummaryProps {
     isSubmitting: boolean
     onConfirm: () => void
     animations: any
+    /** How long a picked slot is held before other visitors can take it. */
+    holdMinutes: number
 }
 
 interface CombinedBooking {
@@ -37,11 +39,42 @@ export function BookingSummary({
     isSubmitting,
     onConfirm,
     animations,
+    holdMinutes,
 }: BookingSummaryProps) {
     const t = useTranslations('BOOKING')
     const tRooms = useTranslations('ROOMS')
     const locale = useLocale()
     const [termsAccepted, setTermsAccepted] = useState(false)
+    // Null until the first client tick so the server and the client render the
+    // same markup — a live clock in the initial HTML would fail hydration.
+    const [now, setNow] = useState<number | null>(null)
+
+    useEffect(() => {
+        setNow(Date.now())
+        const interval = setInterval(() => setNow(Date.now()), 1000)
+        return () => clearInterval(interval)
+    }, [])
+
+    const firstExpiry = useMemo(() => {
+        const times = plannedBookings
+            .map((b) => (b.expiresAt ? new Date(b.expiresAt).getTime() : null))
+            .filter((value): value is number => value !== null)
+
+        return times.length > 0 ? Math.min(...times) : null
+    }, [plannedBookings])
+
+    const countdown = useMemo(() => {
+        if (now === null || firstExpiry === null) return null
+
+        const remaining = Math.max(0, firstExpiry - now)
+        const minutes = Math.floor(remaining / 60000)
+        const seconds = Math.floor((remaining % 60000) / 1000)
+
+        return {
+            expired: remaining === 0,
+            label: `${minutes}:${String(seconds).padStart(2, '0')}`,
+        }
+    }, [now, firstExpiry])
 
     const handleConfirm = () => {
         if (!termsAccepted) {
@@ -66,7 +99,7 @@ export function BookingSummary({
         // Group by date
         const dateGroups = new Map<string, BookingData[]>()
         sorted.forEach((booking) => {
-            const dateStr = new Date(booking.date).toLocaleDateString()
+            const dateStr = toDateKey(booking.date)
             if (!dateGroups.has(dateStr)) {
                 dateGroups.set(dateStr, [])
             }
@@ -131,11 +164,36 @@ export function BookingSummary({
                             <h3 className="font-semibold mb-2 text-sm md:text-base">
                                 {t('SELECTED_BOOKINGS', { count: plannedBookings.length })}
                             </h3>
+                            <div className="mb-4 rounded-lg border-2 border-amber-500/60 bg-amber-500/10 p-3 md:p-4">
+                                <div className="flex items-start gap-2 md:gap-3">
+                                    <AlertTriangle className="h-4 w-4 md:h-5 md:w-5 shrink-0 text-amber-400 mt-0.5" />
+                                    <div className="space-y-1">
+                                        <p className="text-xs md:text-sm font-semibold text-amber-200">
+                                            {t('HOLD_WARNING_TITLE')}
+                                        </p>
+                                        <p className="text-[11px] md:text-sm text-amber-100/80 leading-relaxed">
+                                            {t('HOLD_WARNING_DESC', { minutes: holdMinutes })}
+                                        </p>
+                                        {countdown && (
+                                            <p className="flex items-center gap-1.5 text-[11px] md:text-sm font-medium text-amber-200 pt-0.5">
+                                                <Clock className="h-3 w-3 md:h-3.5 md:w-3.5 shrink-0" />
+                                                {countdown.expired
+                                                    ? t('HOLD_EXPIRED')
+                                                    : t('HOLD_EXPIRES_IN', {
+                                                          time: countdown.label,
+                                                      })}
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
                             <div className="space-y-2 md:space-y-4">
                                 {bookingsByDate.map((dateGroup, dateIndex) => (
                                     <div key={dateIndex}>
                                         <h4 className="text-xs md:text-sm font-semibold text-foreground mb-1 md:mb-2">
-                                            {dateGroup.date.toLocaleDateString(locale === 'hu' ? 'hu-HU' : 'en-US', {
+                                            {new Date(
+                                                `${dateGroup.dateStr}T12:00:00`
+                                            ).toLocaleDateString(locale === 'hu' ? 'hu-HU' : 'en-US', {
                                                 year: 'numeric',
                                                 month: 'long',
                                                 day: 'numeric',

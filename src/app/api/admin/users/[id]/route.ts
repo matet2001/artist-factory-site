@@ -1,4 +1,5 @@
 import { authOptions } from '@/../auth'
+import { revalidateBookings } from '@/lib/booking-cache'
 import prisma from '@/lib/prisma'
 import { getServerSession } from 'next-auth'
 import { NextRequest, NextResponse } from 'next/server'
@@ -43,6 +44,10 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
                 _count: { select: { bookings: true } },
             },
         })
+
+        // The grid falls back to the user record for a booking's name, so a rename
+        // changes what it renders and the cached copy has to go with it.
+        revalidateBookings()
 
         return NextResponse.json({ success: true, user: updatedUser })
     } catch (error) {

@@ -83,6 +83,22 @@
 }
 
 @layer utilities {
+    /*
+     * Diagonal hatching for slots that are only *held*, not booked. A cart hold is
+     * a real database row, so it used to render as a solid block that was
+     * indistinguishable from a confirmed booking — which is how abandoned carts
+     * got mistaken for bookings and real bookings got deleted as junk.
+     */
+    .booking-hold-stripes {
+        background-image: repeating-linear-gradient(
+            135deg,
+            rgb(255 255 255 / 0.16) 0px,
+            rgb(255 255 255 / 0.16) 5px,
+            transparent 5px,
+            transparent 11px
+        );
+    }
+
     .text-outline-primary {
         text-shadow:
             0 0 2px var(--color-primary),

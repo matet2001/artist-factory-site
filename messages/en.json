@@ -34,7 +34,6 @@
         "AIR_CONDITIONED": "Air conditioned",
         "AIR_CONDITIONED_DESC": "Stay cool in our fully air-conditioned rooms."
     },
-
     "BUG_REPORT": {
         "BUTTON_TOOLTIP": "Report a bug",
         "DIALOG_TITLE": "Report a Bug",
@@ -62,7 +61,6 @@
             "DESCRIPTION_MIN": "Description must be at least 10 characters"
         }
     },
-
     "HOME": {
         "HERO": {
             "TITLE": "Artist Factory",
@@ -111,7 +109,6 @@
             "PRICE": "10,000 HUF/hour"
         }
     },
-
     "ROOMS": {
         "PRE_TITLE": "Downtown and Modern",
         "TITLE": "Our Rehearsal Rooms",
@@ -168,7 +165,6 @@
             "COMBO": "combo"
         },
         "SEE_DETAILS": "See Details",
-
         "VIEW_DETAILS": "View Details",
         "EQUIPMENT_TITLE": "Equipment",
         "DETAILS_TITLE": "Details"
@@ -222,7 +218,6 @@
             "ENTRANCE": "You'll find the entrance from the parking courtyard behind the block. The block can be walked around, so you can come from anywhere."
         }
     },
-
     "ADMIN_BOOKINGS": {
         "PAGE_TITLE": "Admin - Bookings",
         "PAGE_SUBTITLE": "Manage phone bookings and view all reservations",
@@ -270,7 +265,15 @@
         "BOOKING_RANGE_INFO": "Editing booking: {date} {startHour}:{startMinute} - {endHour}:{endMinute}",
         "START_MINUTE_LABEL": "Start Minute",
         "END_MINUTE_LABEL": "End Minute",
-        "REFRESH": "Refresh"
+        "REFRESH": "Refresh",
+        "HOLD_BADGE": "in cart",
+        "HOLD_TOOLTIP": "Not a booking: a visitor has picked this slot but has not confirmed it. If they don't, it frees up on its own.",
+        "DELETING_BUTTON": "Deleting...",
+        "DELETE_CONFIRM_TITLE": "Delete this?",
+        "DELETE_CONFIRM_BOOKING": "This is a confirmed booking. Deleting it cannot be undone and the customer is not notified.",
+        "DELETE_CONFIRM_HOLD": "This is an unconfirmed selection. It frees up on its own if nobody confirms it — only delete it if you are sure it is not a real booking.",
+        "DELETE_CONFIRM_STATUS": "Status: {status}",
+        "ERROR_BOOKING_CHANGED": "The booking changed in the meantime, so nothing was deleted. Refresh the table and check again."
     },
     "BOOKING": {
         "SUCCESS_CONTENT": "We welcome you with love",
@@ -287,7 +290,7 @@
         "BOOKING_SUCCESS_EMAIL_NOTICE": "Please check your email for the confirmation and booking details. We look forward to welcoming you!",
         "BACK_TO_HOME": "Back to Home",
         "SELECTED_BOOKINGS": "Selected Bookings ({count})",
-        "BOOKING_PLANNED": "Booking planned",
+        "BOOKING_PLANNED": "Slot selected",
         "BOOKING_REMOVED": "Booking removed",
         "TERMS_CONSENT": "I have read and accept the",
         "TERMS_OF_BOOKING": "Terms of Booking",
@@ -343,14 +346,32 @@
             "TITLE": "Important Booking Rules",
             "ADVANCE_24H": "📅 Online bookings must be made at least 24 hours in advance",
             "CANCEL_48H": "⏰ Cancellations within 48 hours will be charged the full price, and can only be made by phone.",
+            "MUST_CONFIRM": "Heads up: clicking a slot is not a booking! It only becomes a booking once you press “Confirm booking” — until then anyone else can take it.",
             "VIEW_FULL_TERMS": "View Full Terms"
         },
         "DISCLAIMERS": {
             "SPECIAL_REQUIREMENTS": "If you have any special requirements for your rehearsal, please let us know by phone. Thank you!",
             "ADMIN_BOOKING_NOTICE": "💡 Important: Bookings made via phone or email can only be cancelled by phone or email and will not appear in your account."
-        }
+        },
+        "HOLD_YOURS": "selected",
+        "HOLD_OTHER": "being booked",
+        "HOLD_TOOLTIP": "Not a booking yet — someone is picking this slot right now. If they don't confirm, it becomes available again shortly.",
+        "SOME_SLOTS_LOST_TITLE": "Some slots were taken",
+        "SOME_SLOTS_LOST_DESC": "{count} of your selected slots were booked by someone else in the meantime and are not part of your order. The confirmation email lists only what was actually booked.",
+        "ALL_SLOTS_LOST": "None of your selected slots are available any more — they were all taken in the meantime. Please pick new times.",
+        "LEGEND": {
+            "FREE": "Available",
+            "HOLD": "Selected (not a booking yet)",
+            "HOLD_ADMIN": "Visitor's selection – not a booking",
+            "DRAFT_ADMIN": "About to be created",
+            "BOOKED": "Confirmed booking"
+        },
+        "BOOKING_PLANNED_DESC": "This is NOT a booking yet! Scroll down and press the confirm button.",
+        "HOLD_WARNING_TITLE": "Your booking is not confirmed yet",
+        "HOLD_WARNING_DESC": "We hold your selected slots for {minutes} minutes. If you do not confirm, they are released and anyone else can book them. Your booking only exists once you press the button below — and only then do you get a confirmation email.",
+        "HOLD_EXPIRES_IN": "First slot is released in {time}",
+        "HOLD_EXPIRED": "Your hold has lapsed — confirm now while the slots are still free!"
     },
-
     "AUTH": {
         "LOGIN": "Login",
         "REGISTER": "Registration",
@@ -498,7 +519,6 @@
         "PRIVACY_POLICY": "Privacy Policy",
         "PRIVACY_REQUIRED": "You must accept the privacy policy to register"
     },
-
     "PROFILE": {
         "PRE_TITLE": "User settings",
         "TITLE": "Manage your profile",
@@ -515,14 +535,12 @@
         "PRE_TITLE": "Professional Recording",
         "TITLE": "Recording Studio",
         "SUBTITLE": "Recording & Production Services",
-
         "SERVICES_TITLE": "Our Services",
         "FULL_ALBUM": "Recording",
         "EDITING": "Editing, mixing and mastering",
         "AUDIOBOOKS": "Audiobooks and voice recordings",
         "COMMERCIAL": "Commercial music production",
         "REHEARSAL_RECORDING": "Rehearsal recordings",
-
         "EQUIPMENT_TITLE": "Studio Equipment",
         "REFERENCES_TITLE": "References",
         "EQUIPMENT": {
@@ -556,7 +574,6 @@
             "ITEM_4": "Customer service phone recordings",
             "ITEM_5": "Advil Ultra forte 24 commercial"
         },
-
         "PRICING_TITLE": "Studio Pricing",
         "STUDIO_RATE": "Studio Rate",
         "REHEARSAL_RATE": "Rehearsal Recording",
@@ -564,13 +581,10 @@
         "VAT_FREE": "VAT exempt service",
         "REHEARSAL_DESC": "Record 2-3 songs in 2-3 hours. Receive your recordings on CD or USB drive (blank CD not included in price).",
         "NOTE": "Please indicate studio recording needs when booking your rehearsal room!",
-
         "INSTRUMENTS_NOTE": "All instruments from our rehearsal rooms are available for studio sessions. Prior arrangement required!",
-
         "CTA_TITLE": "Ready to Record?",
         "CTA_DESC": "Book your studio session and bring your music to life!",
         "CTA_BUTTON": "Book Studio Session",
-
         "BOOKING_DISCLAIMER_TITLE": "Studio Booking",
         "BOOKING_DISCLAIMER_DESC": "Studio bookings can only be made via phone. Call us to discuss your needs and schedule a session!",
         "CALL_US": "Call Us",
