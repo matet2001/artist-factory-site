@@ -6,11 +6,14 @@
 import { PrismaClient } from '@prisma/client'
 import * as fs from 'fs'
 import * as path from 'path'
+import { printTarget } from './db-guard'
 
 const prisma = new PrismaClient()
 
 async function exportData() {
   console.log('🚀 Starting database export...\n')
+
+  printTarget('EXPORT (read-only)')
 
   try {
     // Export all data

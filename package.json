@@ -9,6 +9,11 @@
         "start": "next start",
         "lint": "next lint",
         "cleanup:bookings": "tsx scripts/cleanup-orphaned-bookings.ts",
+        "cleanup:planned": "tsx scripts/cleanup-planned-bookings.ts",
+        "confirm:planned": "tsx scripts/confirm-planned-bookings.ts",
+        "db:backup": "tsx scripts/export-database.ts",
+        "db:verify": "tsx scripts/verify-backup.ts",
+        "db:restore": "tsx scripts/import-database.ts",
         "type-check": "tsc --noEmit"
     },
     "dependencies": {

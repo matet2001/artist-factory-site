@@ -32,6 +32,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# ...but the template carries no secrets and the README tells you to copy it
+!.env.example
 
 # sensitive data
 /data/
@@ -52,3 +54,6 @@ next-env.d.ts
 *.dump
 *.sql.gz
 database-backup-*.json
+
+# agent tooling output
+/graphify-out/

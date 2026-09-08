@@ -5,11 +5,20 @@
 
 import { PrismaClient } from '@prisma/client'
 import * as fs from 'fs'
+import { assertWritable, countdown, printTarget } from './db-guard'
 
 const prisma = new PrismaClient()
 
 async function importData(backupFilePath: string) {
   console.log('🚀 Starting database import...\n')
+
+  // This script writes every row of a backup into whatever DATABASE_URL points
+  // at. Make the target explicit before a single insert happens.
+  const target = assertWritable()
+  printTarget(`IMPORT ${backupFilePath}`)
+  if (target.environment === 'production') {
+    await countdown()
+  }
 
   try {
     // Read backup file

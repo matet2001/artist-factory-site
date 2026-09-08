@@ -38,7 +38,7 @@ Customers browse rooms, reserve hourly slots on a live availability grid, and co
 
 ```bash
 npm install
-touch .env                    # fill it in — see Environment below
+cp .env.example .env          # fill it in — see Environment below
 npx prisma migrate deploy     # apply migrations
 npx prisma db seed            # seed the 6 rooms (+ admin, if seed vars are set)
 npm run dev                   # → http://localhost:3000
@@ -57,6 +57,8 @@ Requires **Node 20+** and a **PostgreSQL** database (production runs on Neon).
 | Variable | Required | Description |
 | --- | --- | --- |
 | `DATABASE_URL` | ✅ | PostgreSQL connection string |
+| `DB_ENVIRONMENT` | ✅ | `development` or `production` — scripts in `scripts/` refuse to write to production without it |
+| `CRON_SECRET` | ✅ | Bearer token Vercel Cron presents to `/api/cron/cleanup-planned` |
 | `NEXTAUTH_SECRET` | ✅ | Signs NextAuth JWTs; also read in middleware |
 | `NEXTAUTH_URL` | ✅ | Canonical origin of the deployment |
 | `NEXT_PUBLIC_SITE_URL` | ✅ | Base URL used in metadata and email links |
@@ -109,29 +111,81 @@ PLANNED ──confirm──> VERIFIED ──cancel──> CANCELLED
 
 | Step | Endpoint | Effect |
 | --- | --- | --- |
-| Plan | `POST /api/bookings/plan` | Holds each selected slot, rejecting anything taken |
+| Plan | `POST /api/bookings/plan` | Holds each selected slot, reclaiming holds that have lapsed |
+| Cart | `GET /api/bookings/planned` | Every live hold for the signed-in user, on **every** date |
 | Confirm | `POST /api/bookings/confirm` | Promotes the user's held slots, emails customer + admin |
 | Verify | `POST /api/bookings/verify` | Resolves an emailed token, backed by an expiring record |
 | Cancel | `POST /api/bookings/cancel` | Releases the slot and notifies both sides |
 
 Availability is derived from `@@unique([date, time, roomId])` on the `Booking` model — the single source of truth. Opening hours live in [`src/lib/booking-utils.ts`](src/lib/booking-utils.ts).
 
+### Cart holds
+
+A `PLANNED` row is created the moment a visitor clicks a cell, so it is a **hold, not a booking**:
+
+- it stops holding the slot after `PLANNED_HOLD_MINUTES` (30) — `GET /api/bookings` filters lapsed holds out and `plan` reclaims them;
+- it is deleted for good after `PLANNED_DELETE_AFTER_MINUTES` (24 h) by the daily `/api/cron/cleanup-planned` job;
+- it renders hatched and dashed in both grids, never as a solid block, so it cannot be mistaken for a confirmed booking.
+
+The cart itself comes from `GET /api/bookings/planned` rather than from the rendered date window. Deriving it from the grid meant slots picked on other weeks silently dropped out of the order — the visitor got a success dialog and a confirmation email for only part of what they picked, and the rest sat in the table as a permanent yellow cell.
+
+Both constants live in [`src/lib/booking-utils.ts`](src/lib/booking-utils.ts).
+
+## Development database
+
+There is no shared staging database. Before doing anything that writes, give
+yourself a throwaway copy — Neon branches are instant and cost nothing to create.
+
+```bash
+# 1. Back up production first (read-only, writes to backups/)
+npm run db:backup
+
+# 2. Create a branch in the Neon console:
+#    Project → Branches → New branch → from `production` → name it `dev`
+#    Copy its pooled connection string.
+
+# 3. Point your local .env at the branch, and say so explicitly
+DATABASE_URL="postgresql://…ep-dev-branch….neon.tech/neondb?sslmode=require"
+DB_ENVIRONMENT=development
+
+# 4. Bring it up to date
+npx prisma migrate deploy
+```
+
+`DB_ENVIRONMENT` is not decoration: [`scripts/db-guard.ts`](scripts/db-guard.ts) reads it, prints the
+target before anything runs, and **refuses to write when it says `production`** unless
+you pass `--allow-production`. Every script also prints the endpoint it is about to
+touch, so a mistake is visible before it happens rather than after.
+
+Neon keeps its own point-in-time history, so a branch can also be restored from a
+timestamp — but that is a recovery tool, not a substitute for a dump you hold yourself.
+
 ## Scripts
 
 ```bash
 npm run dev / build / start    # Next.js — build runs prisma generate first
 npm run type-check / lint      # tsc --noEmit · next lint
-npm run cleanup:bookings       # remove orphaned bookings
+
+npm run db:backup              # dump every table to backups/ (read-only)
+npm run db:verify -- <file>    # check a dump against the live database
+npm run db:restore -- <file>   # import a dump (blocked on production by default)
+
+npm run cleanup:planned        # list abandoned cart holds; --confirm to delete
+npm run cleanup:bookings       # inspect bookings, delete by explicit --ids
 ```
 
-Maintenance utilities live in [`scripts/`](scripts/) and are run with `npx tsx`: `export-database`, `import-database`, `verify-backup`, and `cleanup-failed-tokens`.
+`cleanup:planned` is a dry run unless you pass `--confirm`, and it prints every row
+it would remove with its customer and creation time — so a genuine stuck booking can
+be told apart from an abandoned cart before anything is deleted.
+
+Remaining utilities in [`scripts/`](scripts/) are run with `npx tsx`: `cleanup-failed-tokens`.
 
 > [!CAUTION]
-> `export-database` writes a dump containing personal data. `backups/` is git-ignored — keep it that way, and store dumps somewhere access-controlled.
+> `db:backup` writes a dump containing personal data. `backups/` is git-ignored — keep it that way, and store dumps somewhere access-controlled.
 
 ## Deployment
 
-Hosted on Vercel. [`vercel.json`](vercel.json) pins the install to `--legacy-peer-deps --include=optional`, and `npm run build` runs `prisma generate` before `next build`. Set the env vars above in the Vercel project, and run `npx prisma migrate deploy` against production whenever a migration ships.
+Hosted on Vercel. [`vercel.json`](vercel.json) pins the install to `--legacy-peer-deps --include=optional`, declares the daily cart-hold cleanup cron, and `npm run build` runs `prisma generate` before `next build`. Set the env vars above in the Vercel project — `CRON_SECRET` included, or the cron endpoint returns 503 and abandoned holds are never cleared — and run `npx prisma migrate deploy` against production whenever a migration ships.
 
 <sub><b>Icon credits</b> — Palm Tree by Bohdan Burmich, palm leaf by Erika Carter, tiki torch by Adriano Emerick, all via the <a href="https://thenounproject.com/">Noun Project</a> (CC BY 3.0).</sub>
 
