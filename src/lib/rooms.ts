@@ -18,9 +18,28 @@ export type Room = {
     name: string // translation key (e.g., ROOMS.ROOM1_NAME)
     heroImage: string // filename from public/rooms
     images: string[] // first must be heroImage
-    price: number // Ft / hour
+    price: number // Ft / hour, from PRICE_CHANGE_DATE on
+    previousPrice?: number // Ft / hour, for rehearsals before PRICE_CHANGE_DATE
     size: string // e.g., "4-5", "8-10"
     equipments: EquipmentItem[]
+}
+
+/**
+ * The day the uniform 6 500 Ft room rate takes effect. Rehearsals before it keep
+ * the rate they were quoted, so a booking made in September for a September slot
+ * is not silently re-priced — `price` is the headline rate we advertise, and
+ * `getRoomPrice` is what the booking grid and the confirmation emails must use.
+ */
+export const PRICE_CHANGE_DATE = '2026-10-01'
+
+/**
+ * Hourly rate for a rehearsal on `dateKey` (a 'YYYY-MM-DD' calendar day, as
+ * produced by `toDateKey` / `toLocalDateKey`). Keys are zero-padded, so a plain
+ * string comparison is a date comparison — and it stays free of any timezone.
+ */
+export function getRoomPrice(room: Room, dateKey: string): number {
+    if (room.previousPrice === undefined) return room.price
+    return dateKey < PRICE_CHANGE_DATE ? room.previousPrice : room.price
 }
 
 export const rooms: Room[] = [
@@ -29,7 +48,8 @@ export const rooms: Room[] = [
         name: 'ROOM1_NAME',
         heroImage: 'room1/Room1.jpg',
         images: ['room1/Room1.jpg', 'room1/Room1_2.jpg', 'room1/Room1_3.jpg', 'room1/Room1_4.jpg', 'room1/Room1_5.jpg'],
-        price: 6000,
+        price: 6500,
+        previousPrice: 6000,
         size: '4-5',
         equipments: [
             { type: 'drum', label: 'Yamaha Stage Custom fusion 10"–12"–14"–20"' },
@@ -48,7 +68,8 @@ export const rooms: Room[] = [
         name: 'ROOM2_NAME',
         heroImage: 'room2/Room2.jpg',
         images: ['room2/Room2.jpg', 'room2/Room2_2.jpg', 'room2/Room2_3.jpg'],
-        price: 6000,
+        price: 6500,
+        previousPrice: 6000,
         size: '4-5',
         equipments: [
             {
@@ -106,7 +127,8 @@ export const rooms: Room[] = [
         name: 'ROOM4_NAME',
         heroImage: 'room4/Room4.jpg',
         images: ['room4/Room4.jpg', 'room4/Room4_2.jpg', 'room4/Room4_3.jpg', 'room4/Room4_4.jpg'],
-        price: 6000,
+        price: 6500,
+        previousPrice: 6000,
         size: '4-5',
         equipments: [
             { type: 'drum', label: 'DW Design 10"–12"–14"–16"–22" + DW Collectors {{SNARE}}' },
@@ -127,7 +149,8 @@ export const rooms: Room[] = [
         name: 'ROOM5_NAME',
         heroImage: 'room5/Room5.jpg',
         images: ['room5/Room5.jpg', 'room5/Room5_2.jpg', 'room5/Room5_3.jpg', 'room5/Room5_4.jpg'],
-        price: 6000,
+        price: 6500,
+        previousPrice: 6000,
         size: '4-5',
         equipments: [
             {

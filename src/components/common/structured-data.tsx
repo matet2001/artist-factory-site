@@ -1,4 +1,12 @@
+import { getRoomPrice, rooms } from '@/lib/rooms'
+import { budapestDateKey } from '@/lib/today'
+
 export function LocalBusinessStructuredData() {
+    // Quote the rate that is valid today, not the one that starts in October.
+    // A server component, so this follows the locale layout's revalidate.
+    const todayKey = budapestDateKey()
+    const lowestRate = Math.min(...rooms.map((room) => getRoomPrice(room, todayKey)))
+
     const structuredData = {
         '@context': 'https://schema.org',
         '@type': 'LocalBusiness',
@@ -10,7 +18,7 @@ export function LocalBusinessStructuredData() {
         url: 'https://www.artistfactory.hu',
         telephone: '+36-30-655-8488',
         email: 'info@artistfactory.hu',
-        priceRange: '6000 Ft - 10000 Ft',
+        priceRange: `${lowestRate} Ft - 10000 Ft`,
         image: [
             'https://www.artistfactory.hu/pictures/hero.jpg',
             'https://www.artistfactory.hu/pictures/studio.jpg',

@@ -11,7 +11,8 @@ import {
     CarouselPrevious,
 } from '@/components/ui/carousel'
 import { useAnimations } from '@/hooks/use-animation'
-import { rooms } from '@/lib/rooms'
+import { getRoomPrice, PRICE_CHANGE_DATE, rooms } from '@/lib/rooms'
+import { useTodayKey } from '@/components/common/today-provider'
 import Autoplay from 'embla-carousel-autoplay'
 import { motion } from 'framer-motion'
 import { ArrowRight, DollarSign, Snowflake, Users } from 'lucide-react'
@@ -34,6 +35,7 @@ export function RoomSection({
     isReversed: boolean
 }) {
     const viewportConfig = { once: true, amount: 0.2 } as const
+    const todayKey = useTodayKey()
 
     const plugin = React.useRef(
         Autoplay({
@@ -133,9 +135,14 @@ export function RoomSection({
                                             {tRooms('BASE_PRICE')}
                                         </p>
                                         <p className="text-2xl font-bold">
-                                            {room.price.toLocaleString('hu-HU')} Ft /{' '}
-                                            {tRooms('HOUR')}
+                                            {getRoomPrice(room, todayKey).toLocaleString('hu-HU')}{' '}
+                                            Ft / {tRooms('HOUR')}
                                         </p>
+                                        {todayKey < PRICE_CHANGE_DATE && room.previousPrice && (
+                                            <p className="text-xs text-primary">
+                                                {tRooms('PRICE_FROM_OCT', { price: room.price })}
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
 

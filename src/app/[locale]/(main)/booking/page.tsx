@@ -6,6 +6,7 @@ import { BookingRulesInfo } from '@/components/booking/booking-rules-info'
 import { BookingSuccessDialog } from '@/components/booking/booking-success-dialog'
 import { BookingSummary } from '@/components/booking/booking-summary'
 import { BookingTable } from '@/components/booking/booking-table'
+import { PriceChangeNotice } from '@/components/booking/price-change-notice'
 import { useAnimations } from '@/hooks/use-animation'
 import {
     BookingData,
@@ -494,8 +495,9 @@ export default function BookingPage() {
                             <div className="absolute inset-0 bg-card/80 backdrop-blur-xl rounded-none md:rounded-3xl border-0 md:border md:border-primary/20 md:shadow-2xl" />
 
                             <div className="relative z-10 py-5">
-                                {/* Booking Rules Info - Always visible */}
+                                {/* Price change announcement + booking rules, above the grid */}
                                 <div className="p-2 md:p-4 lg:p-12 pb-0">
+                                    <PriceChangeNotice />
                                     <BookingRulesInfo />
                                 </div>
 

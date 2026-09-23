@@ -11,7 +11,8 @@ import {
     CarouselPrevious,
 } from '@/components/ui/carousel'
 import { useAnimations } from '@/hooks/use-animation'
-import { rooms } from '@/lib/rooms'
+import { getRoomPrice, PRICE_CHANGE_DATE, rooms } from '@/lib/rooms'
+import { useTodayKey } from '@/components/common/today-provider'
 import Autoplay from 'embla-carousel-autoplay'
 import { motion } from 'framer-motion'
 import { DollarSign, Snowflake, Users } from 'lucide-react'
@@ -24,6 +25,7 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
     const t = useTranslations('ROOMS')
     const tGeneral = useTranslations('GENERAL')
     const animations = useAnimations()
+    const todayKey = useTodayKey()
     const viewportConfig = { once: true, amount: 0.1 } as const
 
     const { roomId } = React.use(params)
@@ -192,9 +194,14 @@ export default function RoomDetailPage({ params }: { params: Promise<{ roomId: s
                                     {t('BASE_PRICE')}
                                 </h3>
                                 <div className="text-4xl font-bold text-foreground">
-                                    {room.price.toLocaleString('hu-HU')} Ft
+                                    {getRoomPrice(room, todayKey).toLocaleString('hu-HU')} Ft
                                 </div>
                                 <div className="text-sm text-muted-foreground">/ {t('HOUR')}</div>
+                                {todayKey < PRICE_CHANGE_DATE && room.previousPrice && (
+                                    <div className="text-sm text-primary">
+                                        {t('PRICE_FROM_OCT', { price: room.price })}
+                                    </div>
+                                )}
                             </motion.div>
 
                             {/* Capacity */}

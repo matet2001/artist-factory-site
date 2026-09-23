@@ -6,10 +6,10 @@ const prisma = new PrismaClient();
 async function main() {
   // Seed rooms first with explicit IDs matching the slug
   const rooms = [
-    { id: 'room1', name: 'ROOM1_NAME', slug: 'room1', size: 16, price: 5500 },
+    { id: 'room1', name: 'ROOM1_NAME', slug: 'room1', size: 16, price: 6500 },
     { id: 'room2', name: 'ROOM2_NAME', slug: 'room2', size: 20, price: 6500 },
-    { id: 'room3', name: 'ROOM3_NAME', slug: 'room3', size: 25, price: 7500 },
-    { id: 'room4', name: 'ROOM4_NAME', slug: 'room4', size: 30, price: 8500 },
+    { id: 'room3', name: 'ROOM3_NAME', slug: 'room3', size: 25, price: 6500 },
+    { id: 'room4', name: 'ROOM4_NAME', slug: 'room4', size: 30, price: 6500 },
     { id: 'room5', name: 'ROOM5_NAME', slug: 'room5', size: 20, price: 6500 },
     { id: 'studio', name: 'STUDIO_NAME', slug: 'studio', size: 40, price: 10000 },
   ];

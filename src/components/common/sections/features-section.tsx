@@ -1,6 +1,8 @@
 'use client'
 
 import TikiTorch from '@/components/common/TikiTorch'
+import { useTodayKey } from '@/components/common/today-provider'
+import { PRICE_CHANGE_DATE } from '@/lib/rooms'
 import { useAnimations } from '@/hooks/use-animation'
 import { motion } from 'framer-motion'
 import { BadgeDollarSign, Headphones, LayoutDashboard, Snowflake } from 'lucide-react'
@@ -11,6 +13,8 @@ export default function FeaturesSection() {
     const t = useTranslations('HOME')
     const animations = useAnimations()
     const viewportConfig = { once: true, amount: 0.2 } as const
+    // The headline rate on the home page has to match the one the calendar quotes.
+    const isBeforeChange = useTodayKey() < PRICE_CHANGE_DATE
 
     const features = [
         {
@@ -26,7 +30,7 @@ export default function FeaturesSection() {
         {
             icon: BadgeDollarSign,
             title: 'FEATURES.AFFORDABLE',
-            desc: 'FEATURES.AFFORDABLE_DESC',
+            desc: isBeforeChange ? 'FEATURES.AFFORDABLE_DESC' : 'FEATURES.AFFORDABLE_DESC_FROM_OCT',
         },
         {
             icon: Snowflake,

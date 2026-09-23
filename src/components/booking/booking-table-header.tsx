@@ -2,7 +2,8 @@
 
 import { DateSelector } from '@/components/booking/date-selector'
 import { Button } from '@/components/ui/button'
-import { rooms } from '@/lib/rooms'
+import { toLocalDateKey } from '@/lib/booking-utils'
+import { getRoomPrice, rooms } from '@/lib/rooms'
 import { RefreshCw } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
@@ -23,6 +24,8 @@ export function BookingTableHeader({
     isRefreshing = false,
 }: BookingTableHeaderProps) {
     const tRooms = useTranslations('ROOMS')
+    // The rate belongs to the day on screen, not to today — see getRoomPrice.
+    const dateKey = toLocalDateKey(selectedDate)
 
     return (
         <thead className="bg-card-elevated">
@@ -62,7 +65,7 @@ export function BookingTableHeader({
                             {room.size} fő
                         </p>
                         <p className="text-[7px] md:text-xs text-muted-foreground mt-0.5 md:mt-1 hidden sm:block">
-                            {room.price.toLocaleString()} Ft/óra
+                            {getRoomPrice(room, dateKey).toLocaleString('hu-HU')} Ft/óra
                         </p>
                     </th>
                 ))}

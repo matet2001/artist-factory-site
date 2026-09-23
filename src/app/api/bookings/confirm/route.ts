@@ -6,7 +6,7 @@ import { BookingStatus } from '@prisma/client'
 import { getServerSession } from 'next-auth'
 import { NextRequest, NextResponse } from 'next/server'
 import { authOptions } from '../../../../../auth'
-import { rooms } from '@/lib/rooms'
+import { getRoomPrice, rooms } from '@/lib/rooms'
 import { getTranslations } from 'next-intl/server'
 
 interface ConfirmedSlot {
@@ -119,14 +119,20 @@ export async function POST(request: NextRequest) {
         // Get user's locale from headers or default to 'hu'
         const locale = request.headers.get('accept-language')?.split(',')[0]?.split('-')[0] || 'hu'
 
-        const slots: ConfirmedSlot[] = plannedBookings.map((b) => ({
-            id: b.id,
-            roomId: b.roomId,
-            roomKey: b.room.name,
-            date: toDateKey(b.date),
-            time: b.time,
-            price: rooms.find((r) => r.id === b.roomId)?.price || 0,
-        }))
+        const slots: ConfirmedSlot[] = plannedBookings.map((b) => {
+            const dateKey = toDateKey(b.date)
+            const room = rooms.find((r) => r.id === b.roomId)
+            return {
+                id: b.id,
+                roomId: b.roomId,
+                roomKey: b.room.name,
+                date: dateKey,
+                time: b.time,
+                // The rate that was valid for the rehearsal's own day, so an
+                // October rise never lands on a September booking.
+                price: room ? getRoomPrice(room, dateKey) : 0,
+            }
+        })
 
         // Send confirmation email to customer
         try {

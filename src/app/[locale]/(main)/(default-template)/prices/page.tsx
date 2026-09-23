@@ -3,7 +3,8 @@
 
 import CtaSection from '@/components/common/sections/cta-section'
 import { useAnimations } from '@/hooks/use-animation'
-import { rooms } from '@/lib/rooms'
+import { getRoomPrice, PRICE_CHANGE_DATE, rooms } from '@/lib/rooms'
+import { useTodayKey } from '@/components/common/today-provider'
 import { motion } from 'framer-motion'
 import { CalendarClock, Clock, Coffee, Drum, Users } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -28,6 +29,10 @@ export default function PricesPage() {
     const tGeneral = useTranslations('GENERAL')
     const animations = useAnimations()
     const router = useRouter()
+    // Until October the list has to quote what a rehearsal costs today, not the
+    // rate that is still weeks away.
+    const todayKey = useTodayKey()
+    const isBeforeChange = todayKey < PRICE_CHANGE_DATE
     const viewportConfig = { once: true, amount: 0.1 } as const
 
     const goToRoom = (roomId: string) => router.push(`/rooms/${roomId}`)
@@ -69,13 +74,27 @@ export default function PricesPage() {
 
                         <div className="relative z-10 p-6 py-10 md:p-8 lg:p-12">
                             <div className="space-y-12">
-                                <motion.h2
-                                    variants={animations.fadeUp}
-                                    className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center flex items-center justify-center gap-3"
-                                >
-                                    <Clock className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
-                                    {t('HOUR_PRICE')}
-                                </motion.h2>
+                                <div className="space-y-2">
+                                    <motion.h2
+                                        variants={animations.fadeUp}
+                                        className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center flex items-center justify-center gap-3"
+                                    >
+                                        <Clock className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
+                                        {t('HOUR_PRICE')}
+                                    </motion.h2>
+                                    {/* Names the rise while it is still ahead, then settles
+                                        into stating which rate list this is. */}
+                                    <motion.p
+                                        variants={animations.fadeUp}
+                                        className="text-center text-sm text-muted-foreground"
+                                    >
+                                        {isBeforeChange
+                                            ? t('PRICE_CHANGE_NOTE', {
+                                                  price: Math.max(...rooms.map((r) => r.price)),
+                                              })
+                                            : t('EFFECTIVE_FROM')}
+                                    </motion.p>
+                                </div>
 
                                 {/* Room Cards - Horizontal on mobile, Grid on desktop */}
                                 <motion.div
@@ -103,13 +122,23 @@ export default function PricesPage() {
                                                         <span>{room.size}</span>
                                                     </div>
                                                 </div>
-                                                <div className="flex items-baseline gap-1">
-                                                    <span className="text-lg font-bold text-foreground">
-                                                        {room.price.toLocaleString('hu-HU')}
-                                                    </span>
-                                                    <span className="text-xs text-muted-foreground">
-                                                        Ft/{t('HOUR')}
-                                                    </span>
+                                                <div className="flex flex-col items-end">
+                                                    <div className="flex items-baseline gap-1">
+                                                        <span className="text-lg font-bold text-foreground">
+                                                            {getRoomPrice(
+                                                                room,
+                                                                todayKey
+                                                            ).toLocaleString('hu-HU')}
+                                                        </span>
+                                                        <span className="text-xs text-muted-foreground">
+                                                            Ft/{t('HOUR')}
+                                                        </span>
+                                                    </div>
+                                                    {isBeforeChange && room.previousPrice && (
+                                                        <span className="text-[10px] text-primary">
+                                                            {t('FROM_OCT', { price: room.price })}
+                                                        </span>
+                                                    )}
                                                 </div>
                                             </div>
 
@@ -140,7 +169,10 @@ export default function PricesPage() {
                                                     </div>
                                                     <div className="flex items-baseline gap-1 text-foreground">
                                                         <span className="text-3xl font-bold">
-                                                            {room.price.toLocaleString('hu-HU')}
+                                                            {getRoomPrice(
+                                                                room,
+                                                                todayKey
+                                                            ).toLocaleString('hu-HU')}
                                                         </span>
                                                         <span className="text-sm text-muted-foreground">
                                                             Ft
@@ -149,6 +181,11 @@ export default function PricesPage() {
                                                     <p className="text-xs text-muted-foreground">
                                                         / {t('HOUR')}
                                                     </p>
+                                                    {isBeforeChange && room.previousPrice && (
+                                                        <p className="text-xs text-primary">
+                                                            {t('FROM_OCT', { price: room.price })}
+                                                        </p>
+                                                    )}
                                                 </div>
                                             </div>
                                         </motion.div>

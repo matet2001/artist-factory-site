@@ -1,6 +1,7 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import { Room } from '@/lib/rooms'
+import { getRoomPrice, Room } from '@/lib/rooms'
+import { useTodayKey } from '@/components/common/today-provider'
 import { DollarSign, Users } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -12,6 +13,7 @@ type Props = {
 
 export default function RoomCard({ room }: Props) {
     const t = useTranslations('ROOMS')
+    const todayKey = useTodayKey()
     const imagePath = room.heroImage ? `/rooms/${room.heroImage}` : '/rooms/Room1.jpg'
 
     return (
@@ -47,7 +49,8 @@ export default function RoomCard({ room }: Props) {
                             <DollarSign className="w-4 h-4" />
                         </div>
                         <span className="text-sm font-medium drop-shadow-md">
-                            {room.price} / {t('HOUR')}
+                            {getRoomPrice(room, todayKey).toLocaleString('hu-HU')} Ft /{' '}
+                            {t('HOUR')}
                         </span>
                     </div>
 
