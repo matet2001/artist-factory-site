@@ -141,9 +141,10 @@ export default function Footer() {
                         <span>
                             {t('DEVELOPMENT')}:&nbsp;
                             <Link
-                                href="https://www.linkedin.com/in/m%C3%A1t%C3%A9-pojbics/"
+                                href="https://www.matepojbics.com/"
                                 target="_blank"
-                                className="hover:text-primary"
+                                rel="noopener noreferrer"
+                                className="hover:text-primary hover:underline"
                             >
                                 Pojbics Máté
                             </Link>
