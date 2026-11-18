@@ -1,6 +1,7 @@
 import { authOptions } from '@/../auth'
 import { revalidateBookings } from '@/lib/booking-cache'
 import prisma from '@/lib/prisma'
+import { cleanName } from '@/lib/similar-users'
 import { getServerSession } from 'next-auth'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -14,7 +15,10 @@ export async function POST(request: NextRequest) {
         }
 
         const body = await request.json()
-        const { name, bandName, note, bookings, userId } = body
+        const { note, bookings, userId } = body
+        // "Kovács Greg" and "Kovács Greg " must not become two customers.
+        const name = typeof body.name === 'string' ? cleanName(body.name) : ''
+        const bandName = typeof body.bandName === 'string' ? cleanName(body.bandName) : undefined
 
         if (!name || !bookings || !Array.isArray(bookings) || bookings.length === 0) {
             return NextResponse.json({ error: 'Invalid request data' }, { status: 400 })

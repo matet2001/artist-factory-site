@@ -351,8 +351,18 @@ export default function AdminBookingsPage() {
         }
     }
 
-    const handlePhoneBooking = async () => {
-        if (!customerName.trim()) {
+    const handlePhoneBooking = async (existingUser?: {
+        userId: string
+        name: string
+        bandName?: string
+    }) => {
+        // Picked from the "similar customers" dialog: book under that user, not
+        // the name that was typed.
+        const name = existingUser?.name ?? customerName
+        const bandName = existingUser ? existingUser.bandName : customerBandName || undefined
+        const userId = existingUser?.userId ?? selectedUserId
+
+        if (!name.trim()) {
             toast.error(t('ERROR_NAME_MISSING'))
             return
         }
@@ -375,10 +385,10 @@ export default function AdminBookingsPage() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    name: customerName,
-                    bandName: customerBandName || undefined,
+                    name,
+                    bandName,
                     note: bookingNote || undefined,
-                    userId: selectedUserId,
+                    userId,
                     bookings: bookingsData,
                 }),
             })
@@ -388,7 +398,7 @@ export default function AdminBookingsPage() {
                 throw new Error(error.error || 'Failed to create booking')
             }
 
-            toast.success(t('SUCCESS_CREATED', { name: customerName }))
+            toast.success(t('SUCCESS_CREATED', { name }))
             setPlannedBookings([])
             setCustomerName('')
             setCustomerBandName('')

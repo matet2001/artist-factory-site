@@ -2,6 +2,14 @@
 
 import { Button } from '@/components/ui/button'
 import { Combobox, ComboboxOption } from '@/components/ui/combobox'
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
@@ -12,6 +20,7 @@ import {
     SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
+import { findSimilarUsers, LookupUser } from '@/lib/similar-users'
 import { useTranslations } from 'next-intl'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
@@ -22,7 +31,8 @@ interface PhoneBookingFormProps {
         note?: string
         userId?: string
     }) => void
-    onSubmit: () => void
+    /** Pass a user to book under them instead of whatever is in the form state. */
+    onSubmit: (existingUser?: { userId: string; name: string; bandName?: string }) => void
     onUpdate?: (startMinute?: number, endMinute?: number) => void
     onCancelEdit?: () => void
     onDelete?: () => void
@@ -38,13 +48,6 @@ interface PhoneBookingFormProps {
     bookingEndMinute?: number
     selectedBookingTime?: number
     selectedBookingDate?: Date
-}
-
-interface User {
-    id: string
-    name: string | null
-    email: string
-    bandName: string | null
 }
 
 export function PhoneBookingForm({
@@ -67,11 +70,11 @@ export function PhoneBookingForm({
     selectedBookingDate,
 }: PhoneBookingFormProps) {
     const t = useTranslations('ADMIN_BOOKINGS')
-    const [users, setUsers] = useState<User[]>([])
+    const [users, setUsers] = useState<LookupUser[]>([])
     const [userSelectionMode, setUserSelectionMode] = useState<'existing' | 'new'>('new')
     const [startMinute, setStartMinute] = useState<number>(bookingStartMinute ?? 0)
     const [endMinute, setEndMinute] = useState<number>(bookingEndMinute ?? 0)
-    const [userExistsWarning, setUserExistsWarning] = useState<boolean>(false)
+    const [confirmOpen, setConfirmOpen] = useState(false)
 
     // Track initial values for edit mode to detect changes
     const [initialValues, setInitialValues] = useState({
@@ -89,7 +92,7 @@ export function PhoneBookingForm({
     useEffect(() => {
         async function fetchUsers() {
             try {
-                const res = await fetch('/api/admin/users')
+                const res = await fetch('/api/admin/users/lookup')
                 if (res.ok) {
                     const data = await res.json()
                     setUsers(data.users || [])
@@ -142,22 +145,14 @@ export function PhoneBookingForm({
         return users.map((user) => ({
             value: user.id,
             label: user.name || user.email,
-            subtitle: user.bandName || user.email,
+            subtitle: [user.bandName, user.phone, user.email].filter(Boolean).join(' · '),
         }))
     }, [users])
 
-    // Check if user already exists when in "new customer" mode (not in edit mode)
-    useEffect(() => {
-        if (!editMode && userSelectionMode === 'new' && customerName.trim()) {
-            const exists = users.some(
-                (u) =>
-                    u.name?.toLowerCase() === customerName.toLowerCase() ||
-                    u.email.toLowerCase() === customerName.toLowerCase()
-            )
-            setUserExistsWarning(exists)
-        } else {
-            setUserExistsWarning(false)
-        }
+    // Existing customers that look like the name being typed as a "new" one.
+    const similarUsers = useMemo(() => {
+        if (editMode || userSelectionMode !== 'new') return []
+        return findSimilarUsers(customerName, users)
     }, [customerName, userSelectionMode, users, editMode])
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -187,6 +182,7 @@ export function PhoneBookingForm({
     const handleUserSelect = (userId: string) => {
         const user = users.find((u) => u.id === userId)
         if (user) {
+            setUserSelectionMode('existing')
             onCustomerInfoChange({
                 name: user.name || '',
                 bandName: user.bandName || '',
@@ -213,10 +209,33 @@ export function PhoneBookingForm({
         if (!customerName.trim()) return
         if (editMode && onUpdate) {
             onUpdate(startMinute, endMinute)
+        } else if (userSelectionMode === 'new' && similarUsers.length > 0) {
+            // Make them look at the near-duplicates before creating another one.
+            setConfirmOpen(true)
         } else {
             onSubmit()
         }
     }
+
+    const handleConfirmExisting = (user: LookupUser) => {
+        setConfirmOpen(false)
+        handleUserSelect(user.id)
+        onSubmit({
+            userId: user.id,
+            name: user.name || user.email,
+            bandName: user.bandName || undefined,
+        })
+    }
+
+    const handleConfirmNew = () => {
+        setConfirmOpen(false)
+        onSubmit()
+    }
+
+    const describeUser = (user: LookupUser) =>
+        [user.bandName, user.phone, user.email.endsWith('@place.holder.com') ? null : user.email]
+            .filter(Boolean)
+            .join(' · ')
 
     // Check if any values have changed in edit mode
     const hasChanges = useMemo(() => {
@@ -308,14 +327,6 @@ export function PhoneBookingForm({
                 </div>
             )}
 
-            {userExistsWarning && (
-                <div className="bg-yellow-500/10 border border-yellow-500/50 rounded-lg p-3">
-                    <p className="text-sm text-yellow-600 dark:text-yellow-500">
-                        {t('USER_EXISTS_WARNING')}
-                    </p>
-                </div>
-            )}
-
             <div className="space-y-2">
                 <Label htmlFor="name">
                     {t('NAME_LABEL')} <span className="text-destructive">*</span>
@@ -329,6 +340,31 @@ export function PhoneBookingForm({
                     disabled={isSubmitting || (userSelectionMode === 'existing' && !editMode)}
                     autoFocus={userSelectionMode === 'new'}
                 />
+                {similarUsers.length > 0 && (
+                    <div className="bg-yellow-500/10 border border-yellow-500/50 rounded-lg p-3 space-y-2">
+                        <p className="text-sm text-yellow-700 dark:text-yellow-500">
+                            {t('SIMILAR_USERS_HINT')}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                            {similarUsers.map(({ user }) => (
+                                <Button
+                                    key={user.id}
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    className="h-auto py-1 flex-col items-start"
+                                    onClick={() => handleUserSelect(user.id)}
+                                    disabled={isSubmitting}
+                                >
+                                    <span>{user.name || user.email}</span>
+                                    <span className="text-xs text-muted-foreground font-normal">
+                                        {t('SIMILAR_USER_BOOKINGS', { count: user.bookingCount })}
+                                    </span>
+                                </Button>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
 
             <div className="space-y-2">
@@ -464,6 +500,56 @@ export function PhoneBookingForm({
                     </Button>
                 )}
             </div>
+
+            <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+                <DialogContent className="sm:max-w-lg">
+                    <DialogHeader>
+                        <DialogTitle>{t('SIMILAR_DIALOG_TITLE')}</DialogTitle>
+                        <DialogDescription>
+                            {t('SIMILAR_DIALOG_DESC', { name: customerName.trim() })}
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-2 max-h-80 overflow-y-auto">
+                        {similarUsers.map(({ user }) => (
+                            <div
+                                key={user.id}
+                                className="flex items-center justify-between gap-3 rounded-lg border p-3"
+                            >
+                                <div className="min-w-0">
+                                    <p className="font-medium truncate">
+                                        {user.name || user.email}
+                                    </p>
+                                    <p className="text-xs text-muted-foreground truncate">
+                                        {[
+                                            describeUser(user),
+                                            t('SIMILAR_USER_BOOKINGS', {
+                                                count: user.bookingCount,
+                                            }),
+                                        ]
+                                            .filter(Boolean)
+                                            .join(' · ')}
+                                    </p>
+                                </div>
+                                <Button
+                                    type="button"
+                                    size="sm"
+                                    onClick={() => handleConfirmExisting(user)}
+                                >
+                                    {t('SIMILAR_USE_THIS')}
+                                </Button>
+                            </div>
+                        ))}
+                    </div>
+                    <DialogFooter className="gap-2 sm:gap-0">
+                        <Button type="button" variant="ghost" onClick={() => setConfirmOpen(false)}>
+                            {t('CANCEL_BUTTON')}
+                        </Button>
+                        <Button type="button" variant="outline" onClick={handleConfirmNew}>
+                            {t('SIMILAR_CREATE_NEW', { name: customerName.trim() })}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </form>
     )
 }
